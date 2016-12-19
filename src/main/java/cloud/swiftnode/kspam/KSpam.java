@@ -16,10 +16,6 @@ public class KSpam extends JavaPlugin {
     private static KSpam INST;
     private boolean errorMessage = true;
 
-    public static KSpam getInst() {
-        return INST;
-    }
-
     @Override
     public void onEnable() {
         INST = this;
@@ -46,6 +42,10 @@ public class KSpam extends JavaPlugin {
             sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
         }
         return true;
+    }
+
+    public static KSpam getInst() {
+        return INST;
     }
 
     public boolean isSwitchOn() {

@@ -24,7 +24,6 @@ public class ProcessRunnable implements Runnable {
 
     @Override
     public void run() {
-        String kickMsg = Lang.PREFIX + "\n" + Lang.KICK;
         PlayerLoginEvent e = null;
         Player p;
         if (obj instanceof PlayerLoginEvent) {
@@ -36,6 +35,7 @@ public class ProcessRunnable implements Runnable {
             throw new IllegalArgumentException("WTF this obj? " + obj.getClass());
         }
         if (result == Result.TRUE) {
+            String kickMsg = Lang.PREFIX + "\n" + Lang.KICK;
             if (e != null) {
                 e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
                 e.setKickMessage(kickMsg);
