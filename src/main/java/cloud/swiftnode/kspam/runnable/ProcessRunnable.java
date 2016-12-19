@@ -1,13 +1,13 @@
 package cloud.swiftnode.kspam.runnable;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.storage.CheckStorage;
 import cloud.swiftnode.kspam.storage.PlayerStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.Set;
 
@@ -15,37 +15,28 @@ import java.util.Set;
  * Created by EntryPoint on 2016-12-19.
  */
 public class ProcessRunnable implements Runnable {
-    private Object obj;
+    private Player p;
     private Result result;
 
-    public ProcessRunnable(Object obj, Result result) {
-        this.obj = obj;
+    public ProcessRunnable(Player p, Result result) {
+        this.p = p;
         this.result = result;
     }
 
     @Override
     public void run() {
-        PlayerLoginEvent e = null;
-        Player p;
-        if (obj instanceof PlayerLoginEvent) {
-            e = (PlayerLoginEvent) obj;
-            p = e.getPlayer();
-        } else if (obj instanceof Player) {
-            p = (Player) obj;
-        } else {
-            throw new IllegalArgumentException("WTF this obj? " + obj.getClass());
-        }
         if (result == Result.TRUE) {
-            String kickMsg = Lang.PREFIX + "\n" + Lang.KICK;
-            if (e != null) {
-                e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
-                e.setKickMessage(kickMsg);
-            } else {
-                p.kickPlayer(kickMsg);
-            }
+            Bukkit.getScheduler().runTask(KSpam.getInst(), new Runnable() {
+                @Override
+                public void run() {
+                    p.kickPlayer(Lang.PREFIX + "\n" + Lang.KICK);
+                }
+            });
             Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(p.getName()));
+            CheckStorage.getCachedIpList().add(
+                    Static.convertToIp(p.getAddress().getAddress()));
         } else if (result == Result.ERROR) {
-            Set<String> playerList = PlayerStorage.getInst().getPlayerSet();
+            Set<String> playerList = PlayerStorage.getPlayerSet();
             playerList.add(p.getName());
             if (KSpam.getInst().isSwitchOn()) {
                 Bukkit.getConsoleSender().sendMessage(

@@ -7,19 +7,9 @@ import java.util.Set;
  * Created by EntryPoint on 2016-12-17.
  */
 public class PlayerStorage {
-    private static PlayerStorage INSTANCE;
-    private final Set<String> playerList;
+    private static Set<String> playerList = new HashSet<>();
 
-    public PlayerStorage() {
-        INSTANCE = this;
-        playerList = new HashSet<>();
-    }
-
-    public static PlayerStorage getInst() {
-        return INSTANCE;
-    }
-
-    public Set<String> getPlayerSet() {
+    public static Set<String> getPlayerSet() {
         return playerList;
     }
 }

@@ -32,9 +32,8 @@ public class UpdateRunnable implements Runnable {
                 throw new Exception("null");
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             Static.consoleMsg(
-                    Lang.PREFIX + Lang.EXCEPTION.toString("버전 확인 에러"));
+                    Lang.PREFIX + Lang.EXCEPTION.toString("버전 확인 에러 " + ex.getMessage()));
         }
     }
 }

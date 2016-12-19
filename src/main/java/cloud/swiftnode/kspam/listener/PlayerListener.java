@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.listener;
 import cloud.swiftnode.kspam.runnable.CheckRunnable;
 import cloud.swiftnode.kspam.runnable.ProcessRunnable;
 import cloud.swiftnode.kspam.storage.CheckStorage;
+import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,12 +25,18 @@ public class PlayerListener implements Listener {
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
+        String ip = Static.convertToIp(e.getAddress());
+        if (CheckStorage.getCachedIpList().contains(ip)) {
+            e.setKickMessage(Lang.PREFIX + "\n" + Lang.KICK.toString());
+            e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+            return;
+        }
         final CheckStorage storage = new CheckStorage(Static.convertToIp(e.getAddress()));
         Static.runTaskAsync(new Runnable() {
             @Override
             public void run() {
                 new CheckRunnable(storage).run();
-                new ProcessRunnable(e, storage.getResult()).run();
+                new ProcessRunnable(e.getPlayer(), storage.getResult()).run();
             }
         });
     }

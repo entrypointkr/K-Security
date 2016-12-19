@@ -15,12 +15,16 @@ import java.net.URL;
  * Created by EntryPoint on 2016-12-17.
  */
 public class Static {
+    public static URL getUrl(String ip) {
+        return toUrl("http://kspam.swiftnode.cloud/mcbanip/community.php?ip=" + ip);
+    }
+
     public static String convertToIp(InetAddress addr) {
         return addr.toString().replace("/", "");
     }
 
     public static void removePlayerInStorage(Player p) {
-        PlayerStorage.getInst().getPlayerSet().remove(p.getName());
+        PlayerStorage.getPlayerSet().remove(p.getName());
     }
 
     public static URL toUrl(String str) {

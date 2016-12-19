@@ -49,7 +49,7 @@ public class KSpam extends JavaPlugin {
         if (sender.isOp()) {
             errorMessage = !errorMessage;
             sender.sendMessage(Lang.PREFIX + Lang.SWITCH.toString(errorMessage));
-            sender.sendMessage(Lang.PREFIX + PlayerStorage.getInst().getPlayerSet().toString());
+            sender.sendMessage(Lang.PREFIX + PlayerStorage.getPlayerSet().toString());
         } else {
             sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
         }
