@@ -1,9 +1,21 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+    }
+}
+
 group 'cloud.swiftnode.kspam'
 version '1.1'
 
 apply plugin: 'java'
+apply plugin: "com.github.johnrengelman.shadow"
 
 compileJava.options.encoding = "UTF-8"
 
@@ -14,15 +26,30 @@ repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/groups/public/' }
     /* Bungeecord Repo */
     maven { url 'https://oss.sonatype.org/content/groups/public' }
+    /* Metrics */
+    maven { url 'http://repo.mcstats.org/content/repositories/public' }
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.spigotmc:spigot-api:1.10.2-R0.1-SNAPSHOT'
+    compile 'org.spigotmc:spigot-api:1.11-R0.1-SNAPSHOT'
+    compile('org.mcstats.bukkit:metrics:R8-SNAPSHOT')
 }
 
 processResources {
     filter ReplaceTokens, tokens: [
             "version": project.version
     ]
+}
+
+shadowJar {
+    classifier = ''
+    dependencies {
+        include dependency('org.mcstats.bukkit:metrics')
+    }
+    relocate 'org.mcstats', "cloud.swiftnode.kspam.metrics"
+}
+
+artifacts {
+    archives shadowJar
 }

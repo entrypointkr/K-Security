@@ -1,8 +1,9 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
-import cloud.swiftnode.kspam.storage.PlayerStorage;
+import cloud.swiftnode.kspam.storage.StaticStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
@@ -15,16 +16,13 @@ import java.net.URL;
  * Created by EntryPoint on 2016-12-17.
  */
 public class Static {
-    public static URL getUrl(String ip) {
-        return toUrl("http://kspam.swiftnode.cloud/mcbanip/community.php?ip=" + ip);
-    }
-
     public static String convertToIp(InetAddress addr) {
-        return addr.toString().replace("/", "");
+        String addrStr = addr.toString();
+        return addrStr.substring(addrStr.indexOf("/") + 1);
     }
 
     public static void removePlayerInStorage(Player p) {
-        PlayerStorage.getPlayerSet().remove(p.getName());
+        StaticStorage.getPlayerSet().remove(p.getName());
     }
 
     public static URL toUrl(String str) {
@@ -63,5 +61,11 @@ public class Static {
 
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.getInst(), runnable);
+    }
+
+    public static void msgLineLoop(CommandSender sender, String msg) {
+        for (String element : msg.split("\n")) {
+            sender.sendMessage(element);
+        }
     }
 }

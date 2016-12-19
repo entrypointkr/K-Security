@@ -31,6 +31,7 @@ public enum Lang {
     NO_PERM("권한이 없습니다."),
     KICKED("&e{0} &f님이 차단되었습니다."),
     EXCEPTION("예외가 발생했습니다. 추가 정보: &e{0}"),
+    MOTD("&c당신은 K-SPAM 에 의해 차단되었습니다."),
     KICK("당신의 아이피는 K-SPAM 블랙리스트에 추가되어 있어 \n" +
             "본 서버에 접속하실 수 없습니다.");
     private final String msg;
