@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.storage.PlayerStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
+import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -50,6 +51,9 @@ public class ProcessRunnable implements Runnable {
                 Bukkit.getConsoleSender().sendMessage(
                         Lang.PREFIX + Lang.ERROR.toString(playerList.toString()));
             }
+        } else if (result == Result.FALSE) {
+            Static.removePlayerInStorage(p);
         }
+        // Else?
     }
 }

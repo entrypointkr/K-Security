@@ -3,9 +3,8 @@ package cloud.swiftnode.kspam.runnable;
 import cloud.swiftnode.kspam.storage.CheckStorage;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.URLs;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.URL;
 
 /**
@@ -22,16 +21,10 @@ public class CheckRunnable implements Runnable {
     public void run() {
         try {
             // Get data
-            URL url = Static.getUrl(storage.getIp());
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(url.openStream()));
-            String line;
-            String all = "";
-            while ((line = reader.readLine()) != null) {
-                all += line;
-            }
-            // Set result
-            storage.setResult(Result.valueOf(all.toUpperCase()));
+            URL url = URLs.COMMUNITY_API.toUrl(storage.getIp());
+            String text = Static.readAllText(url);
+            // Set data
+            storage.setResult(Result.valueOf(text.toUpperCase()));
         } catch (Exception ex) {
             // Ignore
         }
