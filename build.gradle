@@ -1,0 +1,28 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+group 'cloud.swiftnode.kspam'
+version '1.0'
+
+apply plugin: 'java'
+
+compileJava.options.encoding = "UTF-8"
+
+sourceCompatibility = 1.7
+
+repositories {
+    /* Spigot Repo */
+    maven { url 'https://hub.spigotmc.org/nexus/content/groups/public/' }
+    /* Bungeecord Repo */
+    maven { url 'https://oss.sonatype.org/content/groups/public' }
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.spigotmc:spigot-api:1.10.2-R0.1-SNAPSHOT'
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "version": project.version
+    ]
+}
