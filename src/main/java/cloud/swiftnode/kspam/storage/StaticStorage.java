@@ -12,6 +12,8 @@ public class StaticStorage {
     private static Set<String> ipList;
     private static boolean errorMessage;
 
+    // TODO: Synchronized ?
+
     public static Set<String> getPlayerSet() {
         if (playerList == null) {
             playerList = new HashSet<>();

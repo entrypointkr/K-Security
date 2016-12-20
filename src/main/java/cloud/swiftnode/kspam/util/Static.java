@@ -19,8 +19,11 @@ import java.util.Collection;
  */
 public class Static {
     public static String convertToIp(InetAddress addr) {
-        String addrStr = addr.toString();
-        return addrStr.substring(addrStr.indexOf("/") + 1);
+        return convertToIp(addr.toString());
+    }
+
+    public static String convertToIp(String addr) {
+        return addr.substring(addr.indexOf("/") + 1);
     }
 
     public static void removePlayerInStorage(Player p) {
@@ -53,12 +56,12 @@ public class Static {
         return all;
     }
 
-    public static int toIntVer(String ver) {
-        return Integer.parseInt(ver.replace(".", ""));
-    }
-
     public static void consoleMsg(String str) {
         Bukkit.getConsoleSender().sendMessage(str);
+    }
+
+    public static void runTask(Runnable runnable) {
+        Bukkit.getScheduler().runTask(KSpam.getInst(), runnable);
     }
 
     public static void runTaskAsync(Runnable runnable) {

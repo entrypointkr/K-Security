@@ -1,6 +1,7 @@
-package cloud.swiftnode.kspam.runnable;
+package cloud.swiftnode.kspam.abstraction.checker;
 
-import cloud.swiftnode.kspam.storage.CheckStorage;
+import cloud.swiftnode.kspam.abstraction.SpamChecker;
+import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.URLs;
@@ -8,17 +9,15 @@ import cloud.swiftnode.kspam.util.URLs;
 import java.net.URL;
 
 /**
- * Created by EntryPoint on 2016-12-17.
+ * Created by EntryPoint on 2016-12-20.
  */
-public class CheckRunnable implements Runnable {
-    private CheckStorage storage;
-
-    public CheckRunnable(CheckStorage storage) {
-        this.storage = storage;
+public class SpamHttpChecker extends SpamChecker {
+    public SpamHttpChecker(SpamStorage storage) {
+        super(storage);
     }
 
     @Override
-    public void run() {
+    public boolean check() {
         try {
             // Get data
             URL url = URLs.COMMUNITY_API.toUrl(storage.getIp());
@@ -28,5 +27,6 @@ public class CheckRunnable implements Runnable {
         } catch (Exception ex) {
             // Ignore
         }
+        return false;
     }
 }

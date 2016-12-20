@@ -1,11 +1,13 @@
 package cloud.swiftnode.kspam.listener;
 
-import cloud.swiftnode.kspam.runnable.CheckRunnable;
-import cloud.swiftnode.kspam.runnable.ProcessRunnable;
-import cloud.swiftnode.kspam.storage.CheckStorage;
+import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
+import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
+import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
+import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
+import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,18 +32,19 @@ public class PlayerListener implements Listener {
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
-        final String ip = Static.convertToIp(e.getAddress());
-        if (StaticStorage.getCachedIpSet().contains(ip)) {
-            e.setKickMessage(Lang.PREFIX + "\n" + Lang.KICK.toString());
-            e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+        // Storage
+        final SpamStorage storage = new SpamStorage(Result.ERROR, e.getAddress());
+        // Cache check
+        if (new SpamCacheChecker(storage).check()) {
+            new PunishSpamProcesser(storage, e).process();
             return;
         }
+        // Http check
         Static.runTaskAsync(new Runnable() {
             @Override
             public void run() {
-                CheckStorage storage = new CheckStorage(ip);
-                new CheckRunnable(storage).run();
-                new ProcessRunnable(e.getPlayer(), storage.getResult()).run();
+                new SpamHttpChecker(storage).check();
+                new PunishSpamProcesser(storage, e.getPlayer()).process();
             }
         });
     }
