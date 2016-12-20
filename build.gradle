@@ -12,7 +12,7 @@ buildscript {
 }
 
 group 'cloud.swiftnode.kspam'
-version '1.1'
+version '1.1' // 1.2-SNAPSHOT
 
 apply plugin: 'java'
 apply plugin: "com.github.johnrengelman.shadow"
@@ -33,7 +33,7 @@ repositories {
 
 dependencies {
     compile 'org.spigotmc:spigot-api:1.11-R0.1-SNAPSHOT'
-    compile('org.mcstats.bukkit:metrics:R8-SNAPSHOT')
+    compile 'org.mcstats.bukkit:metrics:R8-SNAPSHOT'
 }
 
 processResources {

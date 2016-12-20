@@ -1,5 +1,5 @@
 main: cloud.swiftnode.kspam.KSpam
-name: K-Spam Community Edition
+name: K-Spam_Community_Edition
 version: @version@
 author: EntryPoint
 commands:

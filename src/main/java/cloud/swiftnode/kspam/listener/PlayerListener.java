@@ -31,7 +31,7 @@ public class PlayerListener implements Listener {
             return;
         }
         final String ip = Static.convertToIp(e.getAddress());
-        if (CheckStorage.getCachedIpList().contains(ip)) {
+        if (StaticStorage.getCachedIpSet().contains(ip)) {
             e.setKickMessage(Lang.PREFIX + "\n" + Lang.KICK.toString());
             e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
             return;
@@ -63,7 +63,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPing(ServerListPingEvent e) {
         String ip = Static.convertToIp(e.getAddress());
-        if (CheckStorage.getCachedIpList().contains(ip)) {
+        if (StaticStorage.getCachedIpSet().contains(ip)) {
             e.setMotd(Lang.MOTD.toString());
         }
     }

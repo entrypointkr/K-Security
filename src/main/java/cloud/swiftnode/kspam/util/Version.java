@@ -21,9 +21,15 @@ public class Version {
             String major = matcher.group(1);
             String minor = matcher.group(2);
             String add = matcher.group(3);
-            if (major != null) { this.major = Integer.parseInt(major); }
-            if (minor != null) { this.minor = Integer.parseInt(minor); }
-            if (add != null) { this.add = Integer.parseInt(add); }
+            if (major != null) {
+                this.major = Integer.parseInt(major);
+            }
+            if (minor != null) {
+                this.minor = Integer.parseInt(minor);
+            }
+            if (add != null) {
+                this.add = Integer.parseInt(add);
+            }
             tag = matcher.group(4);
         }
     }
@@ -56,7 +62,7 @@ public class Version {
 
     @Override
     public String toString() {
-        String ver = StringUtils.join(new Object[] {major, minor, add}, ".");
+        String ver = StringUtils.join(new Object[]{major, minor, add}, ".");
         if (isTagged()) {
             ver += "-" + tag;
         }

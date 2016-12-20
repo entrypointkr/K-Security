@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URL;
+import java.util.Collection;
 
 /**
  * Created by EntryPoint on 2016-12-17.
@@ -67,5 +69,25 @@ public class Static {
         for (String element : msg.split("\n")) {
             sender.sendMessage(element);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Player[] getOnlinePlayers() {
+        Player[] players = new Player[0];
+        try {
+            Method method = Bukkit.class.getMethod("getOnlinePlayers");
+            Object ret = method.invoke(null);
+            if (ret instanceof Collection) {
+                players = ((Collection<? extends Player>) ret).toArray(new Player[0]);
+            } else if (ret instanceof Player[]) {
+                players = (Player[]) ret;
+            } else {
+                throw new IllegalArgumentException("Illegal return type");
+            }
+        } catch (Exception ex) {
+            Bukkit.getConsoleSender().sendMessage(
+                    Lang.PREFIX + Lang.EXCEPTION.toString(ex.getMessage()));
+        }
+        return players;
     }
 }

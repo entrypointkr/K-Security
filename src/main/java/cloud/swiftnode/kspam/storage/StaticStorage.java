@@ -9,6 +9,8 @@ import java.util.Set;
 public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
+    private static Set<String> ipList;
+    private static boolean errorMessage;
 
     public static Set<String> getPlayerSet() {
         if (playerList == null) {
@@ -23,5 +25,20 @@ public class StaticStorage {
 
     public static void setVersionStorage(VersionStorage versionStorage) {
         StaticStorage.versionStorage = versionStorage;
+    }
+
+    public static Set<String> getCachedIpSet() {
+        if (ipList == null) {
+            ipList = new HashSet<>();
+        }
+        return ipList;
+    }
+
+    public static boolean isErrorMessage() {
+        return errorMessage;
+    }
+
+    public static void setErrorMessage(boolean errorMessage) {
+        StaticStorage.errorMessage = errorMessage;
     }
 }

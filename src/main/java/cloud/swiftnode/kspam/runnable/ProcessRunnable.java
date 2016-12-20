@@ -1,7 +1,6 @@
 package cloud.swiftnode.kspam.runnable;
 
 import cloud.swiftnode.kspam.KSpam;
-import cloud.swiftnode.kspam.storage.CheckStorage;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
@@ -33,12 +32,12 @@ public class ProcessRunnable implements Runnable {
                 }
             });
             Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(p.getName()));
-            CheckStorage.getCachedIpList().add(
+            StaticStorage.getCachedIpSet().add(
                     Static.convertToIp(p.getAddress().getAddress()));
         } else if (result == Result.ERROR) {
             Set<String> playerList = StaticStorage.getPlayerSet();
             playerList.add(p.getName());
-            if (KSpam.getInst().isSwitchOn()) {
+            if (StaticStorage.isErrorMessage()) {
                 Bukkit.getConsoleSender().sendMessage(
                         Lang.PREFIX + Lang.ERROR.toString(playerList.toString()));
             }
