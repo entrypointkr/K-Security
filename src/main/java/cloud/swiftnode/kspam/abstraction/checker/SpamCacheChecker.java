@@ -23,4 +23,3 @@ public class SpamCacheChecker extends SpamChecker {
         return false;
     }
 }
-

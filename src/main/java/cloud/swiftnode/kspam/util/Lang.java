@@ -26,7 +26,7 @@ public enum Lang {
             "{0}최신 버전: &e{2}&f\n" +
             "{0}다운로드: &ehttps://github.com/EntryPointKR/K-SPAM/releases&f"),
     ERROR("정보 조회 중 에러가 발생했습니다. 검증받지 못한 플레이어들: &e{0}\n" +
-            "&f본 메세지를 끄려면 /kspam 명령어를 입력해주세요."),
+            "&f본 메세지를 끄려면 /kspamerror 명령어를 입력해주세요."),
     SWITCH("&e{0} &f로 설정했습니다."),
     NO_PERM("권한이 없습니다."),
     KICKED("&e{0} &f님이 차단되었습니다."),

@@ -1,6 +1,7 @@
-package cloud.swiftnode.kspam.runnable;
+package cloud.swiftnode.kspam.abstraction.checker;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.abstraction.Checker;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
@@ -8,14 +9,13 @@ import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.URLs;
 import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created by EntryPoint on 2016-12-20.
  */
-public class UpdateCheckRunnable extends BukkitRunnable {
+public class UpdateChecker implements Checker {
     @Override
-    public void run() {
+    public boolean check() {
         try {
             String text = Static.readAllText(URLs.GRADLE.toUrl());
             if (text != null) {
@@ -37,5 +37,6 @@ public class UpdateCheckRunnable extends BukkitRunnable {
             Static.consoleMsg(
                     Lang.PREFIX + Lang.EXCEPTION.toString("버전 확인 에러 " + ex.getMessage()));
         }
+        return true;
     }
 }

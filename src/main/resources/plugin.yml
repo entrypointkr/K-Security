@@ -4,5 +4,8 @@ version: @version@
 author: EntryPoint
 commands:
   kspam:
-    description: K-SPAM command.
+    description: K-SPAM main command.
     usage: /kspam
+  kspamerror:
+    description: Off the error message and display the error players.
+    usage: /kspamerror

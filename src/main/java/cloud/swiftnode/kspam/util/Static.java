@@ -1,6 +1,7 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.abstraction.Checker;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -66,6 +67,15 @@ public class Static {
 
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.getInst(), runnable);
+    }
+
+    public static void runTaskAsync(final Checker checker) {
+        runTaskAsync(new Runnable() {
+            @Override
+            public void run() {
+                checker.check();
+            }
+        });
     }
 
     public static void msgLineLoop(CommandSender sender, String msg) {

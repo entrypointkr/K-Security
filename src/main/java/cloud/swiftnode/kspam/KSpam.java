@@ -1,11 +1,12 @@
 package cloud.swiftnode.kspam;
 
+import cloud.swiftnode.kspam.abstraction.checker.UpdateChecker;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.metrics.BlockedGraph;
 import cloud.swiftnode.kspam.metrics.PlayerGraph;
 import cloud.swiftnode.kspam.runnable.AllPlayerRunnable;
-import cloud.swiftnode.kspam.runnable.UpdateCheckRunnable;
 import cloud.swiftnode.kspam.storage.StaticStorage;
+import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
@@ -36,7 +37,7 @@ public class KSpam extends JavaPlugin {
         // Listener register
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         // Update check
-        Static.runTaskAsync(new UpdateCheckRunnable());
+        Static.runTaskAsync(new UpdateChecker());
         // Check all player every hour
         if (getConfig().getBoolean("check-timer", true)) {
             new AllPlayerRunnable().runTaskTimerAsynchronously(this, 3600 * 20, 3600 * 20);
@@ -57,13 +58,23 @@ public class KSpam extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.isOp()) {
-            StaticStorage.setErrorMessage(!StaticStorage.isErrorMessage());
-            sender.sendMessage(Lang.PREFIX + Lang.SWITCH.toString(StaticStorage.isErrorMessage()));
-            sender.sendMessage(Lang.PREFIX + StaticStorage.getPlayerSet().toString());
-        } else {
-            sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
+        switch (label.toLowerCase()) {
+            case "kspam":
+                VersionStorage storage = StaticStorage.getVersionStorage();
+                Static.msgLineLoop(sender, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
+                        Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer()));
+                return true;
+            case "kspamerror":
+                if (sender.isOp()) {
+                    StaticStorage.setErrorMessage(!StaticStorage.isErrorMessage());
+                    sender.sendMessage(Lang.PREFIX + Lang.SWITCH.toString(StaticStorage.isErrorMessage()));
+                    sender.sendMessage(Lang.PREFIX + StaticStorage.getPlayerSet().toString());
+                } else {
+                    sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
+                }
+                return true;
+            default:
+                return false;
         }
-        return true;
     }
 }

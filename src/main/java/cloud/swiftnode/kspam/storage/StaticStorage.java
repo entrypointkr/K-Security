@@ -10,7 +10,7 @@ public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
     private static Set<String> ipList;
-    private static boolean errorMessage;
+    private static boolean errorMessage = true;
 
     // TODO: Synchronized ?
 
