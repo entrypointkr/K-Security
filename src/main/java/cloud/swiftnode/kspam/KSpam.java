@@ -6,9 +6,9 @@ import cloud.swiftnode.kspam.metrics.BlockedGraph;
 import cloud.swiftnode.kspam.metrics.PlayerGraph;
 import cloud.swiftnode.kspam.runnable.AllPlayerRunnable;
 import cloud.swiftnode.kspam.storage.StaticStorage;
-import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -60,9 +60,7 @@ public class KSpam extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (label.toLowerCase()) {
             case "kspam":
-                VersionStorage storage = StaticStorage.getVersionStorage();
-                Static.msgLineLoop(sender, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
-                        Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer()));
+                Static.msgLineLoop(sender, new Version(getDescription().getVersion()).toString());
                 return true;
             case "kspamerror":
                 if (sender.isOp()) {
