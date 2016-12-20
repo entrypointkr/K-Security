@@ -1,19 +1,16 @@
 package cloud.swiftnode.kspam;
 
-import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
-import cloud.swiftnode.kspam.abstraction.checker.UpdateChecker;
-import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
 import cloud.swiftnode.kspam.listener.PlayerListener;
+import cloud.swiftnode.kspam.metrics.BlockedGraph;
+import cloud.swiftnode.kspam.metrics.PlayerGraph;
 import cloud.swiftnode.kspam.runnable.AllPlayerRunnable;
-import cloud.swiftnode.kspam.storage.SpamStorage;
+import cloud.swiftnode.kspam.runnable.UpdateCheckRunnable;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.util.Lang;
-import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
@@ -39,12 +36,7 @@ public class KSpam extends JavaPlugin {
         // Listener register
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         // Update check
-        Static.runTaskAsync(new Runnable() {
-            @Override
-            public void run() {
-                new UpdateChecker().check();
-            }
-        });
+        Static.runTaskAsync(new UpdateCheckRunnable());
         // Check all player every hour
         if (getConfig().getBoolean("check-timer", true)) {
             new AllPlayerRunnable().runTaskTimerAsynchronously(this, 3600 * 20, 3600 * 20);
@@ -52,18 +44,10 @@ public class KSpam extends JavaPlugin {
         // Metrics
         try {
             Metrics metrics = new Metrics(this);
-            metrics.createGraph("Blocked count").addPlotter(new Metrics.Plotter("Blocked count") {
-                @Override
-                public int getValue() {
-                    return StaticStorage.getCachedIpSet().size();
-                }
-            });
-            metrics.createGraph("Player count").addPlotter(new Metrics.Plotter("Player count") {
-                @Override
-                public int getValue() {
-                    return Static.getOnlinePlayers().length;
-                }
-            });
+            metrics.createGraph("Blocked count")
+                    .addPlotter(new BlockedGraph("Blocked count"));
+            metrics.createGraph("Player count")
+                    .addPlotter(new PlayerGraph("Player count"));
             metrics.start();
         } catch (Exception ex) {
             Static.consoleMsg(
