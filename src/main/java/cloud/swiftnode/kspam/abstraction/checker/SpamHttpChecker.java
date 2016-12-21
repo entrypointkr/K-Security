@@ -1,8 +1,8 @@
 package cloud.swiftnode.kspam.abstraction.checker;
 
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
+import cloud.swiftnode.kspam.abstraction.convertor.SwiftnodeResultConvertor;
 import cloud.swiftnode.kspam.storage.SpamStorage;
-import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.URLs;
 
@@ -23,7 +23,7 @@ public class SpamHttpChecker extends SpamChecker {
             URL url = URLs.COMMUNITY_API.toUrl(storage.getIp());
             String text = Static.readAllText(url);
             // Set data
-            storage.setResult(Result.valueOf(text.toUpperCase()));
+            storage.setResult(new SwiftnodeResultConvertor(text).convert());
         } catch (Exception ex) {
             // Ignore
         }

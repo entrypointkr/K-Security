@@ -39,8 +39,7 @@ public class PunishSpamProcesser extends PunishProcesser {
         String kickMsg = Lang.PREFIX + "\n" + Lang.KICK;
         if (result == Result.TRUE) {
             if (event != null) {
-                event.setKickMessage(kickMsg);
-                event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, kickMsg);
             } else {
                 Static.runTask(new Runnable() {
                     @Override

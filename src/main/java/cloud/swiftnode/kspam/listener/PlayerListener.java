@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.listener;
 
+import cloud.swiftnode.kspam.abstraction.checker.ProxyHttpChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
@@ -44,6 +45,7 @@ public class PlayerListener implements Listener {
             @Override
             public void run() {
                 new SpamHttpChecker(storage).check();
+                new ProxyHttpChecker(storage).check();
                 new PunishSpamProcesser(storage, e.getPlayer()).process();
             }
         });

@@ -103,4 +103,9 @@ public class Static {
         }
         return players;
     }
+
+    public static String substring(String str, String a, String b) {
+        String temp = str.substring(str.indexOf(a) + a.length());
+        return temp.substring(0, str.indexOf(b));
+    }
 }

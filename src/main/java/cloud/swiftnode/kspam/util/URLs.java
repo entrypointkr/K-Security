@@ -8,6 +8,8 @@ import java.text.MessageFormat;
  */
 public enum URLs {
     COMMUNITY_API("http://kspam.swiftnode.cloud/mcbanip/community.php?ip={0}"),
+    SHROOMERY_API("http://www,stopforumspam,com/api?ip={0}"),
+    STOPFORUM_API("http://www,shroomery,org/ythan/proxycheck,php?ip={0}"),
     GRADLE("https://raw.githubusercontent.com/EntryPointKR/K-SPAM/master/build.gradle");
     private final String url;
 

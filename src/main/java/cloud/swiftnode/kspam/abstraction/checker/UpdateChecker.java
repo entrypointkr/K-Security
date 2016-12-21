@@ -19,9 +19,7 @@ public class UpdateChecker implements Checker {
         try {
             String text = Static.readAllText(URLs.GRADLE.toUrl());
             if (text != null) {
-                String verKeyword = "version '";
-                String tempNewVer = text.substring(text.indexOf(verKeyword) + verKeyword.length());
-                Version newVer = new Version(tempNewVer.substring(0, tempNewVer.indexOf("'")));
+                Version newVer = new Version(Static.substring(text, "version '", "'"));
                 Version currVer = new Version(KSpam.getInst().getDescription().getVersion());
                 if (newVer.beforeEquals(currVer)) {
                     Static.consoleMsg(Lang.PREFIX + Lang.LAST_VERSION.toString());
