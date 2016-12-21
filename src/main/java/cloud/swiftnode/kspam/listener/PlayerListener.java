@@ -30,6 +30,9 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(final PlayerLoginEvent e) {
         // TODO: IP or Player NullPointerException ?
+        long a;
+        long b;
+        System.out.println(a = System.currentTimeMillis());
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
@@ -48,6 +51,8 @@ public class PlayerListener implements Listener {
                 new PunishSpamProcesser(storage, e.getPlayer()).process();
             }
         });
+        System.out.println(b = System.currentTimeMillis());
+        System.out.println(b - a);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
