@@ -1,5 +1,8 @@
 package cloud.swiftnode.kspam.storage;
 
+import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.util.Version;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +25,11 @@ public class StaticStorage {
     }
 
     public static VersionStorage getVersionStorage() {
+        if (versionStorage == null) {
+            versionStorage = new VersionStorage(
+                    new Version(KSpam.getInst().getDescription().getVersion()),
+                    new Version(""));
+        }
         return versionStorage;
     }
 

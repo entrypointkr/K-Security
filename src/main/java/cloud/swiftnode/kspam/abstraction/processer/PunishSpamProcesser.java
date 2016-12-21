@@ -47,7 +47,7 @@ public class PunishSpamProcesser extends PunishProcesser {
                         player.kickPlayer(Lang.PREFIX + "\n" + Lang.KICK);
                     }
                 });
-                Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName()));
+                Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName(), storage.getType()));
                 StaticStorage.getCachedIpSet().add(storage.getIp());
             }
         } else if (result == Result.ERROR) {

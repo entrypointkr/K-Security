@@ -18,8 +18,20 @@ public class VersionStorage {
         return currVer;
     }
 
+    public void setCurrVer(Version currVer) {
+        this.currVer = currVer;
+    }
+
     public Version getNewVer() {
         return newVer;
+    }
+
+    public void setNewVer(Version newVer) {
+        this.newVer = newVer;
+    }
+
+    public boolean isOld() {
+        return !newVer.beforeEquals(currVer);
     }
 }
 

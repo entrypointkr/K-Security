@@ -9,3 +9,6 @@ commands:
   kspamerror:
     description: Off the error message and display the error players.
     usage: /kspamerror
+  kspamcheck:
+    description: Shows whether this IP is blocked or not.
+    usage: /kspamcheck IP/Player

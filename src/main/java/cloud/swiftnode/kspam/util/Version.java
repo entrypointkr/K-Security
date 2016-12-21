@@ -15,6 +15,10 @@ public class Version {
     private String tag;
 
     public Version(String version) {
+        set(version);
+    }
+
+    public void set(String version) {
         Pattern pattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?(?:-(.*))?");
         Matcher matcher = pattern.matcher(version);
         if (matcher.find()) {
@@ -54,6 +58,10 @@ public class Version {
             return minor <= version.getMinor();
         }
         return add <= version.getAdd();
+    }
+
+    public boolean after(Version version) {
+        return !beforeEquals(version);
     }
 
     public boolean isTagged() {

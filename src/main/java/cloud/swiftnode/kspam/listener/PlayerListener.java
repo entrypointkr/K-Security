@@ -1,6 +1,5 @@
 package cloud.swiftnode.kspam.listener;
 
-import cloud.swiftnode.kspam.abstraction.checker.ProxyHttpChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
@@ -30,6 +29,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(final PlayerLoginEvent e) {
+        // TODO: IP or Player NullPointerException ?
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
@@ -45,7 +45,6 @@ public class PlayerListener implements Listener {
             @Override
             public void run() {
                 new SpamHttpChecker(storage).check();
-                new ProxyHttpChecker(storage).check();
                 new PunishSpamProcesser(storage, e.getPlayer()).process();
             }
         });
@@ -61,8 +60,10 @@ public class PlayerListener implements Listener {
         if (storage == null) {
             return;
         }
-        Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
-                Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        if (storage.isOld()) {
+            Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
+                    Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
