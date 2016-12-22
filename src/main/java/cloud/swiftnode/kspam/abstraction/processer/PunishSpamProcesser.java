@@ -50,6 +50,7 @@ public class PunishSpamProcesser extends PunishProcesser {
                 Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName(), storage.getType()));
                 StaticStorage.getCachedIpSet().add(storage.getIp());
             }
+            // TODO: Remove Spam player data
         } else if (result == Result.ERROR) {
             Set<String> playerList = StaticStorage.getPlayerSet();
             playerList.add(player.getName());

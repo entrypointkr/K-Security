@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
@@ -101,5 +102,13 @@ public class Static {
     public static String substring(String str, String a, String b) {
         String temp = str.substring(str.indexOf(a) + a.length());
         return temp.substring(0, temp.indexOf(b));
+    }
+
+    public static File getCachePath() {
+        return new File(KSpam.getInst().getDataFolder(), "K-Spam.cache");
+    }
+
+    public static File getCacheBakPath() {
+        return new File(KSpam.getInst().getDataFolder(), "K-Spam.bak");
     }
 }

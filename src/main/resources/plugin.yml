@@ -12,3 +12,9 @@ commands:
   kspamcheck:
     description: Shows whether this IP is blocked or not.
     usage: /kspamcheck IP/Player
+  kspamforce:
+    description: ForceMode on/off.
+    usage: /kspamforce
+  kspamrem:
+    description: Remove an ip in cached data.
+    usage: /kspamrem IP

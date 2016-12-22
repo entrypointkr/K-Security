@@ -9,6 +9,7 @@ import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.Type;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,9 +36,19 @@ public class PlayerListener implements Listener {
         }
         // Storage
         final SpamStorage storage = new SpamStorage(Result.ERROR, e.getAddress());
+        if (storage.getIp().contains("127.0")) {
+            return;
+        }
         // Cache check
         if (new SpamCacheChecker(storage).check()) {
             new PunishSpamProcesser(storage, e).process();
+            return;
+        }
+        // ForceMode
+        if (StaticStorage.isForceMode() && !e.getPlayer().hasPlayedBefore()) {
+            storage.setResult(Result.TRUE);
+            storage.setType(Type.FORCE);
+            new PunishSpamProcesser(storage, e.getPlayer()).process();
             return;
         }
         // Http check

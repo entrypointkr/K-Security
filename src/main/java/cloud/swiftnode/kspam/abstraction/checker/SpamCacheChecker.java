@@ -15,8 +15,7 @@ public class SpamCacheChecker extends SpamChecker {
 
     @Override
     public boolean check() {
-        String ip = super.storage.getIp();
-        if (StaticStorage.getCachedIpSet().contains(ip)) {
+        if (StaticStorage.getCachedIpSet().contains(storage.getIp())) {
             storage.setResult(Result.TRUE);
             return true;
         }

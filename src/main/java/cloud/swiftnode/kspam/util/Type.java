@@ -7,5 +7,6 @@ public enum Type {
     BOTSCOUNT,
     SHROOMERY,
     STOPFORUM,
-    SWIFTNODE
+    SWIFTNODE,
+    FORCE
 }
