@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.listener;
 
+import cloud.swiftnode.kspam.abstraction.checker.LocalIpChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
@@ -31,12 +32,14 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(final PlayerLoginEvent e) {
+        // Only ALLOWED
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
         // Storage
         final SpamStorage storage = new SpamStorage(Result.ERROR, e.getAddress());
-        if (storage.getIp().contains("127.0")) {
+        // Local IP Check
+        if (new LocalIpChecker(storage.getIp()).check()) {
             return;
         }
         // ForceMode

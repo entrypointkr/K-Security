@@ -20,9 +20,9 @@ public enum Lang {
             "#  .JMML.   MMb.    P\"Ybmmd\"  .JMML. .AMA.   .AMMA..JML. `'  .JMML.\n" +
             "#                                                                  \n\n" +
             " &c[K-SPAM Community Edition] &fv{0}\n\n" +
-            " &fPlugin Made By &eEntryPoint\n" +
+            " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
             " &fK-SPAM DB Powered By &eSwiftnode\n" +
-            " &f건의/버그 제보 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
+            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
     NEW_VERSION("새로운 버전이 있습니다."),
     LAST_VERSION("최신버전입니다."),
     VERSION("{0}현재 버전: &e{1}&f\n" +
