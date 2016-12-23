@@ -8,5 +8,6 @@ public enum Type {
     SHROOMERY,
     STOPFORUM,
     SWIFTNODE,
+    MCBLACKLIST,
     FORCE
 }
