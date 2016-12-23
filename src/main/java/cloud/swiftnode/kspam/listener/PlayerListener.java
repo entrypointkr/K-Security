@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.listener;
 
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
+import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
 import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
 import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.storage.StaticStorage;
@@ -9,6 +10,7 @@ import cloud.swiftnode.kspam.storage.VersionStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.Type;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -34,6 +36,16 @@ public class PlayerListener implements Listener {
         }
         // Storage
         final SpamStorage storage = new SpamStorage(Result.ERROR, e.getAddress());
+        if (storage.getIp().contains("127.0")) {
+            return;
+        }
+        // ForceMode
+        if (StaticStorage.isForceMode() && !e.getPlayer().hasPlayedBefore()) {
+            storage.setResult(Result.TRUE);
+            storage.setType(Type.FORCE);
+            new PunishSpamProcesser(storage, e).process();
+            return;
+        }
         // Cache check
         if (new SpamCacheChecker(storage).check()) {
             new PunishSpamProcesser(storage, e).process();
@@ -59,13 +71,15 @@ public class PlayerListener implements Listener {
         if (storage == null) {
             return;
         }
-        Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
-                Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        if (storage.isOld()) {
+            Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
+                    Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPing(ServerListPingEvent e) {
-        String ip = Static.convertToIp(e.getAddress());
+        String ip = new IpStringConvertor(e.getAddress()).convert();
         if (StaticStorage.getCachedIpSet().contains(ip)) {
             e.setMotd(Lang.MOTD.toString());
         }

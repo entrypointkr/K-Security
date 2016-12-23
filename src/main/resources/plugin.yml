@@ -9,3 +9,15 @@ commands:
   kspamerror:
     description: Off the error message and display the error players.
     usage: /kspamerror
+  kspamcheck:
+    description: Shows whether this IP is blocked or not.
+    usage: /kspamcheck IP/Player
+  kspamforce:
+    description: ForceMode on/off.
+    usage: /kspamforce
+  kspamrem:
+    description: Remove an ip in cached data.
+    usage: /kspamrem IP
+  kspamadd:
+    description: Add an ip in cached data.
+    usage: /kspamadd IP

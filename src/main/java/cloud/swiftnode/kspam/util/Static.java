@@ -1,17 +1,16 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
-import cloud.swiftnode.kspam.abstraction.Checker;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
 import java.net.URL;
 import java.util.Collection;
 
@@ -19,14 +18,6 @@ import java.util.Collection;
  * Created by EntryPoint on 2016-12-17.
  */
 public class Static {
-    public static String convertToIp(InetAddress addr) {
-        return convertToIp(addr.toString());
-    }
-
-    public static String convertToIp(String addr) {
-        return addr.substring(addr.indexOf("/") + 1);
-    }
-
     public static void removePlayerInStorage(Player p) {
         StaticStorage.getPlayerSet().remove(p.getName());
     }
@@ -69,13 +60,12 @@ public class Static {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.getInst(), runnable);
     }
 
-    public static void runTaskAsync(final Checker checker) {
-        runTaskAsync(new Runnable() {
-            @Override
-            public void run() {
-                checker.check();
-            }
-        });
+    public static void runTaskLaterAsync(Runnable runnable, long delay) {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.getInst(), runnable, delay);
+    }
+
+    public static void runTaskTimerAsync(final Runnable runnable, int delay, int period) {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.getInst(), runnable, delay, period);
     }
 
     public static void msgLineLoop(CommandSender sender, String msg) {
@@ -102,5 +92,18 @@ public class Static {
                     Lang.PREFIX + Lang.EXCEPTION.toString(ex.getMessage()));
         }
         return players;
+    }
+
+    public static String substring(String str, String a, String b) {
+        String temp = str.substring(str.indexOf(a) + a.length());
+        return temp.substring(0, temp.indexOf(b));
+    }
+
+    public static File getCachePath() {
+        return new File(KSpam.getInst().getDataFolder(), "K-Spam.cache");
+    }
+
+    public static File getCacheBakPath() {
+        return new File(KSpam.getInst().getDataFolder(), "K-Spam.bak");
     }
 }

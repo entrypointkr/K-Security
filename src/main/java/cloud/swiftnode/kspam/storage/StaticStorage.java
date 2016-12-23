@@ -1,5 +1,8 @@
 package cloud.swiftnode.kspam.storage;
 
+import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.util.Version;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +12,9 @@ import java.util.Set;
 public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
-    private static Set<String> ipList;
+    private static Set<String> cachedIpSet;
     private static boolean errorMessage = true;
+    private static boolean forceMode = false;
 
     // TODO: Synchronized ?
 
@@ -22,6 +26,11 @@ public class StaticStorage {
     }
 
     public static VersionStorage getVersionStorage() {
+        if (versionStorage == null) {
+            versionStorage = new VersionStorage(
+                    new Version(KSpam.getInst().getDescription().getVersion()),
+                    new Version(""));
+        }
         return versionStorage;
     }
 
@@ -30,10 +39,14 @@ public class StaticStorage {
     }
 
     public static Set<String> getCachedIpSet() {
-        if (ipList == null) {
-            ipList = new HashSet<>();
+        if (cachedIpSet == null) {
+            cachedIpSet = new HashSet<>();
         }
-        return ipList;
+        return cachedIpSet;
+    }
+
+    public static void setCachedIpSet(Set<String> cachedIpSet) {
+        StaticStorage.cachedIpSet = cachedIpSet;
     }
 
     public static boolean isErrorMessage() {
@@ -42,5 +55,13 @@ public class StaticStorage {
 
     public static void setErrorMessage(boolean errorMessage) {
         StaticStorage.errorMessage = errorMessage;
+    }
+
+    public static boolean isForceMode() {
+        return forceMode;
+    }
+
+    public static void setForceMode(boolean forceMode) {
+        StaticStorage.forceMode = forceMode;
     }
 }

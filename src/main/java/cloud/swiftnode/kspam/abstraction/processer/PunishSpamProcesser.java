@@ -38,9 +38,10 @@ public class PunishSpamProcesser extends PunishProcesser {
         Result result = storage.getResult();
         String kickMsg = Lang.PREFIX + "\n" + Lang.KICK;
         if (result == Result.TRUE) {
+            boolean disallowed = false;
             if (event != null) {
-                event.setKickMessage(kickMsg);
-                event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                disallowed = true;
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, kickMsg);
             } else {
                 Static.runTask(new Runnable() {
                     @Override
@@ -48,9 +49,10 @@ public class PunishSpamProcesser extends PunishProcesser {
                         player.kickPlayer(Lang.PREFIX + "\n" + Lang.KICK);
                     }
                 });
-                Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName()));
-                StaticStorage.getCachedIpSet().add(storage.getIp());
+                Bukkit.broadcastMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName(), storage.getType()));
             }
+            new DeleteDataProcesser(player, disallowed).process();
+            StaticStorage.getCachedIpSet().add(storage.getIp());
         } else if (result == Result.ERROR) {
             Set<String> playerList = StaticStorage.getPlayerSet();
             playerList.add(player.getName());
