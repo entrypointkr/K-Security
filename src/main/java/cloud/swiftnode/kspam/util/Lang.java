@@ -19,9 +19,10 @@ public enum Lang {
             "#    MM   `MM.      Mb     dM   MM     A'      VML    M  `YM'   MM  \n" +
             "#  .JMML.   MMb.    P\"Ybmmd\"  .JMML. .AMA.   .AMMA..JML. `'  .JMML.\n" +
             "#                                                                  \n\n" +
-            " &c[K-SPAM Community Edition]\n" +
+            " &c[K-SPAM Community Edition] &fv{0}\n\n" +
             " &fPlugin Made By &eEntryPoint\n" +
-            " &fK-SPAM DB Powered By &eSwiftnode\n"),
+            " &fK-SPAM DB Powered By &eSwiftnode\n" +
+            " &f건의/버그 제보 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
     NEW_VERSION("새로운 버전이 있습니다."),
     LAST_VERSION("최신버전입니다."),
     VERSION("{0}현재 버전: &e{1}&f\n" +
@@ -37,6 +38,7 @@ public enum Lang {
     CHECK("&e{0} &f의 차단 여부: &e{1} &f마지막 사용 API: &e{2}"),
     REMOVE("&e{0} &f이(가) 캐시 목록에서 제거됩니다."),
     CACHE_COUNT("캐쉬된 데이터: &e{0} &f개"),
+    ADD("&e{0} &f을 캐시 목록에 추가합니다."),
     KICK("당신의 아이피는 K-SPAM 블랙리스트에 추가되어 있어 \n" +
             "본 서버에 접속하실 수 없습니다.");
     private final String msg;

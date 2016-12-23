@@ -1,7 +1,7 @@
 package cloud.swiftnode.kspam.storage;
 
+import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
 import cloud.swiftnode.kspam.util.Result;
-import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.Type;
 
 import java.net.InetAddress;
@@ -20,7 +20,7 @@ public class SpamStorage {
     }
 
     public SpamStorage(Result result, InetAddress addr) {
-        this(result, Static.convertToIp(addr));
+        this(result, new IpStringConvertor(addr).convert());
     }
 
     public Result getResult() {

@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
 import java.net.URL;
 import java.util.Collection;
 
@@ -19,14 +18,6 @@ import java.util.Collection;
  * Created by EntryPoint on 2016-12-17.
  */
 public class Static {
-    public static String convertToIp(InetAddress addr) {
-        return convertToIp(addr.toString());
-    }
-
-    public static String convertToIp(String addr) {
-        return addr.substring(addr.indexOf("/") + 1);
-    }
-
     public static void removePlayerInStorage(Player p) {
         StaticStorage.getPlayerSet().remove(p.getName());
     }
@@ -67,6 +58,10 @@ public class Static {
 
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.getInst(), runnable);
+    }
+
+    public static void runTaskLaterAsync(Runnable runnable, long delay) {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.getInst(), runnable, delay);
     }
 
     public static void runTaskTimerAsync(final Runnable runnable, int delay, int period) {

@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.storage;
 import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.util.Version;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
     private static Set<String> cachedIpSet;
+    private static Set<File> spamFileSet;
     private static boolean errorMessage = true;
     private static boolean forceMode = false;
 
@@ -47,6 +49,17 @@ public class StaticStorage {
 
     public static void setCachedIpSet(Set<String> cachedIpSet) {
         StaticStorage.cachedIpSet = cachedIpSet;
+    }
+
+    public static Set<File> getSpamFileSet() {
+        if (spamFileSet == null) {
+            spamFileSet = new HashSet<>();
+        }
+        return spamFileSet;
+    }
+
+    public static void setSpamFileSet(Set<File> spamFileSet) {
+        StaticStorage.spamFileSet = spamFileSet;
     }
 
     public static boolean isErrorMessage() {

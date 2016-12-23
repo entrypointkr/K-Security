@@ -1,7 +1,11 @@
 package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
+import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
 import cloud.swiftnode.kspam.abstraction.processer.CheckAllProcesser;
+import cloud.swiftnode.kspam.abstraction.processer.DeleteAllDataProcesser;
+import cloud.swiftnode.kspam.abstraction.processer.CacheReadProcesser;
+import cloud.swiftnode.kspam.abstraction.processer.CacheWriteProcesser;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.metrics.BlockedGraph;
 import cloud.swiftnode.kspam.metrics.PlayerGraph;
@@ -19,15 +23,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.util.Set;
-
 /**
  * Created by EntryPoint on 2016-12-17.
  */
@@ -42,22 +37,19 @@ public class KSpam extends JavaPlugin {
     public void onEnable() {
         INST = this;
         saveDefaultConfig();
-        Bukkit.getConsoleSender().sendMessage(Lang.INTRO.toString());
+        Bukkit.getConsoleSender().sendMessage(
+                Lang.INTRO.toString().replace("{0}",
+                        StaticStorage.getVersionStorage().getCurrVer().toString()));
         instantiate();
     }
 
     @Override
     public void onDisable() {
         // Cache write
-        try {
-            FileOutputStream stream = new FileOutputStream(Static.getCachePath());
-            ObjectOutput output = new ObjectOutputStream(stream);
-            output.writeObject(StaticStorage.getCachedIpSet());
-            stream.flush();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        // TODO: Remove Spam player data
+        new CacheWriteProcesser().process();
+        // Spam data delete
+        new DeleteAllDataProcesser().process();
+        // TODO: Disable custom graph
         // 필요성 검토 요함
 //        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
 //            if (plugin.isEnabled()) {
@@ -71,7 +63,6 @@ public class KSpam extends JavaPlugin {
 //        }
     }
 
-    @SuppressWarnings("unchecked")
     private void instantiate() {
         // Listener register
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -94,23 +85,7 @@ public class KSpam extends JavaPlugin {
                     Lang.PREFIX + Lang.EXCEPTION.toString("Metrics 접속 실패 " + ex.getMessage()));
         }
         // Cache load
-        File file = Static.getCachePath();
-        if (file.isFile()) {
-            try {
-                FileInputStream stream = new FileInputStream(file);
-                ObjectInput input = new ObjectInputStream(stream);
-                StaticStorage.setCachedIpSet((Set<String>) input.readObject());
-                Static.consoleMsg(Lang.PREFIX + Lang.CACHE_COUNT.toString(StaticStorage.getCachedIpSet().size()));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                Static.consoleMsg(Lang.PREFIX + Lang.EXCEPTION.toString());
-                if (!file.renameTo(Static.getCacheBakPath())) {
-                    file.delete();
-                }
-            }
-            // Cache validate
-//            Static.runTaskAsync(new CachedValidateChecker());
-        }
+        new CacheReadProcesser().process();
     }
 
     @Override
@@ -118,7 +93,9 @@ public class KSpam extends JavaPlugin {
         switch (label.toLowerCase()) {
             case "kspam":
                 sender.sendMessage(getDescription().getCommands().keySet().toString());
-                Static.msgLineLoop(sender, new Version(getDescription().getVersion()).toString());
+                sender.sendMessage(new Version(getDescription().getVersion()).toString());
+                sender.sendMessage(String.valueOf(StaticStorage.getCachedIpSet().size()));
+                sender.sendMessage(String.valueOf(StaticStorage.getSpamFileSet().size()));
                 return true;
             case "kspamerror":
                 if (sender.isOp()) {
@@ -140,7 +117,7 @@ public class KSpam extends JavaPlugin {
                             } else {
                                 Player p = Bukkit.getPlayer(args[0]);
                                 if (p != null) {
-                                    ip = Static.convertToIp(p.getAddress().getAddress());
+                                    ip = new IpStringConvertor(p).convert();
                                 } else {
                                     ip = args[0];
                                 }
@@ -175,6 +152,25 @@ public class KSpam extends JavaPlugin {
                     sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
                 }
                 return true;
+            case "kspamadd":
+                if (sender.isOp()) {
+                    if (args.length > 0) {
+                        String ip;
+                        Player p = Bukkit.getPlayer(args[0]);
+                        if (p != null) {
+                            ip = new IpStringConvertor(p).convert();
+                            p.kickPlayer(Lang.PREFIX + Lang.KICK.toString());
+                        } else {
+                            ip = args[0];
+                        }
+                        StaticStorage.getCachedIpSet().add(ip);
+                        sender.sendMessage(Lang.PREFIX + Lang.ADD.toString(ip));
+                    } else {
+                        return false;
+                    }
+                } else {
+                    sender.sendMessage(Lang.PREFIX + Lang.NO_PERM.toString());
+                }
             default:
                 return false;
         }

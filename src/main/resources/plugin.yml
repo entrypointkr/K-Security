@@ -18,3 +18,6 @@ commands:
   kspamrem:
     description: Remove an ip in cached data.
     usage: /kspamrem IP
+  kspamadd:
+    description: Add an ip in cached data.
+    usage: /kspamadd IP
