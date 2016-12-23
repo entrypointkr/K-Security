@@ -1,8 +1,11 @@
 package cloud.swiftnode.kspam.abstraction.processer;
 
+import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.RunnableProcesser;
+import cloud.swiftnode.kspam.runnable.DownloadBukkitRunnable;
 import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.util.Lang;
+import cloud.swiftnode.kspam.util.Path;
 import cloud.swiftnode.kspam.util.Static;
 
 import java.io.File;
@@ -18,7 +21,7 @@ public class CacheReadProcesser extends RunnableProcesser {
     @Override
     @SuppressWarnings("unchecked")
     public void process() {
-        File file = Static.getCachePath();
+        File file = Path.CACHE.toFile();
         if (file.isFile()) {
             try {
                 FileInputStream stream = new FileInputStream(file);
@@ -28,12 +31,12 @@ public class CacheReadProcesser extends RunnableProcesser {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Static.consoleMsg(Lang.PREFIX + Lang.EXCEPTION.toString());
-                if (!file.renameTo(Static.getCacheBakPath())) {
+                if (!file.renameTo(Path.CACHE_BAK.toFile())) {
                     file.delete();
                 }
             }
         } else {
-            // TODO: Download cache file
+            new DownloadBukkitRunnable().runTask(KSpam.getInst());
         }
     }
 }

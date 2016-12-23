@@ -2,10 +2,9 @@ package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
-import cloud.swiftnode.kspam.abstraction.processer.CheckAllProcesser;
-import cloud.swiftnode.kspam.abstraction.processer.DeleteAllDataProcesser;
 import cloud.swiftnode.kspam.abstraction.processer.CacheReadProcesser;
 import cloud.swiftnode.kspam.abstraction.processer.CacheWriteProcesser;
+import cloud.swiftnode.kspam.abstraction.processer.CheckAllProcesser;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.metrics.BlockedGraph;
 import cloud.swiftnode.kspam.metrics.PlayerGraph;
@@ -47,8 +46,6 @@ public class KSpam extends JavaPlugin {
     public void onDisable() {
         // Cache write
         new CacheWriteProcesser().process();
-        // Spam data delete
-        new DeleteAllDataProcesser().process();
         // TODO: Disable custom graph
         // 필요성 검토 요함
 //        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
@@ -95,7 +92,6 @@ public class KSpam extends JavaPlugin {
                 sender.sendMessage(getDescription().getCommands().keySet().toString());
                 sender.sendMessage(new Version(getDescription().getVersion()).toString());
                 sender.sendMessage(String.valueOf(StaticStorage.getCachedIpSet().size()));
-                sender.sendMessage(String.valueOf(StaticStorage.getSpamFileSet().size()));
                 return true;
             case "kspamerror":
                 if (sender.isOp()) {

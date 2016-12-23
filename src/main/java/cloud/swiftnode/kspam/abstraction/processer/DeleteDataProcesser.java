@@ -5,14 +5,12 @@ import cloud.swiftnode.kspam.abstraction.convertor.EssnFileConverter;
 import cloud.swiftnode.kspam.abstraction.convertor.LegacyEssnFileConverter;
 import cloud.swiftnode.kspam.abstraction.convertor.LegacyPlayerFileConverter;
 import cloud.swiftnode.kspam.abstraction.convertor.PlayerFileConverter;
-import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.util.Set;
 
 /**
  * Created by EntryPoint on 2016-12-23.
@@ -31,17 +29,19 @@ public class DeleteDataProcesser extends RunnableProcesser {
         if (disallowed) {
             return;
         }
-        // World player data
-        final Set<File> fileList = StaticStorage.getSpamFileSet();
-        File data = new PlayerFileConverter(p).convert();
-        File legacyData = new LegacyPlayerFileConverter(p).convert();
-        if (!data.delete()) {
-            fileList.add(data);
-        }
-        if (!legacyData.delete()) {
-            fileList.add(legacyData);
-        }
-        // Essentials player data
+        // Save player data
+        p.saveData();
+        // Delete player data
+        final File data = new PlayerFileConverter(p).convert();
+        final File legacyData = new LegacyPlayerFileConverter(p).convert();
+        Static.runTaskLaterAsync(new Runnable() {
+            @Override
+            public void run() {
+                data.delete();
+                legacyData.delete();
+            }
+        }, 20L);
+        // Delete Essentials player data
         Plugin plugin = Bukkit.getPluginManager().getPlugin("Essentials");
         if (plugin != null && plugin.isEnabled()) {
             final File essnData = new EssnFileConverter(p, plugin).convert();
@@ -49,12 +49,8 @@ public class DeleteDataProcesser extends RunnableProcesser {
             Static.runTaskLaterAsync(new Runnable() {
                 @Override
                 public void run() {
-                    if (!essnData.delete()) {
-                        fileList.add(essnData);
-                    }
-                    if (!legacyEssnData.delete()) {
-                        fileList.add(legacyEssnData);
-                    }
+                    essnData.delete();
+                    legacyEssnData.delete();
                 }
             }, 20L);
         }

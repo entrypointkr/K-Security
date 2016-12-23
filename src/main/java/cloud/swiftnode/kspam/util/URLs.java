@@ -11,7 +11,8 @@ public enum URLs {
     SHROOMERY_API("http://www.shroomery.org/ythan/proxycheck.php?ip={0}"),
     STOPFORUM_API("http://www.stopforumspam.com/api?ip={0}"),
     BOTSCOUT_API("http://www.botscout.com/test/?ip={0}"),
-    GRADLE("https://raw.githubusercontent.com/EntryPointKR/K-SPAM/master/build.gradle");
+    GRADLE("https://raw.githubusercontent.com/EntryPointKR/K-SPAM/master/build.gradle"),
+    CACHE("https://github.com/EntryPointKR/K-SPAM/blob/master/K-Spam.cache?raw=true");
     private final String url;
 
     URLs(String url) {

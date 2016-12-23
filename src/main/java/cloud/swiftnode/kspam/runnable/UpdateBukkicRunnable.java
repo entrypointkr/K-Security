@@ -7,15 +7,11 @@ import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.URLs;
 import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created by EntryPoint on 2016-12-21.
  */
-public class UpdateBukkicRunnable extends BukkitRunnable {
-    private int errorCount;
-    private int test = 0;
-
+public class UpdateBukkicRunnable extends ErrorableBukkitRunnable {
     @Override
     public synchronized void run() {
         try {
@@ -36,14 +32,7 @@ public class UpdateBukkicRunnable extends BukkitRunnable {
                 storage.setNewVer(newVer);
             }
         } catch (Exception ex) {
-            if (errorCount >= 4) {
-                Static.consoleMsg(
-                        Lang.PREFIX + Lang.EXCEPTION.toString("버전 확인 에러, 타이머를 종료합니다." + ex.getMessage()));
-                cancel();
-            } else {
-                errorCount = ++errorCount;
-                run();
-            }
+            task(ex, "버전 확인 에러, 타이머를 종료합니다.");
         }
     }
 }
