@@ -49,6 +49,9 @@ public class ClassProbe {
                 classSet.addAll(getClasses(loader, file.listFiles(), packageName));
             } else if (file.getName().endsWith(".class")) {
                 String periodPath = new BackslashToPeriodStringConvertor(file.toString()).convert();
+                System.out.println(file.toString());
+                System.out.println(periodPath);
+                System.out.println(packageName);
                 String parse = new ClassRemoveStringConvertor(periodPath.substring(periodPath.indexOf(packageName))).convert();
                 try {
                     classSet.add(loader.loadClass(parse));
