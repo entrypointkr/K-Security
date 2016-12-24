@@ -8,8 +8,8 @@ import java.io.File;
 /**
  * Created by EntryPoint on 2016-12-23.
  */
-public class LegacyPlayerFileConverter extends FileConverter {
-    public LegacyPlayerFileConverter(Object obj) {
+public class LegacyPlayerFileConvertor extends FileConverter {
+    public LegacyPlayerFileConvertor(Object obj) {
         super(obj);
     }
 

@@ -27,10 +27,10 @@ public class SpamStopforumChecker extends SpamChecker {
             URL url = URLs.STOPFORUM_API.toUrl(storage.getIp());
             String text = Static.readAllText(url);
             storage.setResult(new StopforumResultConvertor(text).convert());
-            storage.setType(Type.STOPFORUM);
         } catch (Exception ex) {
-            // Ignore
+            storage.setResult(Result.ERROR);
         }
+        storage.setType(Type.STOPFORUM);
         return true;
     }
 }

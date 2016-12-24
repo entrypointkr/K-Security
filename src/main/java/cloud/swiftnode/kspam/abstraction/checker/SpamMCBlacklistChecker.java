@@ -30,11 +30,10 @@ public class SpamMCBlacklistChecker extends SpamChecker {
             String url = URLs.MCBLACKLIST_API.toString(storage.getIp());
             String text = getJSONText(url);
             storage.setResult(new MCBlacklistResultConvertor(text).convert());
-            storage.setType(Type.MCBLACKLIST);
         } catch (Exception ex) {
-            // Ignore
+            storage.setResult(Result.ERROR);
         }
-
+        storage.setType(Type.MCBLACKLIST);
         return false;
     }
 

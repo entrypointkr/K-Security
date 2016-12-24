@@ -27,10 +27,10 @@ public class SpamShroomeryChecker extends SpamChecker {
             URL url = URLs.SHROOMERY_API.toUrl(storage.getIp());
             String text = Static.readAllText(url);
             storage.setResult(new ShroomeryResultConvertor(text).convert());
-            storage.setType(Type.SHROOMERY);
         } catch (Exception ex) {
-            // Ignore
+            storage.setResult(Result.ERROR);
         }
+        storage.setType(Type.SHROOMERY);
         return true;
     }
 }

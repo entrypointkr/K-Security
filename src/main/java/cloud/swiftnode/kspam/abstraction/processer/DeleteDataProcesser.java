@@ -2,9 +2,9 @@ package cloud.swiftnode.kspam.abstraction.processer;
 
 import cloud.swiftnode.kspam.abstraction.RunnableProcesser;
 import cloud.swiftnode.kspam.abstraction.convertor.EssnFileConverter;
-import cloud.swiftnode.kspam.abstraction.convertor.LegacyEssnFileConverter;
-import cloud.swiftnode.kspam.abstraction.convertor.LegacyPlayerFileConverter;
-import cloud.swiftnode.kspam.abstraction.convertor.PlayerFileConverter;
+import cloud.swiftnode.kspam.abstraction.convertor.LegacyEssnFileConvertor;
+import cloud.swiftnode.kspam.abstraction.convertor.LegacyPlayerFileConvertor;
+import cloud.swiftnode.kspam.abstraction.convertor.PlayerFileConvertor;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,8 +32,8 @@ public class DeleteDataProcesser extends RunnableProcesser {
         // Save player data
         p.saveData();
         // Delete player data
-        final File data = new PlayerFileConverter(p).convert();
-        final File legacyData = new LegacyPlayerFileConverter(p).convert();
+        final File data = new PlayerFileConvertor(p).convert();
+        final File legacyData = new LegacyPlayerFileConvertor(p).convert();
         Static.runTaskLaterAsync(new Runnable() {
             @Override
             public void run() {
@@ -45,7 +45,7 @@ public class DeleteDataProcesser extends RunnableProcesser {
         Plugin plugin = Bukkit.getPluginManager().getPlugin("Essentials");
         if (plugin != null && plugin.isEnabled()) {
             final File essnData = new EssnFileConverter(p, plugin).convert();
-            final File legacyEssnData = new LegacyEssnFileConverter(p, plugin).convert();
+            final File legacyEssnData = new LegacyEssnFileConvertor(p, plugin).convert();
             Static.runTaskLaterAsync(new Runnable() {
                 @Override
                 public void run() {

@@ -27,10 +27,10 @@ public class SpamBotscoutChecker extends SpamChecker {
             URL url = URLs.BOTSCOUT_API.toUrl(storage.getIp());
             String text = Static.readAllText(url);
             storage.setResult(new BotscoutResultConvertor(text).convert());
-            storage.setType(Type.BOTSCOUNT);
         } catch (Exception ex) {
-            // Ignore
+            storage.setResult(Result.ERROR);
         }
+        storage.setType(Type.BOTSCOUNT);
         return true;
     }
 }

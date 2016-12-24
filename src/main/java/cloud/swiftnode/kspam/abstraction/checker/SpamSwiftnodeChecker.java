@@ -27,10 +27,10 @@ public class SpamSwiftnodeChecker extends SpamChecker {
             URL url = URLs.COMMUNITY_API.toUrl(storage.getIp());
             String text = Static.readAllText(url);
             storage.setResult(new SwiftnodeResultConvertor(text).convert());
-            storage.setType(Type.SWIFTNODE);
         } catch (Exception ex) {
-            // Ignore
+            storage.setResult(Result.ERROR);
         }
+        storage.setType(Type.SWIFTNODE);
         return false;
     }
 }

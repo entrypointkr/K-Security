@@ -28,9 +28,7 @@ public class SpamStorage {
     }
 
     public void setResult(Result result) {
-        if (result != Result.ERROR) {
-            this.result = result;
-        }
+        this.result = result;
     }
 
     public String getIp() {

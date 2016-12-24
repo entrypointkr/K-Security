@@ -1,24 +1,23 @@
 package cloud.swiftnode.kspam.abstraction.convertor;
 
-import cloud.swiftnode.kspam.abstraction.PluginFileConverter;
+import cloud.swiftnode.kspam.abstraction.FileConverter;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
 /**
  * Created by EntryPoint on 2016-12-23.
  */
-public class LegacyEssnFileConverter extends PluginFileConverter {
-    public LegacyEssnFileConverter(Object obj, Plugin plugin) {
-        super(obj, plugin);
+public class PlayerFileConvertor extends FileConverter {
+    public PlayerFileConvertor(Object obj) {
+        super(obj);
     }
 
     @Override
     public File convert() {
         if (obj instanceof Player) {
             Player p = (Player) obj;
-            return new File(plugin.getDataFolder(), "userdata/" + p.getName() + ".yml");
+            return new File(p.getWorld().getWorldFolder(), "playerdata/" + p.getUniqueId() + ".dat");
         } else {
             throw new IllegalArgumentException("Received " + obj);
         }
