@@ -22,6 +22,7 @@ import java.util.Set;
 /**
  * Created by EntryPoint on 2016-12-24.
  */
+@SuppressWarnings("unchecked")
 public class ClassProbe {
     private static OS os = new OSConvertor(SystemUtils.OS_NAME).convert();
     private Set<Class> classSet = new HashSet<>();

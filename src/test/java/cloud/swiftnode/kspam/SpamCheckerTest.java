@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class SpamCheckerTest {
     @Test
+    @SuppressWarnings("unchecked")
     public void run() throws Exception {
         StaticStorage.setVersionStorage(new VersionStorage(new Version("-1"), new Version("-1")));
         ClassProbe probe = new ClassProbe(
