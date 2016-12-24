@@ -64,7 +64,7 @@ public class KSpam extends JavaPlugin {
         // Listener register
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         // Update check
-        new UpdateBukkicRunnable().runTaskTimerAsynchronously(this, 3600 * 20, 3600 * 20);
+        new UpdateBukkicRunnable().runTaskTimerAsynchronously(this, 20, 3600 * 20);
         // Check all player every hour
         if (getConfig().getBoolean("check-timer", true)) {
             Static.runTaskTimerAsync(new CheckAllProcesser(), 3600 * 20, 3600 * 20);
