@@ -14,6 +14,7 @@ import java.net.URL;
 /**
  * Created by EntryPoint on 2016-12-20.
  */
+@TestEscape
 public class SpamSwiftnodeChecker extends SpamChecker {
     public SpamSwiftnodeChecker(SpamStorage storage) {
         super(storage);
