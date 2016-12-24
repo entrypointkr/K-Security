@@ -12,6 +12,8 @@ import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Version;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+
 import static org.junit.Assert.assertNotEquals;
 
 /**
@@ -25,14 +27,25 @@ public class SpamCheckerTest {
         ClassProbe probe = new ClassProbe(
                 new ReflectionStorage(ClassProbe.class.getClassLoader(),
                         "cloud.swiftnode.kspam.abstraction"));
-        SpamStorage storage = new SpamStorage(Result.FALSE, "142.0.99.200");
+        SpamStorage noProxy = new SpamStorage(Result.FALSE, "142.0.99.200");
+        SpamStorage proxy = new SpamStorage(Result.FALSE, "64.179.145.174");
+        SpamStorage mcBlackList = new SpamStorage(Result.FALSE, "59.20.43.105");
         for (Class clazz : probe.getClassesWithAnnotation(Testable.class)) {
             if (SpamChecker.class.isAssignableFrom(clazz) && !SpamChecker.class.equals(clazz) && !clazz.isAnnotationPresent(TestEscape.class)) {
                 System.out.println(clazz.toString());
-                SpamChecker checker = (SpamChecker) clazz.getConstructor(SpamStorage.class).newInstance(storage);
+                Constructor constructor = clazz.getConstructor(SpamStorage.class);
+                SpamChecker checker = (SpamChecker) constructor.newInstance(noProxy);
                 checker.check();
-                System.out.println(storage.getResult());
-                assertNotEquals(storage.getResult(), Result.ERROR);
+                System.out.println(noProxy.getResult());
+                checker = (SpamChecker) constructor.newInstance(proxy);
+                checker.check();
+                System.out.println(proxy.getResult());
+                checker = (SpamChecker) constructor.newInstance(mcBlackList);
+                checker.check();
+                System.out.println(mcBlackList.getResult());
+                assertNotEquals(noProxy.getResult(), Result.ERROR);
+                assertNotEquals(proxy.getResult(), Result.ERROR);
+                assertNotEquals(mcBlackList.getResult(), Result.ERROR);
             }
         }
     }
