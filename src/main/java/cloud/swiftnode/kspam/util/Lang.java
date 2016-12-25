@@ -8,7 +8,7 @@ import java.text.MessageFormat;
  * Created by EntryPoint on 2016-12-17.
  */
 public enum Lang {
-    PREFIX("&c&l[ K-SPAM ] &f"),
+    PREFIX("&c&l[ K-SPAM ] &r"),
     INTRO("\n" +
             "#                                                                  \n" +
             "#  `7MMF' `YMM'      .M\"\"\"\"\"bgd `7MM\"\"\"Mq.   db      `7MMM.    ,MMF'\n" +

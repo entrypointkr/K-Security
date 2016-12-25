@@ -71,7 +71,7 @@ public class PlayerListener implements Listener {
         // TODO : 캐쉬에 닉네임과 UUID 타입 추가
         if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
             e.setJoinMessage(null);
-        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName())) {
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName().toLowerCase())) {
             e.setJoinMessage(null);
         }
 
@@ -94,7 +94,7 @@ public class PlayerListener implements Listener {
         // TODO : 캐쉬에 닉네임과 UUID 타입 추가
         if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
             e.setQuitMessage(null);
-        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName())) {
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName().toLowerCase())) {
             e.setQuitMessage(null);
         }
     }

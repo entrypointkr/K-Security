@@ -6,7 +6,6 @@ import cloud.swiftnode.kspam.storage.StaticStorage;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
 
@@ -49,7 +48,7 @@ public class PunishSpamProcesser extends PunishProcesser {
                         player.kickPlayer(Lang.PREFIX + "\n" + Lang.KICK);
                     }
                 });
-                Bukkit.broadcastMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName(), storage.getType()));
+                Static.sendOperators(Lang.KICKED.toString(player.getName(), storage.getType()));
             }
             new DeleteDataProcesser(player, disallowed).process();
             StaticStorage.getCachedIpSet().add(storage.getIp());
@@ -57,8 +56,7 @@ public class PunishSpamProcesser extends PunishProcesser {
             Set<String> playerList = StaticStorage.getPlayerSet();
             playerList.add(player.getName());
             if (StaticStorage.isErrorMessage()) {
-                Bukkit.getConsoleSender().sendMessage(
-                        Lang.PREFIX + Lang.ERROR.toString(playerList.toString()));
+                Static.consoleMsg(Lang.PREFIX + Lang.ERROR.toString(playerList.toString()));
             }
         } else if (result == Result.FALSE) {
             Static.removePlayerInStorage(player);

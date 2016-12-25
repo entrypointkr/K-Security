@@ -45,7 +45,7 @@ public class MCBlacklistProcesser extends RunnableProcesser {
         }
 
         if (blacklist) {
-            StaticStorage.getCachedMCBlacklistSet().add(player.getName());
+            StaticStorage.getCachedMCBlacklistSet().add(player.getName().toLowerCase());
 
             new DeleteDataProcesser(player, false).process();
         }
@@ -98,7 +98,9 @@ public class MCBlacklistProcesser extends RunnableProcesser {
                     }
                 });
 
-                Bukkit.broadcastMessage(Lang.PREFIX + Lang.KICKED.toString(player.getName(), Type.MCBLACKLIST));
+                if (!StaticStorage.getCachedMCBlacklistSet().contains(player.getName().toLowerCase())) {
+                    Static.sendOperators(Lang.KICKED.toString(player.getName(), Type.MCBLACKLIST));
+                }
                 return true;
             }
         } catch (Exception ex) {
