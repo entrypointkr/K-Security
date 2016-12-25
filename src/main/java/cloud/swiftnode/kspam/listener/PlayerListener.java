@@ -91,6 +91,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuitHighest(PlayerQuitEvent e) {
+        // TODO : 캐쉬에 닉네임과 UUID 타입 추가
         if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
             e.setQuitMessage(null);
         } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer())) {
