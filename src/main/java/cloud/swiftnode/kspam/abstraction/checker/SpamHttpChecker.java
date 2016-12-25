@@ -16,7 +16,6 @@ public class SpamHttpChecker extends SpamChecker {
     @Override
     public boolean check() {
         new SpamSwiftnodeChecker(storage).check();
-        new SpamMCBlacklistChecker(storage).check();
         new SpamStopforumChecker(storage).check();
         new SpamShroomeryChecker(storage).check();
         new SpamBotscoutChecker(storage).check();

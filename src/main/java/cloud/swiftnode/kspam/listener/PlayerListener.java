@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.checker.LocalIpChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
+import cloud.swiftnode.kspam.abstraction.processer.MCBlacklistProcesser;
 import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
 import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.storage.StaticStorage;
@@ -65,7 +66,15 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoin(final PlayerJoinEvent e) {
+        // Check MC-Blacklist API
+        Static.runTaskAsync(new Runnable() {
+            @Override
+            public void run() {
+                new MCBlacklistProcesser(e).process();
+            }
+        });
+
         Player p = e.getPlayer();
         if (!p.isOp()) {
             return;
@@ -77,6 +86,15 @@ public class PlayerListener implements Listener {
         if (storage.isOld()) {
             Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
                     Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onQuitHighest(PlayerQuitEvent e) {
+        if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
+            e.setQuitMessage(null);
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer())) {
+            e.setQuitMessage(null);
         }
     }
 
