@@ -2,7 +2,6 @@ package cloud.swiftnode.kspam.storage;
 
 import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.util.Version;
-import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +13,7 @@ public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
     private static Set<String> cachedIpSet;
-    private static Set<Player> cachedMCBlacklistSet;
+    private static Set<String> cachedMCBlacklistSet;
     private static boolean errorMessage = true;
     private static boolean forceMode = false;
 
@@ -47,7 +46,7 @@ public class StaticStorage {
         return cachedIpSet;
     }
 
-    public static Set<Player> getCachedMCBlacklistSet() {
+    public static Set<String> getCachedMCBlacklistSet() {
         if (cachedMCBlacklistSet == null) {
             cachedMCBlacklistSet = new HashSet<>();
         }
@@ -58,7 +57,7 @@ public class StaticStorage {
         StaticStorage.cachedIpSet = cachedIpSet;
     }
 
-    public static void setCachedMCBlacklistSet(Set<Player> cachedMCBlacklistSet) {
+    public static void setCachedMCBlacklistSet(Set<String> cachedMCBlacklistSet) {
         StaticStorage.cachedMCBlacklistSet = cachedMCBlacklistSet;
     }
 

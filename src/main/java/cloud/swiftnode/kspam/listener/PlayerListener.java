@@ -61,19 +61,19 @@ public class PlayerListener implements Listener {
             public void run() {
                 new SpamHttpChecker(storage).check();
                 new PunishSpamProcesser(storage, e.getPlayer()).process();
+                new MCBlacklistProcesser(e).process();
             }
         });
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(final PlayerJoinEvent e) {
-        // Check MC-Blacklist API
-        Static.runTaskAsync(new Runnable() {
-            @Override
-            public void run() {
-                new MCBlacklistProcesser(e).process();
-            }
-        });
+        // TODO : 캐쉬에 닉네임과 UUID 타입 추가
+        if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
+            e.setJoinMessage(null);
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName())) {
+            e.setJoinMessage(null);
+        }
 
         Player p = e.getPlayer();
         if (!p.isOp()) {
@@ -94,7 +94,7 @@ public class PlayerListener implements Listener {
         // TODO : 캐쉬에 닉네임과 UUID 타입 추가
         if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
             e.setQuitMessage(null);
-        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer())) {
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName())) {
             e.setQuitMessage(null);
         }
     }

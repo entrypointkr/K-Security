@@ -6,7 +6,7 @@ import cloud.swiftnode.kspam.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -16,9 +16,9 @@ import java.net.URLConnection;
  * Created by horyu on 2016-12-25.
  */
 public class MCBlacklistProcesser extends RunnableProcesser {
-    private PlayerJoinEvent event;
+    private PlayerLoginEvent event;
 
-    public MCBlacklistProcesser(PlayerJoinEvent event) {
+    public MCBlacklistProcesser(PlayerLoginEvent event) {
         this.event = event;
     }
 
@@ -28,7 +28,14 @@ public class MCBlacklistProcesser extends RunnableProcesser {
 
         Player player = event.getPlayer();
         if (Material.getMaterial("DOUBLE_PLANT") != null) {
-            if (checkWithType(player, player.getUniqueId().toString())) {
+            String uuid;
+            if (Bukkit.getOnlineMode()) {
+                uuid = player.getUniqueId().toString();
+            } else {
+                uuid = getUUIDFromNickname(player.getName());
+            }
+
+            if (uuid != null && checkWithType(player, uuid)) {
                 blacklist = true;
             }
         }
@@ -38,13 +45,26 @@ public class MCBlacklistProcesser extends RunnableProcesser {
         }
 
         if (blacklist) {
-            if (!StaticStorage.getCachedMCBlacklistSet().contains(player)) {
-                StaticStorage.getCachedMCBlacklistSet().add(player);
-            }
+            StaticStorage.getCachedMCBlacklistSet().add(player.getName());
 
             new DeleteDataProcesser(player, false).process();
-            event.setJoinMessage(null);
         }
+    }
+
+    private String getUUIDFromNickname(String nickname) {
+        String url = URLs.MOJANGUUID_API.toString(nickname, (System.currentTimeMillis() / 1000)+"");
+        String jsonText = getJSONText(url);
+        if (jsonText == null) {
+            Static.consoleMsg(Lang.PREFIX + Lang.EXCEPTION.toString("<MC-Blacklist API> Mojang API 에서 정보를 가져오는 중 오류가 발생하였습니다."));
+            return null;
+        }
+
+        if (!jsonText.contains("\"id\":")) {
+            return null;
+        }
+
+        String uuidWithNoDashes = Static.substring(jsonText, "\"id\":\"", "\"");
+        return String.format("%s-%s-%s-%s-%s", uuidWithNoDashes.substring(0,8), uuidWithNoDashes.substring(8,12), uuidWithNoDashes.substring(12,16), uuidWithNoDashes.substring(16,20), uuidWithNoDashes.substring(20, 32));
     }
 
     private boolean checkWithType(final Player player, String check) {
@@ -52,7 +72,7 @@ public class MCBlacklistProcesser extends RunnableProcesser {
             String url = URLs.MCBLACKLIST_API.toString(check);
             String jsonText = getJSONText(url);
             if (jsonText == null) {
-                Static.consoleMsg(Lang.PREFIX + Lang.EXCEPTION.toString("<MC-Blacklist API> JSON 문자열을 가져오는 중 오류가 발생하였습니다."));
+                Static.consoleMsg(Lang.PREFIX + Lang.EXCEPTION.toString("<MC-Blacklist API> 서버에서 정보를 가져오는 중 오류가 발생하였습니다."));
                 return false;
             }
 
@@ -109,7 +129,7 @@ public class MCBlacklistProcesser extends RunnableProcesser {
         return null;
     }
 
-    public String decodeUnicode(String unicode) throws Exception {
+    private String decodeUnicode(String unicode) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = unicode.indexOf("\\u"); i > -1; i = unicode.indexOf("\\u")) {
