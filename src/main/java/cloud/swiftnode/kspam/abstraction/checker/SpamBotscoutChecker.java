@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.checker;
 
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.abstraction.convertor.BotscoutResultConvertor;
+import cloud.swiftnode.kspam.reflection.TestEscape;
 import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.util.Result;
 import cloud.swiftnode.kspam.util.Static;
@@ -13,6 +14,7 @@ import java.net.URL;
 /**
  * Created by EntryPoint on 2016-12-22.
  */
+@TestEscape
 public class SpamBotscoutChecker extends SpamChecker {
     public SpamBotscoutChecker(SpamStorage storage) {
         super(storage);
