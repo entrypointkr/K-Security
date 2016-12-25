@@ -13,6 +13,7 @@ public class StaticStorage {
     private static Set<String> playerList;
     private static VersionStorage versionStorage;
     private static Set<String> cachedIpSet;
+    private static Set<String> cachedMCBlacklistSet;
     private static boolean errorMessage = true;
     private static boolean forceMode = false;
 
@@ -45,8 +46,19 @@ public class StaticStorage {
         return cachedIpSet;
     }
 
+    public static Set<String> getCachedMCBlacklistSet() {
+        if (cachedMCBlacklistSet == null) {
+            cachedMCBlacklistSet = new HashSet<>();
+        }
+        return cachedMCBlacklistSet;
+}
+
     public static void setCachedIpSet(Set<String> cachedIpSet) {
         StaticStorage.cachedIpSet = cachedIpSet;
+    }
+
+    public static void setCachedMCBlacklistSet(Set<String> cachedMCBlacklistSet) {
+        StaticStorage.cachedMCBlacklistSet = cachedMCBlacklistSet;
     }
 
     public static boolean isErrorMessage() {

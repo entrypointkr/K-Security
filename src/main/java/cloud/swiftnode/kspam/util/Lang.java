@@ -8,7 +8,7 @@ import java.text.MessageFormat;
  * Created by EntryPoint on 2016-12-17.
  */
 public enum Lang {
-    PREFIX("&c&l[ K-SPAM ] &f"),
+    PREFIX("&c&l[ K-SPAM ] &r"),
     INTRO("\n" +
             "#                                                                  \n" +
             "#  `7MMF' `YMM'      .M\"\"\"\"\"bgd `7MM\"\"\"Mq.   db      `7MMM.    ,MMF'\n" +
@@ -39,7 +39,7 @@ public enum Lang {
     REMOVE("&e{0} &f이(가) 캐시 목록에서 제거됩니다."),
     CACHE_COUNT("캐쉬된 데이터: &e{0} &f개"),
     ADD("&e{0} &f을 캐시 목록에 추가합니다."),
-    KICK("당신의 아이피는 K-SPAM 블랙리스트에 추가되어 있어 \n" +
+    KICK("당신은 K-SPAM 블랙리스트에 추가되어 있어 \n" +
             "본 서버에 접속하실 수 없습니다.");
     private final String msg;
 

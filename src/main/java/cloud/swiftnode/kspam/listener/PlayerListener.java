@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.checker.LocalIpChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamCacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SpamHttpChecker;
 import cloud.swiftnode.kspam.abstraction.convertor.IpStringConvertor;
+import cloud.swiftnode.kspam.abstraction.processer.MCBlacklistProcesser;
 import cloud.swiftnode.kspam.abstraction.processer.PunishSpamProcesser;
 import cloud.swiftnode.kspam.storage.SpamStorage;
 import cloud.swiftnode.kspam.storage.StaticStorage;
@@ -60,12 +61,20 @@ public class PlayerListener implements Listener {
             public void run() {
                 new SpamHttpChecker(storage).check();
                 new PunishSpamProcesser(storage, e.getPlayer()).process();
+                new MCBlacklistProcesser(e).process();
             }
         });
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoin(final PlayerJoinEvent e) {
+        // TODO : 캐쉬에 닉네임과 UUID 타입 추가
+        if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
+            e.setJoinMessage(null);
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName().toLowerCase())) {
+            e.setJoinMessage(null);
+        }
+
         Player p = e.getPlayer();
         if (!p.isOp()) {
             return;
@@ -77,6 +86,16 @@ public class PlayerListener implements Listener {
         if (storage.isOld()) {
             Static.msgLineLoop(p, Lang.PREFIX.toString() + Lang.NEW_VERSION + "\n" +
                     Lang.VERSION.toString(Lang.PREFIX, storage.getCurrVer().toString(), storage.getNewVer().toString()));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onQuitHighest(PlayerQuitEvent e) {
+        // TODO : 캐쉬에 닉네임과 UUID 타입 추가
+        if (StaticStorage.getCachedIpSet().contains(e.getPlayer().getAddress().getHostName())) {
+            e.setQuitMessage(null);
+        } else if (StaticStorage.getCachedMCBlacklistSet().contains(e.getPlayer().getName().toLowerCase())) {
+            e.setQuitMessage(null);
         }
     }
 

@@ -94,6 +94,15 @@ public class Static {
         return players;
     }
 
+    public static void sendOperators(String msg) {
+        Bukkit.getConsoleSender().sendMessage(Lang.PREFIX + msg);
+        for (Player operator : getOnlinePlayers()) {
+            if (operator.isOp()) {
+                operator.sendMessage(Lang.PREFIX + msg);
+            }
+        }
+    }
+
     public static String substring(String str, String a, String b) {
         String temp = str.substring(str.indexOf(a) + a.length());
         return temp.substring(0, temp.indexOf(b));
