@@ -1,8 +1,11 @@
 package cloud.swiftnode.kspam.listener;
 
+import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableWrapper;
+import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,8 +17,21 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(final PlayerLoginEvent e) {
-        SpamProcessor processor = new SpamProcessor(new DeniableWrapper(e), new SwiftnodeChecker());
-        processor.process();
+        if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
+            return;
+        }
+        Tracer tracer = new Tracer();
+        Deniable deniable = new DeniableWrapper(e);
+        SpamProcessor sync = new SpamProcessor(deniable, tracer);
+        if (!sync.process()) {
+            final SpamProcessor async = new SpamProcessor(new DeniableWrapper(e), tracer, new SwiftnodeChecker());
+            Static.runTaskAsync(new Runnable() {
+                @Override
+                public void run() {
+                    async.process();
+                }
+            });
+        }
     }
 
 //    @EventHandler(priority = EventPriority.LOWEST)
@@ -26,18 +42,18 @@ public class PlayerListener implements Listener {
 //    @EventHandler(priority = EventPriority.LOWEST)
 //    public void onLogin(final PlayerLoginEvent e) {
 //        // Only ALLOWED
-//        if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
+//        if (e.getResult() != PlayerLoginEvent.Tracer.ALLOWED) {
 //            return;
 //        }
 //        // Storage
-//        final SpamStorage storage = new SpamStorage(Result.ERROR, e.getAddress());
+//        final SpamStorage storage = new SpamStorage(Tracer.ERROR, e.getAddress());
 //        // Local IP Check
 //        if (new LocalIpChecker(storage.getIp()).check()) {
 //            return;
 //        }
 //        // ForceMode
 //        if (StaticStorage.isForceMode() && !e.getPlayer().hasPlayedBefore()) {
-//            storage.setResult(Result.TRUE);
+//            storage.setResult(Tracer.TRUE);
 //            storage.setType(Type.FORCE);
 //            new PunishSpamProcesser(storage, e).process();
 //            return;

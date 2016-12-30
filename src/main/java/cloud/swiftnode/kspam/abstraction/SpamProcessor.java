@@ -1,5 +1,7 @@
 package cloud.swiftnode.kspam.abstraction;
 
+import cloud.swiftnode.kspam.util.Tracer;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,20 +10,25 @@ import java.util.Set;
  * Created by EntryPoint on 2016-12-30.
  */
 public class SpamProcessor implements Processor {
-    protected Deniable deniable;
-    protected Set<Checkable> checkableList;
+    private Deniable deniable;
+    private Tracer tracer;
+    private Set<Checkable> checkableList;
 
-    public SpamProcessor(Deniable deniable, Checkable... checkable) {
+    public SpamProcessor(Deniable deniable, Tracer tracer, Checkable... checkable) {
         this.deniable = deniable;
+        this.tracer = tracer;
         this.checkableList = new HashSet<>(Arrays.asList(checkable));
     }
 
-    public void process() {
+    public boolean process() {
         for (Checkable checkable : checkableList) {
-            if (checkable.check()) {
+            tracer.setLastChecker(checkable);
+            tracer.setResult(checkable.check());
+            if (tracer.getResult() == Tracer.Result.DENY) {
                 deniable.deny();
-                return;
+                return true;
             }
         }
+        return false;
     }
 }
