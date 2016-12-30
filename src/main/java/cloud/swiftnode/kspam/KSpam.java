@@ -9,13 +9,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class KSpam extends JavaPlugin {
     private static KSpam INSTANCE;
+
+    public static KSpam getInst() {
+        return INSTANCE;
+    }
+
     @Override
     public void onEnable() {
         INSTANCE = this;
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
-    }
-
-    public static KSpam getInst() {
-        return INSTANCE;
     }
 }

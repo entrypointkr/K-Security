@@ -32,4 +32,8 @@ public class DeniableWrapper implements Deniable {
             throw new IllegalArgumentException("Unexpected argument " + object.getClass().getName());
         }
     }
+
+    public Object getObject() {
+        return object;
+    }
 }

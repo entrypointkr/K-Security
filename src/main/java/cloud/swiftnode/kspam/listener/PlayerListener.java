@@ -2,8 +2,9 @@ package cloud.swiftnode.kspam.listener;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
-import cloud.swiftnode.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableWrapper;
+import cloud.swiftnode.kspam.abstraction.processor.AsynchronizeSpamProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.event.EventHandler;
@@ -22,9 +23,9 @@ public class PlayerListener implements Listener {
         }
         Tracer tracer = new Tracer();
         Deniable deniable = new DeniableWrapper(e);
-        SpamProcessor sync = new SpamProcessor(deniable, tracer);
+        SpamProcessor sync = new SynchronizeSpamProcessor(deniable, tracer);
         if (!sync.process()) {
-            final SpamProcessor async = new SpamProcessor(new DeniableWrapper(e), tracer, new SwiftnodeChecker());
+            final SpamProcessor async = new AsynchronizeSpamProcessor(new DeniableWrapper(e), tracer);
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {

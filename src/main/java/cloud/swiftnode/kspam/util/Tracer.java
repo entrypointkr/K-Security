@@ -1,13 +1,13 @@
 package cloud.swiftnode.kspam.util;
 
-import cloud.swiftnode.kspam.abstraction.Checkable;
+import cloud.swiftnode.kspam.abstraction.Checker;
 
 /**
  * Created by EntryPoint on 2016-12-30.
  */
 public class Tracer {
     private Result result;
-    private Checkable lastChecker;
+    private Checker lastChecker;
 
     public Result getResult() {
         return result;
@@ -17,11 +17,11 @@ public class Tracer {
         this.result = result;
     }
 
-    public Checkable getLastChecker() {
+    public Checker getLastChecker() {
         return lastChecker;
     }
 
-    public void setLastChecker(Checkable lastChecker) {
+    public void setLastChecker(Checker lastChecker) {
         this.lastChecker = lastChecker;
     }
 

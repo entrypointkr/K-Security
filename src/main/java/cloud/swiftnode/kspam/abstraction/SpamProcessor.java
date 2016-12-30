@@ -9,21 +9,26 @@ import java.util.Set;
 /**
  * Created by EntryPoint on 2016-12-30.
  */
-public class SpamProcessor implements Processor {
+public abstract class SpamProcessor implements Processor {
     private Deniable deniable;
     private Tracer tracer;
-    private Set<Checkable> checkableList;
+    private Set<Checker> checkerList;
 
-    public SpamProcessor(Deniable deniable, Tracer tracer, Checkable... checkable) {
+    public SpamProcessor(Deniable deniable, Tracer tracer, Checker... checker) {
         this.deniable = deniable;
         this.tracer = tracer;
-        this.checkableList = new HashSet<>(Arrays.asList(checkable));
+        this.checkerList = new HashSet<>();
+        addChecker(checker);
+    }
+
+    public void addChecker(Checker... checker) {
+        this.checkerList.addAll(Arrays.asList(checker));
     }
 
     public boolean process() {
-        for (Checkable checkable : checkableList) {
-            tracer.setLastChecker(checkable);
-            tracer.setResult(checkable.check());
+        for (Checker checker : checkerList) {
+            tracer.setLastChecker(checker);
+            tracer.setResult(checker.check());
             if (tracer.getResult() == Tracer.Result.DENY) {
                 deniable.deny();
                 return true;
