@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.abstraction.deniable;
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 /**
@@ -12,7 +13,7 @@ public class DeniableAdapter implements Deniable {
     private Object object;
 
     public DeniableAdapter(Object object) {
-        if (!(object instanceof org.bukkit.event.Cancellable) &&
+        if (!(object instanceof Event) &&
                 !(object instanceof Player)) {
             throw new IllegalArgumentException("Unexpected argument " + object.getClass().getName());
         }
