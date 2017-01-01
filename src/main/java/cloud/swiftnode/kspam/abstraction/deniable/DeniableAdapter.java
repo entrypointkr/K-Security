@@ -8,10 +8,10 @@ import org.bukkit.event.player.PlayerLoginEvent;
 /**
  * Created by EntryPoint on 2016-12-30.
  */
-public class DeniableWrapper implements Deniable {
+public class DeniableAdapter implements Deniable {
     private Object object;
 
-    public DeniableWrapper(Object object) {
+    public DeniableAdapter(Object object) {
         if (!(object instanceof org.bukkit.event.Cancellable) &&
                 !(object instanceof Player)) {
             throw new IllegalArgumentException("Unexpected argument " + object.getClass().getName());
