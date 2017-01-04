@@ -8,9 +8,14 @@ import cloud.swiftnode.kspam.util.Tracer;
 /**
  * Created by EntryPoint on 2016-12-30.
  */
-public class AsynchronizeSpamProcessor extends SpamProcessor {
-    public AsynchronizeSpamProcessor(DeniableInfoAdapter adapter, Tracer tracer) {
+public class AsynchronousSpamProcessor extends SpamProcessor {
+    public AsynchronousSpamProcessor(DeniableInfoAdapter adapter, Tracer tracer) {
         super(adapter, tracer);
-        super.addChecker(new SwiftnodeChecker(adapter));
+        super.addChecker(SwiftnodeChecker.class);
+    }
+
+    @Override
+    public String name() {
+        return "AsynchronousProcessor";
     }
 }

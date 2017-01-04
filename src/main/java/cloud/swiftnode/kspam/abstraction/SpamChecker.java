@@ -11,4 +11,9 @@ public abstract class SpamChecker implements Checker {
     public SpamChecker(DeniableInfoAdapter adapter) {
         this.adapter = adapter;
     }
+
+    @Override
+    public String name() {
+        return "SpamChecker";
+    }
 }

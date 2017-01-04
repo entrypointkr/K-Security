@@ -15,14 +15,19 @@ public class CacheChecker extends SpamChecker {
 
     @Override
     public Tracer.Result check() {
-        String[] infos = new String[]{
-                adapter.getIp(), adapter.getName(), adapter.getUUID().toString()
+        String[] infoArr = new String[]{
+                adapter.getIp(), adapter.getName(), adapter.getUniqueId().toString()
         };
-        for (String info : infos) {
+        for (String info : infoArr) {
             if (StaticStorage.cachedSet.contains(info)) {
                 return Tracer.Result.DENY;
             }
         }
         return Tracer.Result.PASS;
+    }
+
+    @Override
+    public String name() {
+        return "CacheChecker";
     }
 }

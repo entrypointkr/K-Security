@@ -5,4 +5,6 @@ package cloud.swiftnode.kspam.abstraction;
  */
 public interface Processor {
     boolean process();
+
+    String name();
 }

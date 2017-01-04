@@ -41,16 +41,18 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public String getIp() {
+        if (obj instanceof PlayerLoginEvent) {
+            return parseIp(((PlayerLoginEvent) obj).getAddress().toString());
+        }
         Player p = getPlayer();
         if (p != null) {
-            String ip = p.getAddress().getAddress().toString();
-            return ip.substring(ip.indexOf("/") + 1);
+            return parseIp(p.getAddress().getAddress().toString());
         }
         return null;
     }
 
     @Override
-    public UUID getUUID() throws RuntimeException {
+    public UUID getUniqueId() throws RuntimeException {
         UUID uuid = null;
         Player p = getPlayer();
         if (p != null) {
@@ -79,7 +81,15 @@ public class DeniableInfoAdapter implements Deniable, Info {
         }
     }
 
+    private String parseIp(String ip) {
+        return ip.substring(ip.indexOf("/") + 1);
+    }
+
     public Object getObj() {
         return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
     }
 }

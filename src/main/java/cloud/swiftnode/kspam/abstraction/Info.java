@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface Info {
     String getIp();
 
-    UUID getUUID();
+    UUID getUniqueId();
 
     String getName();
 }

@@ -1,8 +1,8 @@
 package cloud.swiftnode.kspam.listener;
 
-import cloud.swiftnode.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.kspam.abstraction.processor.AsynchronizeSpamProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.Tracer;
@@ -21,13 +21,14 @@ public class PlayerListener implements Listener {
             return;
         }
         final Tracer tracer = new Tracer();
-        DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
-        SpamProcessor sync = new SynchronizeSpamProcessor(adapter, tracer);
+        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
+        Processor sync = new SynchronizeSpamProcessor(adapter, tracer);
         if (!sync.process()) {
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {
-                    SpamProcessor async = new AsynchronizeSpamProcessor(new DeniableInfoAdapter(e), tracer);
+                    adapter.setObj(e.getPlayer());
+                    Processor async = new AsynchronousSpamProcessor(adapter, tracer);
                     async.process();
                 }
             });
