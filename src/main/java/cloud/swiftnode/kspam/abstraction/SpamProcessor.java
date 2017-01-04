@@ -27,11 +27,15 @@ public abstract class SpamProcessor implements Processor {
 
     public boolean process() {
         for (Checker checker : checkerList) {
-            tracer.setLastChecker(checker);
-            tracer.setResult(checker.check());
-            if (tracer.getResult() == Tracer.Result.DENY) {
-                deniable.deny();
-                return true;
+            try {
+                tracer.setLastChecker(checker);
+                tracer.setResult(checker.check());
+                if (tracer.getResult() == Tracer.Result.DENY) {
+                    deniable.deny();
+                    return true;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
         return false;
