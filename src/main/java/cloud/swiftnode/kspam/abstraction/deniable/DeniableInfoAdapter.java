@@ -34,7 +34,7 @@ public class DeniableInfoAdapter implements Deniable, Info {
         if (obj instanceof Cancellable) {
             ((Cancellable) obj).setCancelled(true);
         } else if (obj instanceof PlayerLoginEvent) {
-            ((PlayerLoginEvent) obj).disallow(PlayerLoginEvent.Result.KICK_OTHER, kickMsg);
+            ((PlayerLoginEvent) obj).disallow(PlayerLoginEvent.Result.KICK_BANNED, kickMsg);
         } else if (obj instanceof Player) {
             Static.runTask(new Runnable() {
                 @Override
