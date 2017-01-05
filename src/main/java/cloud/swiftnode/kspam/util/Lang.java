@@ -14,7 +14,7 @@ public enum Lang {
     DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),
     DENY("&c[ K-SPAM ]\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
-    CACHE_COUNT("캐쉬된 데이터: " + Key.CACHE_COUNT + " &f개"),
+    CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     ;
     private final String msg;
 
