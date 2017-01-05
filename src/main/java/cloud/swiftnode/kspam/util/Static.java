@@ -48,6 +48,7 @@ public class Static {
     public static String readAllText(URL url, String userContentOption) throws IOException {
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent", userContentOption);
+        connection.setConnectTimeout(3000);
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String all = null;
         String line;

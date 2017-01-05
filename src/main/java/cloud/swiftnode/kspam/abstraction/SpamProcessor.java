@@ -30,7 +30,6 @@ public abstract class SpamProcessor implements Processor {
         for (Class<? extends SpamChecker> cls : classes) {
             try {
                 SpamChecker checker = cls.getConstructor(DeniableInfoAdapter.class).newInstance(deniable);
-                System.out.println(cls.toString());
                 checkerList.add(checker);
             } catch (Exception ex) {
                 throw new IllegalArgumentException(cls.getName() + " is not valid spam checker.");

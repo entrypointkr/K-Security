@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.deniable;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.Info;
+import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -27,13 +28,18 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public void deny() {
-        String kickMsg = "You have been blocked by K-SPAM.";
+        final String kickMsg = "You have been blocked by K-SPAM.";
         if (obj instanceof Cancellable) {
             ((Cancellable) obj).setCancelled(true);
         } else if (obj instanceof PlayerLoginEvent) {
             ((PlayerLoginEvent) obj).disallow(PlayerLoginEvent.Result.KICK_OTHER, kickMsg);
         } else if (obj instanceof Player) {
-            ((Player) obj).kickPlayer(kickMsg);
+            Static.runTask(new Runnable() {
+                @Override
+                public void run() {
+                    ((Player) obj).kickPlayer(kickMsg);
+                }
+            });
         } else {
             throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
         }
