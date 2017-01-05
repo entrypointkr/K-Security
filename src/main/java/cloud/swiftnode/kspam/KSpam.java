@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -32,6 +33,11 @@ public class KSpam extends JavaPlugin {
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
 
+    @Override
+    public void onDisable() {
+        cacheSave();
+    }
+
     @SuppressWarnings("unchecked")
     private void cacheInit() {
         if (!getDataFolder().isDirectory()) {
@@ -50,6 +56,16 @@ public class KSpam extends JavaPlugin {
             StaticStorage.cachedSet = (Set<String>) inStream.readObject();
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
                     .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void cacheSave() {
+        try {
+            File file = new File(getDataFolder(), "K-Spam.cache");
+            ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
+            outStream.writeObject(StaticStorage.cachedSet);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
