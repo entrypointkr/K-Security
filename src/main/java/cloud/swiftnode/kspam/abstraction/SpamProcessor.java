@@ -6,6 +6,7 @@ import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.Tracer;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public abstract class SpamProcessor implements Processor {
     public SpamProcessor(Deniable deniable, Tracer tracer, Class<? extends SpamChecker>... checker) {
         this.deniable = deniable;
         this.tracer = tracer;
-        this.checkerList = new HashSet<>();
+        this.checkerList = new LinkedHashSet<>();
         addChecker(checker);
     }
 
@@ -29,6 +30,7 @@ public abstract class SpamProcessor implements Processor {
         for (Class<? extends SpamChecker> cls : classes) {
             try {
                 SpamChecker checker = cls.getConstructor(DeniableInfoAdapter.class).newInstance(deniable);
+                System.out.println(cls.toString());
                 checkerList.add(checker);
             } catch (Exception ex) {
                 throw new IllegalArgumentException(cls.getName() + " is not valid spam checker.");
@@ -44,6 +46,7 @@ public abstract class SpamProcessor implements Processor {
                 tracer.setResult(checker.check());
             } catch (Exception ex) {
                 tracer.setResult(Tracer.Result.ERROR);
+                ex.printStackTrace();
             }
             if (true) {
                 Static.consoleMsg(Lang.DEBUG.builder()

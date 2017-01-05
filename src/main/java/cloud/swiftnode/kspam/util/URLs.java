@@ -31,7 +31,7 @@ public enum URLs {
     }
 
     public URL toUrl(Object... value) throws MalformedURLException {
-        String addr = MessageFormat.format(COMMUNITY_API.toString(), value);
+        String addr = MessageFormat.format(this.addr, value);
         return new URL(addr);
     }
 }

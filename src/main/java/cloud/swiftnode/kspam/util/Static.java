@@ -65,4 +65,9 @@ public class Static {
     public static String readAllText(URL url) throws IOException {
         return readAllText(url, "K-SPAM");
     }
+
+    public static String substring(String target, String a, String b) {
+        String parse = target.substring(target.indexOf(a) + a.length());
+        return parse.substring(0, parse.indexOf(b));
+    }
 }
