@@ -45,8 +45,6 @@ public class DeniableInfoAdapter implements Deniable, Info {
         } else {
             throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
         }
-        StaticStorage.cachedSet.add(lastInfo);
-        lastInfo = null;
     }
 
     @Override
@@ -91,6 +89,11 @@ public class DeniableInfoAdapter implements Deniable, Info {
         } else {
             return null;
         }
+    }
+
+    public void caching() {
+        StaticStorage.cachedSet.add(lastInfo);
+        lastInfo = null;
     }
 
     private String parseIp(String ip) {

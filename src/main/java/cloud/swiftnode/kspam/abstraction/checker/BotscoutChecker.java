@@ -21,6 +21,7 @@ public class BotscoutChecker extends SpamChecker {
         URL url = URLs.BOTSCOUT_API.toUrl(adapter.getIp());
         String contents = Static.readAllText(url);
         if (contents.contains("Y|")) {
+            adapter.caching();
             return Tracer.Result.DENY;
         } else if (contents.contains("N|")) {
             return Tracer.Result.PASS;

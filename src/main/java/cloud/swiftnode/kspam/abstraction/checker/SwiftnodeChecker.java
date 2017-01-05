@@ -21,6 +21,7 @@ public class SwiftnodeChecker extends SpamChecker {
         URL url = URLs.COMMUNITY_API.toUrl(adapter.getIp());
         String text = Static.readAllText(url);
         if (text.contains("true")) {
+            adapter.caching();
             return Tracer.Result.DENY;
         } else if (text.contains("false")) {
             return Tracer.Result.PASS;

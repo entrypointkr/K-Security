@@ -23,6 +23,7 @@ public class StopforumChecker extends SpamChecker {
         if (contents.contains("<appears>")) {
             String appears = Static.substring(contents, "<appears>", "</appears>");
             if (appears.contains("yes")) {
+                adapter.caching();
                 return Tracer.Result.DENY;
             } else if (appears.contains("no")) {
                 return Tracer.Result.PASS;
