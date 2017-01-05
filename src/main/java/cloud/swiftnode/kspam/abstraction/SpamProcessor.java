@@ -47,8 +47,8 @@ public abstract class SpamProcessor implements Processor {
             }
             if (true) {
                 Static.consoleMsg(Lang.DEBUG.builder()
-                        .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME)
-                        .addVal(this.name(), checker.name())
+                        .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT)
+                        .addVal(this.name(), checker.name(), tracer.getResult().toString())
                         .build());
             }
             if (tracer.getResult() == Tracer.Result.FORCE_PASS) {

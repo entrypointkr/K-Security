@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by EntryPoint on 2016-12-30.
@@ -44,9 +45,10 @@ public class Static {
         return ChatColor.translateAlternateColorCodes('&', str);
     }
 
-    public static String readAllText(URL url) throws IOException {
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(url.openStream()));
+    public static String readAllText(URL url, String userContentOption) throws IOException {
+        URLConnection connection = url.openConnection();
+        connection.setRequestProperty("User-Agent", userContentOption);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String all = null;
         String line;
         while ((line = reader.readLine()) != null) {
@@ -58,5 +60,9 @@ public class Static {
         }
         reader.close();
         return all;
+    }
+
+    public static String readAllText(URL url) throws IOException {
+        return readAllText(url, "K-SPAM");
     }
 }

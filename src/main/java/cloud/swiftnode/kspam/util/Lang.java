@@ -9,7 +9,7 @@ import java.util.List;
  */
 public enum Lang {
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
-    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME),;
+    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),;
     private final String msg;
 
     Lang(String msg) {
@@ -27,7 +27,9 @@ public enum Lang {
 
     public enum Key {
         CHECKER_NAME("checker-name"),
-        PROCESSOR_NAME("processor-name"),;
+        PROCESSOR_NAME("processor-name"),
+        CHECKER_RESULT("checker-result")
+        ;
         private final String key;
 
         Key(String key) {
