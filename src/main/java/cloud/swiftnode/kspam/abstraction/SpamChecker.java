@@ -1,21 +1,14 @@
 package cloud.swiftnode.kspam.abstraction;
 
-import cloud.swiftnode.kspam.reflection.Testable;
-import cloud.swiftnode.kspam.storage.SpamStorage;
+import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
 /**
- * Created by EntryPoint on 2016-12-20.
+ * Created by EntryPoint on 2017-01-04.
  */
-@Testable(SpamChecker.class)
-public abstract class SpamChecker extends RunnableChecker {
-    protected SpamStorage storage;
+public abstract class SpamChecker implements Checker {
+    protected DeniableInfoAdapter adapter;
 
-    public SpamChecker(SpamStorage storage) {
-        this.storage = storage;
-    }
-
-    @Override
-    public void run() {
-        this.check();
+    public SpamChecker(DeniableInfoAdapter adapter) {
+        this.adapter = adapter;
     }
 }
