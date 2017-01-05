@@ -29,7 +29,7 @@ public class KSpam extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         cacheInit();
         Static.consoleMsg(Lang.INTRO.builder()
-            .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
+                .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
 
     @SuppressWarnings("unchecked")

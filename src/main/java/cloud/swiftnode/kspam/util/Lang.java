@@ -29,7 +29,8 @@ public enum Lang {
             " &c[K-SPAM Community Edition] &fv" + Key.KSPAM_VERSION + "\n\n" +
             " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
             " &fK-SPAM DB Powered By &eSwiftnode\n" +
-            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),;
+            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
+    MOTD("&c당신은 K-SPAM 에 의해 차단되었습니다."),;
     private final String msg;
 
     Lang(String msg) {
@@ -55,8 +56,7 @@ public enum Lang {
         CHECKER_RESULT("checker-result"),
         CACHE_COUNT("cache-count"),
         KSPAM_VERSION("kspam-version"),
-        TIME("time"),
-        ;
+        TIME("time"),;
         private final String key;
 
         Key(String key) {

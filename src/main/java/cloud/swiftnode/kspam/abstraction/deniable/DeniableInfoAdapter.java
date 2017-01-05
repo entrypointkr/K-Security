@@ -11,6 +11,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 import java.util.UUID;
 
@@ -32,10 +33,12 @@ public class DeniableInfoAdapter implements Deniable, Info {
     @Override
     public void deny() {
         final String kickMsg = Lang.DENY.toString();
-        if (obj instanceof Cancellable) {
-            ((Cancellable) obj).setCancelled(true);
+        if (obj instanceof ServerListPingEvent) {
+            ((ServerListPingEvent) obj).setMotd(Lang.MOTD.toString());
         } else if (obj instanceof PlayerLoginEvent) {
             ((PlayerLoginEvent) obj).disallow(PlayerLoginEvent.Result.KICK_BANNED, kickMsg);
+        } else if (obj instanceof Cancellable) {
+            ((Cancellable) obj).setCancelled(true);
         } else if (obj instanceof Player) {
             Static.runTask(new Runnable() {
                 @Override

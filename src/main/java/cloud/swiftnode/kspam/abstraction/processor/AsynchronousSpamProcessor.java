@@ -6,14 +6,13 @@ import cloud.swiftnode.kspam.abstraction.checker.ShroomeryChecker;
 import cloud.swiftnode.kspam.abstraction.checker.StopforumChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.kspam.util.Tracer;
 
 /**
  * Created by EntryPoint on 2016-12-30.
  */
 public class AsynchronousSpamProcessor extends SpamProcessor {
-    public AsynchronousSpamProcessor(DeniableInfoAdapter adapter, Tracer tracer) {
-        super(adapter, tracer);
+    public AsynchronousSpamProcessor(DeniableInfoAdapter adapter) {
+        super(adapter);
         super.addChecker(SwiftnodeChecker.class,
                 StopforumChecker.class,
                 ShroomeryChecker.class,

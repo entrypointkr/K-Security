@@ -5,11 +5,11 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
 import cloud.swiftnode.kspam.util.Static;
-import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 /**
  * Created by EntryPoint on 2016-12-17.
@@ -20,18 +20,23 @@ public class PlayerListener implements Listener {
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
-        final Tracer tracer = new Tracer();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
-        Processor sync = new SynchronizeSpamProcessor(adapter, tracer);
+        Processor sync = new SynchronizeSpamProcessor(adapter);
         if (!sync.process()) {
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {
                     adapter.setObj(e.getPlayer());
-                    Processor async = new AsynchronousSpamProcessor(adapter, tracer);
+                    Processor async = new AsynchronousSpamProcessor(adapter);
                     async.process();
                 }
             });
         }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPing(ServerListPingEvent e) {
+        DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
+        new SynchronizeSpamProcessor(adapter).process();
     }
 }

@@ -1,7 +1,6 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
