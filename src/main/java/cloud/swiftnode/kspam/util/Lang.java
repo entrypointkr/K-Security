@@ -12,11 +12,24 @@ import java.util.List;
 public enum Lang {
     PREFIX("&c&l[ K-SPAM ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
-    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),
+    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT + " 소요 시간 " + Key.TIME),
     DENY("&c[ K-SPAM ]\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
-    ;
+    INTRO("\n" +
+            "\n" +
+            " `7MMF' `YMM'      .M\"\"\"bgd `7MM\"\"\"Mq.   db      `7MMM.     ,MMF'\n" +
+            "   MM   .M'       ,MI    \"Y   MM   `MM. ;MM:       MMMb    dPMM  \n" +
+            "   MM .d\"         `MMb.       MM   ,M9 ,V^MM.      M YM   ,M MM  \n" +
+            "   MMMMM.           `YMMNq.   MMmmdM9 ,M  `MM      M  Mb  M' MM  \n" +
+            "   MM  VMA        .     `MM   MM      AbmmmqMA     M  YM.P'  MM  \n" +
+            "   MM   `MM.      Mb     dM   MM     A'     VML    M  `YM'   MM  \n" +
+            " .JMML.   MMb.    P\"Ybmmd\"  .JMML. .AMA.   .AMMA..JML. `'  .JMML." +
+            "                                                                  \n" +
+            " &c[K-SPAM Community Edition] &fv" + Key.KSPAM_VERSION + "\n\n" +
+            " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
+            " &fK-SPAM DB Powered By &eSwiftnode\n" +
+            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),;
     private final String msg;
 
     Lang(String msg) {
@@ -40,7 +53,9 @@ public enum Lang {
         CHECKER_NAME("checker-name"),
         PROCESSOR_NAME("processor-name"),
         CHECKER_RESULT("checker-result"),
-        CACHE_COUNT("cache-count")
+        CACHE_COUNT("cache-count"),
+        KSPAM_VERSION("kspam-version"),
+        TIME("time"),
         ;
         private final String key;
 

@@ -39,6 +39,7 @@ public abstract class SpamProcessor implements Processor {
 
     public boolean process() {
         for (Checker checker : checkerList) {
+            long time = System.currentTimeMillis();
             tracer.setLastChecker(checker);
             tracer.setLastProcessor(this);
             try {
@@ -46,12 +47,6 @@ public abstract class SpamProcessor implements Processor {
             } catch (Exception ex) {
                 tracer.setResult(Tracer.Result.ERROR);
                 ex.printStackTrace();
-            }
-            if (true) {
-                Static.consoleMsg(Lang.DEBUG.builder()
-                        .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT)
-                        .addVal(this.name(), checker.name(), tracer.getResult().toString())
-                        .build());
             }
             if (tracer.getResult() == Tracer.Result.FORCE_PASS) {
                 return true;
@@ -62,6 +57,12 @@ public abstract class SpamProcessor implements Processor {
                 Static.consoleMsg(Lang.ERROR.builder()
                         .single(Lang.Key.CHECKER_NAME, checker.name())
                         .build());
+            }
+            // TODO: Debug option
+            if (true) {
+                Static.consoleMsg(Lang.DEBUG.builder()
+                        .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
+                        .addVal(this.name(), checker.name(), tracer.getResult(), System.currentTimeMillis() - time));
             }
         }
         return false;

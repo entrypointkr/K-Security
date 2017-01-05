@@ -41,6 +41,10 @@ public class Static {
         Bukkit.getConsoleSender().sendMessage(msg);
     }
 
+    public static void consoleMsg(Lang.MessageBuilder builder) {
+        consoleMsg(builder.build());
+    }
+
     public static String readAllText(URL url, String userContentOption) throws IOException {
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent", userContentOption);
@@ -66,5 +70,9 @@ public class Static {
     public static String substring(String target, String a, String b) {
         String parse = target.substring(target.indexOf(a) + a.length());
         return parse.substring(0, parse.indexOf(b));
+    }
+
+    public static String getVersion() {
+        return KSpam.INSTANCE.getDescription().getVersion();
     }
 }

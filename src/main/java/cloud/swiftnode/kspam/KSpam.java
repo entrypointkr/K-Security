@@ -28,6 +28,8 @@ public class KSpam extends JavaPlugin {
         INSTANCE = this;
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         cacheInit();
+        Static.consoleMsg(Lang.INTRO.builder()
+            .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +49,7 @@ public class KSpam extends JavaPlugin {
             ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
             StaticStorage.cachedSet = (Set<String>) inStream.readObject();
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
-                    .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()).build());
+                    .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
