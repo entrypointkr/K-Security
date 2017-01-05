@@ -16,7 +16,7 @@ public class CacheChecker extends SpamChecker {
     @Override
     public Tracer.Result check() throws Exception {
         String[] infoArr = new String[]{
-                adapter.getIp(), adapter.getName(), adapter.getUniqueId().toString()
+                adapter.getIp(), adapter.getName(), adapter.getUniqueId()
         };
         for (String info : infoArr) {
             if (StaticStorage.cachedSet.contains(info)) {

@@ -53,8 +53,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public String getIp() {
-        if (obj instanceof PlayerLoginEvent) {
-
+        if (obj instanceof ServerListPingEvent) {
+            return lastInfo = parseIp(((ServerListPingEvent) obj).getAddress().toString());
+        } else if (obj instanceof PlayerLoginEvent) {
             return lastInfo = parseIp(((PlayerLoginEvent) obj).getAddress().toString());
         }
         Player p = getPlayer();
@@ -65,13 +66,13 @@ public class DeniableInfoAdapter implements Deniable, Info {
     }
 
     @Override
-    public UUID getUniqueId() throws RuntimeException {
-        UUID uuid = null;
+    public String getUniqueId() throws RuntimeException {
+        String uuid = null;
         Player p = getPlayer();
         if (p != null) {
             try {
-                uuid = (UUID) OfflinePlayer.class.getDeclaredMethod("getUniqueId").invoke(p);
-                lastInfo = uuid.toString();
+                uuid = OfflinePlayer.class.getDeclaredMethod("getUniqueId").invoke(p).toString();
+                lastInfo = uuid;
             } catch (Throwable t) {
                 throw new IllegalStateException("UUID Doesn't support.");
             }
