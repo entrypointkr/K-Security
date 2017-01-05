@@ -16,19 +16,19 @@ import java.net.URLConnection;
  */
 public class Static {
     public static void runTask(Runnable runnable) {
-        Bukkit.getScheduler().runTask(KSpam.getInst(), runnable);
+        Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
     }
 
     public static void runTaskAsync(Runnable runnable) {
-        Bukkit.getScheduler().runTaskAsynchronously(KSpam.getInst(), runnable);
+        Bukkit.getScheduler().runTaskAsynchronously(KSpam.INSTANCE, runnable);
     }
 
     public static void runTaskLaterAsync(Runnable runnable, long delay) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.getInst(), runnable, delay);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.INSTANCE, runnable, delay);
     }
 
     public static void runTaskTimerAsync(final Runnable runnable, int delay, int period) {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.getInst(), runnable, delay, period);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.INSTANCE, runnable, delay, period);
     }
 
     public static void msgLineLoop(CommandSender sender, String msg) {

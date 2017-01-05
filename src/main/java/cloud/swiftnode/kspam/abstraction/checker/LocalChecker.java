@@ -13,7 +13,7 @@ public class LocalChecker extends SpamChecker {
     }
 
     @Override
-    public Tracer.Result check() {
+    public Tracer.Result check() throws Exception {
         String ip = adapter.getIp();
         if (ip.contains("192.168.") || ip.contains("127.0.")) {
             return Tracer.Result.FORCE_PASS;

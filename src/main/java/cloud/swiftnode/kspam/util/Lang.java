@@ -9,7 +9,10 @@ import java.util.List;
  */
 public enum Lang {
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
-    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),;
+    DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),
+    DENY("&c[ K-SPAM ]\n" +
+            "&f당신은 K-SPAM 에 의해 차단되었습니다.")
+    ;
     private final String msg;
 
     Lang(String msg) {

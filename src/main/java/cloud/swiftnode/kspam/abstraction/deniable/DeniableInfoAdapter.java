@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.abstraction.deniable;
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.StaticStorage;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -17,6 +18,7 @@ import java.util.UUID;
  */
 public class DeniableInfoAdapter implements Deniable, Info {
     private Object obj;
+    private String lastInfo;
 
     public DeniableInfoAdapter(Object obj) {
         if (!(obj instanceof Event) &&
@@ -43,16 +45,19 @@ public class DeniableInfoAdapter implements Deniable, Info {
         } else {
             throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
         }
+        StaticStorage.cachedSet.add(lastInfo);
+        lastInfo = null;
     }
 
     @Override
     public String getIp() {
         if (obj instanceof PlayerLoginEvent) {
-            return parseIp(((PlayerLoginEvent) obj).getAddress().toString());
+
+            return lastInfo = parseIp(((PlayerLoginEvent) obj).getAddress().toString());
         }
         Player p = getPlayer();
         if (p != null) {
-            return parseIp(p.getAddress().getAddress().toString());
+            return lastInfo = parseIp(p.getAddress().getAddress().toString());
         }
         return null;
     }
@@ -64,8 +69,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
         if (p != null) {
             try {
                 uuid = (UUID) OfflinePlayer.class.getDeclaredMethod("getUniqueId").invoke(p);
+                lastInfo = uuid.toString();
             } catch (Throwable t) {
-                throw new RuntimeException("UUID Doesn't support version.");
+                throw new IllegalStateException("UUID Doesn't support.");
             }
         }
         return uuid;
@@ -74,7 +80,7 @@ public class DeniableInfoAdapter implements Deniable, Info {
     @Override
     public String getName() {
         Player p = getPlayer();
-        return p != null ? p.getName() : null;
+        return p != null ? lastInfo = p.getName() : null;
     }
 
     private Player getPlayer() {
@@ -97,5 +103,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     public void setObj(Object obj) {
         this.obj = obj;
+    }
+
+    public void setLastInfo(String lastInfo) {
+        this.lastInfo = lastInfo;
     }
 }
