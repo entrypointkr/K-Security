@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.deniable;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.Info;
+import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
 import org.bukkit.OfflinePlayer;
@@ -30,7 +31,7 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public void deny() {
-        final String kickMsg = "You have been blocked by K-SPAM.";
+        final String kickMsg = Lang.DENY.toString();
         if (obj instanceof Cancellable) {
             ((Cancellable) obj).setCancelled(true);
         } else if (obj instanceof PlayerLoginEvent) {

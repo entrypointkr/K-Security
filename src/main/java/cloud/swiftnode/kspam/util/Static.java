@@ -38,11 +38,7 @@ public class Static {
     }
 
     public static void consoleMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(colorize(msg));
-    }
-
-    public static String colorize(String str) {
-        return ChatColor.translateAlternateColorCodes('&', str);
+        Bukkit.getConsoleSender().sendMessage(msg);
     }
 
     public static String readAllText(URL url, String userContentOption) throws IOException {
