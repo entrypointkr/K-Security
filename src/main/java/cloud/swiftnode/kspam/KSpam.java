@@ -47,7 +47,7 @@ public class KSpam extends JavaPlugin {
             ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
             StaticStorage.cachedSet = (Set<String>) inStream.readObject();
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
-                    .single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()).build());
+                    .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()).build());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -10,6 +10,7 @@ import java.util.List;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum Lang {
+    PREFIX("&c&l[ K-SPAM ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("프로세서 " + Key.PROCESSOR_NAME + " 체커 " + Key.CHECKER_NAME + " 결과 " + Key.CHECKER_RESULT),
     DENY("&c[ K-SPAM ]\n" +
@@ -75,6 +76,16 @@ public enum Lang {
         public MessageBuilder single(Lang.Key key, Object val) {
             keyList.add(key);
             valList.add(val);
+            return this;
+        }
+
+        public MessageBuilder prefix(String prefix) {
+            target = prefix + target;
+            return this;
+        }
+
+        public MessageBuilder prefix() {
+            prefix(Lang.PREFIX.toString());
             return this;
         }
 
