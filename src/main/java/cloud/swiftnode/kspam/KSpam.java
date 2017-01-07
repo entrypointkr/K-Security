@@ -8,6 +8,7 @@ import cloud.swiftnode.kspam.util.URLs;
 import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,6 +34,7 @@ public class KSpam extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         cacheInit();
         updateCheck();
+        metricsInit();
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
@@ -98,6 +100,15 @@ public class KSpam extends JavaPlugin {
                 }
                 return;
             }
+        } catch (Exception ex) {
+            Static.consoleMsg(ex);
+        }
+    }
+
+    private void metricsInit() {
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
