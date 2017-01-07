@@ -5,8 +5,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -36,12 +38,22 @@ public class Static {
         }
     }
 
-    public static void consoleMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(msg);
+    public static void consoleMsg(String... msgs) {
+        for (String msg : msgs) {
+            Bukkit.getConsoleSender().sendMessage(msg);
+        }
     }
 
-    public static void consoleMsg(Lang.MessageBuilder builder) {
-        consoleMsg(builder.build());
+    public static void consoleMsg(Lang.MessageBuilder... builders) {
+        for (Lang.MessageBuilder builder : builders) {
+            consoleMsg(builder.build());
+        }
+    }
+
+    public static void consoleMsg(Exception ex) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        ex.printStackTrace(new PrintStream(stream));
+        consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())).prefix());
     }
 
     public static String readAllText(URL url, String userContentOption) throws IOException {

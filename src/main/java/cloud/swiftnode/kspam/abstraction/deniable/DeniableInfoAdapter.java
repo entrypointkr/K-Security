@@ -13,8 +13,6 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
-import java.util.UUID;
-
 /**
  * Created by EntryPoint on 2016-12-30.
  */
