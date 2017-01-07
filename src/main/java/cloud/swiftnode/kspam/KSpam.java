@@ -62,7 +62,6 @@ public class KSpam extends JavaPlugin {
             StaticStorage.cachedSet = (Set<String>) inStream.readObject();
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
                     .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
-            throw new Exception("test");
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
