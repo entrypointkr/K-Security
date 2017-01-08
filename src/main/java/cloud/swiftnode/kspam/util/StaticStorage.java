@@ -8,6 +8,7 @@ import java.util.Set;
  */
 public class StaticStorage {
     public static Set<String> cachedSet = new HashSet<>();
+    public static boolean forceMode = false;
     private static Version currVer;
     private static Version newVer;
 

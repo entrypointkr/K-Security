@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  * Created by EntryPoint on 2017-01-05.
@@ -119,7 +120,7 @@ public enum Lang {
                 if (key == null || val == null) {
                     break;
                 }
-                msg = msg.replaceAll(key, val);
+                msg = msg.replaceAll(key, Matcher.quoteReplacement(val));
             }
             return colorize(msg);
         }

@@ -2,7 +2,3 @@ main: cloud.swiftnode.kspam.KSpam
 name: K-Spam_Community_Edition
 version: @version@
 author: EntryPoint
-commands:
-  kspam:
-    description: K-SPAM main command.
-    usage: /kspam

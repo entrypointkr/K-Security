@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.processor;
 
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.checker.CacheChecker;
+import cloud.swiftnode.kspam.abstraction.checker.ForceChecker;
 import cloud.swiftnode.kspam.abstraction.checker.LocalChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
@@ -11,7 +12,7 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class SynchronizeSpamProcessor extends SpamProcessor {
     public SynchronizeSpamProcessor(DeniableInfoAdapter adapter) {
         super(adapter);
-        super.addChecker(LocalChecker.class, CacheChecker.class);
+        super.addChecker(LocalChecker.class, ForceChecker.class, CacheChecker.class);
     }
 
     @Override

@@ -84,7 +84,7 @@ public class DeniableInfoAdapter implements Deniable, Info {
         return p != null ? lastInfo = p.getName() : null;
     }
 
-    private Player getPlayer() {
+    public Player getPlayer() {
         if (obj instanceof PlayerEvent) {
             return ((PlayerEvent) obj).getPlayer();
         } else if (obj instanceof Player) {
