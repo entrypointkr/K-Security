@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.Tracer;
+import org.bukkit.Bukkit;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -56,6 +57,9 @@ public abstract class SpamProcessor implements Processor {
                 return true;
             } else if (tracer.getResult() == Tracer.Result.DENY) {
                 deniable.deny();
+                Bukkit.broadcastMessage(Lang.DENIED.builder()
+                                .single(Lang.Key.CHECKER_NAME, checker.name())
+                                .build());
                 return true;
             } else if (tracer.getResult() == Tracer.Result.ERROR) {
                 Static.consoleMsg(Lang.ERROR.builder()
