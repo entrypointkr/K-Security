@@ -60,7 +60,7 @@ public class KSpam extends JavaPlugin {
                     return true;
                 } else if (args[0].equalsIgnoreCase("info")) {
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix().build());
-                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getNewVer()).prefix().build());
+                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                 }
         }
