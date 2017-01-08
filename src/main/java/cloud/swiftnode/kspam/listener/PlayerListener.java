@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
+import cloud.swiftnode.kspam.abstraction.runnable.PunishExecutor;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,13 +22,14 @@ public class PlayerListener implements Listener {
             return;
         }
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
-        Processor sync = new SynchronizeSpamProcessor(adapter);
+        final PunishExecutor executor = new PunishExecutor();
+        Processor sync = new SynchronizeSpamProcessor(adapter, executor);
         if (!sync.process()) {
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {
                     adapter.setObj(e.getPlayer());
-                    Processor async = new AsynchronousSpamProcessor(adapter);
+                    Processor async = new AsynchronousSpamProcessor(adapter, executor);
                     async.process();
                 }
             });
@@ -37,6 +39,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPing(ServerListPingEvent e) {
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
-        new SynchronizeSpamProcessor(adapter).process();
+        PunishExecutor executor = new PunishExecutor();
+        new SynchronizeSpamProcessor(adapter, executor).process();
     }
 }
