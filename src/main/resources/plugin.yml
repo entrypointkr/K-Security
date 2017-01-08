@@ -5,4 +5,4 @@ author: EntryPoint
 commands:
   kspam:
     description: K-SPAM main command.
-    usage: /kspam (force|info|check)
+    usage: /kspam (force|info|check|debug)

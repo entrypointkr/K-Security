@@ -35,6 +35,7 @@ import java.util.Set;
  */
 public class KSpam extends JavaPlugin {
     public static KSpam INSTANCE;
+    private static final String DEBUG_MODE = "debug-mode";
 
     @Override
     public void onEnable() {
@@ -44,7 +45,6 @@ public class KSpam extends JavaPlugin {
         cacheInit();
         updateCheck();
         metricsInit();
-        configInit();
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
@@ -52,15 +52,17 @@ public class KSpam extends JavaPlugin {
     @Override
     public void onDisable() {
         cacheSave();
+        saveConfig();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        boolean isOp = sender.isOp();
         // Lazy
         switch (args.length) {
             case 1:
                 if (args[0].equalsIgnoreCase("force")) {
-                    if (!sender.isOp()) {
+                    if (!isOp) {
                         break;
                     }
                     StaticStorage.forceMode = !StaticStorage.forceMode;
@@ -70,6 +72,13 @@ public class KSpam extends JavaPlugin {
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix().build());
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
+                    return true;
+                } else if (args[0].equalsIgnoreCase("debug")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    getConfig().set(DEBUG_MODE, !getConfig().getBoolean(DEBUG_MODE, false));
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(DEBUG_MODE)).prefix().build());
                     return true;
                 }
             case 2:
@@ -155,9 +164,5 @@ public class KSpam extends JavaPlugin {
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
-    }
-
-    private void configInit() {
-        StaticStorage.debugMode = getConfig().getBoolean("debug-mode", false);
     }
 }
