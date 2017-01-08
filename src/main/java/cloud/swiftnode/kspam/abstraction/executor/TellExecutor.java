@@ -20,6 +20,6 @@ public class TellExecutor extends SpamExecutor {
     public void execute(Tracer tracer, Deniable deniable, long startTime) {
         sender.sendMessage(Lang.DEBUG.builder()
                 .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
-                .addVal(tracer.getLastProcessor().name(), tracer.getLastChecker().name(), tracer.getResult(), System.currentTimeMillis() - startTime).build());
+                .addVal(tracer.getLastProcessor().name(), tracer.getLastChecker().name(), tracer.getResult(), System.currentTimeMillis() - startTime).prefix().build());
     }
 }

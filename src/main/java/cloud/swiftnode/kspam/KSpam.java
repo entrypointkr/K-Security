@@ -1,5 +1,10 @@
 package cloud.swiftnode.kspam;
 
+import cloud.swiftnode.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.kspam.abstraction.executor.TellExecutor;
+import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
@@ -9,6 +14,7 @@ import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
@@ -63,6 +69,17 @@ public class KSpam extends JavaPlugin {
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                     return true;
+                }
+            case 2:
+                if (args[0].equalsIgnoreCase("check")) {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target != null) {
+                        DeniableInfoAdapter adapter = new DeniableInfoAdapter(target);
+                        SpamExecutor executor = new TellExecutor(sender);
+                        new SynchronizeSpamProcessor(adapter, executor).process();
+                        new AsynchronousSpamProcessor(adapter, executor).process();
+                        return true;
+                    }
                 }
         }
         return false;
