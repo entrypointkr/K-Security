@@ -9,6 +9,7 @@ import java.util.Set;
 public class StaticStorage {
     public static Set<String> cachedSet = new HashSet<>();
     public static boolean forceMode = false;
+    public static boolean debugMode;
     private static Version currVer;
     private static Version newVer;
 

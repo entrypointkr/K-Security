@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.abstraction;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.StaticStorage;
 import cloud.swiftnode.kspam.util.Tracer;
 
 import java.util.LinkedHashSet;
@@ -49,8 +50,7 @@ public abstract class SpamProcessor implements Processor {
                 ex.printStackTrace();
             }
             executor.execute(tracer, deniable, time);
-            // TODO: Debug option
-            if (true) {
+            if (StaticStorage.debugMode) {
                 Static.consoleMsg(Lang.DEBUG.builder()
                         .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
                         .addVal(this.name(), checker.name(), tracer.getResult(), System.currentTimeMillis() - time));

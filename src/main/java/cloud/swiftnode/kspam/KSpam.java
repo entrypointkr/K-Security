@@ -39,10 +39,12 @@ public class KSpam extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
+        saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         cacheInit();
         updateCheck();
         metricsInit();
+        configInit();
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
@@ -153,5 +155,9 @@ public class KSpam extends JavaPlugin {
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
+    }
+
+    private void configInit() {
+        StaticStorage.debugMode = getConfig().getBoolean("debug-mode", false);
     }
 }
