@@ -74,15 +74,17 @@ public class KSpam extends JavaPlugin {
             getDataFolder().mkdirs();
         }
         File file = new File(getDataFolder(), "K-Spam.cache");
-        try {
-            if (!file.isFile()) {
-                FileOutputStream outStream = new FileOutputStream(file);
+        if (!file.isFile()) {
+            try (FileOutputStream outStream = new FileOutputStream(file)) {
                 URL url = URLs.CACHE.toUrl();
                 ReadableByteChannel rbc = Channels.newChannel(url.openStream());
                 outStream.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                 outStream.close();
+            } catch (Exception ex) {
+                Static.consoleMsg(ex);
             }
-            ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
+        }
+        try (ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file))) {
             StaticStorage.cachedSet = (Set<String>) inStream.readObject();
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
                     .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
