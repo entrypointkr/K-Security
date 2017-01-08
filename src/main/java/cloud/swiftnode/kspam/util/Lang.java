@@ -36,7 +36,9 @@ public enum Lang {
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
     UPDATE_INFO_NO("최신버전입니다."),
-    EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-SPAM/issues &e정보: &f" + Key.EXCEPTION_MESSAGE);
+    EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-SPAM/issues &e정보: &f" + Key.EXCEPTION_MESSAGE),
+    SET("&e" + Key.VALUE + " &f로 설정했습니다."),
+    ;
     private final String msg;
 
     Lang(String msg) {
@@ -64,7 +66,9 @@ public enum Lang {
         KSPAM_VERSION("kspam-version"),
         NEW_VERSION("new-version"),
         TIME("time"),
-        EXCEPTION_MESSAGE("exception-message"),;
+        EXCEPTION_MESSAGE("exception-message"),
+        VALUE("value"),
+        ;
         private final String key;
 
         Key(String key) {

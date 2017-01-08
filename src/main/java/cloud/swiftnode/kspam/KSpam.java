@@ -7,6 +7,8 @@ import cloud.swiftnode.kspam.util.StaticStorage;
 import cloud.swiftnode.kspam.util.URLs;
 import cloud.swiftnode.kspam.util.Version;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
@@ -42,6 +44,27 @@ public class KSpam extends JavaPlugin {
     @Override
     public void onDisable() {
         cacheSave();
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // Lazy
+        switch (args.length) {
+            case 1:
+                if (args[0].equalsIgnoreCase("force")) {
+                    if (!sender.isOp()) {
+                        break;
+                    }
+                    StaticStorage.forceMode = !StaticStorage.forceMode;
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.forceMode).build());
+                    return true;
+                } else if (args[0].equalsIgnoreCase("info")) {
+                    sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).build());
+                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getNewVer()).build());
+                    sender.sendMessage(String.valueOf(StaticStorage.cachedSet.size()));
+                }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
