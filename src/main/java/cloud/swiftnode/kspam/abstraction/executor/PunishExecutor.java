@@ -1,4 +1,4 @@
-package cloud.swiftnode.kspam.abstraction.runnable;
+package cloud.swiftnode.kspam.abstraction.executor;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
  */
 public class PunishExecutor extends SpamExecutor {
     @Override
-    public void execute(Tracer tracer, Deniable deniable) {
+    public void execute(Tracer tracer, Deniable deniable, long startTime) {
         if (tracer.getResult() == Tracer.Result.DENY) {
             deniable.deny();
             Bukkit.broadcastMessage(Lang.DENIED.builder()

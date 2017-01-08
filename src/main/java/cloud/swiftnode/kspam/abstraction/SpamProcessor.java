@@ -48,7 +48,7 @@ public abstract class SpamProcessor implements Processor {
                 tracer.setResult(Tracer.Result.ERROR);
                 ex.printStackTrace();
             }
-            executor.execute(tracer, deniable);
+            executor.execute(tracer, deniable, time);
             // TODO: Debug option
             if (true) {
                 Static.consoleMsg(Lang.DEBUG.builder()

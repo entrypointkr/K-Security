@@ -4,7 +4,7 @@ import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
-import cloud.swiftnode.kspam.abstraction.runnable.PunishExecutor;
+import cloud.swiftnode.kspam.abstraction.executor.PunishExecutor;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
