@@ -1,7 +1,9 @@
 package cloud.swiftnode.kspam.abstraction.checker;
 
+import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.entity.Player;
@@ -17,7 +19,8 @@ public class FirstKickChecker extends SpamChecker {
     @Override
     public Tracer.Result check() throws Exception {
         Player player = adapter.getPlayer();
-        if (player != null && !player.hasPlayedBefore()) {
+        if (player != null && KSpam.INSTANCE.getConfig().getBoolean(Config.FIRST_LOGIN_KICK)
+                && !player.hasPlayedBefore()) {
             adapter.setKickMsg(Lang.FIRST_LOGIN_KICK.toString());
             return Tracer.Result.DENY;
         }

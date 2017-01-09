@@ -80,6 +80,13 @@ public class KSpam extends JavaPlugin {
                     getConfig().set(Config.DEBUG_MODE, !getConfig().getBoolean(Config.DEBUG_MODE, false));
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.DEBUG_MODE)).prefix().build());
                     return true;
+                } else if (args[0].equalsIgnoreCase("firstkick")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    getConfig().set(Config.FIRST_LOGIN_KICK, !getConfig().getBoolean(Config.FIRST_LOGIN_KICK, true));
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
+                    return true;
                 }
             case 2:
                 if (args[0].equalsIgnoreCase("check")) {
@@ -98,13 +105,6 @@ public class KSpam extends JavaPlugin {
                     SpamExecutor executor = new TellExecutor(sender);
                     new SynchronizeSpamProcessor(adapter, executor).process();
                     new AsynchronousSpamProcessor(adapter, executor).process();
-                    return true;
-                } else if (args[0].equalsIgnoreCase("firstkick")) {
-                    if (!isOp) {
-                        break;
-                    }
-                    getConfig().set(Config.FIRST_LOGIN_KICK, !getConfig().getBoolean(Config.FIRST_LOGIN_KICK, true));
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
                     return true;
                 }
         }

@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.executor;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.Bukkit;
@@ -11,11 +12,14 @@ import org.bukkit.Bukkit;
  */
 public class PunishExecutor extends SpamExecutor {
     @Override
-    public void execute(Tracer tracer, Deniable deniable, long startTime) {
+    public void execute(Tracer tracer, DeniableInfoAdapter adapter, long startTime) {
         if (tracer.getResult() == Tracer.Result.DENY) {
-            deniable.deny();
+            adapter.deny();
             Bukkit.broadcastMessage(Lang.DENIED.builder()
+                    .addKey(Lang.Key.VICTIM, Lang.Key.CHECKER_NAME)
+                    .addVal(adapter.getName() == null ? adapter.getIp() : adapter.getName(), tracer.getLastChecker().name())
                     .single(Lang.Key.CHECKER_NAME, tracer.getLastChecker().name())
+                    .prefix()
                     .build());
         }
     }
