@@ -6,5 +6,5 @@ package cloud.swiftnode.kspam.abstraction;
 public interface Info {
     public String getName();
     public String getIp();
-    public String getUniqueId();
+    public String getUniqueId() throws IllegalStateException;
 }
