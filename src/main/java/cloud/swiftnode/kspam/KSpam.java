@@ -8,6 +8,5 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class KSpam extends JavaPlugin {
     @Override
     public void onEnable() {
-
     }
 }
