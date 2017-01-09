@@ -11,6 +11,10 @@ import org.bukkit.entity.Player;
 public class PlayerInfo implements Info {
     private Player player;
 
+    public PlayerInfo(Player player) {
+        this.player = player;
+    }
+
     @Override
     public String getName() {
         return player.getName();
