@@ -19,18 +19,23 @@ import org.bukkit.event.server.ServerListPingEvent;
 public class DeniableInfoAdapter implements Deniable, Info {
     private Object obj;
     private String lastInfo;
+    private String kickMsg;
 
     public DeniableInfoAdapter(Object obj) {
+        this(obj, Lang.DENY.toString());
+    }
+
+    public DeniableInfoAdapter(Object obj, String kickMsg) {
         if (!(obj instanceof Event) &&
-                !(obj instanceof Player)) {
+                !(obj instanceof Player) && !(obj instanceof String)) {
             throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
         }
         this.obj = obj;
+        this.kickMsg = kickMsg;
     }
 
     @Override
     public void deny() {
-        final String kickMsg = Lang.DENY.toString();
         if (obj instanceof ServerListPingEvent) {
             ((ServerListPingEvent) obj).setMotd(Lang.MOTD.toString());
         } else if (obj instanceof PlayerLoginEvent) {
@@ -55,6 +60,8 @@ public class DeniableInfoAdapter implements Deniable, Info {
             return lastInfo = parseIp(((ServerListPingEvent) obj).getAddress().toString());
         } else if (obj instanceof PlayerLoginEvent) {
             return lastInfo = parseIp(((PlayerLoginEvent) obj).getAddress().toString());
+        } else if (obj instanceof String) {
+            return (String) obj;
         }
         Player p = getPlayer();
         if (p != null) {
@@ -66,6 +73,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
     @Override
     public String getUniqueId() throws RuntimeException {
         String uuid = null;
+        if (obj instanceof String) {
+            return (String) obj;
+        }
         Player p = getPlayer();
         if (p != null) {
             try {
@@ -80,6 +90,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public String getName() {
+        if (obj instanceof String) {
+            return (String) obj;
+        }
         Player p = getPlayer();
         return p != null ? lastInfo = p.getName() : null;
     }
@@ -113,5 +126,9 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     public void setLastInfo(String lastInfo) {
         this.lastInfo = lastInfo;
+    }
+
+    public void setKickMsg(String kickMsg) {
+        this.kickMsg = kickMsg;
     }
 }

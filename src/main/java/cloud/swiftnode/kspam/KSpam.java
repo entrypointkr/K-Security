@@ -6,6 +6,7 @@ import cloud.swiftnode.kspam.abstraction.executor.TellExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.AsynchronousSpamProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SynchronizeSpamProcessor;
 import cloud.swiftnode.kspam.listener.PlayerListener;
+import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
@@ -35,7 +36,6 @@ import java.util.Set;
  */
 public class KSpam extends JavaPlugin {
     public static KSpam INSTANCE;
-    private static final String DEBUG_MODE = "debug-mode";
 
     @Override
     public void onEnable() {
@@ -77,20 +77,35 @@ public class KSpam extends JavaPlugin {
                     if (!isOp) {
                         break;
                     }
-                    getConfig().set(DEBUG_MODE, !getConfig().getBoolean(DEBUG_MODE, false));
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(DEBUG_MODE)).prefix().build());
+                    getConfig().set(Config.DEBUG_MODE, !getConfig().getBoolean(Config.DEBUG_MODE, false));
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.DEBUG_MODE)).prefix().build());
                     return true;
                 }
             case 2:
                 if (args[0].equalsIgnoreCase("check")) {
-                    Player target = Bukkit.getPlayer(args[1]);
-                    if (target != null) {
-                        DeniableInfoAdapter adapter = new DeniableInfoAdapter(target);
-                        SpamExecutor executor = new TellExecutor(sender);
-                        new SynchronizeSpamProcessor(adapter, executor).process();
-                        new AsynchronousSpamProcessor(adapter, executor).process();
-                        return true;
+                    if (!isOp) {
+                        break;
                     }
+                    Object info;
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target == null) {
+                        info = args[1];
+                    } else {
+                        info = target;
+                    }
+                    sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).build());
+                    DeniableInfoAdapter adapter = new DeniableInfoAdapter(info);
+                    SpamExecutor executor = new TellExecutor(sender);
+                    new SynchronizeSpamProcessor(adapter, executor).process();
+                    new AsynchronousSpamProcessor(adapter, executor).process();
+                    return true;
+                } else if (args[0].equalsIgnoreCase("firstkick")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    getConfig().set(Config.FIRST_LOGIN_KICK, !getConfig().getBoolean(Config.FIRST_LOGIN_KICK, true));
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
+                    return true;
                 }
         }
         return false;

@@ -51,7 +51,7 @@ public abstract class SpamProcessor implements Processor {
                 ex.printStackTrace();
             }
             executor.execute(tracer, deniable, time);
-            if (KSpam.INSTANCE.getConfig().getBoolean(Config.DEBUG_MODE.toString(), false)) {
+            if (KSpam.INSTANCE.getConfig().getBoolean(Config.DEBUG_MODE, false)) {
                 Static.consoleMsg(Lang.DEBUG.builder()
                         .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
                         .addVal(this.name(), checker.name(), tracer.getResult(), System.currentTimeMillis() - time));

@@ -3,17 +3,7 @@ package cloud.swiftnode.kspam.util;
 /**
  * Created by Junhyeong Lim on 2017-01-09.
  */
-public enum Config {
-    DEBUG_MODE("debug-mode");
-
-    private final String key;
-
-    Config(String key) {
-        this.key = key;
-    }
-
-    @Override
-    public String toString() {
-        return key;
-    }
+public class Config {
+    public static String DEBUG_MODE = "debug-mode";
+    public static String FIRST_LOGIN_KICK = "first-login-kick";
 }
