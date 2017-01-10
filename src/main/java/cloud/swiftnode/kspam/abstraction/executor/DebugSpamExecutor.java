@@ -7,10 +7,10 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class TimingsSpamExecutor extends SpamExecutor {
+public class DebugSpamExecutor extends SpamExecutor {
     private SpamExecutor executor;
 
-    public TimingsSpamExecutor(SpamExecutor executor) {
+    public DebugSpamExecutor(SpamExecutor executor) {
         this.executor = executor;
     }
 
