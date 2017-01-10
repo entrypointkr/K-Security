@@ -31,7 +31,7 @@ public abstract class SpamProcessor implements Processor {
     }
 
     @SafeVarargs
-    public final void setCheckers(Class<? extends SpamChecker>... checkerClasses) {
+    protected final void setCheckers(Class<? extends SpamChecker>... checkerClasses) {
         SpamChecker[] checkers = new SpamChecker[checkerClasses.length];
         for (int i = 0; i < checkerClasses.length; i++) {
             try {
