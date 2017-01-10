@@ -4,7 +4,7 @@ package cloud.swiftnode.kspam.abstraction;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public abstract class SpamChecker implements Checker {
-    private Info info;
+    protected    Info info;
 
     public SpamChecker(Info info) {
         this.info = info;
