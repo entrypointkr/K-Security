@@ -11,12 +11,12 @@ import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 public class BaseSpamExecutor extends SpamExecutor {
     @Override
     public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
-        SpamChecker.Result result = checker.spamCheck();
-        if (result == SpamChecker.Result.FORCE_PASS) {
+        lastResult = checker.spamCheck();
+        if (lastResult == SpamChecker.Result.FORCE_PASS) {
             return true;
-        } else if (result == SpamChecker.Result.DENY) {
+        } else if (lastResult == SpamChecker.Result.DENY) {
             deniable.deny();
-        } else if (result == SpamChecker.Result.ERROR) {
+        } else if (lastResult == SpamChecker.Result.ERROR) {
             // TODO: Exception msg
         }
         return false;
