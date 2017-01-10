@@ -73,6 +73,7 @@ public class KSpam extends JavaPlugin {
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
                     return true;
                 }
+                break;
             case 2:
                 if (args[0].equalsIgnoreCase("check")) {
                     if (!isOp) {
