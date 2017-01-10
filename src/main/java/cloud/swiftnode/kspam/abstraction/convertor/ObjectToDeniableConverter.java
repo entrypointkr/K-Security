@@ -14,19 +14,19 @@ import org.bukkit.event.player.PlayerLoginEvent;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class ObjectToDeniableConverter extends ObjectConverter<Deniable> {
-    private ExecuteDeniable.Mode mode;
+    private boolean delayed;
 
-    public ObjectToDeniableConverter(Object obj, ExecuteDeniable.Mode mode) {
+    public ObjectToDeniableConverter(Object obj, boolean delayed) {
         super(obj);
-        this.mode = mode;
+        this.delayed = delayed;
     }
 
     @Override
     public Deniable convert() {
         if (obj instanceof Cancellable) {
-            return new CancellableDeniable(mode, (Cancellable) obj);
+            return new CancellableDeniable(delayed, (Cancellable) obj);
         } else if (obj instanceof PlayerLoginEvent) {
-            return new LoginEventDeniable(mode, ((PlayerLoginEvent) obj));
+            return new LoginEventDeniable(delayed, ((PlayerLoginEvent) obj));
         } else if (obj instanceof Player) {
             return new PlayerDeniable((Player) obj);
         }

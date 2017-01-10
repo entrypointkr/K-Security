@@ -13,24 +13,25 @@ public class DeniableInfoAdapter extends ExecuteDeniable implements Info {
     private Deniable deniable;
     private Info info;
 
-    public DeniableInfoAdapter(Mode mode, Deniable deniable, Info info) {
-        super(mode);
+    public DeniableInfoAdapter(boolean delayed, Deniable deniable, Info info) {
+        super(delayed);
         this.deniable = deniable;
         this.info = info;
     }
 
-    public DeniableInfoAdapter(Mode mode, Object obj) {
-        super(mode);
+    public DeniableInfoAdapter(boolean delayed, Object obj) {
+        super(delayed);
         setObj(obj);
     }
 
     public void setObj(Object obj) {
-        this.deniable = new ObjectToDeniableConverter(obj, mode).convert();
+        this.deniable = new ObjectToDeniableConverter(obj, delayed).convert();
         this.info = new ObjectToInfoConverter(obj).convert();
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
+    @Override
+    public void setDelayed(boolean delayed) {
+        this.delayed = delayed;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package cloud.swiftnode.kspam.abstraction.deniable;
 
-import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import org.bukkit.event.Cancellable;
 
@@ -10,8 +9,8 @@ import org.bukkit.event.Cancellable;
 public class CancellableDeniable extends ExecuteDeniable {
     private Cancellable cancellable;
 
-    public CancellableDeniable(Mode mode, Cancellable cancellable) {
-        super(mode);
+    public CancellableDeniable(boolean delayed, Cancellable cancellable) {
+        super(delayed);
         this.cancellable = cancellable;
     }
 

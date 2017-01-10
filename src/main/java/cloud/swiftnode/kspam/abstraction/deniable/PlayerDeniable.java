@@ -11,7 +11,7 @@ public class PlayerDeniable extends ExecuteDeniable {
     private Player player;
 
     public PlayerDeniable(Player player) {
-        super(Mode.SYNC);
+        super(true);
         this.player = player;
     }
 
