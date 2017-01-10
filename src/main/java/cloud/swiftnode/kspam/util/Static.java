@@ -31,4 +31,8 @@ public class Static {
         ex.printStackTrace(new PrintStream(stream));
         consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())).prefix());
     }
+
+    public static long time() {
+        return System.currentTimeMillis();
+    }
 }
