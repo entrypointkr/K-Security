@@ -5,6 +5,7 @@ package cloud.swiftnode.kspam.abstraction;
  */
 public abstract class SpamChecker implements Checker {
     protected Info info;
+    protected String lastInfo;
 
     public SpamChecker(Info info) {
         this.info = info;
@@ -25,6 +26,14 @@ public abstract class SpamChecker implements Checker {
     @Override
     public String name() {
         return this.getClass().getSimpleName();
+    }
+
+    public boolean isCaching() {
+        return true;
+    }
+
+    public String getLastInfo() {
+        return lastInfo;
     }
 
     public enum Result {

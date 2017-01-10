@@ -18,7 +18,7 @@ public class ShroomeryChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        URL url = URLs.SHROOMERY_API.toUrl(info.getIp());
+        URL url = URLs.SHROOMERY_API.toUrl(lastInfo = info.getIp());
         String contents = Static.readAllText(url);
         if (contents.contains("Y")) {
             return Result.DENY;

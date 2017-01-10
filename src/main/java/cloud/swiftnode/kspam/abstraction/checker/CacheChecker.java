@@ -25,7 +25,7 @@ public class CacheChecker extends SpamChecker {
             // Ignore
         }
         for (String info : infoList) {
-            if (StaticStorage.cachedSet.contains(info)) {
+            if (StaticStorage.cachedSet.contains(lastInfo = info)) {
                 return Result.DENY;
             }
         }
