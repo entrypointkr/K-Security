@@ -3,7 +3,7 @@ package cloud.swiftnode.kspam.abstraction;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamChecker implements Checker {
+public abstract class SpamChecker extends SimpleNamed implements Checker {
     protected Info info;
     protected String lastInfo;
 
@@ -22,11 +22,6 @@ public abstract class SpamChecker implements Checker {
     }
 
     public abstract Result spamCheck() throws Exception;
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
 
     public boolean isCaching() {
         return true;

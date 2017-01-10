@@ -5,7 +5,7 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamProcessor implements Processor {
+public abstract class SpamProcessor extends SimpleNamed implements Processor {
     private SpamChecker[] checkers;
     private SpamExecutor executor;
     private DeniableInfoAdapter adapter;
@@ -23,11 +23,6 @@ public abstract class SpamProcessor implements Processor {
             }
         }
         return false;
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @SafeVarargs
