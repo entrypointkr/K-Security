@@ -15,7 +15,7 @@ public class StaticStorage {
 
     public static Version getCurrVer() {
         if (currVer == null) {
-            currVer = new Version(temp.cloud.swiftnode.kspam.util.Static.getVersion());
+            currVer = new Version(Static.getVersion());
         }
         return currVer;
     }

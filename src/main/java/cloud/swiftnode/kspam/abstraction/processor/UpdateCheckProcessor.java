@@ -1,10 +1,10 @@
 package cloud.swiftnode.kspam.abstraction.processor;
 
 import cloud.swiftnode.kspam.abstraction.Processor;
-import temp.cloud.swiftnode.kspam.util.Lang;
-import temp.cloud.swiftnode.kspam.util.Static;
-import temp.cloud.swiftnode.kspam.util.StaticStorage;
-import temp.cloud.swiftnode.kspam.util.Version;
+import cloud.swiftnode.kspam.util.Lang;
+import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.StaticStorage;
+import cloud.swiftnode.kspam.util.Version;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +17,7 @@ import java.net.URL;
 public class UpdateCheckProcessor implements Processor {
     @Override
     public boolean process() {
-        URL url = null;
+        URL url;
         try {
             url = new URL("https://github.com/EntryPointKR/K-SPAM/releases/latest");
         } catch (MalformedURLException ex) {

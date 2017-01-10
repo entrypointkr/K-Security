@@ -1,4 +1,4 @@
-package temp.cloud.swiftnode.kspam.util;
+package cloud.swiftnode.kspam.util;
 
 /**
  * Created by Junhyeong Lim on 2017-01-09.

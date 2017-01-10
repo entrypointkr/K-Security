@@ -1,9 +1,9 @@
 package cloud.swiftnode.kspam.abstraction.processor;
 
+import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.Processor;
-import temp.cloud.swiftnode.kspam.KSpam;
-import temp.cloud.swiftnode.kspam.util.Static;
-import temp.cloud.swiftnode.kspam.util.StaticStorage;
+import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.StaticStorage;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -5,6 +5,7 @@ import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.convertor.ObjectToDeniableConverter;
 import cloud.swiftnode.kspam.abstraction.convertor.ObjectToInfoConverter;
+import org.bukkit.entity.Player;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -47,6 +48,11 @@ public class DeniableInfoAdapter extends ExecuteDeniable implements Info {
     @Override
     public String getUniqueId() {
         return info.getUniqueId();
+    }
+
+    @Override
+    public Player getPlayer() {
+        return info.getPlayer();
     }
 
     @Override

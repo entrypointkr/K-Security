@@ -1,6 +1,5 @@
 package cloud.swiftnode.kspam.abstraction.deniable;
 
-import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.kspam.util.Lang;
 import org.bukkit.event.player.PlayerLoginEvent;

@@ -70,6 +70,6 @@ public class Static {
     }
 
     public static String getVersion() {
-        return temp.cloud.swiftnode.kspam.KSpam.INSTANCE.getDescription().getVersion();
+        return KSpam.INSTANCE.getDescription().getVersion();
     }
 }

@@ -1,14 +1,12 @@
 package cloud.swiftnode.kspam.abstraction.info;
 
-import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.convertor.StringToIpConverter;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class PlayerInfo implements Info {
+public class PlayerInfo extends AbstractInfo {
     private Player player;
 
     public PlayerInfo(Player player) {
@@ -27,15 +25,7 @@ public class PlayerInfo implements Info {
     }
 
     @Override
-    public String getUniqueId() throws IllegalStateException {
-        String uuid = null;
-        if (player != null) {
-            try {
-                uuid = OfflinePlayer.class.getDeclaredMethod("getUniqueId").invoke(player).toString();
-            } catch (Throwable t) {
-                throw new IllegalStateException("UUID Doesn't support.");
-            }
-        }
-        return uuid;
+    public Player getPlayer() {
+        return player;
     }
 }

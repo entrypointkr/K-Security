@@ -1,14 +1,14 @@
 package cloud.swiftnode.kspam.abstraction.info;
 
-import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.convertor.StringToIpConverter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class EventInfo implements Info {
+public class EventInfo extends AbstractInfo {
     private PlayerEvent event;
 
     public EventInfo(PlayerEvent event) {
@@ -32,7 +32,7 @@ public class EventInfo implements Info {
     }
 
     @Override
-    public String getUniqueId() throws IllegalStateException {
-        return null;
+    public Player getPlayer() {
+        return event.getPlayer();
     }
 }

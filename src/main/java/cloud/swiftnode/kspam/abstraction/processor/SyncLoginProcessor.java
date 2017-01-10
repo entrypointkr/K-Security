@@ -3,7 +3,6 @@ package cloud.swiftnode.kspam.abstraction.processor;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.checker.CacheChecker;
-import cloud.swiftnode.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
 /**

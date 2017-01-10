@@ -2,7 +2,6 @@ package cloud.swiftnode.kspam.abstraction.processor;
 
 import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.Processor;
-import cloud.swiftnode.kspam.abstraction.SimpleNamed;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
@@ -24,6 +23,7 @@ import java.util.Set;
  */
 public class CacheInitProcessor implements Processor {
     @Override
+    @SuppressWarnings("unchecked")
     public boolean process() {
         File dataFolder = KSpam.INSTANCE.getDataFolder();
         if (!dataFolder.isDirectory()) {

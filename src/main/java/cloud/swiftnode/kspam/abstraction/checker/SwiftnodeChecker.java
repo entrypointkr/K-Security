@@ -2,8 +2,8 @@ package cloud.swiftnode.kspam.abstraction.checker;
 
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
-import temp.cloud.swiftnode.kspam.util.Static;
-import temp.cloud.swiftnode.kspam.util.URLs;
+import cloud.swiftnode.kspam.util.Static;
+import cloud.swiftnode.kspam.util.URLs;
 
 import java.net.URL;
 
