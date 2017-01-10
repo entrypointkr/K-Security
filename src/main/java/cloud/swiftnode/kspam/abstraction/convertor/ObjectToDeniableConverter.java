@@ -28,7 +28,7 @@ public class ObjectToDeniableConverter extends ObjectConverter<Deniable> {
         } else if (obj instanceof PlayerLoginEvent) {
             return new LoginEventDeniable(mode, ((PlayerLoginEvent) obj));
         } else if (obj instanceof Player) {
-            return new PlayerDeniable(mode, (Player) obj);
+            return new PlayerDeniable((Player) obj);
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }
