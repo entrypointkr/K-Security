@@ -2,8 +2,8 @@ package cloud.swiftnode.kspam.abstraction.deniable;
 
 import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.kspam.util.Lang;
+import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.entity.Player;
-import temp.cloud.swiftnode.kspam.util.Static;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -11,8 +11,8 @@ import temp.cloud.swiftnode.kspam.util.Static;
 public class PlayerDeniable extends ExecuteDeniable {
     private Player player;
 
-    public PlayerDeniable(boolean async, Player player) {
-        super(async);
+    public PlayerDeniable(Mode mode, Player player) {
+        super(mode);
         this.player = player;
     }
 

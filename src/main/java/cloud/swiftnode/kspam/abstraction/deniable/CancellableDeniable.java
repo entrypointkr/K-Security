@@ -10,8 +10,8 @@ import org.bukkit.event.Cancellable;
 public class CancellableDeniable extends ExecuteDeniable {
     private Cancellable cancellable;
 
-    public CancellableDeniable(boolean async, Cancellable cancellable) {
-        super(async);
+    public CancellableDeniable(Mode mode, Cancellable cancellable) {
+        super(mode);
         this.cancellable = cancellable;
     }
 

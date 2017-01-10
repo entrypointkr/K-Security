@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.listener;
 
+import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
@@ -19,11 +20,11 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor());
-        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
+        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(ExecuteDeniable.Mode.NONE, e);
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
             adapter.setObj(e.getPlayer());
-            adapter.setAsync(true);
+            adapter.setMode(ExecuteDeniable.Mode.ASYNC);
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {

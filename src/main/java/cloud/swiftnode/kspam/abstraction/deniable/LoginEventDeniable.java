@@ -11,8 +11,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class LoginEventDeniable extends ExecuteDeniable {
     private PlayerLoginEvent event;
 
-    public LoginEventDeniable(boolean async, PlayerLoginEvent event) {
-        super(async);
+    public LoginEventDeniable(Mode mode, PlayerLoginEvent event) {
+        super(mode);
         this.event = event;
     }
 
