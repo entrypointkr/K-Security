@@ -12,10 +12,15 @@ public abstract class SpamChecker implements Checker {
 
     @Override
     public boolean check() {
-        return spamCheck() == Result.DENY;
+        try {
+            return spamCheck() == Result.DENY;
+        } catch (Exception ex) {
+            // Ignore
+        }
+        return false;
     }
 
-    public abstract Result spamCheck();
+    public abstract Result spamCheck() throws Exception;
 
     @Override
     public String name() {

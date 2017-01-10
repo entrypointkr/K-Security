@@ -2,6 +2,9 @@ package cloud.swiftnode.kspam.abstraction.processor;
 
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.kspam.abstraction.checker.BotscoutChecker;
+import cloud.swiftnode.kspam.abstraction.checker.ShroomeryChecker;
+import cloud.swiftnode.kspam.abstraction.checker.StopforumChecker;
 import cloud.swiftnode.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
@@ -11,6 +14,9 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class AsyncLoginProcessor extends SpamProcessor {
     public AsyncLoginProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        super.setCheckers(SwiftnodeChecker.class);
+        super.setCheckers(SwiftnodeChecker.class,
+                StopforumChecker.class,
+                ShroomeryChecker.class,
+                BotscoutChecker.class);
     }
 }
