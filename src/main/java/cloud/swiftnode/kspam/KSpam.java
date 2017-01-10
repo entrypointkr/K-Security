@@ -14,5 +14,11 @@ public class KSpam extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+        saveDefaultConfig();
+    }
+
+    @Override
+    public void onDisable() {
+        saveConfig();
     }
 }
