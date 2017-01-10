@@ -1,14 +1,40 @@
 package cloud.swiftnode.kspam.abstraction;
 
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-
 /**
- * Created by EntryPoint on 2017-01-04.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamChecker implements Checker {
-    protected DeniableInfoAdapter adapter;
+public abstract class SpamChecker extends SimpleNamed implements Checker {
+    protected Info info;
+    protected String lastInfo;
 
-    public SpamChecker(DeniableInfoAdapter adapter) {
-        this.adapter = adapter;
+    public SpamChecker(Info info) {
+        this.info = info;
+    }
+
+    @Override
+    public boolean check() {
+        try {
+            return spamCheck() == Result.DENY;
+        } catch (Exception ex) {
+            // Ignore
+        }
+        return false;
+    }
+
+    public abstract Result spamCheck() throws Exception;
+
+    public boolean isCaching() {
+        return true;
+    }
+
+    public String getLastInfo() {
+        return lastInfo;
+    }
+
+    public enum Result {
+        PASS,
+        DENY,
+        ERROR,
+        FORCE_PASS
     }
 }

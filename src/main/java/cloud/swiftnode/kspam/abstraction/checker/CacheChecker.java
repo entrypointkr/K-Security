@@ -1,40 +1,34 @@
 package cloud.swiftnode.kspam.abstraction.checker;
 
+import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.util.StaticStorage;
-import cloud.swiftnode.kspam.util.Tracer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by EntryPoint on 2016-12-30.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
 public class CacheChecker extends SpamChecker {
-    public CacheChecker(DeniableInfoAdapter adapter) {
-        super(adapter);
+    public CacheChecker(Info info) {
+        super(info);
     }
 
     @Override
-    public Tracer.Result check() throws Exception {
-        List<String> infoList = new ArrayList<>(Arrays.asList(adapter.getIp(), adapter.getName()));
+    public Result spamCheck() {
+        List<String> infoList = new ArrayList<>(Arrays.asList(info.getIp(), info.getName()));
         try {
-            infoList.add(adapter.getUniqueId());
+            infoList.add(info.getUniqueId());
         } catch (IllegalStateException ex) {
             // Ignore
         }
         for (String info : infoList) {
-            if (StaticStorage.cachedSet.contains(info)) {
-                return Tracer.Result.DENY;
+            if (StaticStorage.cachedSet.contains(lastInfo = info)) {
+                return Result.DENY;
             }
         }
-        return Tracer.Result.PASS;
-    }
-
-    @Override
-    public String name() {
-        return "CacheChecker";
+        return Result.PASS;
     }
 }

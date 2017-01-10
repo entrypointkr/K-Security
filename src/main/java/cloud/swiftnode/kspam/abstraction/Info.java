@@ -1,12 +1,16 @@
 package cloud.swiftnode.kspam.abstraction;
 
+import org.bukkit.entity.Player;
+
 /**
- * Created by EntryPoint on 2017-01-04.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
 public interface Info {
+    String getName();
+
     String getIp();
 
-    String getUniqueId();
+    String getUniqueId() throws IllegalStateException;
 
-    String getName();
+    Player getPlayer();
 }

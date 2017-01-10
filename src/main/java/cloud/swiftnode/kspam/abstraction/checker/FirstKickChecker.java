@@ -1,34 +1,37 @@
 package cloud.swiftnode.kspam.abstraction.checker;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.util.Config;
-import cloud.swiftnode.kspam.util.Lang;
-import cloud.swiftnode.kspam.util.Tracer;
 import org.bukkit.entity.Player;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
- * Created by Junhyeong Lim on 2017-01-09.
+ * Created by Junhyeong Lim on 2017-01-11.
  */
 public class FirstKickChecker extends SpamChecker {
-    public FirstKickChecker(DeniableInfoAdapter adapter) {
-        super(adapter);
+    private Set<String> cachedSet = new LinkedHashSet<>();
+
+    public FirstKickChecker(Info info) {
+        super(info);
     }
 
     @Override
-    public Tracer.Result check() throws Exception {
-        Player player = adapter.getPlayer();
-        if (player != null && KSpam.INSTANCE.getConfig().getBoolean(Config.FIRST_LOGIN_KICK)
-                && !player.hasPlayedBefore()) {
-            adapter.setKickMsg(Lang.FIRST_LOGIN_KICK.toString());
-            return Tracer.Result.DENY;
+    public Result spamCheck() throws Exception {
+        Player player = info.getPlayer();
+        if (player == null || !KSpam.INSTANCE.getConfig().getBoolean(Config.FIRST_LOGIN_KICK) ||
+                player.hasPlayedBefore()) {
+            return Result.PASS;
         }
-        return Tracer.Result.PASS;
-    }
-
-    @Override
-    public String name() {
-        return "FirstKickChecker";
+        String name = player.getName().toLowerCase();
+        if (!cachedSet.contains(name)) {
+            cachedSet.add(name);
+            return Result.DENY;
+        }
+        cachedSet.remove(name);
+        return Result.PASS;
     }
 }

@@ -2,40 +2,22 @@ package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by EntryPoint on 2016-12-30.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
 public class Static {
-    public static void runTask(Runnable runnable) {
-        Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
-    }
-
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.INSTANCE, runnable);
     }
 
-    public static void runTaskLaterAsync(Runnable runnable, long delay) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.INSTANCE, runnable, delay);
-    }
 
-    public static void runTaskTimerAsync(final Runnable runnable, int delay, int period) {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.INSTANCE, runnable, delay, period);
-    }
-
-    public static void msgLineLoop(CommandSender sender, String msg) {
-        for (String element : msg.split("\n")) {
-            sender.sendMessage(element);
-        }
+    public static void runTask(Runnable runnable) {
+        Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
     }
 
     public static void consoleMsg(String... msgs) {
@@ -54,6 +36,10 @@ public class Static {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ex.printStackTrace(new PrintStream(stream));
         consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())).prefix());
+    }
+
+    public static long time() {
+        return System.currentTimeMillis();
     }
 
     public static String readAllText(URL url, String userContentOption) throws IOException {

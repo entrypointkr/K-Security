@@ -1,11 +1,14 @@
 package cloud.swiftnode.kspam.abstraction;
 
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.kspam.util.Tracer;
-
 /**
- * Created by Junhyeong Lim on 2017-01-08.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamExecutor {
-    public abstract void execute(Tracer tracer, DeniableInfoAdapter adapter, long startTime);
+public abstract class SpamExecutor extends SimpleNamed {
+    protected SpamChecker.Result lastResult;
+
+    public abstract boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable);
+
+    public SpamChecker.Result getLastResult() {
+        return lastResult;
+    }
 }

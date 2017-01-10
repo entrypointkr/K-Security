@@ -1,13 +1,14 @@
 package cloud.swiftnode.kspam.util;
 
-import java.util.HashSet;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Created by EntryPoint on 2017-01-04.
+ * Created by Junhyeong Lim on 2017-01-10.
  */
 public class StaticStorage {
-    public static Set<String> cachedSet = new HashSet<>();
+    public static Set<String> cachedSet = new LinkedHashSet<>();
     public static boolean forceMode = false;
     private static Version currVer;
     private static Version newVer;
