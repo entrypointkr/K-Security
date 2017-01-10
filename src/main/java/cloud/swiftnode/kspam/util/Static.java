@@ -17,7 +17,7 @@ public class Static {
 
 
     public static void runTask(Runnable runnable) {
-        Bukkit.getScheduler().runTask(temp.cloud.swiftnode.kspam.KSpam.INSTANCE, runnable);
+        Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
     }
 
     public static void consoleMsg(String... msgs) {
