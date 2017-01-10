@@ -13,18 +13,21 @@ import org.bukkit.event.player.PlayerLoginEvent;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class ObjectToDeniableConverter extends ObjectConverter<Deniable> {
-    public ObjectToDeniableConverter(Object obj) {
+    private boolean async;
+
+    public ObjectToDeniableConverter(Object obj, boolean async) {
         super(obj);
+        this.async = async;
     }
 
     @Override
     public Deniable convert() {
         if (obj instanceof Cancellable) {
-            return new CancellableDeniable((Cancellable) obj);
+            return new CancellableDeniable(async, (Cancellable) obj);
         } else if (obj instanceof PlayerLoginEvent) {
-            return new LoginEventDeniable(((PlayerLoginEvent) obj));
+            return new LoginEventDeniable(async, ((PlayerLoginEvent) obj));
         } else if (obj instanceof Player) {
-            return new PlayerDeniable((Player) obj);
+            return new PlayerDeniable(async, (Player) obj);
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }
