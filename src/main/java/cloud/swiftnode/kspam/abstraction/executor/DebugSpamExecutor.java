@@ -24,7 +24,7 @@ public class DebugSpamExecutor extends SpamExecutor {
         ret = parent.execute(processor, checker, deniable);
         Static.consoleMsg(Lang.DEBUG.builder()
                 .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.EXECUTOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
-                .addVal(processor.name(), this.name(), checker.name(), parent.getLastResult(), System.currentTimeMillis() - time));
+                .addVal(processor.name(),        this.name(),            checker.name(),        parent.getLastResult(),  System.currentTimeMillis() - time));
         return ret;
     }
 }
