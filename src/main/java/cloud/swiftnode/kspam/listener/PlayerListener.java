@@ -19,9 +19,11 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor());
-        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(e);
+        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
+            adapter.setObj(e.getPlayer());
+            adapter.setAsync(true);
             Static.runTaskAsync(new Runnable() {
                 @Override
                 public void run() {

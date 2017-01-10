@@ -4,6 +4,8 @@ import cloud.swiftnode.kspam.abstraction.Deniable;
 import cloud.swiftnode.kspam.abstraction.ObjectConverter;
 import cloud.swiftnode.kspam.abstraction.deniable.CancellableDeniable;
 import cloud.swiftnode.kspam.abstraction.deniable.LoginEventDeniable;
+import cloud.swiftnode.kspam.abstraction.deniable.PlayerDeniable;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerLoginEvent;
 
@@ -21,7 +23,9 @@ public class ObjectToDeniableConverter extends ObjectConverter<Deniable> {
             return new CancellableDeniable((Cancellable) obj);
         } else if (obj instanceof PlayerLoginEvent) {
             return new LoginEventDeniable(((PlayerLoginEvent) obj));
+        } else if (obj instanceof Player) {
+            return new PlayerDeniable((Player) obj);
         }
-        return null;
+        throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }
 }

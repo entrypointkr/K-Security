@@ -27,6 +27,7 @@ public class BaseSpamExecutor extends SpamExecutor {
             if (checker.isCaching()) {
                 StaticStorage.cachedSet.add(checker.getLastInfo());
             }
+            return true;
         } else if (lastResult == SpamChecker.Result.ERROR) {
             Static.consoleMsg(Lang.ERROR.builder().addKey());
         }
