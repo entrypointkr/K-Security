@@ -68,4 +68,8 @@ public class Static {
         String parse = target.substring(target.indexOf(a) + a.length());
         return parse.substring(0, parse.indexOf(b));
     }
+
+    public static String getVersion() {
+        return temp.cloud.swiftnode.kspam.KSpam.INSTANCE.getDescription().getVersion();
+    }
 }

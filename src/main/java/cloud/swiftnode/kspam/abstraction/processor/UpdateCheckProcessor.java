@@ -1,0 +1,51 @@
+package cloud.swiftnode.kspam.abstraction.processor;
+
+import cloud.swiftnode.kspam.abstraction.Processor;
+import temp.cloud.swiftnode.kspam.util.Lang;
+import temp.cloud.swiftnode.kspam.util.Static;
+import temp.cloud.swiftnode.kspam.util.StaticStorage;
+import temp.cloud.swiftnode.kspam.util.Version;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+/**
+ * Created by Junhyeong Lim on 2017-01-11.
+ */
+public class UpdateCheckProcessor implements Processor {
+    @Override
+    public boolean process() {
+        URL url = null;
+        try {
+            url = new URL("https://github.com/EntryPointKR/K-SPAM/releases/latest");
+        } catch (MalformedURLException ex) {
+            Static.consoleMsg(ex);
+            return false;
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.contains("<span class=\"css-truncate-target\">")) {
+                    continue;
+                }
+                StaticStorage.setNewVer(new Version(
+                        Static.substring(line, "<span class=\"css-truncate-target\">", "</span>")));
+                if (StaticStorage.getCurrVer().beforeEquals(StaticStorage.getNewVer())) {
+                    Static.consoleMsg(
+                            Lang.UPDATE_INFO_NEW.builder().prefix(),
+                            Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix(),
+                            Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix()
+                    );
+                } else {
+                    Static.consoleMsg(Lang.UPDATE_INFO_NO.builder().prefix());
+                }
+            }
+        } catch (Exception ex) {
+            Static.consoleMsg(ex);
+            return false;
+        }
+        return true;
+    }
+}
