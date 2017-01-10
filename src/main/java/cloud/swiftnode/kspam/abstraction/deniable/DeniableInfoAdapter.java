@@ -30,7 +30,7 @@ public class DeniableInfoAdapter implements Deniable, Info {
 
     @Override
     public String getIp() {
-        return info.getName();
+        return info.getIp();
     }
 
     @Override
