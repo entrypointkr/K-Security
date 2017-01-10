@@ -18,7 +18,7 @@ public abstract class SpamProcessor implements Processor {
     @Override
     public boolean process() {
         for (SpamChecker checker : checkers) {
-            if (executor.execute(checker, adapter)) {
+            if (executor.execute(this, checker, adapter)) {
                 return true;
             }
         }

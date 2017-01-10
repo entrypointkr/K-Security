@@ -9,17 +9,17 @@ import cloud.swiftnode.kspam.abstraction.SpamProcessor;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class DebugSpamExecutor extends SpamExecutor {
-    private SpamExecutor executor;
+    private SpamExecutor parent;
 
     public DebugSpamExecutor(SpamProcessor processor, SpamExecutor executor) {
-        this.executor = executor;
+        this.parent = executor;
     }
 
     @Override
     public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
         boolean ret;
         long time = System.currentTimeMillis();
-        ret = executor.execute(processor, checker, deniable);
+        ret = parent.execute(processor, checker, deniable);
         // TODO: System.currentTimeMills() - time;
         return ret;
     }
