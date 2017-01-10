@@ -25,7 +25,7 @@ public class DeniableInfoAdapter extends ExecuteDeniable implements Info {
     }
 
     public void setObj(Object obj) {
-        this.deniable = new ObjectToDeniableConverter(obj).convert();
+        this.deniable = new ObjectToDeniableConverter(obj, async).convert();
         this.info = new ObjectToInfoConverter(obj).convert();
     }
 
