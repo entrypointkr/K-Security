@@ -14,7 +14,7 @@ public class MCBlacklistChecker extends SpamChecker {
     @Override
     public Result spamCheck() throws Exception {
         // TODO: Check
-        return null;
+        return Result.PASS;
     }
 
     @Override

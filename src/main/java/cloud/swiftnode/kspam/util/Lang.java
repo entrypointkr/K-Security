@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 public enum Lang {
     PREFIX("&c&l[ K-SPAM ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
-    DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자: &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
+    DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
     DENY("&c[ K-SPAM ]\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),

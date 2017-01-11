@@ -1,7 +1,9 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 
 import java.io.*;
 import java.net.URL;
@@ -21,8 +23,9 @@ public class Static {
     }
 
     public static void consoleMsg(String... msgs) {
+        CommandSender sender = Bukkit.getConsoleSender() == null ? new MockCommandSender() : Bukkit.getConsoleSender();
         for (String msg : msgs) {
-            Bukkit.getConsoleSender().sendMessage(msg);
+            sender.sendMessage(msg);
         }
     }
 
