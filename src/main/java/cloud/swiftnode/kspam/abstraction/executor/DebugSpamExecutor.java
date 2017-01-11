@@ -12,17 +12,16 @@ import org.bukkit.command.CommandSender;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class DebugSpamExecutor extends SpamExecutor {
-    private SpamExecutor parent;
+public class DebugSpamExecutor extends DecorateSpamExecutor {
     private CommandSender sender;
 
     public DebugSpamExecutor(SpamExecutor parent) {
-        this.parent = parent;
+        super(parent);
         this.sender = Bukkit.getConsoleSender();
     }
 
     public DebugSpamExecutor(SpamExecutor parent, CommandSender sender) {
-        this.parent = parent;
+        super(parent);
         this.sender = sender;
     }
 

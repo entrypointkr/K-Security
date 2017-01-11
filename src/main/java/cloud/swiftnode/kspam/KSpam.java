@@ -3,7 +3,6 @@ package cloud.swiftnode.kspam;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.kspam.abstraction.executor.EmptySpamExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.*;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.util.Config;

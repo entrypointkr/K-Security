@@ -20,13 +20,8 @@ public class BaseSpamExecutor extends SpamExecutor {
             lastResult = SpamChecker.Result.ERROR;
             Static.consoleMsg(ex);
         }
-        if (lastResult == SpamChecker.Result.FORCE_PASS) {
-            return true;
-        } else if (lastResult == SpamChecker.Result.DENY) {
-            deniable.deny();
-            if (checker.isCaching()) {
-                StaticStorage.cachedSet.add(checker.getLastInfo());
-            }
+        if (lastResult == SpamChecker.Result.FORCE_PASS
+                || lastResult == SpamChecker.Result.DENY) {
             return true;
         } else if (lastResult == SpamChecker.Result.ERROR) {
             Static.consoleMsg(Lang.ERROR.builder().addKey());
