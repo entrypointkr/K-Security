@@ -31,4 +31,9 @@ public class CacheChecker extends SpamChecker {
         }
         return Result.PASS;
     }
+
+    @Override
+    public boolean isCaching() {
+        return false;
+    }
 }

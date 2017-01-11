@@ -34,4 +34,9 @@ public class FirstKickChecker extends SpamChecker {
         cachedSet.remove(name);
         return Result.PASS;
     }
+
+    @Override
+    public boolean isCaching() {
+        return false;
+    }
 }
