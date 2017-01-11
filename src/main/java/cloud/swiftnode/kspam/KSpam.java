@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.*;
 import cloud.swiftnode.kspam.listener.PlayerListener;
@@ -81,7 +82,7 @@ public class KSpam extends JavaPlugin {
                     String info = new InfoFacade(args[1]).get();
                     sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).build());
                     final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, info);
-                    final SpamExecutor executor = new DebugSpamExecutor(new EmptySpamExecutor(), sender);
+                    final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
                     new SyncLoginProcessor(executor, adapter).process();
                     Static.runTaskAsync(new Runnable() {
                         @Override

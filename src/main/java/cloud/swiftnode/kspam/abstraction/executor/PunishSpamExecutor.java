@@ -14,6 +14,10 @@ public class PunishSpamExecutor extends DecorateSpamExecutor {
         super(parent);
     }
 
+    public PunishSpamExecutor() {
+        super(new BaseSpamExecutor());
+    }
+
     @Override
     public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
         boolean ret = parent.execute(processor, checker, deniable);

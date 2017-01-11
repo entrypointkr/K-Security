@@ -5,6 +5,7 @@ import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
+import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.util.Static;
@@ -18,7 +19,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class PlayerListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
-        final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor());
+        final SpamExecutor executor = new DebugSpamExecutor(new PunishSpamExecutor());
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
