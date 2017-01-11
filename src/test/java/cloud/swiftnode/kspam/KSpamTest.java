@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam;
 
+import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
@@ -25,8 +26,9 @@ public class KSpamTest {
         CommandSender sender = new MockCommandSender();
         SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, new EmptyDeniable(), mockInfo);
-        Processor syncPrcs = new SyncLoginProcessor(executor, adapter);
-        Processor asyncPrcs = new AsyncLoginProcessor(executor, adapter);
+        SpamProcessor syncPrcs = new SyncLoginProcessor(executor, adapter);
+        SpamProcessor asyncPrcs = new AsyncLoginProcessor(executor, adapter);
+        asyncPrcs.removeChecker("SwiftnodeChecker");
         syncPrcs.process();
         asyncPrcs.process();
     }

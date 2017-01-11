@@ -2,11 +2,14 @@ package cloud.swiftnode.kspam.abstraction;
 
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public abstract class SpamProcessor extends SimpleNamed implements Processor {
-    private SpamChecker[] checkers;
+    private List<SpamChecker> checkerList;
     private SpamExecutor executor;
     private DeniableInfoAdapter adapter;
 
@@ -17,7 +20,7 @@ public abstract class SpamProcessor extends SimpleNamed implements Processor {
 
     @Override
     public boolean process() {
-        for (SpamChecker checker : checkers) {
+        for (SpamChecker checker : checkerList) {
             if (executor.execute(this, checker, adapter)) {
                 return true;
             }
@@ -26,15 +29,24 @@ public abstract class SpamProcessor extends SimpleNamed implements Processor {
     }
 
     @SafeVarargs
-    protected final void setCheckers(Class<? extends SpamChecker>... checkerClasses) {
-        SpamChecker[] checkers = new SpamChecker[checkerClasses.length];
-        for (int i = 0; i < checkerClasses.length; i++) {
+    protected final void setCheckerList(Class<? extends SpamChecker>... checkerClasses) {
+        List<SpamChecker> checkerList = new ArrayList<>();
+        for (Class<? extends SpamChecker> cls : checkerClasses) {
             try {
-                checkers[i] = checkerClasses[i].getConstructor(Info.class).newInstance(adapter);
+                checkerList.add(cls.getConstructor(Info.class).newInstance(adapter));
             } catch (Exception ex) {
                 // Ignore
             }
         }
-        this.checkers = checkers;
+        this.checkerList = checkerList;
+    }
+
+    public void removeChecker(String name) {
+        for (SpamChecker checker : checkerList) {
+            if (checker.name().equalsIgnoreCase(name)) {
+                checkerList.remove(checker);
+                return;
+            }
+        }
     }
 }

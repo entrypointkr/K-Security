@@ -11,10 +11,11 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class AsyncLoginProcessor extends SpamProcessor {
     public AsyncLoginProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        super.setCheckers(SwiftnodeChecker.class,
+        super.setCheckerList(SwiftnodeChecker.class,
                 MCBlacklistChecker.class,
                 StopforumChecker.class,
                 ShroomeryChecker.class,
                 BotscoutChecker.class);
     }
 }
+
