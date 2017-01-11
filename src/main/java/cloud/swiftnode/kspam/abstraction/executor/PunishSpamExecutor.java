@@ -21,7 +21,7 @@ public class PunishSpamExecutor extends DecorateSpamExecutor {
     @Override
     public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
         boolean ret = parent.execute(processor, checker, deniable);
-        if (lastResult == SpamChecker.Result.DENY) {
+        if (getLastResult() == SpamChecker.Result.DENY) {
             deniable.setDenyMsg(checker.denyMsg());
             deniable.deny();
             if (checker.isCaching()) {

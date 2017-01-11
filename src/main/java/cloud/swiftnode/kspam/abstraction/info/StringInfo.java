@@ -1,5 +1,6 @@
-package cloud.swiftnode.kspam.abstraction;
+package cloud.swiftnode.kspam.abstraction.info;
 
+import cloud.swiftnode.kspam.abstraction.Info;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,6 +15,10 @@ public class StringInfo implements Info {
         this.ip = ip;
         this.uuid = uuid;
         this.name = name;
+    }
+
+    public StringInfo(String flat) {
+        this(flat, flat, flat);
     }
 
     @Override

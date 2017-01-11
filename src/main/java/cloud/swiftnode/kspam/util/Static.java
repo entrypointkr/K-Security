@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.*;
 import java.net.URL;
@@ -20,6 +21,10 @@ public class Static {
 
     public static void runTask(Runnable runnable) {
         Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
+    }
+
+    public static void runTaskLater(Runnable runnable, long delay) {
+        Bukkit.getScheduler().runTaskLater(KSpam.INSTANCE, runnable, delay);
     }
 
     public static void consoleMsg(String... msgs) {
@@ -74,5 +79,9 @@ public class Static {
 
     public static String getVersion() {
         return KSpam.INSTANCE.getDescription().getVersion();
+    }
+
+    public static FileConfiguration getConfig() {
+        return KSpam.INSTANCE.getConfig();
     }
 }

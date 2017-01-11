@@ -1,10 +1,9 @@
 package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.kspam.abstraction.info.StringInfo;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
-import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
-import cloud.swiftnode.kspam.abstraction.StringInfo;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.deniable.EmptyDeniable;
 import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;

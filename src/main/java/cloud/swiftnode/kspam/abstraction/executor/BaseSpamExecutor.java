@@ -6,7 +6,6 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
-import cloud.swiftnode.kspam.util.StaticStorage;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -24,7 +23,8 @@ public class BaseSpamExecutor extends SpamExecutor {
                 || lastResult == SpamChecker.Result.DENY) {
             return true;
         } else if (lastResult == SpamChecker.Result.ERROR) {
-            Static.consoleMsg(Lang.ERROR.builder().addKey());
+            Static.consoleMsg(Lang.ERROR.builder()
+                    .single(Lang.Key.CHECKER_NAME, checker.name()).prefix());
         }
         return false;
     }

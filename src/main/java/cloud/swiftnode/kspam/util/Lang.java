@@ -41,7 +41,9 @@ public enum Lang {
     DENIED("&e" + Key.VICTIM + " &f님이 차단되었습니다. &e체커: &f" + Key.CHECKER_NAME),
     COMMAND_CHECK("&e" + Key.VALUE + " &f의 결과"),
     FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
-            "&f다시 접속해주세요."),;
+            "&f다시 접속해주세요."),
+    INVALID_IP("형식에 맞지 않는 IP 입니다.")
+    ;
     private final String msg;
 
     Lang(String msg) {

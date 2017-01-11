@@ -13,6 +13,6 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class SyncLoginProcessor extends SpamProcessor {
     public SyncLoginProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        setCheckerList(LocalChecker.class, FirstKickChecker.class, CacheChecker.class);
+        setCheckerList(LocalChecker.class, CacheChecker.class);
     }
 }

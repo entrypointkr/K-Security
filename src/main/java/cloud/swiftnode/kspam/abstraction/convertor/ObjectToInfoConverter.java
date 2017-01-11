@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.ObjectConverter;
 import cloud.swiftnode.kspam.abstraction.info.EventInfo;
 import cloud.swiftnode.kspam.abstraction.info.PlayerInfo;
+import cloud.swiftnode.kspam.abstraction.info.StringInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 
@@ -21,6 +22,8 @@ public class ObjectToInfoConverter extends ObjectConverter<Info> {
             return new PlayerInfo((Player) obj);
         } else if (obj instanceof PlayerEvent) {
             return new EventInfo((PlayerEvent) obj);
+        } else if (obj instanceof String) {
+            return new StringInfo((String) obj);
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }

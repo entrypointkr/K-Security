@@ -1,6 +1,7 @@
 package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.kspam.abstraction.convertor.StringToIpConverter;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
@@ -15,6 +16,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -80,7 +84,11 @@ public class KSpam extends JavaPlugin {
                         break;
                     }
                     String info = new InfoFacade(args[1]).get();
-                    sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).build());
+                    if (info == null) {
+                        sender.sendMessage(Lang.INVALID_IP.builder().prefix().build());
+                        return true;
+                    }
+                    sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).prefix().build());
                     final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, info);
                     final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
                     new SyncLoginProcessor(executor, adapter).process();
@@ -96,6 +104,10 @@ public class KSpam extends JavaPlugin {
                         break;
                     }
                     String info = new InfoFacade(args[1]).get();
+                    if (info == null) {
+                        sender.sendMessage(Lang.INVALID_IP.builder().prefix().build());
+                        return true;
+                    }
                     sender.sendMessage(Lang.PREFIX.toString() + StaticStorage.cachedSet.remove(info));
                     return true;
                 }
@@ -113,9 +125,15 @@ public class KSpam extends JavaPlugin {
         String get() {
             Player player = Bukkit.getPlayer(target);
             if (player != null) {
-                return player.getName();
+                return new StringToIpConverter(player.getAddress().getAddress().toString()).convert();
             }
-            return target;
+            Matcher matcher = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
+                    .matcher(target);
+            if (matcher.find()) {
+                return target;
+            } else {
+                return null;
+            }
         }
     }
 }
