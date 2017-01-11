@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.abstraction.executor;
 
+import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 
 /**
@@ -15,5 +16,10 @@ public abstract class DecorateSpamExecutor extends SpamExecutor {
     @Override
     public String name() {
         return super.name() + "(" + parent.name() + ")";
+    }
+
+    @Override
+    public SpamChecker.Result getLastResult() {
+        return parent.getLastResult();
     }
 }
