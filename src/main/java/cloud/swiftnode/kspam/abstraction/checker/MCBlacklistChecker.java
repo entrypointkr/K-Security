@@ -14,6 +14,9 @@ public class MCBlacklistChecker extends SpamChecker {
     @Override
     public Result spamCheck() throws Exception {
         // TODO: Check
+        if ((lastInfo = info.getUniqueId()).equals("나쁜놈")) {
+            return Result.DENY;
+        }
         return Result.PASS;
     }
 
