@@ -4,8 +4,6 @@
 비동기 처리, 자체 캐싱으로 매우 가벼우며 사용에 부담이 없습니다.
 (이벤트 패스 시간 약 0.001 초)
 
-![alt tag](https://github.com/EntryPointKR/K-SPAM/blob/master/diagram.png)
-
 명령어
 ----
 > /kspam check 아이피/닉네임
@@ -57,3 +55,9 @@ K-SPAM 은 오픈소스 프로젝트로 누구나 개발에 참여할 수 있습
 프로그래밍에 익숙하지 않으신 분이라도 의욕만 있다면 환영입니다. 요청한 코드에 버그가 있을 경우 코멘트를 달아 알려드리며 그때 수정해주시면 됩니다.
 
 알려진 버그: MCStats 커스텀 그래프 미작동
+
+클래스 구조 다이어그램
+----
+~~한국에 이보다 잘만든 플러그인이 있나요~~
+
+![alt tag](https://github.com/EntryPointKR/K-SPAM/blob/master/diagram.png)
