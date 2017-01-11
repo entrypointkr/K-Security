@@ -24,9 +24,10 @@ public class FirstKickChecker extends SpamChecker {
         Player player = info.getPlayer();
         if (player == null || !KSpam.INSTANCE.getConfig().getBoolean(Config.FIRST_LOGIN_KICK) ||
                 player.hasPlayedBefore()) {
+            lastInfo = "";
             return Result.PASS;
         }
-        String name = player.getName().toLowerCase();
+        String name = lastInfo = player.getName().toLowerCase();
         if (!cachedSet.contains(name)) {
             cachedSet.add(name);
             return Result.DENY;
