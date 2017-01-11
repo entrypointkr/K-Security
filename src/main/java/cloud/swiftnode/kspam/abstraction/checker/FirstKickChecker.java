@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.util.Config;
+import cloud.swiftnode.kspam.util.Lang;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashSet;
@@ -39,5 +40,10 @@ public class FirstKickChecker extends SpamChecker {
     @Override
     public boolean isCaching() {
         return false;
+    }
+
+    @Override
+    public String denyMsg() {
+        return Lang.FIRST_LOGIN_KICK.toString();
     }
 }
