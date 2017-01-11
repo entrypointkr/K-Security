@@ -17,6 +17,6 @@ public class PlayerDeniable extends ExecuteDeniable {
 
     @Override
     public void executeDeny() {
-        player.kickPlayer(Lang.DENY.toString());
+        player.kickPlayer(getDenyMsg());
     }
 }

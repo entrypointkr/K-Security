@@ -1,5 +1,7 @@
 package cloud.swiftnode.kspam.abstraction;
 
+import cloud.swiftnode.kspam.util.Lang;
+
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
@@ -25,6 +27,10 @@ public abstract class SpamChecker extends SimpleNamed implements Checker {
 
     public boolean isCaching() {
         return true;
+    }
+
+    public String denyMsg() {
+        return Lang.DENY.toString();
     }
 
     public String getLastInfo() {

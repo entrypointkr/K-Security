@@ -17,6 +17,6 @@ public class LoginEventDeniable extends ExecuteDeniable {
 
     @Override
     public void executeDeny() {
-        event.disallow(PlayerLoginEvent.Result.KICK_BANNED, Lang.DENY.toString());
+        event.disallow(PlayerLoginEvent.Result.KICK_BANNED, getDenyMsg());
     }
 }

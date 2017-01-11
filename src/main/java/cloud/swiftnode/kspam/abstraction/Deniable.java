@@ -5,4 +5,6 @@ package cloud.swiftnode.kspam.abstraction;
  */
 public interface Deniable {
     void deny();
+    String getDenyMsg();
+    void setDenyMsg(String msg);
 }

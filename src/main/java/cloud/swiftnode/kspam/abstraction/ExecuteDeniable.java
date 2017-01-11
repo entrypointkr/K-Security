@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.abstraction;
 
+import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 
 /**
@@ -7,9 +8,11 @@ import cloud.swiftnode.kspam.util.Static;
  */
 public abstract class ExecuteDeniable implements Deniable {
     protected boolean delayed = false;
+    protected String denyMsg;
 
     public ExecuteDeniable(boolean delayed) {
         this.delayed = delayed;
+        this.denyMsg = Lang.DENY.toString();
     }
 
     @Override
@@ -36,9 +39,13 @@ public abstract class ExecuteDeniable implements Deniable {
         this.delayed = delayed;
     }
 
-    public enum Mode {
-        ASYNC,
-        SYNC,
-        NONE
+    @Override
+    public String getDenyMsg() {
+        return denyMsg;
+    }
+
+    @Override
+    public void setDenyMsg(String msg) {
+        this.denyMsg = msg;
     }
 }
