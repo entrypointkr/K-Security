@@ -28,7 +28,9 @@ public class KSpamTest {
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, new EmptyDeniable(), mockInfo);
         SpamProcessor syncPrcs = new SyncLoginProcessor(executor, adapter);
         SpamProcessor asyncPrcs = new AsyncLoginProcessor(executor, adapter);
-        asyncPrcs.removeChecker("SwiftnodeChecker");
+        // Escape
+        asyncPrcs.removeCheckers("SwiftnodeChecker", "BotscoutChecker");
+        //
         syncPrcs.process();
         asyncPrcs.process();
     }

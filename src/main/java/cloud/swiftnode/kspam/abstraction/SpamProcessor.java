@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.abstraction;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,11 +42,14 @@ public abstract class SpamProcessor extends SimpleNamed implements Processor {
         this.checkerList = checkerList;
     }
 
-    public void removeChecker(String name) {
-        for (SpamChecker checker : checkerList) {
-            if (checker.name().equalsIgnoreCase(name)) {
-                checkerList.remove(checker);
-                return;
+    public void removeCheckers(String... names) {
+        Iterator<SpamChecker> iterator = checkerList.iterator();
+        while (iterator.hasNext()) {
+            SpamChecker checker = iterator.next();
+            for (String name : names) {
+                if (checker.name().equalsIgnoreCase(name)) {
+                    iterator.remove();
+                }
             }
         }
     }
