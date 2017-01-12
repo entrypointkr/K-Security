@@ -1,2 +1,3 @@
 debug-mode: false
 first-login-kick: true
+alert: false

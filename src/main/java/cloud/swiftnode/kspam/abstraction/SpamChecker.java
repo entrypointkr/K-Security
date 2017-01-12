@@ -37,6 +37,10 @@ public abstract class SpamChecker extends SimpleNamed implements Checker {
         return lastInfo;
     }
 
+    public void setLastInfo(String lastInfo) {
+        this.lastInfo = lastInfo;
+    }
+
     public enum Result {
         PASS,
         DENY,

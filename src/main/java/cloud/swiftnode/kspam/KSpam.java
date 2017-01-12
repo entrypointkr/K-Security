@@ -5,7 +5,12 @@ import cloud.swiftnode.kspam.abstraction.convertor.StringToIpConverter;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.kspam.abstraction.processor.*;
+import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.CacheInitProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
@@ -75,6 +80,13 @@ public class KSpam extends JavaPlugin {
                     }
                     getConfig().set(Config.FIRST_LOGIN_KICK, !getConfig().getBoolean(Config.FIRST_LOGIN_KICK, true));
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
+                    return true;
+                } else if (args[0].equalsIgnoreCase("alert")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    getConfig().set(Config.ALERT, !getConfig().getBoolean(Config.ALERT, false));
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.ALERT)).prefix().build());
                     return true;
                 }
                 break;

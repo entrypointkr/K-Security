@@ -10,6 +10,7 @@ import cloud.swiftnode.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Static;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,18 +22,24 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class PlayerListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
+        if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
+            return;
+        }
         final SpamExecutor executor = getExecutor();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
+        final Player player = e.getPlayer();
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
-            adapter.setObj(e.getPlayer());
+            adapter.setObj(player);
             adapter.setDelayed(true);
-            Static.runTaskAsync(new Runnable() {
+            Static.runTaskLaterAsync(new Runnable() {
                 @Override
                 public void run() {
-                    new AsyncLoginProcessor(executor, adapter).process();
+                    if (player.isOnline()) {
+                        new AsyncLoginProcessor(executor, adapter).process();
+                    }
                 }
-            });
+            }, 20L);
         }
     }
 

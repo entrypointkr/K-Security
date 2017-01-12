@@ -1,15 +1,15 @@
 package cloud.swiftnode.kspam;
 
-import cloud.swiftnode.kspam.abstraction.SpamProcessor;
-import cloud.swiftnode.kspam.abstraction.info.StringInfo;
-import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.deniable.EmptyDeniable;
 import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
+import cloud.swiftnode.kspam.abstraction.info.StringInfo;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.junit.Test;
 

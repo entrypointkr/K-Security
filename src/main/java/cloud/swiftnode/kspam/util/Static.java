@@ -5,8 +5,13 @@ import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -16,6 +21,10 @@ import java.net.URLConnection;
 public class Static {
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSpam.INSTANCE, runnable);
+    }
+
+    public static void runTaskLaterAsync(Runnable runnable, long delay) {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.INSTANCE, runnable, delay);
     }
 
 
@@ -82,6 +91,10 @@ public class Static {
     }
 
     public static FileConfiguration getConfig() {
-        return KSpam.INSTANCE.getConfig();
+        if (KSpam.INSTANCE != null) {
+            return KSpam.INSTANCE.getConfig();
+        } else {
+            return new YamlConfiguration();
+        }
     }
 }
