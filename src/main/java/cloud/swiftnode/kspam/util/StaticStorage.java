@@ -10,6 +10,7 @@ import java.util.Set;
 public class StaticStorage {
     public static Set<String> cachedSet = new LinkedHashSet<>();
     public static Set<String> validateSet = new LinkedHashSet<>();
+    public static Set<String> firstKickCachedSet = new LinkedHashSet<>();
     public static boolean forceMode = false;
     public static boolean protocolLib = true;
     private static Version currVer;

@@ -8,6 +8,7 @@ import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.GCProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
@@ -47,6 +48,12 @@ public class KSpam extends JavaPlugin {
             Static.consoleMsg(Lang.PROTOCOL_LIB_NOT_DETECT.toString());
             StaticStorage.protocolLib = false;
         }
+        Static.runTaskTimerAsync(new Runnable() {
+            @Override
+            public void run() {
+                new GCProcessor().process();
+            }
+        }, 20L, getConfig().getInt(Config.GC_PERIOD, 6) * 3600);
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
