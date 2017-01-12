@@ -8,8 +8,8 @@ import cloud.swiftnode.kspam.util.StaticStorage;
 /**
  * Created by Junhyeong Lim on 2017-01-12.
  */
-public class PacketChecker extends SpamChecker {
-    public PacketChecker(Info info) {
+public class ProtocolChecker extends SpamChecker {
+    public ProtocolChecker(Info info) {
         super(info);
     }
 

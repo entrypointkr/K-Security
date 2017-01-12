@@ -5,10 +5,13 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
+import cloud.swiftnode.kspam.listener.ProtocolListener;
+import com.comphenix.protocol.ProtocolLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -110,6 +113,16 @@ public class Static {
             return new DebugSpamExecutor(new PunishSpamExecutor());
         } else {
             return new PunishSpamExecutor();
+        }
+    }
+
+    public static void protocolLibHook() {
+        ProtocolLibHook.register(KSpam.INSTANCE);
+    }
+
+    private static class ProtocolLibHook {
+        static void register(Plugin plugin) {
+            ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolListener(plugin));
         }
     }
 }

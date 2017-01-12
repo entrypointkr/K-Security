@@ -48,13 +48,13 @@ processResources {
     ]
 }
 
-//shadowJar {
-//    classifier = ''
-//    dependencies {
-//        include dependency('org.mcstats.bukkit:metrics')
-//    }
-//    relocate 'org.mcstats', "cloud.swiftnode.kspam.metrics"
-//}
+shadowJar {
+    classifier = ''
+    dependencies {
+        include dependency('org.mcstats.bukkit:metrics')
+    }
+    relocate 'org.mcstats', "cloud.swiftnode.kspam.metrics"
+}
 
 artifacts {
     archives shadowJar
