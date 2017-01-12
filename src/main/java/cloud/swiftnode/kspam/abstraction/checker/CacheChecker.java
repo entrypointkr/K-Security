@@ -18,13 +18,24 @@ public class CacheChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() {
-        List<String> infoList = new ArrayList<>(Arrays.asList(info.getIp(), info.getName()));
+        List<String> infoList = new ArrayList<>();
+        try {
+            infoList.add(info.getIp());
+        } catch (IllegalStateException ex) {
+            // Ignore
+        }
+        try {
+            infoList.add(info.getName());
+        } catch (IllegalStateException ex) {
+            // Ignore
+        }
         try {
             infoList.add(info.getUniqueId());
         } catch (IllegalStateException ex) {
             // Ignore
         }
         for (String info : infoList) {
+            if (info == null) continue;
             if (StaticStorage.cachedSet.contains(lastInfo = info)) {
                 return Result.DENY;
             }

@@ -11,8 +11,10 @@ import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.junit.Test;
 
+import java.net.InetAddress;
 import java.util.UUID;
 
 /**
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class KSpamTest {
     @Test
     public void prcsTest() {
+        // String
+        System.out.println("String");
         StringInfo mockInfo = new StringInfo("12.32.12.32", UUID.randomUUID().toString(), "EntryPoint");
         CommandSender sender = new MockCommandSender();
         SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
@@ -32,5 +36,16 @@ public class KSpamTest {
         //
         syncPrcs.process();
         asyncPrcs.process();
+        // PingEvent
+        System.out.println("ServerListPing");
+        ServerListPingEvent event = null;
+        try {
+            event = new ServerListPingEvent(InetAddress.getByAddress(new byte[]{12, 32, 12, 32}), "mock", 0, 20);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        adapter.setObj(event);
+        syncPrcs.setAdapter(adapter);
+        syncPrcs.process();
     }
 }

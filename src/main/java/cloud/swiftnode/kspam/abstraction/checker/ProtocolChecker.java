@@ -15,7 +15,11 @@ public class ProtocolChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        String name = info.getName().toLowerCase();
+        String name = info.getName();
+        if (name == null) {
+            return Result.PASS;
+        }
+        name = name.toLowerCase();
         if (StaticStorage.protocolLib && !StaticStorage.validateSet.contains(name)) {
             return Result.DENY;
         }

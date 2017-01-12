@@ -13,6 +13,7 @@ import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
 import cloud.swiftnode.kspam.listener.PlayerListener;
+import cloud.swiftnode.kspam.listener.ServerListener;
 import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
@@ -36,6 +37,7 @@ public class KSpam extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ServerListener(), this);
         saveDefaultConfig();
         new CacheInitProcessor().process();
         new UpdateCheckProcessor().process();

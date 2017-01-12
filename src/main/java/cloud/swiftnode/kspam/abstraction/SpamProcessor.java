@@ -57,4 +57,8 @@ public abstract class SpamProcessor extends SimpleNamed implements Processor {
     public DeniableInfoAdapter getAdapter() {
         return adapter;
     }
+
+    public void setAdapter(DeniableInfoAdapter adapter) {
+        this.adapter = adapter;
+    }
 }
