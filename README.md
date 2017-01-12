@@ -4,7 +4,7 @@
 비동기 처리, 자체 캐싱으로 매우 가벼우며 사용에 부담이 없습니다.
 (이벤트 패스 시간 약 0.001 초)
 
-[ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) 사용시 더 가볍고 빠르게 차단이 가능합니다.
+[ProtocolLib](https://dev.bukkit.org/projects/protocollib/files) 사용시 더 가볍고 빠르게 차단이 가능합니다.
 
 명령어
 ----
