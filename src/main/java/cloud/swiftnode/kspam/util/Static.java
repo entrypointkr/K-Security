@@ -1,6 +1,9 @@
 package cloud.swiftnode.kspam.util;
 
 import cloud.swiftnode.kspam.KSpam;
+import cloud.swiftnode.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
+import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -95,6 +98,14 @@ public class Static {
             return KSpam.INSTANCE.getConfig();
         } else {
             return new YamlConfiguration();
+        }
+    }
+
+    public static SpamExecutor getDefaultExecutor() {
+        if (Static.getConfig().getBoolean(Config.DEBUG_MODE, false)) {
+            return new DebugSpamExecutor(new PunishSpamExecutor());
+        } else {
+            return new PunishSpamExecutor();
         }
     }
 }

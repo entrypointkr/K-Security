@@ -25,7 +25,7 @@ public class PlayerListener implements Listener {
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
-        final SpamExecutor executor = getExecutor();
+        final SpamExecutor executor = Static.getDefaultExecutor();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
         final Player player = e.getPlayer();
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
@@ -45,17 +45,9 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        SpamExecutor executor = getExecutor();
+        SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(true, e.getPlayer());
         SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
         processor.process();
-    }
-
-    public SpamExecutor getExecutor() {
-        if (Static.getConfig().getBoolean(Config.DEBUG_MODE, false)) {
-            return new DebugSpamExecutor(new PunishSpamExecutor());
-        } else {
-            return new PunishSpamExecutor();
-        }
     }
 }

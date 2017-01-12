@@ -11,11 +11,13 @@ import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
+import cloud.swiftnode.kspam.listener.PacketListener;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
+import com.comphenix.protocol.ProtocolLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -39,6 +41,11 @@ public class KSpam extends JavaPlugin {
         new CacheInitProcessor().process();
         new UpdateCheckProcessor().process();
         new MetricsInitProcessor().process();
+        try {
+            ProtocolLibrary.getProtocolManager().addPacketListener(new PacketListener(this));
+        } catch (Exception ex) {
+            // Ignore
+        }
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }

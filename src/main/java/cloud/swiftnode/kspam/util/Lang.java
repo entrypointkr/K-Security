@@ -42,7 +42,9 @@ public enum Lang {
     COMMAND_CHECK("&e" + Key.VALUE + " &f의 결과"),
     FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
             "&f다시 접속해주세요."),
-    INVALID_IP("형식에 맞지 않는 IP 입니다.");
+    INVALID_IP("형식에 맞지 않는 IP 입니다."),
+    PROTOCOL_LIB_DETECT("ProtocolLib 감지"),
+    ;
     private final String msg;
 
     Lang(String msg) {
