@@ -15,9 +15,11 @@ public class PacketChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        if (StaticStorage.protocolLib && !StaticStorage.validateSet.contains(info.getName().toLowerCase())) {
+        String name = info.getName().toLowerCase();
+        if (StaticStorage.protocolLib && !StaticStorage.validateSet.contains(name)) {
             return Result.DENY;
         }
+        StaticStorage.validateSet.remove(name);
         return Result.PASS;
     }
 
