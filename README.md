@@ -61,3 +61,5 @@ K-SPAM 은 오픈소스 프로젝트로 누구나 개발에 참여할 수 있습
 ~~한국에 이보다 잘만든 플러그인이 있나요~~
 
 ![alt tag](https://github.com/EntryPointKR/K-SPAM/blob/master/diagram.png)
+
+예정: 트랜잭션 패킷 체크

@@ -44,7 +44,8 @@ public class KSpam extends JavaPlugin {
         try {
             ProtocolLibrary.getProtocolManager().addPacketListener(new PacketListener(this));
         } catch (Exception ex) {
-            // Ignore
+            Static.consoleMsg(Lang.PROTOCOL_LIB_NOT_DETECT.toString());
+            StaticStorage.protocolLib = false;
         }
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));

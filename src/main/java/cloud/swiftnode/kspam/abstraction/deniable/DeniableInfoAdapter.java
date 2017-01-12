@@ -59,4 +59,14 @@ public class DeniableInfoAdapter extends ExecuteDeniable implements Info {
     public void executeDeny() {
         deniable.deny();
     }
+
+    @Override
+    public String getDenyMsg() {
+        return deniable.getDenyMsg();
+    }
+
+    @Override
+    public void setDenyMsg(String msg) {
+        deniable.setDenyMsg(msg);
+    }
 }
