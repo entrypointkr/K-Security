@@ -3,7 +3,7 @@ package cloud.swiftnode.kspam.listener;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.kspam.abstraction.processor.SyncJoinProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +18,7 @@ public class ServerListener implements Listener {
     public void onPing(ServerListPingEvent e) {
         SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
-        SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
+        SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         processor.process();
     }
 }

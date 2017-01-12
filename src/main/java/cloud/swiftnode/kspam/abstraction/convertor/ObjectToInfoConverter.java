@@ -7,6 +7,7 @@ import cloud.swiftnode.kspam.abstraction.info.PacketInfo;
 import cloud.swiftnode.kspam.abstraction.info.PingInfo;
 import cloud.swiftnode.kspam.abstraction.info.PlayerInfo;
 import cloud.swiftnode.kspam.abstraction.info.StringInfo;
+import cloud.swiftnode.kspam.util.StaticStorage;
 import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
@@ -28,11 +29,20 @@ public class ObjectToInfoConverter extends ObjectConverter<Info> {
             return new EventInfo((PlayerEvent) obj);
         } else if (obj instanceof String) {
             return new StringInfo((String) obj);
-        } else if (obj instanceof PacketEvent) {
-            return new PacketInfo((PacketEvent) obj);
+        } else if (StaticStorage.protocolLib && ProtocolLibEvent.getInfo(obj) != null) {
+            return ProtocolLibEvent.getInfo(obj);
         } else if (obj instanceof ServerListPingEvent) {
             return new PingInfo((ServerListPingEvent) obj);
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
+    }
+
+    static class ProtocolLibEvent {
+        static Info getInfo(Object obj) {
+            if (obj instanceof PacketEvent) {
+                return new PacketInfo((PacketEvent) obj);
+            }
+            return null;
+        }
     }
 }
