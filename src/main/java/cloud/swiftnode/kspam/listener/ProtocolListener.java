@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class ProtocolListener extends PacketAdapter {
     public ProtocolListener(Plugin plugin) {
-        super(plugin, ConnectionSide.SERVER_SIDE, ListenerPriority.LOWEST, 1);
+        super(plugin, ConnectionSide.SERVER_SIDE, ListenerPriority.LOWEST, 35);
     }
 
     @Override
