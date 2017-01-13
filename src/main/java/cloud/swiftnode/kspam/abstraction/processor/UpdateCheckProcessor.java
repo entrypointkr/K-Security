@@ -32,7 +32,7 @@ public class UpdateCheckProcessor implements Processor {
                 }
                 StaticStorage.setNewVer(new Version(
                         Static.substring(line, "<span class=\"css-truncate-target\">", "</span>")));
-                if (StaticStorage.getCurrVer().beforeEquals(StaticStorage.getNewVer())) {
+                if (StaticStorage.getCurrVer().before(StaticStorage.getNewVer())) {
                     Static.consoleMsg(
                             Lang.UPDATE_INFO_NEW.builder().prefix(),
                             Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix(),

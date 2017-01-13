@@ -50,18 +50,24 @@ public class Version {
         return add;
     }
 
-    public boolean beforeEquals(Version version) {
+    public boolean before(Version version) {
         if (major != version.getMajor()) {
-            return major <= version.getMajor();
+            return major < version.getMajor();
         }
         if (minor != version.getMinor()) {
-            return minor <= version.getMinor();
+            return minor < version.getMinor();
         }
-        return add <= version.getAdd();
+        return add < version.getAdd();
     }
 
     public boolean after(Version version) {
-        return !beforeEquals(version);
+        if (major != version.getMajor()) {
+            return major > version.getMajor();
+        }
+        if (minor != version.getMinor()) {
+            return minor > version.getMinor();
+        }
+        return add > version.getAdd();
     }
 
     public boolean isTagged() {
