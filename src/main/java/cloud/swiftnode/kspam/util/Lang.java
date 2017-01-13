@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum Lang {
-    PREFIX("&c&l[ K-SPAM ] &f"),
+    PREFIX("&c[ K-SPAM ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
     DENY("&c[ K-SPAM ]\n" +

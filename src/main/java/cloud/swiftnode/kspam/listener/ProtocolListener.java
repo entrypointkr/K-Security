@@ -11,6 +11,7 @@ import org.bukkit.plugin.Plugin;
  * Created by Junhyeong Lim on 2017-01-12.
  */
 public class ProtocolListener extends PacketAdapter {
+    @SuppressWarnings("deprecation")
     public ProtocolListener(Plugin plugin) {
         super(plugin, ConnectionSide.SERVER_SIDE, ListenerPriority.LOWEST, 35);
     }

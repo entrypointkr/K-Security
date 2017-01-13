@@ -21,6 +21,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * Created by Junhyeong Lim on 2017-01-13.
  */
+@SuppressWarnings("unchecked")
 public class Metrics {
 
     // The version of this bStats class
