@@ -68,7 +68,14 @@ K-SPAM 은 오픈소스 프로젝트로 누구나 개발에 참여할 수 있습
 
 프로그래밍에 익숙하지 않으신 분이라도 의욕만 있다면 환영입니다. 요청한 코드에 버그가 있을 경우 코멘트를 달아 알려드리며 그때 수정해주시면 됩니다.
 
-알려진 버그: MCStats 커스텀 그래프 미작동
+자신의 API 를 사용하는 Checker 를 추가하고 싶다면 checker 패키지에 SpamChecker 를 상속해 알맞는 Result 를 반환하게 코드를 작성한 후
+원하는 프로세서 생성자의 super.setCheckerList() 안에 체커를 추가하시면 됩니다.
+
+동기로 돌아가는 프로세서, 가벼운 작업 위주
+> SyncLoginProcessor, SyncJoinProcessor
+
+비동기로 돌아가는 프로세서, 무거운 작업 위주
+> AsyncLoginProcessor
 
 클래스 구조 다이어그램
 ----
