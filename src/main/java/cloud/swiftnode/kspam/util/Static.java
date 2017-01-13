@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -103,17 +104,15 @@ public class Static {
     public static FileConfiguration getConfig() {
         if (KSpam.INSTANCE != null) {
             return KSpam.INSTANCE.getConfig();
-        } else {
-            return new YamlConfiguration();
         }
+        return new YamlConfiguration();
     }
 
     public static SpamExecutor getDefaultExecutor() {
         if (Static.getConfig().getBoolean(Config.DEBUG_MODE, false)) {
             return new DebugSpamExecutor(new PunishSpamExecutor());
-        } else {
-            return new PunishSpamExecutor();
         }
+        return new PunishSpamExecutor();
     }
 
     public static void protocolLibHook() {
@@ -122,7 +121,19 @@ public class Static {
 
     private static class ProtocolLibHook {
         static void register(Plugin plugin) {
-            ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolListener(plugin));
+            int packetId = 35;
+            try {
+                Class packetTypePlayServer = Class.forName("com.comphenix.protocol.PacketType$Play$Server");
+                Field loginPacketTypeField = packetTypePlayServer.getField("LOGIN");
+                Object loginPacketType = loginPacketTypeField.get(null);
+                Field currentIdField = loginPacketType.getClass().getDeclaredField("currentId");
+                currentIdField.setAccessible(true);
+                packetId = currentIdField.getInt(loginPacketType);
+                System.out.println("Packet ID: " + packetId);
+            } catch (Throwable th) {
+                th.printStackTrace();
+            }
+            ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolListener(plugin, packetId));
         }
     }
 }
