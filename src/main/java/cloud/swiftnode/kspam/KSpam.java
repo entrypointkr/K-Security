@@ -27,7 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-;/**
+/**
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class KSpam extends JavaPlugin {
@@ -64,7 +64,7 @@ public class KSpam extends JavaPlugin {
         saveConfig();
         new CacheSaveProcessor().process();
         boolean sws = getConfig().getBoolean("shutdownwithserver", false);
-        if (sws) {
+        if (!sws) {
         break;
         }
         //OP가 플러그인 종료후 봇테러 날리는일 방지
