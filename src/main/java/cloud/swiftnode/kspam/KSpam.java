@@ -63,6 +63,9 @@ public class KSpam extends JavaPlugin {
     public void onDisable() {
         saveConfig();
         new CacheSaveProcessor().process();
+        //OP가 플러그인 종료후 봇테러 날리는일 방지
+        System.out.println("경고! K-SPAM 플러그인이 종료되었습니다. 서버와 함께 종료됩니다.");
+        Bukkit.shutdown();
     }
 
     @Override
