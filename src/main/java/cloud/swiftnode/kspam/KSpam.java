@@ -23,7 +23,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
+    
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,6 +63,11 @@ public class KSpam extends JavaPlugin {
     public void onDisable() {
         saveConfig();
         new CacheSaveProcessor().process();
+        if (getConfig().getBoolean("shutdownwithserver", true)) {
+            //OP가 플러그인 종료후 봇테러 날리는일 방지
+            System.out.println("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다.");
+            Bukkit.shutdown();
+        }
     }
 
     @Override
