@@ -57,15 +57,18 @@ public class KSpam extends JavaPlugin {
         }, 20L, getConfig().getInt(Config.GC_PERIOD, 6) * 3600);
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
+        config.addDefault("플러그인_종료시_서버끄기", false);
     }
 
     @Override
     public void onDisable() {
         saveConfig();
         new CacheSaveProcessor().process();
+        if (config.getBoolean("플러그인_종료시_서버끄기")) {
         //OP가 플러그인 종료후 봇테러 날리는일 방지
-        System.out.println("경고! K-SPAM 플러그인이 종료되었습니다. 서버와 함께 종료됩니다.");
+        System.out.println("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다.");
         Bukkit.shutdown();
+        }
     }
 
     @Override
