@@ -4,21 +4,6 @@
 비동기 처리, 자체 캐싱으로 매우 가벼우며 사용에 부담이 없습니다.
 (이벤트 패스 시간 약 0.001 초)
 
-[ProtocolLib](https://dev.bukkit.org/projects/protocollib/files) 사용시 더 가볍고 빠르게 차단이 가능합니다.
-
-ProtocolLib 다운로드
----
-
-[ProtocolLib 1.5.2](https://dev.bukkit.org/projects/protocollib/files/712442/download)
-[ProtocolLib 1.7.2](https://dev.bukkit.org/projects/protocollib/files/785673/download)
-[ProtocolLib 1.7.9](https://dev.bukkit.org/projects/protocollib/files/795545/download)
-
-[ProtocolLib 1.8.x](https://dev.bukkit.org/projects/protocollib/files/888760/download)
-[ProtocolLib 1.9.x](https://dev.bukkit.org/projects/protocollib/files/918909/download)
-[ProtocolLib 1.10.x](https://dev.bukkit.org/projects/protocollib/files/945280/download)
-
-[ProtocolLib 1.11.x](https://dev.bukkit.org/projects/protocollib/files/2358786/download)
-
 명령어
 ----
 > /kspam check 아이피/닉네임

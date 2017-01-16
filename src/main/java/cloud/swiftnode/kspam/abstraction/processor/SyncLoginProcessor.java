@@ -4,7 +4,6 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.checker.CacheChecker;
 import cloud.swiftnode.kspam.abstraction.checker.LocalChecker;
-import cloud.swiftnode.kspam.abstraction.checker.ProtocolChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
 /**
@@ -13,6 +12,6 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class SyncLoginProcessor extends SpamProcessor {
     public SyncLoginProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        setCheckerList(LocalChecker.class, ProtocolChecker.class, CacheChecker.class);
+        setCheckerList(LocalChecker.class, CacheChecker.class);
     }
 }

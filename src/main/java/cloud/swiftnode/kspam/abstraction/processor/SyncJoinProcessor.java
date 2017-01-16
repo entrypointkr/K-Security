@@ -3,6 +3,7 @@ package cloud.swiftnode.kspam.abstraction.processor;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.checker.FirstKickChecker;
+import cloud.swiftnode.kspam.abstraction.checker.LocalChecker;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 
 /**
@@ -11,6 +12,6 @@ import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 public class SyncJoinProcessor extends SpamProcessor {
     public SyncJoinProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        setCheckerList(FirstKickChecker.class);
+        setCheckerList(LocalChecker.class, FirstKickChecker.class);
     }
 }

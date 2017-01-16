@@ -5,20 +5,16 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
-import cloud.swiftnode.kspam.listener.ProtocolListener;
-import com.comphenix.protocol.ProtocolLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -113,27 +109,5 @@ public class Static {
             return new DebugSpamExecutor(new PunishSpamExecutor());
         }
         return new PunishSpamExecutor();
-    }
-
-    public static void protocolLibHook() {
-        ProtocolLibHook.register(KSpam.INSTANCE);
-    }
-
-    private static class ProtocolLibHook {
-        static void register(Plugin plugin) {
-            int packetId = 35;
-            try {
-                Class packetTypePlayServer = Class.forName("com.comphenix.protocol.PacketType$Play$Server");
-                Field loginPacketTypeField = packetTypePlayServer.getField("LOGIN");
-                Object loginPacketType = loginPacketTypeField.get(null);
-                Field currentIdField = loginPacketType.getClass().getDeclaredField("currentId");
-                currentIdField.setAccessible(true);
-                packetId = currentIdField.getInt(loginPacketType);
-                System.out.println("Packet ID: " + packetId);
-            } catch (Throwable th) {
-                th.printStackTrace();
-            }
-            ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolListener(plugin, packetId));
-        }
     }
 }
