@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -68,5 +69,10 @@ public class PlayerListener implements Listener {
                     .single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer())
                     .prefix().build());
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        StaticStorage.firstKickCachedSet.remove(e.getPlayer().getName().toLowerCase());
     }
 }

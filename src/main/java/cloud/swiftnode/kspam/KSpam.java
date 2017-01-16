@@ -8,7 +8,6 @@ import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
-import cloud.swiftnode.kspam.abstraction.processor.GCProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
