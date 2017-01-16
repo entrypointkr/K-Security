@@ -22,6 +22,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.regex.Matcher;
@@ -31,7 +32,7 @@ import java.util.regex.Pattern;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class KSpam extends JavaPlugin {
-    public static KSpam INSTANCE;
+    public static Plugin INSTANCE;
 
     @Override
     public void onEnable() {

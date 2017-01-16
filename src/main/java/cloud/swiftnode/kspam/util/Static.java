@@ -4,11 +4,8 @@ import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
-import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
@@ -47,9 +44,8 @@ public class Static {
     }
 
     public static void consoleMsg(String... msgs) {
-        CommandSender sender = Bukkit.getConsoleSender() == null ? new MockCommandSender() : Bukkit.getConsoleSender();
         for (String msg : msgs) {
-            sender.sendMessage(msg);
+            Bukkit.getConsoleSender().sendMessage(msg);
         }
     }
 
@@ -101,10 +97,7 @@ public class Static {
     }
 
     public static FileConfiguration getConfig() {
-        if (KSpam.INSTANCE != null) {
-            return KSpam.INSTANCE.getConfig();
-        }
-        return new YamlConfiguration();
+        return KSpam.INSTANCE.getConfig();
     }
 
     public static SpamExecutor getDefaultExecutor() {

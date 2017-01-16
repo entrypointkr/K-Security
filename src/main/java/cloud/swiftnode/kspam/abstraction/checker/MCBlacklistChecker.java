@@ -36,7 +36,7 @@ public class MCBlacklistChecker extends SpamChecker {
         }
 
         // uuid 가 null 이 아닐 경우 MCBlacklist 에서 UUID 확인
-        if (uuid != null) {
+        if ((lastInfo = uuid) != null) {
             String[] checkUUIDResult = checkWithType(uuid);
             if (checkUUIDResult[0].equals("DENY")) {
                 lastReason = checkUUIDResult[2];
@@ -110,7 +110,7 @@ public class MCBlacklistChecker extends SpamChecker {
 
     private String getUUIDFromMojangAPI(String nickName) {
         try {
-            URL url = URLs.MOJANG_UUID_API.toUrl(nickName, (System.currentTimeMillis() / 1000) + "");
+            URL url = URLs.MOJANG_UUID_API.toUrl(nickName, System.currentTimeMillis() / 1000);
             String jsonText = Static.readAllText(url);
 
             if (!jsonText.contains("\"id\":")) {
