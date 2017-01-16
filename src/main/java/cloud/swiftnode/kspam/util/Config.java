@@ -7,5 +7,4 @@ public class Config {
     public static String DEBUG_MODE = "debug-mode";
     public static String FIRST_LOGIN_KICK = "first-login-kick";
     public static String ALERT = "alert";
-    public static String GC_PERIOD = "gc-period";
 }

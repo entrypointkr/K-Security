@@ -1,5 +1,4 @@
 debug-mode: false
 first-login-kick: true
 alert: false
-gc-period: 6
 shutdownwithserver: true

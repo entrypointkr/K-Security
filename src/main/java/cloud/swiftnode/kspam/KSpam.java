@@ -41,12 +41,6 @@ public class KSpam extends JavaPlugin {
         new CacheInitProcessor().process();
         new UpdateCheckProcessor().process();
         new MetricsInitProcessor().process();
-        Static.runTaskTimerAsync(new Runnable() {
-            @Override
-            public void run() {
-                new GCProcessor().process();
-            }
-        }, 20L, getConfig().getInt(Config.GC_PERIOD, 6) * 3600);
         Static.consoleMsg(Lang.INTRO.builder()
                 .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
     }
