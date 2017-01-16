@@ -42,13 +42,6 @@ public class KSpam extends JavaPlugin {
         new CacheInitProcessor().process();
         new UpdateCheckProcessor().process();
         new MetricsInitProcessor().process();
-        if (getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
-            Static.consoleMsg(Lang.PROTOCOL_LIB_DETECT.builder().prefix());
-            Static.protocolLibHook();
-        } else {
-            Static.consoleMsg(Lang.PROTOCOL_LIB_NOT_DETECT.builder().prefix());
-            StaticStorage.protocolLib = false;
-        }
         Static.runTaskTimerAsync(new Runnable() {
             @Override
             public void run() {
