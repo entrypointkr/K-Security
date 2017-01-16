@@ -6,8 +6,6 @@ import cloud.swiftnode.kspam.abstraction.info.EventInfo;
 import cloud.swiftnode.kspam.abstraction.info.PingInfo;
 import cloud.swiftnode.kspam.abstraction.info.PlayerInfo;
 import cloud.swiftnode.kspam.abstraction.info.StringInfo;
-import cloud.swiftnode.kspam.util.StaticStorage;
-import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.server.ServerListPingEvent;

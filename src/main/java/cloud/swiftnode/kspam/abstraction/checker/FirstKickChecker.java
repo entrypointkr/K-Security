@@ -1,6 +1,5 @@
 package cloud.swiftnode.kspam.abstraction.checker;
 
-import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.util.Config;
@@ -20,7 +19,7 @@ public class FirstKickChecker extends SpamChecker {
     @Override
     public Result spamCheck() throws Exception {
         Player player = info.getPlayer();
-        if (player == null || !KSpam.INSTANCE.getConfig().getBoolean(Config.FIRST_LOGIN_KICK) ||
+        if (player == null || !Config.isFirstLoginKick() ||
                 player.hasPlayedBefore()) {
             lastInfo = "";
             return Result.PASS;

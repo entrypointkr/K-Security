@@ -1,4 +1,4 @@
 debug-mode: false
 first-login-kick: true
 alert: false
-shutdownwithserver: true
+shutdown-when-disable: true

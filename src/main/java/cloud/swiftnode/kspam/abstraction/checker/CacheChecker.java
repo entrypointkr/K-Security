@@ -5,7 +5,6 @@ import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.util.StaticStorage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

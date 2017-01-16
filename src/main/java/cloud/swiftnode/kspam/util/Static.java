@@ -108,7 +108,7 @@ public class Static {
     }
 
     public static SpamExecutor getDefaultExecutor() {
-        if (Static.getConfig().getBoolean(Config.DEBUG_MODE, false)) {
+        if (Config.isDebugMode()) {
             return new DebugSpamExecutor(new PunishSpamExecutor());
         }
         return new PunishSpamExecutor();

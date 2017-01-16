@@ -9,6 +9,7 @@ import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.ShutdownProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
 import cloud.swiftnode.kspam.listener.PlayerListener;
@@ -22,7 +23,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-    
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,11 +50,7 @@ public class KSpam extends JavaPlugin {
     public void onDisable() {
         saveConfig();
         new CacheSaveProcessor().process();
-        if (getConfig().getBoolean("shutdownwithserver", true)) {
-            //OP가 플러그인 종료후 봇테러 날리는일 방지
-            System.out.println("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다.");
-            Bukkit.shutdown();
-        }
+        new ShutdownProcessor().process();
     }
 
     @Override
@@ -79,22 +76,22 @@ public class KSpam extends JavaPlugin {
                     if (!isOp) {
                         break;
                     }
-                    getConfig().set(Config.DEBUG_MODE, !getConfig().getBoolean(Config.DEBUG_MODE, false));
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.DEBUG_MODE)).prefix().build());
+                    getConfig().set(Config.DEBUG_MODE, !Config.isDebugMode());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isDebugMode()).prefix().build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("firstkick")) {
                     if (!isOp) {
                         break;
                     }
-                    getConfig().set(Config.FIRST_LOGIN_KICK, !getConfig().getBoolean(Config.FIRST_LOGIN_KICK, true));
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.FIRST_LOGIN_KICK)).prefix().build());
+                    getConfig().set(Config.FIRST_LOGIN_KICK, !Config.isFirstLoginKick());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isFirstLoginKick()).prefix().build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("alert")) {
                     if (!isOp) {
                         break;
                     }
-                    getConfig().set(Config.ALERT, !getConfig().getBoolean(Config.ALERT, false));
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, getConfig().getBoolean(Config.ALERT)).prefix().build());
+                    getConfig().set(Config.ALERT, !Config.isAlert());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isAlert()).prefix().build());
                     return true;
                 }
                 break;

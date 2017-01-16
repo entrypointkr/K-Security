@@ -43,10 +43,7 @@ public enum Lang {
     FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
             "&f다시 접속해주세요."),
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
-    PROTOCOL_LIB_DETECT("ProtocolLib 감지"),
-    PROTOCOL_LIB_NOT_DETECT("ProtocolLib 플러그인을 찾을 수 없어 기능이 제한됩니다."),
-    ILLEGAL_ACCESS("&c[ K-SPAM ]\n" +
-            "&f올바르지 않은 접근입니다.")
+    DISABLED("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다. 해당 옵션은 config.yml 에서 끌 수 있습니다."),
     ;
     private final String msg;
 

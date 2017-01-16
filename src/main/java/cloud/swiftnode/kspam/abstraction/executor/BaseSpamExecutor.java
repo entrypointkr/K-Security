@@ -16,7 +16,7 @@ public class BaseSpamExecutor extends SpamExecutor {
     public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
         lastResult = SpamChecker.Result.ERROR;
         checker.setLastInfo("NONE");
-        boolean alert = Static.getConfig().getBoolean(Config.ALERT, false);
+        boolean alert = Config.isAlert();
         try {
             lastResult = checker.spamCheck();
         } catch (Exception ex) {
