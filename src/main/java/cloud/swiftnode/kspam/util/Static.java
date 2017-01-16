@@ -9,14 +9,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -109,5 +112,24 @@ public class Static {
             return new DebugSpamExecutor(new PunishSpamExecutor());
         }
         return new PunishSpamExecutor();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Player[] getOnlinePlayers() {
+        Player[] players = new Player[0];
+        try {
+            Method method = Bukkit.class.getMethod("getOnlinePlayers");
+            Object ret = method.invoke(null);
+            if (ret instanceof Collection) {
+                players = ((Collection<? extends Player>) ret).toArray(new Player[0]);
+            } else if (ret instanceof Player[]) {
+                players = (Player[]) ret;
+            } else {
+                throw new IllegalArgumentException("Illegal return type");
+            }
+        } catch (Exception ex) {
+            Static.consoleMsg(ex);
+        }
+        return players;
     }
 }
