@@ -10,7 +10,6 @@ public class GCProcessor implements Processor {
     @Override
     public boolean process() {
         StaticStorage.firstKickCachedSet.clear();
-        StaticStorage.validateSet.clear();
         return true;
     }
 }

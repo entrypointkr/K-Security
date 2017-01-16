@@ -81,7 +81,6 @@ public class KSpam extends JavaPlugin {
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.firstKickCachedSet.size()));
-                    sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.validateSet.size()));
                     return true;
                 } else if (args[0].equalsIgnoreCase("debug")) {
                     if (!isOp) {
