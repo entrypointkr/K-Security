@@ -6,7 +6,6 @@ import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.URLs;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 import java.net.URL;
 
@@ -23,40 +22,42 @@ public class MCBlacklistChecker extends SpamChecker {
     @Override
     public Result spamCheck() throws Exception {
         lastReason = "없음";
-        try {
-            if (Material.getMaterial("DOUBLE_PLANT") != null) {
-                String uuid;
-                if (Bukkit.getOnlineMode()) {
-                    uuid = info.getUniqueId();
-                } else {
-                    uuid = getUUIDFromMojangAPI(info.getName());
-                }
+        String uuid = null;
 
-                if (uuid != null) {
-                    String[] checkUUIDResult = checkWithType(uuid);
-                    if (checkUUIDResult[0].equals("DENY")) {
-                        lastReason = checkUUIDResult[2];
-                        return Result.DENY;
-                    } else if (checkUUIDResult[0].equals("ERROR")) {
-                        return Result.ERROR;
-                    }
-                }
+        if (Bukkit.getOnlineMode()) {
+            try {
+                uuid = info.getUniqueId();
+            } catch (IllegalStateException e) {
+                // UUID 메서드 호출에 문제가 있을 경우 무시
             }
+        } else {
+            // 오프라인 서버일 경우 Mojang API 에서 가져옴
+            uuid = getUUIDFromMojangAPI(info.getName());
+        }
 
-            String[] checkNameResult = checkWithType(info.getName());
-            String[] checkIPResult = checkWithType(info.getIp());
-            if (checkNameResult[0].equals("DENY") || checkIPResult[0].equals("DENY")) {
-                lastReason = checkNameResult[0].equals("DENY") ? checkNameResult[2] : checkIPResult[2];
+        // uuid 가 null 이 아닐 경우 MCBlacklist 에서 UUID 확인
+        if (uuid != null) {
+            String[] checkUUIDResult = checkWithType(uuid);
+            if (checkUUIDResult[0].equals("DENY")) {
+                lastReason = checkUUIDResult[2];
                 return Result.DENY;
-            } else if (checkNameResult[0].equals("PASS") && checkIPResult[0].equals("PASS")) {
-                return Result.PASS;
-            } else if (checkNameResult[0].equals("ERROR") || checkIPResult[0].equals("ERROR")) {
-                Static.consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, "<MC-Blacklist API> " + (checkNameResult[0].equals("ERROR") ? checkNameResult[1] : checkIPResult[1])).prefix().build());
+            } else if (checkUUIDResult[0].equals("ERROR")) {
                 return Result.ERROR;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Static.consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, "<MC-Blacklist API> " + e.getMessage()).prefix().build());
+        }
+
+        // uuid 로 확인할 수 없을 경우 MCBlacklist 에서 닉네임과 IP 확인
+        String[] checkNameResult = checkWithType(info.getName());
+        String[] checkIPResult = checkWithType(info.getIp());
+        // 체크 결과 확인
+        if (checkNameResult[0].equals("DENY") || checkIPResult[0].equals("DENY")) {
+            lastReason = checkNameResult[0].equals("DENY") ? checkNameResult[2] : checkIPResult[2];
+            return Result.DENY;
+        } else if (checkNameResult[0].equals("PASS") && checkIPResult[0].equals("PASS")) {
+            return Result.PASS;
+        } else if (checkNameResult[0].equals("ERROR") || checkIPResult[0].equals("ERROR")) {
+            // 예외 처리는 BaseSpamExecutor 에서 되기 때문에 예외 throw
+            throw new RuntimeException("<MC-Blacklist API> " + (checkNameResult[0].equals("ERROR") ? checkNameResult[1] : checkIPResult[1]));
         }
         return Result.ERROR;
     }
@@ -100,8 +101,6 @@ public class MCBlacklistChecker extends SpamChecker {
         } catch (Exception ex) {
             result[0] = "ERROR";
             result[1] = ex.getMessage();
-
-            ex.printStackTrace();
             return result;
         }
 
@@ -111,7 +110,7 @@ public class MCBlacklistChecker extends SpamChecker {
 
     private String getUUIDFromMojangAPI(String nickName) {
         try {
-            URL url = URLs.MOJANG_UUID_API.toUrl(nickName, (System.currentTimeMillis() / 1000)+"");
+            URL url = URLs.MOJANG_UUID_API.toUrl(nickName, (System.currentTimeMillis() / 1000) + "");
             String jsonText = Static.readAllText(url);
 
             if (!jsonText.contains("\"id\":")) {
@@ -119,10 +118,8 @@ public class MCBlacklistChecker extends SpamChecker {
             }
 
             String uuidWithNoDashes = Static.substring(jsonText, "\"id\":\"", "\"");
-            return String.format("%s-%s-%s-%s-%s", uuidWithNoDashes.substring(0,8), uuidWithNoDashes.substring(8,12), uuidWithNoDashes.substring(12,16), uuidWithNoDashes.substring(16,20), uuidWithNoDashes.substring(20, 32));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Static.consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, "<MC-Blacklist API> " + e.getMessage()).prefix().build());
+            return String.format("%s-%s-%s-%s-%s", uuidWithNoDashes.substring(0, 8), uuidWithNoDashes.substring(8, 12), uuidWithNoDashes.substring(12, 16), uuidWithNoDashes.substring(16, 20), uuidWithNoDashes.substring(20, 32));
+        } catch (Exception ex) {
             return null;
         }
     }
