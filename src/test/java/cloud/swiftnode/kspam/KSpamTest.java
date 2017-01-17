@@ -26,9 +26,6 @@ import java.net.UnknownHostException;
 public class KSpamTest {
     @Before
     public void initTest() throws NoSuchFieldException, IllegalAccessException {
-        // Set output
-        System.setOut(new PrintStream(System.out));
-
         // Injection
         Field serverField = Bukkit.class.getDeclaredField("server");
         Field instField = KSpam.class.getDeclaredField("INSTANCE");

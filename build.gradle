@@ -5,6 +5,7 @@ version '2.0'
 
 apply plugin: 'java'
 
+test.testLogging.showStandardStreams = true
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 compileJava.dependsOn clean
 
