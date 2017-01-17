@@ -1,5 +1,6 @@
 package cloud.swiftnode.kspam.abstraction;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.conversations.Conversation;
@@ -17,7 +18,7 @@ import java.util.Set;
 public class MockCommandSender implements ConsoleCommandSender {
     @Override
     public void sendMessage(String message) {
-        System.out.println(message);
+        System.out.println(ChatColor.stripColor(message));
     }
 
     @Override
