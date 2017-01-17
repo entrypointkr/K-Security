@@ -34,7 +34,7 @@ public enum Lang {
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
-    UPDATE_INFO_NO("최신버전입니다."),
+    DOWNLOAD_URL("&e다운로드: &bhttps://github.com/EntryPointKR/K-SPAM/releases/latest"),
     EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-SPAM/issues &f본 메세지를 끄려면 /kspam alert 를 입력해주세요. &e정보: &f" + Key.EXCEPTION_MESSAGE),
     SET("&e" + Key.VALUE + " &f로 설정했습니다."),
     DENIED("&e" + Key.VICTIM + " &f님이 차단되었습니다. &e체커: &f" + Key.CHECKER_NAME),

@@ -36,10 +36,9 @@ public class UpdateCheckProcessor implements Processor {
                     Static.consoleMsg(
                             Lang.UPDATE_INFO_NEW.builder().prefix(),
                             Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix(),
-                            Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix()
+                            Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix(),
+                            Lang.DOWNLOAD_URL.builder().prefix()
                     );
-                } else {
-                    Static.consoleMsg(Lang.UPDATE_INFO_NO.builder().prefix());
                 }
             }
         } catch (Exception ex) {
