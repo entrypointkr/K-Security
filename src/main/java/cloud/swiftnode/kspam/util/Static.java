@@ -36,14 +36,6 @@ public class Static {
         Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
     }
 
-    public static void runTaskLater(Runnable runnable, long delay) {
-        Bukkit.getScheduler().runTaskLater(KSpam.INSTANCE, runnable, delay);
-    }
-
-    public static void runTaskTimerAsync(Runnable runnable, long delay, long period) {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.INSTANCE, runnable, delay, period);
-    }
-
     public static void consoleMsg(String... msgs) {
         for (String msg : msgs) {
             Bukkit.getConsoleSender().sendMessage(msg);
