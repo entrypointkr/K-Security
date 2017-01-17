@@ -15,16 +15,11 @@ public class ForceChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        lastInfo = String.valueOf(StaticStorage.forceMode);
+        lastInfo = info.getIp();
         if (StaticStorage.forceMode) {
             return Result.DENY;
         }
         return Result.PASS;
-    }
-
-    @Override
-    public boolean isCaching() {
-        return false;
     }
 
     @Override
