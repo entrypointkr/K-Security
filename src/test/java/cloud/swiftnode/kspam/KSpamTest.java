@@ -22,20 +22,16 @@ import java.net.UnknownHostException;
  */
 public class KSpamTest {
     @Test
-    public void prcsTest() throws UnknownHostException {
+    public void prcsTest() throws UnknownHostException, IllegalAccessException, NoSuchFieldException {
         // Injection
-        try {
-            Field serverField = Bukkit.class.getDeclaredField("server");
-            Field instField = KSpam.class.getDeclaredField("INSTANCE");
+        Field serverField = Bukkit.class.getDeclaredField("server");
+        Field instField = KSpam.class.getDeclaredField("INSTANCE");
 
-            serverField.setAccessible(true);
-            instField.setAccessible(true);
+        serverField.setAccessible(true);
+        instField.setAccessible(true);
 
-            serverField.set(null, new MockServer());
-            instField.set(null, new MockPlugin());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        serverField.set(null, new MockServer());
+        instField.set(null, new MockPlugin());
 
         // Element
         Player player = new MockPlayer();
