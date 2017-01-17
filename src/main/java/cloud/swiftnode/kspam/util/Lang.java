@@ -31,7 +31,6 @@ public enum Lang {
             " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
             " &fK-SPAM DB Powered By &eSwiftnode\n" +
             " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
-    MOTD("&c당신은 K-SPAM 에 의해 차단되었습니다."),
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
