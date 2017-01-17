@@ -136,7 +136,7 @@ public class Static {
             return (boolean) runningMethod.invoke(console);
         } catch (Exception ex) {
             Static.consoleMsg(ex);
-            return false;
+            return true;
         }
     }
 }
