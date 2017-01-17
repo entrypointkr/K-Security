@@ -42,11 +42,11 @@ public class MCBlacklistChecker extends SpamChecker {
                 lastReason = checkUUIDResult[2];
                 return Result.DENY;
             } else if (checkUUIDResult[0].equals("ERROR")) {
-                return Result.ERROR;
+                throw new RuntimeException("<MC-Blacklist API> " + checkUUIDResult[1]);
             }
         }
 
-        // uuid 로 확인할 수 없을 경우 MCBlacklist 에서 닉네임과 IP 확인
+        // UUID 로 확인할 수 없거나, UUID 가 블랙리스트에 추가되어있지 않다면 닉네임과 IP 확인
         String[] checkNameResult = checkWithType(info.getName());
         String[] checkIPResult = checkWithType(info.getIp());
         // 체크 결과 확인
