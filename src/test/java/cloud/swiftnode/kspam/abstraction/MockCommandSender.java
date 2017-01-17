@@ -1,7 +1,9 @@
-package cloud.swiftnode.kspam.abstraction.sender;
+package cloud.swiftnode.kspam.abstraction;
 
 import org.bukkit.Server;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.conversations.Conversation;
+import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
@@ -12,7 +14,7 @@ import java.util.Set;
 /**
  * Created by Junhyeong Lim on 2017-01-11.
  */
-public class MockCommandSender implements CommandSender {
+public class MockCommandSender implements ConsoleCommandSender {
     @Override
     public void sendMessage(String message) {
         System.out.println(message);
@@ -20,7 +22,9 @@ public class MockCommandSender implements CommandSender {
 
     @Override
     public void sendMessage(String[] messages) {
-
+        for (String msg : messages) {
+            sendMessage(msg);
+        }
     }
 
     @Override
@@ -31,6 +35,36 @@ public class MockCommandSender implements CommandSender {
     @Override
     public String getName() {
         return null;
+    }
+
+    @Override
+    public boolean isConversing() {
+        return false;
+    }
+
+    @Override
+    public void acceptConversationInput(String input) {
+
+    }
+
+    @Override
+    public boolean beginConversation(Conversation conversation) {
+        return false;
+    }
+
+    @Override
+    public void abandonConversation(Conversation conversation) {
+
+    }
+
+    @Override
+    public void abandonConversation(Conversation conversation, ConversationAbandonedEvent details) {
+
+    }
+
+    @Override
+    public void sendRawMessage(String message) {
+
     }
 
     @Override

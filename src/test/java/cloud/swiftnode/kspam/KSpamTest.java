@@ -1,5 +1,8 @@
 package cloud.swiftnode.kspam;
 
+import cloud.swiftnode.kspam.abstraction.MockCommandSender;
+import cloud.swiftnode.kspam.abstraction.MockPlugin;
+import cloud.swiftnode.kspam.abstraction.MockServer;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
@@ -9,11 +12,12 @@ import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.info.StringInfo;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
-import cloud.swiftnode.kspam.abstraction.sender.MockCommandSender;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.util.UUID;
 
@@ -23,6 +27,19 @@ import java.util.UUID;
 public class KSpamTest {
     @Test
     public void prcsTest() {
+        // Injection
+        try {
+            Field serverField = Bukkit.class.getDeclaredField("server");
+            Field instField = KSpam.class.getDeclaredField("INSTANCE");
+
+            serverField.setAccessible(true);
+            instField.setAccessible(true);
+
+            serverField.set(null, new MockServer());
+            instField.set(null, new MockPlugin());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         // String
         System.out.println("String");
         StringInfo mockInfo = new StringInfo("12.32.12.32", UUID.randomUUID().toString(), "EntryPoint");
