@@ -32,7 +32,9 @@ public class MockPlugin implements Plugin {
 
     @Override
     public FileConfiguration getConfig() {
-        return new YamlConfiguration();
+        YamlConfiguration config = new YamlConfiguration();
+        config.set("debug-mode", true);
+        return config;
     }
 
     @Override

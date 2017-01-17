@@ -202,7 +202,7 @@ public class MockServer implements Server {
 
     @Override
     public BukkitScheduler getScheduler() {
-        return null;
+        return new MockBukkitScheduler();
     }
 
     @Override

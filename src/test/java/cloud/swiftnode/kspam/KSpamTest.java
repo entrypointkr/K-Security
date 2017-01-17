@@ -1,32 +1,28 @@
 package cloud.swiftnode.kspam;
 
-import cloud.swiftnode.kspam.abstraction.MockCommandSender;
+import cloud.swiftnode.kspam.abstraction.MockPlayer;
 import cloud.swiftnode.kspam.abstraction.MockPlugin;
 import cloud.swiftnode.kspam.abstraction.MockServer;
-import cloud.swiftnode.kspam.abstraction.SpamExecutor;
-import cloud.swiftnode.kspam.abstraction.SpamProcessor;
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.kspam.abstraction.deniable.EmptyDeniable;
-import cloud.swiftnode.kspam.abstraction.executor.BaseSpamExecutor;
-import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.kspam.abstraction.info.StringInfo;
-import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.kspam.listener.PlayerListener;
+import cloud.swiftnode.kspam.listener.ServerListener;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.net.InetAddress;
-import java.util.UUID;
+import java.net.UnknownHostException;
 
 /**
  * Created by Junhyeong Lim on 2017-01-11.
  */
 public class KSpamTest {
     @Test
-    public void prcsTest() {
+    public void prcsTest() throws UnknownHostException {
         // Injection
         try {
             Field serverField = Bukkit.class.getDeclaredField("server");
@@ -40,29 +36,27 @@ public class KSpamTest {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        // String
-        System.out.println("String");
-        StringInfo mockInfo = new StringInfo("12.32.12.32", UUID.randomUUID().toString(), "EntryPoint");
-        CommandSender sender = new MockCommandSender();
-        SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
-        DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, new EmptyDeniable(), mockInfo);
-        SpamProcessor syncPrcs = new SyncLoginProcessor(executor, adapter);
-        SpamProcessor asyncPrcs = new AsyncLoginProcessor(executor, adapter);
-        // Escape
-        asyncPrcs.removeCheckers("SwiftnodeChecker", "BotscoutChecker");
-        //
-        syncPrcs.process();
-        asyncPrcs.process();
-        // PingEvent
-        System.out.println("ServerListPing");
-        ServerListPingEvent event = null;
-        try {
-            event = new ServerListPingEvent(InetAddress.getByAddress(new byte[]{12, 32, 12, 32}), "mock", 0, 20);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        adapter.setObj(event);
-        syncPrcs.setAdapter(adapter);
-        syncPrcs.process();
+
+        // Element
+        Player player = new MockPlayer();
+        InetAddress addr = InetAddress.getByAddress(new byte[]{12, 32, 12, 32});
+
+        // PlayerEvent
+        PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, "12.32.12.32", addr);
+        PlayerJoinEvent joinEvent = new PlayerJoinEvent(player, "Test join");
+        PlayerQuitEvent quitEvent = new PlayerQuitEvent(player, "Test quit");
+
+        // ServerEvent
+        ServerListPingEvent pingEvent = new ServerListPingEvent(addr, "test motd", 1, 10);
+
+        // PlayerListener
+        PlayerListener playerListener = new PlayerListener();
+        playerListener.onLogin(loginEvent);
+        playerListener.onJoin(joinEvent);
+        playerListener.onQuit(quitEvent);
+
+        // ServerListener
+        ServerListener serverListener = new ServerListener();
+        serverListener.onPing(pingEvent);
     }
 }
