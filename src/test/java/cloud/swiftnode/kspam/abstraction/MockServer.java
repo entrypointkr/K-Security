@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction;
 
 import com.avaje.ebean.config.ServerConfig;
 import org.bukkit.BanList;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
@@ -147,6 +148,7 @@ public class MockServer implements Server {
 
     @Override
     public int broadcastMessage(String message) {
+        System.out.println(ChatColor.stripColor(message));
         return 0;
     }
 

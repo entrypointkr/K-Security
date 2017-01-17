@@ -128,14 +128,14 @@ public enum Lang {
             String msg = target;
             for (int i = 0; i < keyList.size(); i++) {
                 try {
-                    String key = keyList.get(i).toString();
-                    String val = valList.get(i).toString();
+                    String key = String.valueOf(keyList.get(i));
+                    String val = String.valueOf(valList.get(i));
                     if (key == null || val == null) {
                         break;
                     }
                     msg = msg.replaceAll(key, Matcher.quoteReplacement(val));
                 } catch (Exception ex) {
-                    throw new RuntimeException(keyList.get(i).toString());
+                    throw new RuntimeException(keyList + ", " + valList);
                 }
             }
             return colorize(msg);
