@@ -5,14 +5,17 @@ import cloud.swiftnode.kspam.abstraction.MockPlugin;
 import cloud.swiftnode.kspam.abstraction.MockServer;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.listener.ServerListener;
+import cloud.swiftnode.kspam.util.StaticUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -21,8 +24,11 @@ import java.net.UnknownHostException;
  * Created by Junhyeong Lim on 2017-01-11.
  */
 public class KSpamTest {
-    @Test
-    public void prcsTest() throws UnknownHostException, IllegalAccessException, NoSuchFieldException {
+    @Before
+    public void initTest() throws NoSuchFieldException, IllegalAccessException {
+        // Set output
+        System.setOut(new PrintStream(System.out));
+
         // Injection
         Field serverField = Bukkit.class.getDeclaredField("server");
         Field instField = KSpam.class.getDeclaredField("INSTANCE");
@@ -32,27 +38,40 @@ public class KSpamTest {
 
         serverField.set(null, new MockServer());
         instField.set(null, new MockPlugin());
+    }
 
-        // Element
-        Player player = new MockPlayer();
-        InetAddress addr = InetAddress.getByAddress(new byte[]{12, 32, 12, 32});
+    @Test
+    public void randomTest() throws UnknownHostException, IllegalAccessException, NoSuchFieldException {
+        int tryCount = 5;
 
-        // PlayerEvent
-        PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, "12.32.12.32", addr);
-        PlayerJoinEvent joinEvent = new PlayerJoinEvent(player, "Test join");
-        PlayerQuitEvent quitEvent = new PlayerQuitEvent(player, "Test quit");
+        for (int i = 0; i < tryCount; i++) {
+            // Element
+            InetAddress addr = StaticUtil.getRandomAddr();
+            Player player = new MockPlayer(StaticUtil.getRandomName(), addr);
 
-        // ServerEvent
-        ServerListPingEvent pingEvent = new ServerListPingEvent(addr, "test motd", 1, 10);
+            // Print info
+            System.out.println("=============== Random Test Counting (" + (i + 1) + "/" + tryCount + ") ===============");
+            System.out.println("NAME: " + player.getName());
+            System.out.println("UUID: " + player.getUniqueId());
+            System.out.println("IP: " + player.getAddress().getAddress());
 
-        // PlayerListener
-        PlayerListener playerListener = new PlayerListener();
-        playerListener.onLogin(loginEvent);
-        playerListener.onJoin(joinEvent);
-        playerListener.onQuit(quitEvent);
+            // PlayerEvent
+            PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, "12.32.12.32", addr);
+            PlayerJoinEvent joinEvent = new PlayerJoinEvent(player, "Test join");
+            PlayerQuitEvent quitEvent = new PlayerQuitEvent(player, "Test quit");
 
-        // ServerListener
-        ServerListener serverListener = new ServerListener();
-        serverListener.onPing(pingEvent);
+            // ServerEvent
+            ServerListPingEvent pingEvent = new ServerListPingEvent(addr, "test motd", 1, 10);
+
+            // PlayerListener
+            PlayerListener playerListener = new PlayerListener();
+            playerListener.onLogin(loginEvent);
+            playerListener.onJoin(joinEvent);
+            playerListener.onQuit(quitEvent);
+
+            // ServerListener
+            ServerListener serverListener = new ServerListener();
+            serverListener.onPing(pingEvent);
+        }
     }
 }

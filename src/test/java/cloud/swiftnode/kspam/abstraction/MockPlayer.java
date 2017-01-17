@@ -45,6 +45,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.HashSet;
@@ -57,6 +58,14 @@ import java.util.UUID;
  * Created by Junhyeong Lim on 2017-01-17.
  */
 public class MockPlayer implements Player {
+    private String name;
+    private InetAddress address;
+
+    public MockPlayer(String name, InetAddress address) {
+        this.name = name;
+        this.address = address;
+    }
+
     @Override
     public String getDisplayName() {
         return null;
@@ -89,7 +98,7 @@ public class MockPlayer implements Player {
 
     @Override
     public InetSocketAddress getAddress() {
-        return InetSocketAddress.createUnresolved("12.32.12.32", 1010);
+        return new InetSocketAddress(address, 80);
     }
 
     @Override
@@ -664,7 +673,7 @@ public class MockPlayer implements Player {
 
     @Override
     public boolean isOnline() {
-        return false;
+        return true;
     }
 
     @Override
@@ -739,7 +748,7 @@ public class MockPlayer implements Player {
 
     @Override
     public String getName() {
-        return "EntryPoint";
+        return name;
     }
 
     @Override
@@ -1279,7 +1288,7 @@ public class MockPlayer implements Player {
 
     @Override
     public UUID getUniqueId() {
-        return null;
+        return UUID.randomUUID();
     }
 
     @Override
