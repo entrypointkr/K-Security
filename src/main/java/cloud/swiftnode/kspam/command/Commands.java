@@ -1,6 +1,5 @@
 package cloud.swiftnode.kspam.command;
 
-import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.convertor.StringToIpConverter;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
