@@ -127,12 +127,16 @@ public enum Lang {
         public String build() {
             String msg = target;
             for (int i = 0; i < keyList.size(); i++) {
-                String key = keyList.get(i).toString();
-                String val = valList.get(i).toString();
-                if (key == null || val == null) {
-                    break;
+                try {
+                    String key = keyList.get(i).toString();
+                    String val = valList.get(i).toString();
+                    if (key == null || val == null) {
+                        break;
+                    }
+                    msg = msg.replaceAll(key, Matcher.quoteReplacement(val));
+                } catch (Exception ex) {
+                    throw new RuntimeException(keyList.get(i).toString());
                 }
-                msg = msg.replaceAll(key, Matcher.quoteReplacement(val));
             }
             return colorize(msg);
         }

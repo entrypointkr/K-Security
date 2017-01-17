@@ -15,6 +15,7 @@ public class ForceChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
+        lastInfo = String.valueOf(StaticStorage.forceMode);
         if (StaticStorage.forceMode) {
             return Result.DENY;
         }
