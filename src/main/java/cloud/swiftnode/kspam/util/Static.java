@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
@@ -124,5 +125,18 @@ public class Static {
             Static.consoleMsg(ex);
         }
         return players;
+    }
+
+    public static boolean isRunning() {
+        try {
+            Field consoleField = Bukkit.getServer().getClass().getDeclaredField("console");
+            consoleField.setAccessible(true);
+            Object console = consoleField.get(Bukkit.getServer());
+            Method runningMethod = console.getClass().getMethod("isRunning");
+            return (boolean) runningMethod.invoke(console);
+        } catch (Exception ex) {
+            Static.consoleMsg(ex);
+            return false;
+        }
     }
 }

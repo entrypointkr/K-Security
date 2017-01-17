@@ -18,12 +18,12 @@ public abstract class ExecuteDeniable implements Deniable {
     @Override
     public void deny() {
         if (delayed) {
-            Static.runTaskLater(new Runnable() {
+            Static.runTask(new Runnable() {
                 @Override
                 public void run() {
                     executeDeny();
                 }
-            }, 20);
+            });
         } else {
             executeDeny();
         }
