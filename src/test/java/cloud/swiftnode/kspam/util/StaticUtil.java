@@ -12,7 +12,7 @@ public class StaticUtil {
 
     public static InetAddress getRandomAddr() throws UnknownHostException {
         byte[] addrs = new byte[4];
-        random.nextBytes(addrs);
+        getRandom().nextBytes(addrs);
         return InetAddress.getByAddress(addrs);
     }
 
@@ -21,7 +21,7 @@ public class StaticUtil {
         char[] seed = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ".toCharArray();
         char[] nameChars = new char[max];
         for (int i = 0; i < max; i++) {
-            nameChars[i] = seed[random.nextInt(seed.length)];
+            nameChars[i] = seed[getRandom().nextInt(seed.length)];
         }
         return new String(nameChars);
     }
