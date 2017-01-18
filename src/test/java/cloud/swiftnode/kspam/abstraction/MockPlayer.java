@@ -713,7 +713,7 @@ public class MockPlayer implements Player {
 
     @Override
     public boolean hasPlayedBefore() {
-        return true;
+        return false;
     }
 
     @Override
