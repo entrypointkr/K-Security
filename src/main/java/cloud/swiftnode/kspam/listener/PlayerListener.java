@@ -59,7 +59,9 @@ public class PlayerListener implements Listener {
         SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, player);
         SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
-        processor.process();
+        if (processor.process()) {
+            e.setJoinMessage(null);
+        }
 
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
             player.sendMessage(Lang.UPDATE_INFO_NEW.builder().prefix().build());
