@@ -52,6 +52,9 @@ public class Static {
     }
 
     public static void consoleMsg(Exception ex) {
+        if (!Config.isAlert()) {
+            return;
+        }
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ex.printStackTrace(new PrintStream(stream));
         consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())).prefix());

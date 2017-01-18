@@ -26,9 +26,7 @@ public class BaseSpamExecutor extends SpamExecutor {
         try {
             lastResult = checker.spamCheck();
         } catch (Exception ex) {
-            if (alert) {
-                Static.consoleMsg(ex);
-            }
+            Static.consoleMsg(ex);
         }
         if (lastResult == SpamChecker.Result.FORCE_PASS
                 || lastResult == SpamChecker.Result.DENY) {
