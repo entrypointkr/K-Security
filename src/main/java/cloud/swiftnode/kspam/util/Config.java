@@ -10,6 +10,10 @@ public class Config {
     public static String SHUTDOWN_WHEN_DISABLE = "shutdown-when-disable";
     public static String UPDATE_CHECK_PERIOD = "update-check-period";
 
+    static {
+        Static.getConfig().options().copyDefaults(true);
+    }
+
     public static boolean isDebugMode() {
         return getBoolean(DEBUG_MODE, false);
     }
