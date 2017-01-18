@@ -6,7 +6,7 @@ package cloud.swiftnode.kspam.abstraction;
 public abstract class SpamExecutor extends SimpleNamed {
     protected SpamChecker.Result lastResult;
 
-    public abstract boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable);
+    public abstract boolean execute(SpamProcessor processor, SpamChecker checker, DeniableInfo adapter);
 
     public SpamChecker.Result getLastResult() {
         return lastResult;

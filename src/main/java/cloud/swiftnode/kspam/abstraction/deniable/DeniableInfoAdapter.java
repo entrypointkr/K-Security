@@ -1,6 +1,7 @@
 package cloud.swiftnode.kspam.abstraction.deniable;
 
 import cloud.swiftnode.kspam.abstraction.Deniable;
+import cloud.swiftnode.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.convertor.ObjectToDeniableConverter;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class DeniableInfoAdapter extends ExecuteDeniable implements Info {
+public class DeniableInfoAdapter extends ExecuteDeniable implements DeniableInfo {
     private Deniable deniable;
     private Info info;
 

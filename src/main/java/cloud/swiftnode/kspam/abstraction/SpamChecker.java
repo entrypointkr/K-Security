@@ -33,6 +33,10 @@ public abstract class SpamChecker extends SimpleNamed implements Checker {
         return Lang.DENY.toString();
     }
 
+    public boolean onlyFirst() {
+        return false;
+    }
+
     public String getLastInfo() {
         return lastInfo;
     }

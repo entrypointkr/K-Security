@@ -28,4 +28,9 @@ public class BotscoutChecker extends SpamChecker {
             return Result.ERROR;
         }
     }
+
+    @Override
+    public boolean onlyFirst() {
+        return true;
+    }
 }

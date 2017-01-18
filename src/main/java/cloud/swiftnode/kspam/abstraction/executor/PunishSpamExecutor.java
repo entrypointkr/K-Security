@@ -1,6 +1,6 @@
 package cloud.swiftnode.kspam.abstraction.executor;
 
-import cloud.swiftnode.kspam.abstraction.Deniable;
+import cloud.swiftnode.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
@@ -19,11 +19,11 @@ public class PunishSpamExecutor extends DecorateSpamExecutor {
     }
 
     @Override
-    public boolean execute(SpamProcessor processor, SpamChecker checker, Deniable deniable) {
-        boolean ret = parent.execute(processor, checker, deniable);
+    public boolean execute(SpamProcessor processor, SpamChecker checker, DeniableInfo adapter) {
+        boolean ret = parent.execute(processor, checker, adapter);
         if (getLastResult() == SpamChecker.Result.DENY) {
-            deniable.setDenyMsg(checker.denyMsg());
-            deniable.deny();
+            adapter.setDenyMsg(checker.denyMsg());
+            adapter.deny();
             if (checker.isCaching()) {
                 StaticStorage.cachedSet.add(checker.getLastInfo());
             }

@@ -26,6 +26,9 @@ public class StaticStorage {
     }
 
     public static Version getNewVer() {
+        if (newVer == null) {
+            newVer = new Version("0.0");
+        }
         return newVer;
     }
 

@@ -15,7 +15,6 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

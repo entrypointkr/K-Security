@@ -17,7 +17,7 @@ public class LocalChecker extends SpamChecker {
         String ip = lastInfo = info.getIp();
         Player player = info.getPlayer();
         if (ip.contains("192.168.") || ip.contains("127.0.")
-                || player != null && (player.isOp() || player.hasPlayedBefore())) {
+                || player != null && player.isOp()) {
             return Result.FORCE_PASS;
         }
         return Result.PASS;

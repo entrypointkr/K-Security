@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class SpamProcessor extends SimpleNamed implements Processor {
     private List<SpamChecker> checkerList;
     private SpamExecutor executor;
-    private DeniableInfoAdapter adapter;
+    private DeniableInfo adapter;
 
-    public SpamProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
+    public SpamProcessor(SpamExecutor executor, DeniableInfo adapter) {
         this.executor = executor;
         this.adapter = adapter;
     }
@@ -54,11 +54,11 @@ public abstract class SpamProcessor extends SimpleNamed implements Processor {
         }
     }
 
-    public DeniableInfoAdapter getAdapter() {
+    public DeniableInfo getAdapter() {
         return adapter;
     }
 
-    public void setAdapter(DeniableInfoAdapter adapter) {
+    public void setAdapter(DeniableInfo adapter) {
         this.adapter = adapter;
     }
 }
