@@ -4,6 +4,8 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.JoinMessageProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.ShutdownProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.util.Lang;
@@ -28,6 +30,7 @@ public class PlayerListener implements Listener {
         }
         final SpamExecutor executor = Static.getDefaultExecutor();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
+
         final Player player = e.getPlayer();
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
@@ -48,14 +51,10 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         /*
         K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
-        밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
-        본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
+                    밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
-        player.sendMessage("§c[ K-SPAM ] §f본 서버는 봇 테러 방지 플러그인 §eK-SPAM §f을 사용 중입니다.");
-        player.sendMessage("§c[ K-SPAM ] §f기여자: §eEntryPoint, horyu1234");
-        player.sendMessage("§c[ K-SPAM ] §fhttps://github.com/EntryPointKR/K-SPAM");
-
+        new JoinMessageProcessor().process(player);
         SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, player);
         SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
