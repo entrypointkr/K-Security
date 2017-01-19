@@ -45,9 +45,7 @@ public class Commands implements CommandExecutor {
                      밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
                      본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
                      */
-                    sender.sendMessage("§c[ K-SPAM ] §f본 서버는 봇 테러 방지 플러그인 §eK-SPAM §f을 사용 중입니다.");
-                    sender.sendMessage("§c[ K-SPAM ] §f기여자: §eEntryPoint, horyu1234");
-                    sender.sendMessage("§c[ K-SPAM ] §fhttps://github.com/EntryPointKR/K-SPAM");
+                    sender.sendMessage(Lang.LAW_INFO);
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix().build());
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
