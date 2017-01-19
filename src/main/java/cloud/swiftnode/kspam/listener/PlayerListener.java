@@ -54,7 +54,7 @@ public class PlayerListener implements Listener {
                     밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
-        player.sendMessage(Lang.LAW_INFO);
+        player.sendMessage(Lang.LAW_INFO.builder().prefix().build());
         SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, player);
         SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
