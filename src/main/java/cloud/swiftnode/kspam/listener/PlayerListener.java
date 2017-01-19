@@ -4,7 +4,6 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.kspam.abstraction.processor.JoinMessageProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.ShutdownProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
