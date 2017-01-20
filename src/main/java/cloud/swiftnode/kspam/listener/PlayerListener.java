@@ -48,7 +48,7 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         /*
         K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
-                    밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
+        밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
         player.sendMessage(Lang.LAW_INFO.builder().prefix().build());
