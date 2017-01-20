@@ -49,13 +49,9 @@ public class PlayerListener implements Listener {
         /*
         K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
         밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
-        본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
         */
         Player player = e.getPlayer();
-        player.sendMessage("§c[ K-SPAM ] §f본 서버는 봇 테러 방지 플러그인 §eK-SPAM §f을 사용 중입니다.");
-        player.sendMessage("§c[ K-SPAM ] §f기여자: §eEntryPoint, horyu1234");
-        player.sendMessage("§c[ K-SPAM ] §fhttps://github.com/EntryPointKR/K-SPAM");
-
+        player.sendMessage(Lang.LAW_INFO.builder().prefix().build());
         SpamExecutor executor = Static.getDefaultExecutor();
         DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, player);
         SpamProcessor processor = new SyncJoinProcessor(executor, adapter);

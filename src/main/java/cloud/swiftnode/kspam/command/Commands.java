@@ -40,6 +40,12 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.forceMode).prefix().build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("info")) {
+                     /*
+                     K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
+                     밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
+                     본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
+                     */
+                    sender.sendMessage(Lang.LAW_INFO.builder().prefix().build());
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix().build());
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
