@@ -28,7 +28,6 @@ public class PlayerListener implements Listener {
         }
         final SpamExecutor executor = Static.getDefaultExecutor();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
-
         final Player player = e.getPlayer();
         SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
         if (!processor.process()) {
