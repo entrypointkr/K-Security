@@ -4,6 +4,10 @@
 비동기 처리, 자체 캐싱으로 매우 가벼우며 사용에 부담이 없습니다.
 (이벤트 패스 시간 약 0.001 초)
 
+다운로드
+----
+https://github.com/EntryPointKR/K-SPAM/releases/latest
+
 명령어
 ----
 > /kspam check 아이피/닉네임
