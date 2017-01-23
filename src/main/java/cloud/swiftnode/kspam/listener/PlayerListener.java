@@ -65,16 +65,6 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onJoinLowest(PlayerJoinEvent e) {
-        SpamExecutor executor = Static.getDefaultExecutor();
-        DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e.getPlayer());
-        SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
-        if (processor.process()) {
-            e.setJoinMessage(null);
-        }
-    }
-
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         StaticStorage.firstKickCachedSet.remove(e.getPlayer().getName().toLowerCase());

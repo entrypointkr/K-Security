@@ -6,7 +6,8 @@ import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 /**
  * Created by Junhyeong Lim on 2017-01-11.
@@ -19,7 +20,7 @@ public class FirstKickChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        Player player = info.getPlayer();
+        OfflinePlayer player = Bukkit.getOfflinePlayer(info.getName());
         if (player == null || !Config.isFirstLoginKick() ||
                 player.hasPlayedBefore()) {
             lastInfo = "";

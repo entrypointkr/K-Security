@@ -349,7 +349,7 @@ public class MockServer implements Server {
 
     @Override
     public OfflinePlayer getOfflinePlayer(String name) {
-        return null;
+        return new MockPlayer(name, null);
     }
 
     @Override
