@@ -64,9 +64,4 @@ public class PlayerListener implements Listener {
             player.sendMessage(Lang.DOWNLOAD_URL.builder().prefix().build());
         }
     }
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        StaticStorage.firstKickCachedSet.remove(e.getPlayer().getName().toLowerCase());
-    }
 }
