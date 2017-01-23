@@ -33,12 +33,9 @@ public class PlayerListener implements Listener {
         if (!processor.process()) {
             adapter.setObj(player);
             adapter.setDelayed(true);
-            Static.runTaskLaterAsync(new Runnable() {
-                @Override
-                public void run() {
-                    if (player.isOnline()) {
-                        new AsyncLoginProcessor(executor, adapter).process();
-                    }
+            Static.runTaskLaterAsync(() -> {
+                if (player.isOnline()) {
+                    new AsyncLoginProcessor(executor, adapter).process();
                 }
             }, 20L);
         }

@@ -28,12 +28,7 @@ public class KSpam extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ServerListener(), this);
         saveDefaultConfig();
         new CacheInitProcessor().process();
-        Static.runTaskTimerAsync(new Runnable() {
-            @Override
-            public void run() {
-                new UpdateCheckProcessor().process();
-            }
-        },0, Config.updateCheckPeriod() * 3600 * 20);
+        Static.runTaskTimerAsync(() -> new UpdateCheckProcessor().process(),0, Config.updateCheckPeriod() * 3600 * 20);
         new MetricsInitProcessor().process();
         getCommand("kspam").setExecutor(new Commands());
         Static.consoleMsg(Lang.INTRO.builder()

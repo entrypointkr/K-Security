@@ -5,7 +5,7 @@ import cloud.swiftnode.kspam.util.Lang;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamChecker extends SimpleNamed implements Checker {
+public abstract class SpamChecker implements Checker, Named {
     protected Info info;
     protected String lastInfo;
 
