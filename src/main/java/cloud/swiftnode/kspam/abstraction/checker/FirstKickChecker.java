@@ -4,6 +4,7 @@ import cloud.swiftnode.kspam.abstraction.Info;
 import cloud.swiftnode.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.kspam.util.Config;
 import cloud.swiftnode.kspam.util.Lang;
+import cloud.swiftnode.kspam.util.Static;
 import cloud.swiftnode.kspam.util.StaticStorage;
 import org.bukkit.entity.Player;
 
@@ -24,9 +25,15 @@ public class FirstKickChecker extends SpamChecker {
             lastInfo = "";
             return Result.PASS;
         }
-        String name = lastInfo = player.getName().toLowerCase();
+        final String name = lastInfo = player.getName().toLowerCase();
         if (!StaticStorage.firstKickCachedSet.contains(name)) {
             StaticStorage.firstKickCachedSet.add(name);
+            Static.runTaskLaterAsync(new Runnable() {
+                @Override
+                public void run() {
+                    StaticStorage.firstKickCachedSet.remove(name);
+                }
+            }, 20 * 30);
             return Result.DENY;
         }
         StaticStorage.firstKickCachedSet.remove(name);

@@ -39,7 +39,7 @@ public enum Lang {
     SET("&e" + Key.VALUE + " &f로 설정했습니다."),
     COMMAND_CHECK("&e" + Key.VALUE + " &f의 결과"),
     FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
-            "&f다시 접속해주세요."),
+            "&f30 초 안에 다시 접속해주세요."),
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
     DISABLED("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다. 해당 옵션은 config.yml 에서 끌 수 있습니다."),
     FORCEMODE_ON("강제 모드가 활성화되어 당신은 차단되었습니다. 서버 관리자에게 문의해주세요."),
