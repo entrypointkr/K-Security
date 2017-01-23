@@ -51,7 +51,7 @@ public class PlayerListener implements Listener {
         밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
-        player.sendMessage(Lang.LAW_INFO.builder().prefix().build());
+        player.sendMessage(Lang.LAW_INFO.builder().build());
 
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
             player.sendMessage(Lang.UPDATE_INFO_NEW.builder().prefix().build());
