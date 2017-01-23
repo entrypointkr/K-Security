@@ -68,6 +68,7 @@ public class Static {
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent", userContentOption);
         connection.setConnectTimeout(3000);
+        connection.setReadTimeout(3000);
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String all = null;
         String line;
