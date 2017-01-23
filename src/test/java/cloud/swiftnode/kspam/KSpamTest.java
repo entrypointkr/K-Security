@@ -62,7 +62,7 @@ public class KSpamTest {
             // PlayerListener
             PlayerListener playerListener = new PlayerListener();
             playerListener.onLogin(loginEvent);
-            playerListener.onJoin(joinEvent);
+            playerListener.onJoinLowest(joinEvent);
             playerListener.onQuit(quitEvent);
 
             // ServerListener
