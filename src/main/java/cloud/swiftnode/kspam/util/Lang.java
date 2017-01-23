@@ -50,6 +50,7 @@ public enum Lang {
     LAW_INFO("&c[ K-SPAM ] &f본 서버는 봇 테러 방지 플러그인 &eK-SPAM &f을 사용 중입니다.\n" +
              "&c[ K-SPAM ] &f기여자: §eEntryPoint, horyu1234\n" +
              "&c[ K-SPAM ] &fhttps://github.com/EntryPointKR/K-SPAM\n"),
+    SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요.")
     ;
     private final String msg;
 

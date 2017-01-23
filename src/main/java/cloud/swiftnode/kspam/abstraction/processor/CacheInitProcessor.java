@@ -53,6 +53,9 @@ public class CacheInitProcessor implements Processor {
             }
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
                     .prefix().single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
+            if (StaticStorage.cachedSet.size() < 1600) {
+                Static.consoleMsg(Lang.SMALL_CACHE.builder().prefix().build());
+            }
         } catch (Exception ex) {
             Static.consoleMsg(ex);
             return false;
