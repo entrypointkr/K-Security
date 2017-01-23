@@ -80,6 +80,7 @@ public enum Lang {
         TIME("time"),
         EXCEPTION_MESSAGE("exception-message"),
         VALUE("value"),
+        VICTIM("victim"),
         EXECUTOR_NAME("executor-name"),
         INFO("info"),;
         private final String key;
