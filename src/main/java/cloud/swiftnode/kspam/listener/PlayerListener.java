@@ -45,19 +45,13 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoinHighest(PlayerJoinEvent e) {
         /*
         K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
         밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
         player.sendMessage(Lang.LAW_INFO.builder().prefix().build());
-        SpamExecutor executor = Static.getDefaultExecutor();
-        DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, player);
-        SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
-        if (processor.process()) {
-            e.setJoinMessage(null);
-        }
 
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
             player.sendMessage(Lang.UPDATE_INFO_NEW.builder().prefix().build());
@@ -68,6 +62,16 @@ public class PlayerListener implements Listener {
                     .single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer())
                     .prefix().build());
             player.sendMessage(Lang.DOWNLOAD_URL.builder().prefix().build());
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onJoinLowest(PlayerJoinEvent e) {
+        SpamExecutor executor = Static.getDefaultExecutor();
+        DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e.getPlayer());
+        SpamProcessor processor = new SyncJoinProcessor(executor, adapter);
+        if (processor.process()) {
+            e.setJoinMessage(null);
         }
     }
 
