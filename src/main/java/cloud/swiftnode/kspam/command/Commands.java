@@ -88,7 +88,12 @@ public class Commands implements CommandExecutor {
                     final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, info);
                     final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
                     new SyncLoginProcessor(executor, adapter).process();
-                    Static.runTaskAsync(() -> new AsyncLoginProcessor(executor, adapter).process());
+                    Static.runTaskAsync(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AsyncLoginProcessor(executor, adapter).process();
+                        }
+                    });
                     return true;
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     if (!isOp) {
