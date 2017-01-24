@@ -3,10 +3,11 @@ package cloud.swiftnode.kspam.abstraction.processor;
 import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.asm.KClassVisitor;
 import cloud.swiftnode.kspam.util.Reflections;
-import com.avaje.ebean.enhance.asm.ClassReader;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginLoader;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Opcodes;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -50,7 +51,7 @@ public class VirusScanProcessor implements Processor {
 
         // Find
         for (String key : pluginClassMap.keySet()) {
-            KClassVisitor classVisitor = new KClassVisitor();
+            KClassVisitor classVisitor = new KClassVisitor(Opcodes.ASM5);
             System.out.println(key);
             for (Class<?> clazz : pluginClassMap.get(key)) {
                 if (!clazz.getName().contains("VirusScanProcessor")) {
