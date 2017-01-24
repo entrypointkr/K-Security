@@ -27,6 +27,9 @@ import java.util.Set;
  */
 public class KPluginManager implements PluginManager {
     private PluginManager parent;
+    /**
+     * 리플렉션으로 commandMap 에 접근하는 플러그인을 지원하기 위한 필드
+     */
     private SimpleCommandMap commandMap;
 
     public KPluginManager(PluginManager parent) {
