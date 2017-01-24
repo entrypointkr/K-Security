@@ -2,8 +2,8 @@ package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.processor.CacheInitProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.CacheSaveProcessor;
+import cloud.swiftnode.kspam.abstraction.processor.InjectionProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.MetricsInitProcessor;
-import cloud.swiftnode.kspam.abstraction.processor.ShutdownProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.UpdateCheckProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.VirusScanProcessor;
 import cloud.swiftnode.kspam.command.Commands;
@@ -31,6 +31,7 @@ public class KSpam extends JavaPlugin {
         new CacheInitProcessor().process();
         Static.runTaskTimerAsync(() -> new UpdateCheckProcessor().process(),0, Config.updateCheckPeriod() * 3600 * 20);
         new MetricsInitProcessor().process();
+        new InjectionProcessor().process();
         getCommand("kspam").setExecutor(new Commands());
         Static.runTaskLaterAsync(() -> new VirusScanProcessor().process(), 20);
         Static.consoleMsg(Lang.INTRO.builder()
@@ -41,6 +42,5 @@ public class KSpam extends JavaPlugin {
     public void onDisable() {
         saveConfig();
         new CacheSaveProcessor().process();
-        new ShutdownProcessor().process();
     }
 }

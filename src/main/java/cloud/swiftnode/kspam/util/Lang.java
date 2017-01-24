@@ -43,14 +43,14 @@ public enum Lang {
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
     DISABLED("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다. 해당 옵션은 config.yml 에서 끌 수 있습니다."),
     FORCEMODE_ON("강제 모드가 활성화되어 당신은 차단되었습니다. 서버 관리자에게 문의해주세요."),
-
     /**
      * 본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
      */
     LAW_INFO("&c[ K-SPAM ] &f본 서버는 봇 테러 방지 플러그인 &eK-SPAM &f을 사용 중입니다.\n" +
              "&c[ K-SPAM ] &f기여자: §eEntryPoint, horyu1234\n" +
              "&c[ K-SPAM ] &fhttps://github.com/EntryPointKR/K-SPAM\n"),
-    SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요.")
+    SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
+    SELF_DEFENCE("K-SPAM 플러그인의 비활성화 시도를 차단했습니다.")
     ;
     private final String msg;
 
