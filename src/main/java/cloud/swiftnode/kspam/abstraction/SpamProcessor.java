@@ -1,7 +1,5 @@
 package cloud.swiftnode.kspam.abstraction;
 
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
