@@ -1,7 +1,5 @@
 package cloud.swiftnode.kspam.abstraction;
 
-import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +7,7 @@ import java.util.List;
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public abstract class SpamProcessor extends SimpleNamed implements Processor {
+public abstract class SpamProcessor implements Processor, Named {
     private List<SpamChecker> checkerList;
     private SpamExecutor executor;
     private DeniableInfo adapter;

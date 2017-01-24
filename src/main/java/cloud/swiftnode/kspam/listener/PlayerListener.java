@@ -4,7 +4,6 @@ import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.kspam.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Static;
@@ -15,7 +14,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -33,12 +31,9 @@ public class PlayerListener implements Listener {
         if (!processor.process()) {
             adapter.setObj(player);
             adapter.setDelayed(true);
-            Static.runTaskLaterAsync(new Runnable() {
-                @Override
-                public void run() {
-                    if (player.isOnline()) {
-                        new AsyncLoginProcessor(executor, adapter).process();
-                    }
+            Static.runTaskLaterAsync(() -> {
+                if (player.isOnline()) {
+                    new AsyncLoginProcessor(executor, adapter).process();
                 }
             }, 20L);
         }
