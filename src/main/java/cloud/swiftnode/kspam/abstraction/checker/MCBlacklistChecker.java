@@ -81,7 +81,7 @@ public class MCBlacklistChecker extends SpamChecker {
                 result[0] = "ERROR";
                 result[1] = errorType + " - " + errorMsg;
 
-                Static.consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, "<MC-Blacklist API> " + result[1]).prefix().build());
+                Static.consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, "<MC-Blacklist API> " + result[1]).build(false));
                 return result;
             }
 

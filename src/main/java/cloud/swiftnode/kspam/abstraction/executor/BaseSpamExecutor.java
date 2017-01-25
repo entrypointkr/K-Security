@@ -34,7 +34,7 @@ public class BaseSpamExecutor extends SpamExecutor {
         } else if (lastResult == SpamChecker.Result.ERROR) {
             if (alert) {
                 Static.consoleMsg(Lang.ERROR.builder()
-                        .single(Lang.Key.CHECKER_NAME, checker.name()).prefix());
+                        .single(Lang.Key.CHECKER_NAME, checker.name()));
             }
         }
         return false;

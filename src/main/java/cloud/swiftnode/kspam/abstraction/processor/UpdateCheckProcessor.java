@@ -34,10 +34,10 @@ public class UpdateCheckProcessor implements Processor {
                         Static.substring(line, "<span class=\"css-truncate-target\">", "</span>")));
                 if (StaticStorage.getCurrVer().before(StaticStorage.getNewVer())) {
                     Static.consoleMsg(
-                            Lang.UPDATE_INFO_NEW.builder().prefix(),
-                            Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix(),
-                            Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix(),
-                            Lang.DOWNLOAD_URL.builder().prefix()
+                            Lang.UPDATE_INFO_NEW.builder(),
+                            Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()),
+                            Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()),
+                            Lang.DOWNLOAD_URL.builder()
                     );
                 }
             }

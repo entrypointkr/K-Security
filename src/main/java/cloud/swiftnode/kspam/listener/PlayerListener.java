@@ -49,14 +49,14 @@ public class PlayerListener implements Listener {
         player.sendMessage(Lang.LAW_INFO.builder().build());
 
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
-            player.sendMessage(Lang.UPDATE_INFO_NEW.builder().prefix().build());
+            player.sendMessage(Lang.UPDATE_INFO_NEW.builder().build());
             player.sendMessage(Lang.NEW_VERSION.builder()
                     .single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer())
-                    .prefix().build());
+                    .build());
             player.sendMessage(Lang.CURRENT_VERSION.builder()
                     .single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer())
-                    .prefix().build());
-            player.sendMessage(Lang.DOWNLOAD_URL.builder().prefix().build());
+                    .build());
+            player.sendMessage(Lang.DOWNLOAD_URL.builder().build());
         }
     }
 }

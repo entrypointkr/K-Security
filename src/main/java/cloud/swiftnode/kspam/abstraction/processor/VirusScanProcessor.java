@@ -65,7 +65,7 @@ public class VirusScanProcessor implements Processor {
             if (classVisitor.find) {
                 Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder()
                         .single(Lang.Key.PLUGIN_NAME, key)
-                        .prefix().build());
+                        .build());
                 detectCount += 1;
             }
         }
@@ -76,16 +76,16 @@ public class VirusScanProcessor implements Processor {
         if (detectCount > 0) {
             coloredCount = "&c" + detectCount + "&f";
             Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder()
-                    .prefix().build());
+                    .build());
         } else {
             Bukkit.broadcastMessage(Lang.SCAN_SAFE.builder()
-                    .prefix().build());
+                    .build());
         }
 
         Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()
                 .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT)
                 .addVal(coloredCount, pluginClassMap.keySet().size())
-                .prefix().build());
+                .build());
         return true;
     }
 

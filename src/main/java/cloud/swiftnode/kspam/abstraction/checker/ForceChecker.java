@@ -24,6 +24,6 @@ public class ForceChecker extends SpamChecker {
 
     @Override
     public String denyMsg() {
-        return Lang.FORCEMODE_ON.builder().prefix().build();
+        return Lang.FORCEMODE_ON.builder().build();
     }
 }

@@ -37,7 +37,7 @@ public class Commands implements CommandExecutor {
                         break;
                     }
                     StaticStorage.forceMode = !StaticStorage.forceMode;
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.forceMode).prefix().build());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.forceMode).build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("info")) {
                      /*
@@ -45,9 +45,9 @@ public class Commands implements CommandExecutor {
                      밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
                      본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
                      */
-                    sender.sendMessage(Lang.LAW_INFO.builder().prefix().build());
-                    sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).prefix().build());
-                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).prefix().build());
+                    sender.sendMessage(Lang.LAW_INFO.builder().build());
+                    sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).build());
+                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).build());
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.firstKickCachedSet.size()));
                     return true;
@@ -56,21 +56,21 @@ public class Commands implements CommandExecutor {
                         break;
                     }
                     getConfig().set(Config.DEBUG_MODE, !Config.isDebugMode());
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isDebugMode()).prefix().build());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isDebugMode()).build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("firstkick")) {
                     if (!isOp) {
                         break;
                     }
                     getConfig().set(Config.FIRST_LOGIN_KICK, !Config.isFirstLoginKick());
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isFirstLoginKick()).prefix().build());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isFirstLoginKick()).build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("alert")) {
                     if (!isOp) {
                         break;
                     }
                     getConfig().set(Config.ALERT, !Config.isAlert());
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isAlert()).prefix().build());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isAlert()).build());
                     return true;
                 }
                 break;
@@ -81,10 +81,10 @@ public class Commands implements CommandExecutor {
                     }
                     String info = new InfoFacade(args[1]).get();
                     if (info == null) {
-                        sender.sendMessage(Lang.INVALID_IP.builder().prefix().build());
+                        sender.sendMessage(Lang.INVALID_IP.builder().build());
                         return true;
                     }
-                    sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).prefix().build());
+                    sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).build());
                     final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, info);
                     final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
                     new SyncLoginProcessor(executor, adapter).process();
@@ -96,7 +96,7 @@ public class Commands implements CommandExecutor {
                     }
                     String info = new InfoFacade(args[1]).get();
                     if (info == null) {
-                        sender.sendMessage(Lang.INVALID_IP.builder().prefix().build());
+                        sender.sendMessage(Lang.INVALID_IP.builder().build());
                         return true;
                     }
                     sender.sendMessage(Lang.PREFIX.toString() + StaticStorage.cachedSet.remove(info));

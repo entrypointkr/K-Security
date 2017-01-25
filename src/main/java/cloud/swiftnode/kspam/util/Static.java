@@ -57,7 +57,7 @@ public class Static {
         }
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ex.printStackTrace(new PrintStream(stream));
-        consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())).prefix());
+        consoleMsg(Lang.EXCEPTION.builder().single(Lang.Key.EXCEPTION_MESSAGE, new String(stream.toByteArray())));
     }
 
     public static long time() {

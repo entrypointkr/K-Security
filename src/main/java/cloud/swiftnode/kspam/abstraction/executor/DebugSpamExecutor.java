@@ -33,7 +33,6 @@ public class DebugSpamExecutor extends DecorateSpamExecutor {
         sender.sendMessage(Lang.DEBUG.builder()
                 .addKey(Lang.Key.PROCESSOR_NAME, Lang.Key.EXECUTOR_NAME, Lang.Key.CHECKER_NAME, Lang.Key.INFO, Lang.Key.CHECKER_RESULT, Lang.Key.TIME)
                 .addVal(processor.name(), this.name(), checker.name(), checker.getLastInfo(), parent.getLastResult(), Static.time() - time)
-                .prefix()
                 .build());
         return ret;
     }
