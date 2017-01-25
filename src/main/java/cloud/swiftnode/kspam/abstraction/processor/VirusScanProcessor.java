@@ -105,12 +105,4 @@ public class VirusScanProcessor implements Processor {
             return classMap.values();
         }
     }
-
-    public void test() {
-        try {
-            Socket socket = new Socket("localhost", 80);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 }
