@@ -2,6 +2,7 @@ package cloud.swiftnode.kspam.abstraction.processor;
 
 import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.asm.KClassVisitor;
+import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -24,8 +25,8 @@ public class VirusScanProcessor implements Processor {
     @Override
     public boolean process() {
         List loaderList = new ArrayList<>();
-
         Map<String, Collection<Class<?>>> pluginClassMap = new HashMap<>();
+        int detectCount = 0;
 
         // Init
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
@@ -52,11 +53,7 @@ public class VirusScanProcessor implements Processor {
         // Find
         for (String key : pluginClassMap.keySet()) {
             KClassVisitor classVisitor = new KClassVisitor(Opcodes.ASM5);
-            System.out.println(key);
             for (Class<?> clazz : pluginClassMap.get(key)) {
-                if (!clazz.getName().contains("VirusScanProcessor")) {
-                    continue;
-                }
                 ClassReader reader = null;
                 try {
                     reader = new ClassReader(clazz.getClassLoader().getResourceAsStream(clazz.getName().replaceAll("\\.", "/") + ".class"));
@@ -66,9 +63,29 @@ public class VirusScanProcessor implements Processor {
                 reader.accept(classVisitor, 0);
             }
             if (classVisitor.find) {
-                System.out.println(key + " 소켓 감지");
+                Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder()
+                        .single(Lang.Key.PLUGIN_NAME, key)
+                        .prefix().build());
+                detectCount += 1;
             }
         }
+
+        // Broadcast
+        String coloredCount = "&a" + detectCount + "&f";
+
+        if (detectCount > 0) {
+            coloredCount = "&c" + detectCount + "&f";
+            Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder()
+                    .prefix().build());
+        } else {
+            Bukkit.broadcastMessage(Lang.SCAN_SAFE.builder()
+                    .prefix().build());
+        }
+
+        Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()
+                .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT)
+                .addVal(coloredCount, pluginClassMap.keySet().size())
+                .prefix().build());
         return true;
     }
 

@@ -50,7 +50,11 @@ public enum Lang {
              "&c[ K-SPAM ] &f기여자: §eEntryPoint, horyu1234\n" +
              "&c[ K-SPAM ] &fhttps://github.com/EntryPointKR/K-SPAM\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
-    SELF_DEFENCE("K-SPAM 플러그인의 비활성화 시도를 차단했습니다.")
+    SELF_DEFENCE("K-SPAM 플러그인의 비활성화 시도를 차단했습니다."),
+    SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 사용&f이 감지되었습니다."),
+    SCAN_RESULT("총 &e" + Key.PLUGIN_COUNT + " &f개의 플러그인 검사 완료, 악성 플러그인 수: " + Key.FIND_COUNT),
+    SCAN_WARNING("소켓 사용이 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),
+    SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     ;
     private final String msg;
 
@@ -81,9 +85,12 @@ public enum Lang {
         TIME("time"),
         EXCEPTION_MESSAGE("exception-message"),
         VALUE("value"),
-        VICTIM("victim"),
         EXECUTOR_NAME("executor-name"),
-        INFO("info"),;
+        INFO("info"),
+        PLUGIN_NAME("plugin-name"),
+        FIND_COUNT("find-count"),
+        PLUGIN_COUNT("plugin-count"),
+        ;
         private final String key;
 
         Key(String key) {
