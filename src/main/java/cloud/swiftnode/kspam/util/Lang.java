@@ -138,7 +138,10 @@ public enum Lang {
             return this;
         }
 
-        public String build() {
+        public String build(boolean prefix) {
+            if (prefix) {
+                prefix();
+            }
             String msg = target;
             for (int i = 0; i < keyList.size(); i++) {
                 try {
@@ -153,6 +156,10 @@ public enum Lang {
                 }
             }
             return colorize(msg);
+        }
+
+        public String build() {
+            return build(true);
         }
     }
 }
