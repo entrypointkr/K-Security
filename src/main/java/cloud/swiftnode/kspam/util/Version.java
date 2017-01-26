@@ -9,18 +9,22 @@ import java.util.regex.Pattern;
  * Created by Junhyeong Lim on 2017-01-08.
  */
 public class Version {
+    private static Pattern PATTERN;
     private int major = 0;
     private int minor = 0;
     private int add = 0;
     private String tag;
+
+    static {
+        PATTERN = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?(?:-(.*))?");
+    }
 
     public Version(String version) {
         set(version);
     }
 
     public void set(String version) {
-        Pattern pattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?(?:-(.*))?");
-        Matcher matcher = pattern.matcher(version);
+        Matcher matcher = PATTERN.matcher(version);
         if (matcher.find()) {
             String major = matcher.group(1);
             String minor = matcher.group(2);
