@@ -26,6 +26,12 @@ import static cloud.swiftnode.kspam.util.Static.getConfig;
  * Created by Junhyeong Lim on 2017-01-17.
  */
 public class Commands implements CommandExecutor {
+    private static Pattern IP_PATTERN;
+
+    static {
+        IP_PATTERN = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean isOp = sender.isOp();
@@ -118,8 +124,7 @@ public class Commands implements CommandExecutor {
             if (player != null) {
                 return new StringToIpConverter(player.getAddress().getAddress().toString()).convert();
             }
-            Matcher matcher = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
-                    .matcher(target);
+            Matcher matcher = IP_PATTERN.matcher(target);
             if (matcher.find()) {
                 return target;
             } else {
