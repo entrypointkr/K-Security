@@ -19,13 +19,13 @@ public enum Lang {
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
             "                                                                               \n" +
-            "`7MMF' `YMM'     `7MMF'   `7MF'                        db                      \n" +
-            "  MM   .M'         `MA     ,V                                                  \n" +
-            "  MM .d\"            VM:   ,V ,6\"Yb.  ,p6\"bo   ,p6\"bo `7MM  `7MMpMMMb.  .gP\"Ya  \n" +
-            "  MMMMM.             MM.  M'8)   MM 6M'  OO  6M'  OO   MM    MM    MM ,M'   Yb \n" +
-            "  MM  VMA            `MM A'  ,pm9MM 8M       8M        MM    MM    MM 8M\"\"\"\"\"\" \n" +
-            "  MM   `MM.           :MM;  8M   MM YM.    , YM.    ,  MM    MM    MM YM.    , \n" +
-            ".JMML.   MMb.          VF   `Moo9^Yo.YMbmd'   YMbmd' .JMML..JMML  JMML.`Mbmmd' \n" +
+            " `7MMF' `YMM'     `7MMF'   `7MF'                        db                      \n" +
+            "   MM   .M'         `MA     ,V                                                  \n" +
+            "   MM .d\"            VM:   ,V ,6\"Yb.  ,p6\"bo   ,p6\"bo `7MM  `7MMpMMMb.  .gP\"Ya  \n" +
+            "   MMMMM.             MM.  M'8)   MM 6M'  OO  6M'  OO   MM    MM    MM ,M'   Yb \n" +
+            "   MM  VMA            `MM A'  ,pm9MM 8M       8M        MM    MM    MM 8M\"\"\"\"\"\" \n" +
+            "   MM   `MM.           :MM;  8M   MM YM.    , YM.    ,  MM    MM    MM YM.    , \n" +
+            " .JMML.   MMb.          VF   `Moo9^Yo.YMbmd'   YMbmd' .JMML..JMML  JMML.`Mbmmd' \n" +
             "                                                                                 \n" +
             " &c[K-Vaccine] &fv" + Key.KSPAM_VERSION + "\n\n" +
             " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
