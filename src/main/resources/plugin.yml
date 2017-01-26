@@ -1,8 +1,8 @@
-main: cloud.swiftnode.kvaccine.KVaccine
-name: K-Vaccine
+main: cloud.swiftnode.kspam.KSpam
+name: K-Spam_Community_Edition
 version: @version@
 author: EntryPoint
 commands:
-  kvc:
-    description: KVaccine main command.
-    usage: /kvc (force|info|check|debug|firstkick|remove)
+  kspam:
+    description: K-SPAM main command.
+    usage: /kspam (force|info|check|debug|firstkick|remove)
