@@ -1,8 +1,10 @@
 package cloud.swiftnode.kspam.abstraction;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -41,15 +43,8 @@ public abstract class SpamProcessor implements Processor, Named {
     }
 
     public void removeCheckers(String... names) {
-        Iterator<SpamChecker> iterator = checkerList.iterator();
-        while (iterator.hasNext()) {
-            SpamChecker checker = iterator.next();
-            for (String name : names) {
-                if (checker.name().equalsIgnoreCase(name)) {
-                    iterator.remove();
-                }
-            }
-        }
+        Set<String> nameList = Arrays.stream(names).map(String::toLowerCase).collect(Collectors.toSet());
+        checkerList.removeIf(checker -> nameList.contains(checker.name().toLowerCase()));
     }
 
     public DeniableInfo getAdapter() {

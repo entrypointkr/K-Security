@@ -18,7 +18,7 @@ public abstract class ExecuteDeniable implements Deniable {
     @Override
     public void deny() {
         if (delayed) {
-            Static.runTask(() -> executeDeny());
+            Static.runTask(this::executeDeny);
         } else {
             executeDeny();
         }
