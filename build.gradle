@@ -1,6 +1,6 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-group 'cloud.swiftnode.kspam'
+group 'cloud.swiftnode.kvaccine'
 version '2.2.0-SNAPSHOT'
 
 apply plugin: 'java'
