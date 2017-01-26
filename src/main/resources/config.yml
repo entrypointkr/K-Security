@@ -1,5 +1,4 @@
 debug-mode: false
 first-login-kick: true
 alert: false
-shutdown-when-disable: true
 update-check-period: 1

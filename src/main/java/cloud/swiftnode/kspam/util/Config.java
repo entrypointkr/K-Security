@@ -7,7 +7,6 @@ public class Config {
     public static final String DEBUG_MODE = "debug-mode";
     public static final String FIRST_LOGIN_KICK = "first-login-kick";
     public static final String ALERT = "alert";
-    public static final String SHUTDOWN_WHEN_DISABLE = "shutdown-when-disable";
     public static final String UPDATE_CHECK_PERIOD = "update-check-period";
 
     static {
@@ -24,10 +23,6 @@ public class Config {
 
     public static boolean isAlert() {
         return getBoolean(ALERT, false);
-    }
-
-    public static boolean isShutdownWhenDisable() {
-        return getBoolean(SHUTDOWN_WHEN_DISABLE, true);
     }
 
     public static int updateCheckPeriod() {
