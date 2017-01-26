@@ -53,9 +53,6 @@ public class KSpamTest {
 
             // PlayerEvent
             PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, "12.32.12.32", addr);
-            PlayerJoinEvent joinEvent = new PlayerJoinEvent(player, "Test join");
-            PlayerQuitEvent quitEvent = new PlayerQuitEvent(player, "Test quit");
-
             // ServerEvent
             ServerListPingEvent pingEvent = new ServerListPingEvent(addr, "test motd", 1, 10);
 
