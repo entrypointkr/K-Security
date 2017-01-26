@@ -54,11 +54,11 @@ public class VirusScanProcessor implements Processor {
         for (String key : pluginClassMap.keySet()) {
             KClassVisitor classVisitor = new KClassVisitor(Opcodes.ASM5);
             for (Class<?> clazz : pluginClassMap.get(key)) {
-                ClassReader reader = null;
+                ClassReader reader;
                 try {
                     reader = new ClassReader(clazz.getClassLoader().getResourceAsStream(clazz.getName().replaceAll("\\.", "/") + ".class"));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    continue;
                 }
                 reader.accept(classVisitor, 0);
             }

@@ -4,11 +4,11 @@ package cloud.swiftnode.kspam.util;
  * Created by Junhyeong Lim on 2017-01-09.
  */
 public class Config {
-    public static String DEBUG_MODE = "debug-mode";
-    public static String FIRST_LOGIN_KICK = "first-login-kick";
-    public static String ALERT = "alert";
-    public static String SHUTDOWN_WHEN_DISABLE = "shutdown-when-disable";
-    public static String UPDATE_CHECK_PERIOD = "update-check-period";
+    public static final String DEBUG_MODE = "debug-mode";
+    public static final String FIRST_LOGIN_KICK = "first-login-kick";
+    public static final String ALERT = "alert";
+    public static final String SHUTDOWN_WHEN_DISABLE = "shutdown-when-disable";
+    public static final String UPDATE_CHECK_PERIOD = "update-check-period";
 
     static {
         Static.getConfig().options().copyDefaults(true);
