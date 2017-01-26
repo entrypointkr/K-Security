@@ -1,9 +1,21 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+    }
+}
+
 group 'cloud.swiftnode.kspam'
 version '2.2.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: "com.github.johnrengelman.shadow"
 
 test.testLogging.showStandardStreams = true
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -29,4 +41,15 @@ processResources {
     filter ReplaceTokens, tokens: [
             "version": project.version
     ]
+}
+
+shadowJar {
+    classifier = ''
+    dependencies {
+        include dependency('org.ow2.asm:asm')
+    }
+}
+
+artifacts {
+    archives shadowJar
 }
