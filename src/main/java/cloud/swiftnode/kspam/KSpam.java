@@ -39,7 +39,7 @@ public class KSpam extends JavaPlugin {
         getCommand("kspam").setExecutor(new Commands());
         Static.runTaskLaterAsync(() -> new VirusScanProcessor().process(), 20);
         Static.consoleMsg(Lang.INTRO.builder()
-                .single(Lang.Key.KSPAM_VERSION, Static.getVersion()));
+                .single(Lang.Key.KSPAM_VERSION, Static.getVersion()).build(false));
     }
 
     @Override
