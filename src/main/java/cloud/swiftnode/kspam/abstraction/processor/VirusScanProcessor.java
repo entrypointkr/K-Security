@@ -11,8 +11,6 @@ import org.bukkit.plugin.Plugin;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +22,10 @@ import java.util.Map;
 public class VirusScanProcessor implements Processor {
     @Override
     public boolean process() {
+        Bukkit.broadcastMessage(Lang.SCAN_START.builder().build());
+
         int detectCount = 0;
+        long startTime = System.currentTimeMillis();
 
         Map<ClassLoader, Plugin> pluginMap = getPluginMap();
         List<Class<?>> classList;
@@ -73,8 +74,8 @@ public class VirusScanProcessor implements Processor {
         }
 
         Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()
-                .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT)
-                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length)
+                .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT, Lang.Key.TIME)
+                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime)
                 .build());
         return true;
     }
