@@ -11,26 +11,30 @@ import java.util.regex.Matcher;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum Lang {
-    PREFIX("&c[ K-SPAM ] &f"),
+    PREFIX("&c[ K-Security ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
-    DENY("&c[ K-SPAM ]\n" +
+    DENY("&c[ K-Security ]\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
+    CONTRIBUTORS("EntryPoint, horyu1234"),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
             "\n" +
-            " `7MMF' `YMM'      .M\"\"\"bgd `7MM\"\"\"Mq.   db      `7MMM.     ,MMF'\n" +
-            "   MM   .M'       ,MI    \"Y   MM   `MM. ;MM:       MMMb    dPMM  \n" +
-            "   MM .d\"         `MMb.       MM   ,M9 ,V^MM.      M YM   ,M MM  \n" +
-            "   MMMMM.           `YMMNq.   MMmmdM9 ,M  `MM      M  Mb  M' MM  \n" +
-            "   MM  VMA        .     `MM   MM      AbmmmqMA     M  YM.P'  MM  \n" +
-            "   MM   `MM.      Mb     dM   MM     A'     VML    M  `YM'   MM  \n" +
-            " .JMML.   MMb.    P\"Ybmmd\"  .JMML. .AMA.   .AMMA..JML. `'  .JMML." +
+            "                                                                   ,,                   \n" +
+            "`7MMF' `YMM'      .M\"\"\"bgd                                         db   mm              \n" +
+            "  MM   .M'       ,MI    \"Y                                              MM              \n" +
+            "  MM .d\"         `MMb.      .gP\"Ya   ,p6\"bo `7MM  `7MM  `7Mb,od8 `7MM mmMMmm `7M'   `MF'\n" +
+            "  MMMMM.           `YMMNq. ,M'   Yb 6M'  OO   MM    MM    MM' \"'   MM   MM     VA   ,V  \n" +
+            "  MM  VMA        .     `MM 8M\"\"\"\"\"\" 8M        MM    MM    MM       MM   MM      VA ,V   \n" +
+            "  MM   `MM.      Mb     dM YM.    , YM.    ,  MM    MM    MM       MM   MM       VVV    \n" +
+            ".JMML.   MMb.    P\"Ybmmd\"   `Mbmmd'  YMbmd'   `Mbod\"YML..JMML.   .JMML. `Mbmo    ,V     \n" +
+            "                                                                                ,V      \n" +
+            "                                                                             OOb\"       " +
             "                                                                  \n" +
-            " &c[K-SPAM Community Edition] &fv" + Key.KSPAM_VERSION + "\n\n" +
-            " &fPlugin Contributors &eEntryPoint, horyu1234\n" +
-            " &fK-SPAM DB Powered By &eSwiftnode\n" +
-            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-SPAM/issues\n"),
+            " &c[K-Security] &fv" + Key.KSPAM_VERSION + "\n\n" +
+            " &fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
+            " &fK-SPAM Module DB Powered By &eSwiftnode\n" +
+            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
@@ -41,14 +45,13 @@ public enum Lang {
     FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
             "&f30 초 안에 다시 접속해주세요."),
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
-    DISABLED("경고! K-SPAM 플러그인이 종료되었습니다. config.yml 정책에 의해 서버와 함께 종료됩니다. 해당 옵션은 config.yml 에서 끌 수 있습니다."),
     FORCEMODE_ON("강제 모드가 활성화되어 당신은 차단되었습니다. 서버 관리자에게 문의해주세요."),
     /**
      * 본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
      */
-    LAW_INFO("&c[ K-SPAM ] &f본 서버는 봇 테러 방지 플러그인 &eK-SPAM &f을 사용 중입니다.\n" +
-             "&c[ K-SPAM ] &f기여자: §eEntryPoint, horyu1234\n" +
-             "&c[ K-SPAM ] &fhttps://github.com/EntryPointKR/K-SPAM\n"),
+    LAW_INFO(PREFIX + " &f본 서버는 봇 테러 방지 플러그인 &eK-Security &f를 사용 중입니다.\n" +
+            PREFIX +" &f기여자: §e" + CONTRIBUTORS + "\n" +
+            PREFIX + " &fhttps://github.com/EntryPointKR/K-Security\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
     SELF_DEFENCE("K-SPAM 플러그인의 비활성화 시도를 차단했습니다."),
     SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 사용&f이 감지되었습니다."),
