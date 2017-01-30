@@ -56,6 +56,7 @@ public enum Lang {
     SCAN_WARNING("소켓 사용이 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),
     SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     SCAN_START("플러그인 간편 검사가 시작됩니다."),
+    TRY_NETWORKING("플러그인 &e" + Key.PLUGIN_NAME + " &f이 &e" + Key.VALUE + " &f로 네트워크 연결을 시도했습니다."),
     ;
     private final String msg;
 

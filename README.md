@@ -14,9 +14,9 @@ https://github.com/EntryPointKR/K-SPAM/releases/latest
 
 해당 닉네임 또는 아이피의 스팸 여부를 확인합니다.
 
-> /kspam force
+> /kspam firewall
 
-강제 모드를 온/오프합니다. 강제모드가 활성화됐을 경우 그 시점 부터 처음 접속하는 유저들을 즉시 스팸 목록에 추가하며 입장을 거부합니다.
+강제 모드를 온/오프합니다. 강제모드가 활성화됐을 경우 그 시점 부터 처음 접속하는 유저들의 입장을 거부합니다.
 
 > /kspam remove 아이피/닉네임
 

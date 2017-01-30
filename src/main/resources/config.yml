@@ -2,3 +2,4 @@ debug-mode: false
 first-login-kick: true
 alert: false
 update-check-period: 1
+network-alert: true

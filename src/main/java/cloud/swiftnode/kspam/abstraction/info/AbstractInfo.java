@@ -13,7 +13,7 @@ public abstract class AbstractInfo implements Info {
         if (this.getPlayer() != null) {
             try {
                 uuid = OfflinePlayer.class.getDeclaredMethod("getUniqueId").invoke(getPlayer()).toString();
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw new IllegalStateException("UUID Doesn't support.");
             }
         }

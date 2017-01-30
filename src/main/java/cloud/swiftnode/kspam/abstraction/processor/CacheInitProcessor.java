@@ -25,7 +25,7 @@ public class CacheInitProcessor implements Processor {
     @Override
     @SuppressWarnings("unchecked")
     public boolean process() {
-        File dataFolder = KSpam.INSTANCE.getDataFolder();
+        File dataFolder = KSpam.inst.getDataFolder();
         if (!dataFolder.isDirectory()) {
             dataFolder.mkdirs();
         }

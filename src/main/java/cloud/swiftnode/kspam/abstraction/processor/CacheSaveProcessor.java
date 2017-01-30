@@ -16,7 +16,7 @@ public class CacheSaveProcessor implements Processor {
     @Override
     public boolean process() {
         try {
-            File file = new File(KSpam.INSTANCE.getDataFolder(), "K-Spam.cache");
+            File file = new File(KSpam.inst.getDataFolder(), "K-Spam.cache");
             ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
             outStream.writeObject(StaticStorage.cachedSet);
             return true;

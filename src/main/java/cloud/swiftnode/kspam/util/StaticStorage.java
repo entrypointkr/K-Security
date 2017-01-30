@@ -1,7 +1,12 @@
 package cloud.swiftnode.kspam.util;
 
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,7 +15,8 @@ import java.util.Set;
 public class StaticStorage {
     public static Set<String> cachedSet = new LinkedHashSet<>();
     public static Set<String> firstKickCachedSet = new LinkedHashSet<>();
-    public static boolean forceMode = false;
+    private static Map<ClassLoader, Plugin> cachedLoaderPluginMap;
+    public static boolean firewallMode = false;
     private static Version currVer;
     private static Version newVer;
 
@@ -34,5 +40,15 @@ public class StaticStorage {
 
     public static void setNewVer(Version newVer) {
         StaticStorage.newVer = newVer;
+    }
+
+    public synchronized static Map<ClassLoader, Plugin> getCachedLoaderPluginMap() {
+        if (cachedLoaderPluginMap == null) {
+            cachedLoaderPluginMap = new HashMap<>();
+            for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+                StaticStorage.cachedLoaderPluginMap.put(plugin.getClass().getClassLoader(), plugin);
+            }
+        }
+        return cachedLoaderPluginMap;
     }
 }

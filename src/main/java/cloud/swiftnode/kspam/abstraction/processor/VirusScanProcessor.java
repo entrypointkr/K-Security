@@ -32,7 +32,7 @@ public class VirusScanProcessor implements Processor {
         List<String> escapeList = new ArrayList<>();
 
         try {
-            classList = new PluginClassLoaderFacade(KSpam.INSTANCE.getPluginLoader()).getClasses();
+            classList = new PluginClassLoaderFacade(KSpam.inst.getPluginLoader()).getClasses();
         } catch (Exception e) {
             Static.consoleMsg(e);
             return false;

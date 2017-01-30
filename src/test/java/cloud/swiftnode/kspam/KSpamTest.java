@@ -1,7 +1,7 @@
 package cloud.swiftnode.kspam;
 
 import cloud.swiftnode.kspam.abstraction.MockPlayer;
-import cloud.swiftnode.kspam.abstraction.MockPlugin;
+import cloud.swiftnode.kspam.abstraction.mock.MockPlugin;
 import cloud.swiftnode.kspam.abstraction.MockServer;
 import cloud.swiftnode.kspam.listener.PlayerListener;
 import cloud.swiftnode.kspam.listener.ServerListener;
@@ -25,7 +25,7 @@ public class KSpamTest {
     public void initTest() throws NoSuchFieldException, IllegalAccessException {
         // Injection
         Field serverField = Bukkit.class.getDeclaredField("server");
-        Field instField = KSpam.class.getDeclaredField("INSTANCE");
+        Field instField = KSpam.class.getDeclaredField("inst");
 
         serverField.setAccessible(true);
         instField.setAccessible(true);

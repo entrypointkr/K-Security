@@ -113,7 +113,7 @@ public class KPluginManager implements PluginManager {
 
     @Override
     public void disablePlugin(Plugin plugin) {
-        if (plugin.getName().equals(KSpam.INSTANCE.getName())) {
+        if (plugin.getName().equals(KSpam.inst.getName())) {
             Static.consoleMsg(Lang.SELF_DEFENCE.builder().build());
             return;
         }

@@ -1,4 +1,4 @@
-package cloud.swiftnode.kspam.abstraction;
+package cloud.swiftnode.kspam.abstraction.mock;
 
 import com.avaje.ebean.EbeanServer;
 import org.bukkit.Server;
@@ -119,7 +119,7 @@ public class MockPlugin implements Plugin {
 
     @Override
     public String getName() {
-        return null;
+        return "알 수 없음";
     }
 
     @Override

@@ -8,9 +8,14 @@ public class Config {
     public static final String FIRST_LOGIN_KICK = "first-login-kick";
     public static final String ALERT = "alert";
     public static final String UPDATE_CHECK_PERIOD = "update-check-period";
+    public static final String NETWORK_ALERT = "network-alert";
 
     static {
         Static.getConfig().options().copyDefaults(true);
+    }
+
+    public static void init() {
+
     }
 
     public static boolean isDebugMode() {
@@ -27,6 +32,10 @@ public class Config {
 
     public static int updateCheckPeriod() {
         return getInt(UPDATE_CHECK_PERIOD, 1);
+    }
+
+    public static boolean isNetworkAlert() {
+        return getBoolean(NETWORK_ALERT, true);
     }
 
     private static boolean getBoolean(String key, boolean def) {

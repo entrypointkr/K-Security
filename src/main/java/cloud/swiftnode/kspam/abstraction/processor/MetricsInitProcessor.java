@@ -13,7 +13,7 @@ public class MetricsInitProcessor implements Processor {
     @Override
     public boolean process() {
         try {
-            new Metrics((JavaPlugin) KSpam.INSTANCE);
+            new Metrics((JavaPlugin) KSpam.inst);
         } catch (Exception ex) {
             Static.consoleMsg(ex);
             return false;

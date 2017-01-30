@@ -4,9 +4,11 @@ import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.kspam.abstraction.executor.PunishSpamExecutor;
+import cloud.swiftnode.kspam.abstraction.mock.MockPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -24,19 +26,19 @@ import java.util.Collection;
  */
 public class Static {
     public static void runTaskAsync(Runnable runnable) {
-        Bukkit.getScheduler().runTaskAsynchronously(KSpam.INSTANCE, runnable);
+        Bukkit.getScheduler().runTaskAsynchronously(KSpam.inst, runnable);
     }
 
     public static void runTaskLaterAsync(Runnable runnable, long delay) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.INSTANCE, runnable, delay);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KSpam.inst, runnable, delay);
     }
 
     public static void runTaskTimerAsync(Runnable runnable, long delay, long period) {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.INSTANCE, runnable, delay, period);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(KSpam.inst, runnable, delay, period);
     }
 
     public static void runTask(Runnable runnable) {
-        Bukkit.getScheduler().runTask(KSpam.INSTANCE, runnable);
+        Bukkit.getScheduler().runTask(KSpam.inst, runnable);
     }
 
     public static void consoleMsg(String... msgs) {
@@ -93,11 +95,11 @@ public class Static {
     }
 
     public static String getVersion() {
-        return KSpam.INSTANCE.getDescription().getVersion();
+        return KSpam.inst.getDescription().getVersion();
     }
 
     public static FileConfiguration getConfig() {
-        return KSpam.INSTANCE.getConfig();
+        return KSpam.inst.getConfig();
     }
 
     public static SpamExecutor getDefaultExecutor() {
@@ -137,5 +139,23 @@ public class Static {
             Static.consoleMsg(ex);
             return true;
         }
+    }
+
+    public static Plugin getRequestPlugin(Exception ex) {
+        StackTraceElement[] elements = ex.getStackTrace();
+
+        for (int i = 1; i < elements.length; i++) {
+            StackTraceElement element = elements[i];
+            try {
+                ClassLoader loader = Class.forName(element.getClassName()).getClassLoader();
+                if (!StaticStorage.getCachedLoaderPluginMap().containsKey(loader)) {
+                    continue;
+                }
+                return StaticStorage.getCachedLoaderPluginMap().get(loader);
+            } catch (ClassNotFoundException e) {
+                // Ignore
+            }
+        }
+        return new MockPlugin();
     }
 }

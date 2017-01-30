@@ -20,16 +20,17 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class KSpam extends JavaPlugin {
-    public static Plugin INSTANCE;
+    public static Plugin inst;
 
     @Override
     public void onLoad() {
+        inst = this;
+        Config.init();
         new InjectionProcessor().process();
     }
 
     @Override
     public void onEnable() {
-        INSTANCE = this;
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new ServerListener(), this);
         saveDefaultConfig();

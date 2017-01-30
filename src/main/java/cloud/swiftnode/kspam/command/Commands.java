@@ -26,7 +26,7 @@ import static cloud.swiftnode.kspam.util.Static.getConfig;
  * Created by Junhyeong Lim on 2017-01-17.
  */
 public class Commands implements CommandExecutor {
-    private static Pattern IP_PATTERN;
+    private static final Pattern IP_PATTERN;
 
     static {
         IP_PATTERN = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
@@ -38,12 +38,12 @@ public class Commands implements CommandExecutor {
         // Lazy
         switch (args.length) {
             case 1:
-                if (args[0].equalsIgnoreCase("force")) {
+                if (args[0].equalsIgnoreCase("firewall")) {
                     if (!isOp) {
                         break;
                     }
-                    StaticStorage.forceMode = !StaticStorage.forceMode;
-                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.forceMode).build());
+                    StaticStorage.firewallMode = !StaticStorage.firewallMode;
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, StaticStorage.firewallMode).build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("info")) {
                      /*

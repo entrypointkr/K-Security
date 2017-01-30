@@ -8,18 +8,23 @@ import cloud.swiftnode.kspam.util.StaticStorage;
 /**
  * Created by Junhyeong Lim on 2017-01-18.
  */
-public class ForceChecker extends SpamChecker {
-    public ForceChecker(Info info) {
+public class FirewallChecker extends SpamChecker {
+    public FirewallChecker(Info info) {
         super(info);
     }
 
     @Override
     public Result spamCheck() throws Exception {
         lastInfo = info.getIp();
-        if (StaticStorage.forceMode) {
+        if (StaticStorage.firewallMode) {
             return Result.DENY;
         }
         return Result.PASS;
+    }
+
+    @Override
+    public boolean isCaching() {
+        return false;
     }
 
     @Override
