@@ -1,8 +1,8 @@
-main: cloud.swiftnode.kspam.KSpam
-name: K-Spam_Community_Edition
+main: @mainClass@
+name: @name@
 version: @version@
-author: EntryPoint
+author: @author@
 commands:
-  kspam:
-    description: K-SPAM main command.
-    usage: /kspam (firewall|info|check|debug|firstkick|remove)
+  ks:
+    description: @name@ main command.
+    usage: /ks (firewall|info|check|debug|firstkick|remove)
