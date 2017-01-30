@@ -8,7 +8,7 @@
 
 다운로드
 ----
-https://github.com/EntryPointKR/K-SPAM/releases/latest
+https://github.com/EntryPointKR/K-Security/releases/latest
 
 명령어
 ----
@@ -85,6 +85,6 @@ K-Security 는 오픈소스 프로젝트로 누구나 개발에 참여할 수 �
 ----
 ~~한국에 이보다 잘만든 플러그인이 있나요~~
 
-![alt tag](https://github.com/EntryPointKR/K-SPAM/blob/master/diagram.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/diagram.png)
 
 예정: 백신 기능

@@ -38,11 +38,11 @@ public enum Lang {
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
-    DOWNLOAD_URL("&e다운로드: &bhttps://github.com/EntryPointKR/K-SPAM/releases/latest"),
-    EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-SPAM/issues &f본 메세지를 끄려면 /ksecurity alert 를 입력해주세요. &e정보: &f" + Key.EXCEPTION_MESSAGE),
+    DOWNLOAD_URL("&e다운로드: &bhttps://github.com/EntryPointKR/K-Security/releases/latest"),
+    EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-Security/issues &f본 메세지를 끄려면 /ksecurity alert 를 입력해주세요. &e정보: &f" + Key.EXCEPTION_MESSAGE),
     SET("&e" + Key.VALUE + " &f로 설정했습니다."),
     COMMAND_CHECK("&e" + Key.VALUE + " &f의 결과"),
-    FIRST_LOGIN_KICK("&c[ K-SPAM ]\n" +
+    FIRST_LOGIN_KICK(PREFIX + "\n" +
             "&f30 초 안에 다시 접속해주세요."),
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
     FORCEMODE_ON("강제 모드가 활성화되어 당신은 차단되었습니다. 서버 관리자에게 문의해주세요."),
@@ -52,8 +52,8 @@ public enum Lang {
     LAW_INFO(PREFIX + " &f본 서버는 봇 테러 방지 플러그인 &eK-Security &f를 사용 중입니다.\n" +
             PREFIX +" &f기여자: §e" + CONTRIBUTORS + "\n" +
             PREFIX + " &fhttps://github.com/EntryPointKR/K-Security\n"),
-    SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Spam_Community_Edition/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
-    SELF_DEFENCE("K-SPAM 플러그인의 비활성화 시도를 차단했습니다."),
+    SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Security/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
+    SELF_DEFENCE("K-Security 플러그인의 비활성화 시도를 차단했습니다."),
     SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 사용&f이 감지되었습니다."),
     SCAN_RESULT("총 &e" + Key.PLUGIN_COUNT + " &f개의 플러그인 검사 완료 &e(" + Key.TIME + "ms)&f, 의심 플러그인 수: " + Key.FIND_COUNT),
     SCAN_WARNING("소켓 사용이 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),

@@ -86,7 +86,7 @@ public class Static {
     }
 
     public static String readAllText(URL url) throws IOException {
-        return readAllText(url, "K-SPAM v" + StaticStorage.getCurrVer());
+        return readAllText(url, "K-Security v" + StaticStorage.getCurrVer());
     }
 
     public static String substring(String target, String a, String b) {

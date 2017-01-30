@@ -14,7 +14,9 @@ public enum URLs {
     BOTSCOUT_API("http://www.botscout.com/test/?ip={0}"),
     MCBLACKLIST_API("http://api.mc-blacklist.kr/API/check/{0}"),
     MOJANG_UUID_API("https://api.mojang.com/users/profiles/minecraft/{0}?at={1}"),
-    CACHE("https://github.com/EntryPointKR/K-Security/blob/master/K-Spam.cache?raw=true");
+    CACHE("https://github.com/EntryPointKR/K-Security/blob/master/K-Spam.cache?raw=true"),
+    KSEC_RELEASE("https://github.com/EntryPointKR/K-Security/releases/latest"),
+    ;
     private final String addr;
 
     URLs(String addr) {

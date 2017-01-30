@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.abstraction.Processor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
+import cloud.swiftnode.ksecurity.util.URLs;
 import cloud.swiftnode.ksecurity.util.Version;
 
 import java.io.BufferedReader;
@@ -19,7 +20,7 @@ public class UpdateCheckProcessor implements Processor {
     public boolean process() {
         URL url;
         try {
-            url = new URL("https://github.com/EntryPointKR/K-SPAM/releases/latest");
+            url = URLs.KSEC_RELEASE.toUrl();
         } catch (MalformedURLException ex) {
             Static.consoleMsg(ex);
             return false;
