@@ -1,19 +1,19 @@
 package cloud.swiftnode.kspam.abstraction.processor;
 
+import cloud.swiftnode.kspam.KSpam;
 import cloud.swiftnode.kspam.abstraction.Processor;
 import cloud.swiftnode.kspam.abstraction.asm.KClassVisitor;
 import cloud.swiftnode.kspam.util.Lang;
 import cloud.swiftnode.kspam.util.Reflections;
+import cloud.swiftnode.kspam.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginLoader;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,49 +24,39 @@ import java.util.Map;
 public class VirusScanProcessor implements Processor {
     @Override
     public boolean process() {
-        List loaderList = new ArrayList<>();
-        Map<String, Collection<Class<?>>> pluginClassMap = new HashMap<>();
         int detectCount = 0;
 
-        // Init
-        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-            PluginLoader loader = plugin.getPluginLoader();
-            try {
-                loaderList.addAll((List) Reflections.getDeclaredFieldObject(loader, "loaders"));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+        Map<ClassLoader, Plugin> pluginMap = getPluginMap();
+        List<Class<?>> classList;
+        List<String> escapeList = new ArrayList<>();
+
+        try {
+            classList = new PluginClassLoaderFacade(KSpam.INSTANCE.getPluginLoader()).getClasses();
+        } catch (Exception e) {
+            Static.consoleMsg(e);
+            return false;
         }
 
-        // Sort
-        for (Object obj : loaderList) {
-            PluginClassLoaderFacade facade = new PluginClassLoaderFacade(obj);
-            try {
-                pluginClassMap.put(facade.getPlugin().getName(), facade.getClasses());
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+        // Process
+        for (Class<?> cls : classList) {
+            Plugin plugin = pluginMap.get(cls.getClassLoader());
 
-        // Find
-        for (String key : pluginClassMap.keySet()) {
+            if (escapeList.contains(plugin.getName())) continue;
+
             KClassVisitor classVisitor = new KClassVisitor(Opcodes.ASM5);
-            for (Class<?> clazz : pluginClassMap.get(key)) {
-                ClassReader reader;
-                try {
-                    reader = new ClassReader(clazz.getClassLoader().getResourceAsStream(clazz.getName().replaceAll("\\.", "/") + ".class"));
-                } catch (IOException e) {
-                    continue;
-                }
-                reader.accept(classVisitor, 0);
+            ClassReader reader;
+            try {
+                reader = new ClassReader(cls.getClassLoader().getResourceAsStream(cls.getName().replaceAll("\\.", "/") + ".class"));
+            } catch (Exception e) {
+                continue;
             }
+            reader.accept(classVisitor, 0);
             if (classVisitor.find) {
                 Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder()
-                        .single(Lang.Key.PLUGIN_NAME, key)
+                        .single(Lang.Key.PLUGIN_NAME, plugin.getName())
                         .build());
                 detectCount += 1;
+                escapeList.add(plugin.getName());
             }
         }
 
@@ -84,7 +74,7 @@ public class VirusScanProcessor implements Processor {
 
         Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()
                 .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT)
-                .addVal(coloredCount, pluginClassMap.keySet().size())
+                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length)
                 .build());
         return true;
     }
@@ -96,13 +86,17 @@ public class VirusScanProcessor implements Processor {
             this.handle = handle;
         }
 
-        public Plugin getPlugin() throws NoSuchFieldException, IllegalAccessException {
-            return (Plugin) Reflections.getDeclaredFieldObject(handle, "plugin");
-        }
-
-        public Collection<Class<?>> getClasses() throws NoSuchFieldException, IllegalAccessException {
+        public List<Class<?>> getClasses() throws NoSuchFieldException, IllegalAccessException {
             Map<String, Class<?>> classMap = (Map<String, Class<?>>) Reflections.getDeclaredFieldObject(handle, "classes");
-            return classMap.values();
+            return new ArrayList<>(classMap.values());
         }
+    }
+
+    private Map<ClassLoader, Plugin> getPluginMap() {
+        Map<ClassLoader, Plugin> pluginMap = new HashMap<>();
+        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            pluginMap.put(plugin.getClass().getClassLoader(), plugin);
+        }
+        return pluginMap;
     }
 }

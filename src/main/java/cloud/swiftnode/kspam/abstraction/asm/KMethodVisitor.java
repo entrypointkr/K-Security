@@ -14,7 +14,7 @@ public class KMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitTypeInsn(int opcode, String type) {
-        if (type.equalsIgnoreCase("java/net/Socket")) {
+        if (type.contains("java/net") && type.contains("Socket")) {
             find = true;
         }
     }
