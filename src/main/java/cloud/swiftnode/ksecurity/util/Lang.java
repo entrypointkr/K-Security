@@ -14,9 +14,9 @@ public enum Lang {
     PREFIX("&c[ K-Security ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
-    DENY("&c[ K-Security ]\n" +
+    DENY(PREFIX + "\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
-    CONTRIBUTORS("EntryPoint, horyu1234"),
+    CONTRIBUTORS("EntryPoint, Horyu1234"),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
             "\n" +
@@ -31,7 +31,7 @@ public enum Lang {
             "                                                                                ,V      \n" +
             "                                                                             OOb\"       " +
             "                                                                  \n" +
-            " &c[K-Security] &fv" + Key.KSPAM_VERSION + "\n\n" +
+            " " + PREFIX + " &fv" + Key.KSPAM_VERSION + "\n\n" +
             " &fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
             " &fK-SPAM Module DB Powered By &eSwiftnode\n" +
             " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
