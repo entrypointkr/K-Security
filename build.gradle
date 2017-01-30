@@ -40,7 +40,7 @@ dependencies {
 processResources {
     filter ReplaceTokens, tokens: [
             "version": project.version,
-            "pluginName": "K-Security",
+            "pluginName": rootProject.name,
             "mainClass": "cloud.swiftnode.ksecurity.KSecurity",
             "author": "EntryPoint"
     ]

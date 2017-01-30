@@ -1,8 +1,8 @@
 main: @mainClass@
-name: @name@
+name: @pluginName@
 version: @version@
 author: @author@
 commands:
   ks:
-    description: @name@ main command.
+    description: @pluginName@ main command.
     usage: /ks (firewall|info|check|debug|firstkick|remove)
