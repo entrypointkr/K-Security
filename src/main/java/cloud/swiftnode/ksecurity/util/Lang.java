@@ -19,7 +19,6 @@ public enum Lang {
     CONTRIBUTORS("EntryPoint, Horyu1234"),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
-            "\n" +
             "                                                                   ,,                   \n" +
             "`7MMF' `YMM'      .M\"\"\"bgd                                         db   mm              \n" +
             "  MM   .M'       ,MI    \"Y                                              MM              \n" +
