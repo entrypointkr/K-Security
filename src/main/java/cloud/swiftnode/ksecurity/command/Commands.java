@@ -78,6 +78,13 @@ public class Commands implements CommandExecutor {
                     getConfig().set(Config.ALERT, !Config.isAlert());
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isAlert()).build());
                     return true;
+                } else if (args[0].equalsIgnoreCase("netalert")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    getConfig().set(Config.NETWORK_ALERT, !Config.isNetworkAlert());
+                    sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isNetworkAlert()).build());
+                    return true;
                 }
                 break;
             case 2:
@@ -109,6 +116,7 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
         }
+        sender.sendMessage(Lang.CMD_USAGE.builder().build(false));
         return false;
     }
 

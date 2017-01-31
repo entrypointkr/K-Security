@@ -141,10 +141,10 @@ public class Static {
         }
     }
 
-    public static Plugin getRequestPlugin(Exception ex) {
-        StackTraceElement[] elements = ex.getStackTrace();
+    public static Plugin getRequestPlugin() {
+        StackTraceElement[] elements = new Exception().getStackTrace();
 
-        for (int i = 1; i < elements.length; i++) {
+        for (int i = 2; i < elements.length; i++) {
             StackTraceElement element = elements[i];
             try {
                 ClassLoader loader = Class.forName(element.getClassName()).getClassLoader();

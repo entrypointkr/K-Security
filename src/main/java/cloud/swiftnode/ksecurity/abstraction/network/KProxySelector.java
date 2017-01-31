@@ -27,7 +27,7 @@ public class KProxySelector extends ProxySelector {
         if (Config.isNetworkAlert()) {
             Static.consoleMsg(Lang.TRY_NETWORKING.builder()
                     .addKey(Lang.Key.PLUGIN_NAME, Lang.Key.VALUE)
-                    .addVal(Static.getRequestPlugin(new Exception()).getName(), uri));
+                    .addVal(Static.getRequestPlugin().getName(), uri));
         }
         return parent.select(uri);
     }

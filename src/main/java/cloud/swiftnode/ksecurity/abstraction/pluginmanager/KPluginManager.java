@@ -118,7 +118,8 @@ public class KPluginManager implements PluginManager {
     @Override
     public void disablePlugin(Plugin plugin) {
         if (plugin.getName().equals(KSecurity.inst.getName())) {
-            Static.consoleMsg(Lang.SELF_DEFENCE.builder().build());
+            Static.consoleMsg(Lang.SELF_DEFENCE.builder()
+                    .single(Lang.Key.PLUGIN_NAME, Static.getRequestPlugin().getName()));
             return;
         }
         parent.disablePlugin(plugin);

@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum Lang {
-    PREFIX("&c[ K-Security ] &f"),
+    PREFIX("&a[ K-Security ] &f"),
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
     DENY(PREFIX + "\n" +
@@ -52,14 +52,21 @@ public enum Lang {
             PREFIX +" &f기여자: §e" + CONTRIBUTORS + "\n" +
             PREFIX + " &fhttps://github.com/EntryPointKR/K-Security\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Security/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
-    SELF_DEFENCE("K-Security 플러그인의 비활성화 시도를 차단했습니다."),
+    SELF_DEFENCE("&c" + Key.PLUGIN_NAME + " 플러그인의 K-Security 비활성화 시도를 차단했습니다."),
     SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 사용&f이 감지되었습니다."),
     SCAN_RESULT("총 &e" + Key.PLUGIN_COUNT + " &f개의 플러그인 검사 완료 &e(" + Key.TIME + "ms)&f, 의심 플러그인 수: " + Key.FIND_COUNT),
     SCAN_WARNING("소켓 사용이 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),
     SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     SCAN_START("플러그인 간편 검사가 시작됩니다."),
     TRY_NETWORKING("플러그인 &e" + Key.PLUGIN_NAME + " &f이(가) &e" + Key.VALUE + " &f로 네트워크 연결을 시도했습니다."),
-    LEGACY_VERSION_DETECT("옛 버전의 K-Spam 플러그인 활성화가 감지되어 이를 차단했습니다. 기존 K-Spam 플러그인을 지워주십시오."),
+    LEGACY_VERSION_DETECT("&c옛 버전의 K-Spam 플러그인 활성화가 감지되어 이를 차단했습니다. 기존 K-Spam 플러그인을 지워주십시오."),
+    CMD_USAGE("&6/ks info: &f플러그인의 정보를 봅니다.\n" +
+            "&6/ks firewall: &f방화벽 모드를 켭니다. 방화벽 모드 활성화 중에 처음 들어오는 모든 유저를 추방합니다.\n" +
+            "&6/ks check (아이피/닉네임): &f해당 아이피나 닉네임의 플레이어의 스팸 여부를 확인합니다\n" +
+            "&6/ks debug: &f개발자용 디버그 모드를 켭니다.\n" +
+            "&6/ks firstkick: &f처음 들어오는 유저를 추방합니다. (기본값: 활성화)\n" +
+            "&6/ks remove (아이피): &f해당 아이피를 캐쉬 목록에서 제거합니다.\n" +
+            "&6/ks netalert: &f네트워크 모니터링을 끕니다.")
     ;
     private final String msg;
 
