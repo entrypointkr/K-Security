@@ -1,10 +1,10 @@
 package cloud.swiftnode.ksecurity.listener;
 
-import cloud.swiftnode.ksecurity.abstraction.SpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.SpamProcessor;
-import cloud.swiftnode.ksecurity.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.ksecurity.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.ksecurity.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.AsyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;

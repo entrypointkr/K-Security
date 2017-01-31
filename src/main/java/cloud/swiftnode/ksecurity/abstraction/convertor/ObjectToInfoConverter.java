@@ -1,11 +1,11 @@
 package cloud.swiftnode.ksecurity.abstraction.convertor;
 
-import cloud.swiftnode.ksecurity.abstraction.Info;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
 import cloud.swiftnode.ksecurity.abstraction.ObjectConverter;
-import cloud.swiftnode.ksecurity.abstraction.info.EventInfo;
-import cloud.swiftnode.ksecurity.abstraction.info.PingInfo;
-import cloud.swiftnode.ksecurity.abstraction.info.PlayerInfo;
-import cloud.swiftnode.ksecurity.abstraction.info.StringInfo;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.EventInfo;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PingInfo;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PlayerInfo;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.StringInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.server.ServerListPingEvent;

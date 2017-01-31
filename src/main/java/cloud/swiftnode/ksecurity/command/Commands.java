@@ -1,12 +1,12 @@
 package cloud.swiftnode.ksecurity.command;
 
-import cloud.swiftnode.ksecurity.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.abstraction.convertor.StringToIpConverter;
-import cloud.swiftnode.ksecurity.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.ksecurity.abstraction.executor.BaseSpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.ksecurity.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.BaseSpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.AsyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncLoginProcessor;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
@@ -54,6 +54,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.LAW_INFO.builder().build());
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).build());
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).build());
+                    Static.sendModulesInfo(sender);
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.firstKickCachedSet.size()));
                     return true;

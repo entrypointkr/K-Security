@@ -1,8 +1,8 @@
 package cloud.swiftnode.ksecurity;
 
 import cloud.swiftnode.ksecurity.abstraction.MockPlayer;
-import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.abstraction.MockServer;
+import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.listener.PlayerListener;
 import cloud.swiftnode.ksecurity.listener.ServerListener;
 import cloud.swiftnode.ksecurity.util.StaticUtil;

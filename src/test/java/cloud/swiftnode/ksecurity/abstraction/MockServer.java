@@ -503,23 +503,23 @@ public class MockServer implements Server {
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(File file) throws IllegalArgumentException, Exception {
+    public CachedServerIcon loadServerIcon(File file) throws Exception {
         return null;
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(BufferedImage image) throws IllegalArgumentException, Exception {
+    public CachedServerIcon loadServerIcon(BufferedImage image) throws Exception {
         return null;
-    }
-
-    @Override
-    public void setIdleTimeout(int threshold) {
-
     }
 
     @Override
     public int getIdleTimeout() {
         return 0;
+    }
+
+    @Override
+    public void setIdleTimeout(int threshold) {
+
     }
 
     @Override

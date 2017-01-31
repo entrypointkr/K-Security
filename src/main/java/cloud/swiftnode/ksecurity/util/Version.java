@@ -10,14 +10,15 @@ import java.util.regex.Pattern;
  */
 public class Version {
     private static Pattern PATTERN;
-    private int major = 0;
-    private int minor = 0;
-    private int add = 0;
-    private String tag;
 
     static {
         PATTERN = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?(?:-(.*))?");
     }
+
+    private int major = 0;
+    private int minor = 0;
+    private int add = 0;
+    private String tag;
 
     public Version(String version) {
         set(version);

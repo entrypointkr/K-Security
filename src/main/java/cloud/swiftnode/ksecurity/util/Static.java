@@ -1,11 +1,13 @@
 package cloud.swiftnode.ksecurity.util;
 
 import cloud.swiftnode.ksecurity.KSecurity;
-import cloud.swiftnode.ksecurity.abstraction.SpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.executor.PunishSpamExecutor;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
+import cloud.swiftnode.ksecurity.module.Module;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.PunishSpamExecutor;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -157,5 +159,26 @@ public class Static {
             }
         }
         return new MockPlugin();
+    }
+
+    public static String getModulesInfo(boolean prefix) {
+        String ret = "";
+        for (Module module : KSecurity.getModuleManager().getModules()) {
+            if (!ret.equals("")) {
+                ret += "\n";
+            }
+            if (prefix) {
+                ret += Lang.PREFIX.toString();
+            }
+            ret += module.getName() + " Module: &f" + module.getSimpleVersion();
+        }
+        return Lang.colorize(ret);
+    }
+
+    public static void sendModulesInfo(CommandSender sender) {
+        String[] splited = getModulesInfo(true).split("\n");
+        for (String str : splited) {
+            sender.sendMessage(str);
+        }
     }
 }

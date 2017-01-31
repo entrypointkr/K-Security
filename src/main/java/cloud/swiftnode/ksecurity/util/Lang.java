@@ -1,5 +1,6 @@
 package cloud.swiftnode.ksecurity.util;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -28,12 +29,15 @@ public enum Lang {
             "  MM   `MM.      Mb     dM YM.    , YM.    ,  MM    MM    MM       MM   MM       VVV    \n" +
             ".JMML.   MMb.    P\"Ybmmd\"   `Mbmmd'  YMbmd'   `Mbod\"YML..JMML.   .JMML. `Mbmo    ,V     \n" +
             "                                                                                ,V      \n" +
-            "                                                                             OOb\"       " +
-            "                                                                  \n" +
-            " " + PREFIX + "&fv" + Key.KSPAM_VERSION + "\n\n" +
-            " &fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
-            " &fK-SPAM Module DB Powered By &eSwiftnode\n" +
-            " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
+            "                                                                             OOb\"       \n" +
+            "" + PREFIX + "&fv" + Key.KSPAM_VERSION + "\n\n" +
+            "&fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
+            "&fK-SPAM Module DB Powered By &eSwiftnode\n" +
+            "\n" +
+            Key.MODULES_INFO +
+            "\n" +
+            "\n" +
+            "&f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
     CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
@@ -49,7 +53,7 @@ public enum Lang {
      * 본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
      */
     LAW_INFO(PREFIX + " &f본 서버는 봇 테러 방지 플러그인 &eK-Security &f를 사용 중입니다.\n" +
-            PREFIX +" &f기여자: §e" + CONTRIBUTORS + "\n" +
+            PREFIX + " &f기여자: §e" + CONTRIBUTORS + "\n" +
             PREFIX + " &fhttps://github.com/EntryPointKR/K-Security\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Security/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
     SELF_DEFENCE("&c" + Key.PLUGIN_NAME + " 플러그인의 K-Security 비활성화 시도를 차단했습니다."),
@@ -66,30 +70,31 @@ public enum Lang {
             "&6/ks debug: &f개발자용 디버그 모드를 켭니다.\n" +
             "&6/ks firstkick: &f처음 들어오는 유저를 추방합니다. (기본값: 활성화)\n" +
             "&6/ks remove (아이피): &f해당 아이피를 캐쉬 목록에서 제거합니다.\n" +
-            "&6/ks netalert: &f네트워크 모니터링을 끕니다.")
+            "&6/ks netalert: &f네트워크 모니터링을 끕니다."),
+    MODULES_INFO(Static.getModulesInfo(false)),
     ;
-    private final String msg;
+    private final String target;
 
     Lang(String msg) {
-        this.msg = msg;
+        this.target = msg;
     }
 
     @Override
     public String toString() {
-        return colorize(msg);
+        return colorize(target);
     }
 
     public MessageBuilder builder() {
-        return new MessageBuilder(msg);
+        return new MessageBuilder(target);
     }
 
-    public String colorize(String str) {
+    public static String colorize(String str) {
         return ChatColor.translateAlternateColorCodes('&', str);
     }
 
     public enum Key {
-        CHECKER_NAME("checker-name"),
-        PROCESSOR_NAME("processor-name"),
+        CHECKER_NAME("checker-getName"),
+        PROCESSOR_NAME("processor-getName"),
         CHECKER_RESULT("checker-result"),
         CACHE_COUNT("cache-count"),
         KSPAM_VERSION("ksecurity-version"),
@@ -97,11 +102,12 @@ public enum Lang {
         TIME("time"),
         EXCEPTION_MESSAGE("exception-message"),
         VALUE("value"),
-        EXECUTOR_NAME("executor-name"),
+        EXECUTOR_NAME("executor-getName"),
         INFO("info"),
-        PLUGIN_NAME("plugin-name"),
+        PLUGIN_NAME("plugin-getName"),
         FIND_COUNT("find-count"),
         PLUGIN_COUNT("plugin-count"),
+        MODULES_INFO("modules-info"),
         ;
         private final String key;
 
@@ -150,11 +156,24 @@ public enum Lang {
             return this;
         }
 
-        public String build(boolean prefix) {
+        public MessageBuilder addSpace(int how) {
+            String space = "";
+            for (int i = 0; i < how; i++) {
+                space += " ";
+            }
+            String[] strs = target.split("\n");
+            for (int i = 0; i < strs.length; i++) {
+                String str = strs[i];
+                strs[i] = space + str;
+            }
+            target = StringUtils.join(strs, "\n");
+            return this;
+        }
+
+        public String build(boolean prefix, int space) {
             if (prefix) {
                 prefix();
             }
-            String msg = target;
             for (int i = 0; i < keyList.size(); i++) {
                 try {
                     String key = String.valueOf(keyList.get(i));
@@ -162,16 +181,23 @@ public enum Lang {
                     if (key == null || val == null) {
                         break;
                     }
-                    msg = msg.replaceAll(key, Matcher.quoteReplacement(val));
+                    target = target.replaceAll(key, Matcher.quoteReplacement(val));
                 } catch (Exception ex) {
                     throw new RuntimeException(keyList + ", " + valList);
                 }
             }
-            return colorize(msg);
+            if (space > 0) {
+                addSpace(space);
+            }
+            return colorize(target);
+        }
+
+        public String build(boolean prefix) {
+            return build(prefix, 0);
         }
 
         public String build() {
-            return build(true);
+            return build(true, 0);
         }
     }
 }

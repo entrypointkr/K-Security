@@ -15,8 +15,8 @@ import java.util.Set;
 public class StaticStorage {
     public static Set<String> cachedSet = new LinkedHashSet<>();
     public static Set<String> firstKickCachedSet = new LinkedHashSet<>();
-    private static Map<ClassLoader, Plugin> cachedLoaderPluginMap;
     public static boolean firewallMode = false;
+    private static Map<ClassLoader, Plugin> cachedLoaderPluginMap;
     private static Version currVer;
     private static Version newVer;
 

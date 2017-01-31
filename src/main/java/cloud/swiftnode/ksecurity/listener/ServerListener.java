@@ -1,9 +1,9 @@
 package cloud.swiftnode.ksecurity.listener;
 
-import cloud.swiftnode.ksecurity.abstraction.SpamExecutor;
-import cloud.swiftnode.ksecurity.abstraction.SpamProcessor;
-import cloud.swiftnode.ksecurity.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.ksecurity.abstraction.processor.SyncPingProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncPingProcessor;
 import cloud.swiftnode.ksecurity.util.Static;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

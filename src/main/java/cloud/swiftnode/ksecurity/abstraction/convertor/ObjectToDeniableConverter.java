@@ -1,12 +1,12 @@
 package cloud.swiftnode.ksecurity.abstraction.convertor;
 
-import cloud.swiftnode.ksecurity.abstraction.Deniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 import cloud.swiftnode.ksecurity.abstraction.ObjectConverter;
-import cloud.swiftnode.ksecurity.abstraction.deniable.CancellableDeniable;
-import cloud.swiftnode.ksecurity.abstraction.deniable.EmptyDeniable;
-import cloud.swiftnode.ksecurity.abstraction.deniable.LoginEventDeniable;
-import cloud.swiftnode.ksecurity.abstraction.deniable.PingDeniable;
-import cloud.swiftnode.ksecurity.abstraction.deniable.PlayerDeniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.CancellableDeniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.EmptyDeniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.LoginEventDeniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.PingDeniable;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.PlayerDeniable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerLoginEvent;
