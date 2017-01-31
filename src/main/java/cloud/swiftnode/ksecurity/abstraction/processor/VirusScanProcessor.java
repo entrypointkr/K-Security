@@ -42,7 +42,7 @@ public class VirusScanProcessor implements Processor {
         for (Class<?> cls : classList) {
             Plugin plugin = pluginMap.get(cls.getClassLoader());
 
-            if (escapeList.contains(plugin.getName())) continue;
+            if (plugin == null || escapeList.contains(plugin.getName())) continue;
 
             KClassVisitor classVisitor = new KClassVisitor(Opcodes.ASM5);
             ClassReader reader;

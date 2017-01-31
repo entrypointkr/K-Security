@@ -30,7 +30,7 @@ public enum Lang {
             "                                                                                ,V      \n" +
             "                                                                             OOb\"       " +
             "                                                                  \n" +
-            " " + PREFIX + " &fv" + Key.KSPAM_VERSION + "\n\n" +
+            " " + PREFIX + "&fv" + Key.KSPAM_VERSION + "\n\n" +
             " &fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
             " &fK-SPAM Module DB Powered By &eSwiftnode\n" +
             " &f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
