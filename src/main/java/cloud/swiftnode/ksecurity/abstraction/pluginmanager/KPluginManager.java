@@ -108,6 +108,10 @@ public class KPluginManager implements PluginManager {
 
     @Override
     public void enablePlugin(Plugin plugin) {
+        if (plugin.getName().equals("K-Spam_Community_Edition")) {
+            Static.consoleMsg(Lang.LEGACY_VERSION_DETECT.builder());
+            return;
+        }
         parent.enablePlugin(plugin);
     }
 

@@ -32,16 +32,8 @@ public class KProxySelector extends ProxySelector {
         return parent.select(uri);
     }
 
-    private boolean isNetworkAlert() {
-        if (KSecurity.inst.isEnabled()) {
-            return Config.isNetworkAlert();
-        }
-        return true;
-    }
-
     @Override
     public void connectFailed(URI uri, SocketAddress sa, IOException ioe) {
-        System.out.println("failejfaiwojifewojifweajoiwfaejoiweaojifwaejoiwaejoifwaejoi");
         parent.connectFailed(uri, sa, ioe);
     }
 }

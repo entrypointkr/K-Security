@@ -60,6 +60,7 @@ public enum Lang {
     SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     SCAN_START("플러그인 간편 검사가 시작됩니다."),
     TRY_NETWORKING("플러그인 &e" + Key.PLUGIN_NAME + " &f이(가) &e" + Key.VALUE + " &f로 네트워크 연결을 시도했습니다."),
+    LEGACY_VERSION_DETECT("옛 버전의 K-Spam 플러그인 활성화가 감지되어 이를 차단했습니다. 기존 K-Spam 플러그인을 지워주십시오."),
     ;
     private final String msg;
 
