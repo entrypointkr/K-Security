@@ -8,7 +8,7 @@ import java.text.MessageFormat;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum URLs {
-    COMMUNITY_API("http://ksecurity.swiftnode.cloud/mcbanip/community.php?ip={0}"),
+    KSPAM_API("http://kspam.swiftnode.cloud/mcbanip/community.php?ip={0}"),
     SHROOMERY_API("http://www.shroomery.org/ythan/proxycheck.php?ip={0}"),
     STOPFORUM_API("http://www.stopforumspam.com/api?ip={0}"),
     BOTSCOUT_API("http://www.botscout.com/test/?ip={0}"),

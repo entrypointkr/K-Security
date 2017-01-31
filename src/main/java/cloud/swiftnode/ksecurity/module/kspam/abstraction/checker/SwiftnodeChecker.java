@@ -17,7 +17,7 @@ public class SwiftnodeChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
-        URL url = URLs.COMMUNITY_API.toUrl(lastInfo = info.getIp());
+        URL url = URLs.KSPAM_API.toUrl(lastInfo = info.getIp());
         String text = Static.readAllText(url);
         if (text.contains("true")) {
             return Result.DENY;
