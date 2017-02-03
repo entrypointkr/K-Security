@@ -1,7 +1,7 @@
 package cloud.swiftnode.ksecurity.abstraction.convertor;
 
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
 import cloud.swiftnode.ksecurity.abstraction.ObjectConverter;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.EventInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PingInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PlayerInfo;

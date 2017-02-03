@@ -35,7 +35,7 @@ public class KPluginManager implements PluginManager {
     public KPluginManager(PluginManager parent) {
         this.parent = parent;
         try {
-            this.commandMap = (SimpleCommandMap) Reflections.getDeclaredFieldObject(parent, "commandMap");
+            this.commandMap = (SimpleCommandMap) Reflections.getDecFieldObj(parent, "commandMap");
         } catch (Exception e) {
             this.commandMap = new SimpleCommandMap(Bukkit.getServer());
         }

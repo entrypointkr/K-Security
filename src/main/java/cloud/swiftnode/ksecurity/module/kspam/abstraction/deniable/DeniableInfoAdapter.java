@@ -1,11 +1,11 @@
 package cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable;
 
+import cloud.swiftnode.ksecurity.abstraction.convertor.ObjectToDeniableConverter;
+import cloud.swiftnode.ksecurity.abstraction.convertor.ObjectToInfoConverter;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
-import cloud.swiftnode.ksecurity.abstraction.convertor.ObjectToDeniableConverter;
-import cloud.swiftnode.ksecurity.abstraction.convertor.ObjectToInfoConverter;
 import org.bukkit.entity.Player;
 
 /**

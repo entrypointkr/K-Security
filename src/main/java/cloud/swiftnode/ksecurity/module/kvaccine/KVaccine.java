@@ -3,13 +3,13 @@ package cloud.swiftnode.ksecurity.module.kvaccine;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
 import cloud.swiftnode.ksecurity.util.Static;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Created by Junhyeong Lim on 2017-01-31.
  */
 public class KVaccine extends Module {
-    public KVaccine(Plugin parent) {
+    public KVaccine(JavaPlugin parent) {
         super(parent);
     }
 
@@ -21,10 +21,5 @@ public class KVaccine extends Module {
     @Override
     public String getSimpleVersion() {
         return "1.0";
-    }
-
-    @Override
-    public String getName() {
-        return "&eKVaccine";
     }
 }

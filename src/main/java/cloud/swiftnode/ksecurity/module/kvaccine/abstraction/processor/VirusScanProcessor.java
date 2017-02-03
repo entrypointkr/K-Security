@@ -96,7 +96,7 @@ public class VirusScanProcessor implements Processor {
         }
 
         public List<Class<?>> getClasses() throws NoSuchFieldException, IllegalAccessException {
-            Map<String, Class<?>> classMap = (Map<String, Class<?>>) Reflections.getDeclaredFieldObject(handle, "classes");
+            Map<String, Class<?>> classMap = (Map<String, Class<?>>) Reflections.getDecFieldObj(handle, "classes");
             return new ArrayList<>(classMap.values());
         }
     }

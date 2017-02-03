@@ -1,7 +1,7 @@
 package cloud.swiftnode.ksecurity.abstraction.convertor;
 
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 import cloud.swiftnode.ksecurity.abstraction.ObjectConverter;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.CancellableDeniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.EmptyDeniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.LoginEventDeniable;

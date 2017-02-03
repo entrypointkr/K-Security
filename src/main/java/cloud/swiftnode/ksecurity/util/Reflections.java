@@ -15,27 +15,27 @@ public class Reflections {
         return field;
     }
 
-    public static Object getFieldObject(Object obj, String fieldName, boolean pub) throws NoSuchFieldException, IllegalAccessException {
+    public static Object getFieldObj(Object obj, String fieldName, boolean pub) throws NoSuchFieldException, IllegalAccessException {
         Field field = getField(obj, fieldName, pub);
         field.setAccessible(true);
         return field.get(obj);
     }
 
-    public static Object getDeclaredFieldObject(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        return getFieldObject(obj, fieldName, false);
+    public static Object getDecFieldObj(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        return getFieldObj(obj, fieldName, false);
     }
 
-    public static Object getFieldObject(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        return getFieldObject(obj, fieldName, true);
+    public static Object getFieldObj(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        return getFieldObj(obj, fieldName, true);
     }
 
-    public static void setFieldObject(Object inst, String fieldName, Object val, boolean pub) throws NoSuchFieldException, IllegalAccessException {
+    public static void setField(Object inst, String fieldName, Object val, boolean pub) throws NoSuchFieldException, IllegalAccessException {
         Field field = getField(inst, fieldName, pub);
         field.setAccessible(true);
         field.set(inst, val);
     }
 
-    public static void setDecalredFieldObject(Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
-        setFieldObject(inst, fieldName, val, false);
+    public static void setDecField(Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
+        setField(inst, fieldName, val, false);
     }
 }

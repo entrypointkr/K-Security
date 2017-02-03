@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.abstraction.processor;
+package cloud.swiftnode.ksecurity.module.kparent.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.abstraction.Processor;
 import cloud.swiftnode.ksecurity.abstraction.manager.KPluginManager;
@@ -18,7 +18,7 @@ public class InjectionProcessor implements Processor {
     public boolean process() {
         Server server = Bukkit.getServer();
         try {
-            Reflections.setDecalredFieldObject(server, "pluginManager",
+            Reflections.setDecField(server, "pluginManager",
                     new KPluginManager(Bukkit.getPluginManager()));
 
             ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));

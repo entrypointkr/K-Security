@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.abstraction.processor;
+package cloud.swiftnode.ksecurity.module.kparent.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;

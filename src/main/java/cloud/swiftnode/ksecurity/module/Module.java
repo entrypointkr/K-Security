@@ -2,7 +2,7 @@ package cloud.swiftnode.ksecurity.module;
 
 import cloud.swiftnode.ksecurity.abstraction.Named;
 import cloud.swiftnode.ksecurity.util.Version;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Created by Junhyeong Lim on 2017-01-31.
@@ -10,9 +10,9 @@ import org.bukkit.plugin.Plugin;
 public abstract class Module implements Named {
     protected boolean enabled;
     protected Version version;
-    protected Plugin parent;
+    protected JavaPlugin parent;
 
-    public Module(Plugin parent) {
+    public Module(JavaPlugin parent) {
         this.enabled = false;
         this.version = new Version(getSimpleVersion());
         this.parent = parent;
@@ -40,4 +40,9 @@ public abstract class Module implements Named {
     }
 
     public abstract String getSimpleVersion();
+
+    @Override
+    public String getName() {
+        return "&e" + getClass().getSimpleName();
+    }
 }
