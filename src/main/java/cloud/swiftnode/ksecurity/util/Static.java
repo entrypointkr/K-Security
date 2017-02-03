@@ -2,6 +2,7 @@ package cloud.swiftnode.ksecurity.util;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
+import cloud.swiftnode.ksecurity.abstraction.mock.MockSender;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
@@ -44,8 +45,12 @@ public class Static {
     }
 
     public static void consoleMsg(String... msgs) {
+        CommandSender sender = Bukkit.getConsoleSender();
+        if (sender == null) {
+            sender = new MockSender();
+        }
         for (String msg : msgs) {
-            Bukkit.getConsoleSender().sendMessage(msg);
+            sender.sendMessage(msg);
         }
     }
 

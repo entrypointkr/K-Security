@@ -11,6 +11,7 @@ import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -56,7 +57,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).build());
                     Static.sendModulesInfo(sender);
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
-                    sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.firstKickCachedSet.size()));
+                    sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.FIRST_KICK_CACHED_SET.size()));
                     return true;
                 } else if (args[0].equalsIgnoreCase("debug")) {
                     if (!isOp) {
@@ -86,6 +87,27 @@ public class Commands implements CommandExecutor {
                     getConfig().set(Config.NETWORK_ALERT, !Config.isNetworkAlert());
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isNetworkAlert()).build());
                     return true;
+                } else if (args[0].equalsIgnoreCase("reload")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    Config.reload();
+                    sender.sendMessage(Lang.CONFIG_RELOADED.builder().build());
+                    return true;
+                } else if (args[0].equalsIgnoreCase("listop")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    sender.sendMessage(Lang.OP_LIST.builder().single(Lang.Key.VALUE,
+                            StringUtils.join(StaticStorage.ALLOWED_OP_SET, ", ")).build());
+                    return true;
+                } else if (args[0].equalsIgnoreCase("clear")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    StaticStorage.ALLOWED_OP_SET.clear();
+                    sender.sendMessage(Lang.SUCCESS.builder().build());
+                    return true;
                 }
                 break;
             case 2:
@@ -114,6 +136,28 @@ public class Commands implements CommandExecutor {
                         return true;
                     }
                     sender.sendMessage(Lang.PREFIX.toString() + StaticStorage.cachedSet.remove(info));
+                    return true;
+                } else if (args[0].equalsIgnoreCase("addop")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    String player = args[1];
+                    if (StaticStorage.ALLOWED_OP_SET.add(player)) {
+                        sender.sendMessage(Lang.ADD_OP.builder().single(Lang.Key.VALUE, player).build());
+                    } else {
+                        sender.sendMessage(Lang.FAIL.builder().build());
+                    }
+                    return true;
+                } else if (args[0].equalsIgnoreCase("remop")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    String player = args[1];
+                    if (StaticStorage.ALLOWED_OP_SET.remove(player)) {
+                        sender.sendMessage(Lang.REM_OP.builder().single(Lang.Key.VALUE, player).build());
+                    } else {
+                        sender.sendMessage(Lang.FAIL.builder().build());
+                    }
                     return true;
                 }
         }

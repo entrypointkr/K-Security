@@ -1,8 +1,11 @@
 package cloud.swiftnode.ksecurity.module.kvaccine;
 
 import cloud.swiftnode.ksecurity.module.Module;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.gui.KGUI;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
+import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Static;
+import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,7 +18,12 @@ public class KVaccine extends Module {
 
     @Override
     public void onEnable() {
-        Static.runTaskLaterAsync(() -> new VirusScanProcessor().process(), 20);
+        // Virus Scan
+        Static.runTaskAsync(() -> new VirusScanProcessor().process());
+        // Load OpList
+        StaticStorage.ALLOWED_OP_SET.addAll(Config.getOpList());
+        // Start Application
+        Static.runTaskAsync(KGUI::start);
     }
 
     @Override

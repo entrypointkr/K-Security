@@ -1,6 +1,7 @@
 package cloud.swiftnode.ksecurity.abstraction.manager;
 
 import cloud.swiftnode.ksecurity.module.Module;
+import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,6 +35,7 @@ public class ModuleManager {
 
     public void enableModules() {
         moduleList.forEach(((module -> {
+            sendModuleStateMessage(Lang.ENABLE_MODULE, module);
             module.setEnabled(true);
             module.onEnable();
         })));
@@ -41,16 +43,26 @@ public class ModuleManager {
 
     public void disableModules() {
         moduleList.forEach((module -> {
+            sendModuleStateMessage(Lang.DISABLE_MODULE, module);
             module.setEnabled(false);
             module.onDisable();
         }));
     }
 
     public void loadModules() {
-        moduleList.forEach(Module::onLoad);
+        moduleList.forEach(module -> {
+            sendModuleStateMessage(Lang.LOAD_MODULE, module);
+            module.onLoad();
+        });
     }
 
     public List<Module> getModules() {
         return moduleList;
+    }
+
+    private void sendModuleStateMessage(Lang lang, Module module) {
+        Static.consoleMsg(lang.builder()
+                .single(Lang.Key.VALUE, module.getName())
+                .build());
     }
 }

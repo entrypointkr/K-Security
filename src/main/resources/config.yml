@@ -3,3 +3,8 @@ first-login-kick: true
 alert: false
 update-check-period: 1
 network-alert: true
+op-list:
+  - NicknameA
+  - NicknameB
+net-escape-list:
+  - K-Security

@@ -1,11 +1,11 @@
 package cloud.swiftnode.ksecurity.util;
 
 
+import cloud.swiftnode.ksecurity.abstraction.collection.LowerCaseLinkedSet;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,8 +13,10 @@ import java.util.Set;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class StaticStorage {
-    public static Set<String> cachedSet = new LinkedHashSet<>();
-    public static Set<String> firstKickCachedSet = new LinkedHashSet<>();
+    public static Set<String> cachedSet = new LowerCaseLinkedSet();
+    public static final Set<String> FIRST_KICK_CACHED_SET = new LowerCaseLinkedSet();
+    public static final Set<String> ALLOWED_OP_SET = new LowerCaseLinkedSet();
+    public static final Set<String> NET_ESCAPE_SET = new LowerCaseLinkedSet();
     public static boolean firewallMode = false;
     private static Map<ClassLoader, Plugin> cachedLoaderPluginMap;
     private static Version currVer;

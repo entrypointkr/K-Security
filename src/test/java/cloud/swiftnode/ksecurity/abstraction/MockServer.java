@@ -1,5 +1,6 @@
 package cloud.swiftnode.ksecurity.abstraction;
 
+import cloud.swiftnode.ksecurity.abstraction.mock.MockSender;
 import com.avaje.ebean.config.ServerConfig;
 import org.bukkit.BanList;
 import org.bukkit.ChatColor;
@@ -399,7 +400,7 @@ public class MockServer implements Server {
 
     @Override
     public ConsoleCommandSender getConsoleSender() {
-        return new MockCommandSender();
+        return new MockSender();
     }
 
     @Override

@@ -26,13 +26,13 @@ public class FirstKickChecker extends SpamChecker {
             lastInfo = "";
             return Result.PASS;
         }
-        final String name = lastInfo = player.getName().toLowerCase();
-        if (!StaticStorage.firstKickCachedSet.contains(name)) {
-            StaticStorage.firstKickCachedSet.add(name);
-            Static.runTaskLaterAsync(() -> StaticStorage.firstKickCachedSet.remove(name), 20 * 30);
+        final String name = lastInfo = player.getName();
+        if (!StaticStorage.FIRST_KICK_CACHED_SET.contains(name)) {
+            StaticStorage.FIRST_KICK_CACHED_SET.add(name);
+            Static.runTaskLaterAsync(() -> StaticStorage.FIRST_KICK_CACHED_SET.remove(name), 20 * 30);
             return Result.DENY;
         }
-        StaticStorage.firstKickCachedSet.remove(name);
+        StaticStorage.FIRST_KICK_CACHED_SET.remove(name);
         return Result.PASS;
     }
 

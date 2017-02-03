@@ -17,7 +17,7 @@ public enum Lang {
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
     DENY(PREFIX + "\n" +
             "&f당신은 K-SPAM 에 의해 차단되었습니다."),
-    CONTRIBUTORS("EntryPoint, Horyu1234"),
+    CONTRIBUTORS("EntryPoint, Horyu1234, ldmsys, WhiteSwan"),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
             "                                                                   ,,                   \n" +
@@ -65,13 +65,28 @@ public enum Lang {
     TRY_NETWORKING("플러그인 &e" + Key.PLUGIN_NAME + " &f이(가) &e" + Key.VALUE + " &f로 네트워크 연결을 시도했습니다."),
     LEGACY_VERSION_DETECT("&c옛 버전의 K-Spam 플러그인 활성화가 감지되어 이를 차단했습니다. 기존 K-Spam 플러그인을 지워주십시오."),
     CMD_USAGE("&6/ks info: &f플러그인의 정보를 봅니다.\n" +
-            "&6/ks firewall: &f방화벽 모드를 켭니다. 방화벽 모드 활성화 중에 처음 들어오는 모든 유저를 추방합니다.\n" +
+            "&6/ks firewall: &f방화벽 모드를 켭니다. 방화벽 모드 활성화 중엔 처음 들어오는 모든 유저를 추방합니다.\n" +
             "&6/ks check (아이피/닉네임): &f해당 아이피나 닉네임의 플레이어의 스팸 여부를 확인합니다\n" +
             "&6/ks debug: &f개발자용 디버그 모드를 켭니다.\n" +
             "&6/ks firstkick: &f처음 들어오는 유저를 추방합니다. (기본값: 활성화)\n" +
             "&6/ks remove (아이피): &f해당 아이피를 캐쉬 목록에서 제거합니다.\n" +
-            "&6/ks netalert: &f네트워크 모니터링을 끕니다."),
+            "&6/ks netalert: &f네트워크 모니터링을 끕니다.\n" +
+            "&6/ks reload: &f설정 파일을 다시 불러옵니다.\n" +
+            "&6/ks addop (닉네임): &fOP 허용 목록에 닉네임을 추가합니다.\n" +
+            "&6/ks remop (닉네임): &fOP 허용 목록에서 닉네임을 제거합니다.\n" +
+            "&6/ks listop: &fOP 허용 목록을 보여줍니다.\n" +
+            "&6/ks clearop: &fOP 허용 목록을 초기화합니다."),
     MODULES_INFO(Static.getModulesInfo(false)),
+    DEOP("&eOP 허용 목록&f에 없는 &e" + Key.VALUE + " &f님이 &c관리자 권한&f을 취득해 이를 차단했습니다."),
+    CONFIG_RELOADED("설정 파일을 다시 불러왔습니다."),
+    ENABLE_MODULE("모듈 &e" + Key.VALUE + " &f활성화"),
+    DISABLE_MODULE("모듈 &e" + Key.VALUE + " &f비활성화"),
+    LOAD_MODULE("모듈 &e" + Key.VALUE + " &f로드"),
+    ADD_OP("닉네임 &e" + Key.VALUE + " &f을(를) &eOP 허용 목록&f에 추가했습니다."),
+    REM_OP("닉네임 &e" + Key.VALUE + " &f을(를) &eOP 허용 목록&f에서 제거했습니다."),
+    OP_LIST("&eOP 허용 목록: &f" + Key.VALUE),
+    FAIL("처리에 실패했습니다."),
+    SUCCESS("처리에 성공했습니다."),
     ;
     private final String target;
 

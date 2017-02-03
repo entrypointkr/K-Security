@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.abstraction;
+package cloud.swiftnode.ksecurity.abstraction.mock;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Created by Junhyeong Lim on 2017-01-11.
  */
-public class MockCommandSender implements ConsoleCommandSender {
+public class MockSender implements ConsoleCommandSender {
     @Override
     public void sendMessage(String message) {
         System.out.println(ChatColor.stripColor(message));

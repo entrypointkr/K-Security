@@ -1,8 +1,11 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.network;
 
+import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
+import cloud.swiftnode.ksecurity.util.StaticStorage;
+import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
 import java.net.Proxy;
@@ -24,9 +27,12 @@ public class KProxySelector extends ProxySelector {
     @Override
     public List<Proxy> select(URI uri) {
         if (Config.isNetworkAlert()) {
-            Static.consoleMsg(Lang.TRY_NETWORKING.builder()
-                    .addKey(Lang.Key.PLUGIN_NAME, Lang.Key.VALUE)
-                    .addVal(Static.getRequestPlugin().getName(), uri));
+            Plugin plugin = Static.getRequestPlugin();
+            if (!StaticStorage.NET_ESCAPE_SET.contains(plugin.getName())) {
+                Static.consoleMsg(Lang.TRY_NETWORKING.builder()
+                        .addKey(Lang.Key.PLUGIN_NAME, Lang.Key.VALUE)
+                        .addVal(Static.getRequestPlugin().getName(), uri));
+            }
         }
         return parent.select(uri);
     }

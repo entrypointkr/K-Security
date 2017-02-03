@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class KSecurity extends JavaPlugin {
     public static Plugin inst;
-    private static ModuleManager MODULE_MANAGER = new ModuleManager();
+    private static final ModuleManager MODULE_MANAGER = new ModuleManager();
 
     public KSecurity() {
         init();

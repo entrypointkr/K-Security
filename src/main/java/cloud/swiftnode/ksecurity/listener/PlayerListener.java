@@ -5,7 +5,9 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.AsyncLoginProcessor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KPermissible;
 import cloud.swiftnode.ksecurity.util.Lang;
+import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.permissions.PermissibleBase;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -39,6 +42,20 @@ public class PlayerListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
+        try {
+            Class superCls = player.getClass().getSuperclass();
+            PermissibleBase permBase = (PermissibleBase)
+                    Reflections.getDecFieldObj(superCls, player, "perm");
+            Reflections.setDecField(superCls, player, "perm",
+                    new KPermissible(permBase, player));
+        } catch (Exception ex) {
+            Static.consoleMsg(ex);
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoinHighest(PlayerJoinEvent e) {
         /*
@@ -46,7 +63,7 @@ public class PlayerListener implements Listener {
         밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
-        player.sendMessage(Lang.LAW_INFO.builder().build(false));
+        player.sendMessage(Lang.LAW_INFO.builder().build());
 
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
             player.sendMessage(Lang.UPDATE_INFO_NEW.builder().build());

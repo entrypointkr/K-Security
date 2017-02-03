@@ -2,6 +2,8 @@ package cloud.swiftnode.ksecurity.module;
 
 import cloud.swiftnode.ksecurity.abstraction.Named;
 import cloud.swiftnode.ksecurity.util.Version;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -44,5 +46,17 @@ public abstract class Module implements Named {
     @Override
     public String getName() {
         return "&e" + getClass().getSimpleName();
+    }
+
+    public void saveDefaultConfig() {
+        parent.saveDefaultConfig();
+    }
+
+    public PluginCommand getCommand(String cmd) {
+        return parent.getCommand(cmd);
+    }
+
+    public FileConfiguration getConfig() {
+        return parent.getConfig();
     }
 }

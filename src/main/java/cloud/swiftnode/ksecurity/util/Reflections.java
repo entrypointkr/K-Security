@@ -6,36 +6,48 @@ import java.lang.reflect.Field;
  * Created by Junhyeong Lim on 2017-01-24.
  */
 public class Reflections {
-    public static Field getField(Object obj, String fieldName, boolean pub) throws NoSuchFieldException {
+    private static Field getField(Class cls, String fieldName, boolean pub) throws NoSuchFieldException {
         if (pub) {
-            return obj.getClass().getField(fieldName);
+            return cls.getField(fieldName);
         }
-        Field field = obj.getClass().getDeclaredField(fieldName);
+        Field field = cls.getDeclaredField(fieldName);
         field.setAccessible(true);
         return field;
     }
 
-    public static Object getFieldObj(Object obj, String fieldName, boolean pub) throws NoSuchFieldException, IllegalAccessException {
-        Field field = getField(obj, fieldName, pub);
-        field.setAccessible(true);
-        return field.get(obj);
+    public static Object getFieldObj(Class cls, Object obj, String fieldName, boolean pub) throws NoSuchFieldException, IllegalAccessException {
+        return getField(cls, fieldName, pub).get(obj);
+    }
+
+    public static Object getFieldObj(Class cls, Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        return getFieldObj(cls, obj, fieldName, true);
+    }
+
+    public static Object getDecFieldObj(Class cls, Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        return getFieldObj(cls, obj, fieldName, false);
     }
 
     public static Object getDecFieldObj(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        return getFieldObj(obj, fieldName, false);
+        return getDecFieldObj(obj.getClass(), obj, fieldName);
     }
 
     public static Object getFieldObj(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        return getFieldObj(obj, fieldName, true);
+        return getFieldObj(obj.getClass(), obj, fieldName);
+    }
+
+    public static void setField(Class cls, Object inst, String fieldName, Object val, boolean pub) throws NoSuchFieldException, IllegalAccessException {
+        getField(cls, fieldName, pub).set(inst, val);
     }
 
     public static void setField(Object inst, String fieldName, Object val, boolean pub) throws NoSuchFieldException, IllegalAccessException {
-        Field field = getField(inst, fieldName, pub);
-        field.setAccessible(true);
-        field.set(inst, val);
+        setField(inst.getClass(), inst, fieldName, val, pub);
+    }
+
+    public static void setDecField(Class cls, Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
+        setField(cls, inst, fieldName, val, false);
     }
 
     public static void setDecField(Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
-        setField(inst, fieldName, val, false);
+        setField(inst.getClass(), inst, fieldName, val, false);
     }
 }
