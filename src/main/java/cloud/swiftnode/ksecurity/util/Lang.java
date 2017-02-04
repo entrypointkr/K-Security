@@ -49,10 +49,11 @@ public enum Lang {
             "&f30 초 안에 다시 접속해주세요."),
     INVALID_IP("형식에 맞지 않는 IP 입니다."),
     FORCEMODE_ON("강제 모드가 활성화되어 당신은 차단되었습니다. 서버 관리자에게 문의해주세요."),
+    PLUGIN_INTRO("&f본 서버는 보안 플러그인 &eK-Security &f를 사용 중입니다."),
     /**
      * 본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
      */
-    LAW_INFO(" &f본 서버는 봇 테러 방지 플러그인 &eK-Security &f를 사용 중입니다.\n" +
+    LAW_INFO(" " + PLUGIN_INTRO + "\n" +
             " &f기여자: §e" + CONTRIBUTORS + "\n" +
             " &fhttps://github.com/EntryPointKR/K-Security\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Security/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
