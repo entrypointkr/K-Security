@@ -13,8 +13,6 @@ import java.util.List;
  * Created by Junhyeong Lim on 2017-01-09.
  */
 public class Config {
-    public static FileConfiguration config;
-
     public static final String DEBUG_MODE = "debug-mode";
     public static final String FIRST_LOGIN_KICK = "first-login-kick";
     public static final String ALERT = "error-alert";
@@ -33,6 +31,7 @@ public class Config {
     }
 
     public static void reload()  {
+        KSecurity.inst.saveConfig();
         KSecurity.inst.reloadConfig();
         init();
     }

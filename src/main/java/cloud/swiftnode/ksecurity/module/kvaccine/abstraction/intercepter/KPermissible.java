@@ -13,6 +13,7 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 
+import java.lang.reflect.Field;
 import java.util.Set;
 
 /**
@@ -21,6 +22,7 @@ import java.util.Set;
 public class KPermissible extends PermissibleBase {
     private Permissible permissible = this;
     private Player player;
+    private final BoolStorage storage = new BoolStorage();
 
     public KPermissible(Permissible permissible, Player player) {
         super(player);
@@ -100,6 +102,16 @@ public class KPermissible extends PermissibleBase {
     private void checkOpable() {
         if (StaticStorage.ALLOWED_OP_SET.size() <= 0)
             return;
+        if (storage == null) {
+            try {
+                Reflections.setDecField(getClass(), this, "storage", new BoolStorage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (storage.bool) {
+            return;
+        }
         if (player == null) {
             try {
                 Object obj = Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
@@ -113,10 +125,20 @@ public class KPermissible extends PermissibleBase {
         if (player != null
                 && player.isOp()
                 && !StaticStorage.ALLOWED_OP_SET.contains(player.getName())) {
-            player.setOp(false);
-            Bukkit.broadcastMessage(Lang.DEOP.builder()
-                    .single(Lang.Key.VALUE, player.getName())
-                    .build());
+            storage.bool = true;
+            Static.runTask(() -> {
+                if (player.isOp()) {
+                    player.setOp(false);
+                    Bukkit.broadcastMessage(Lang.DEOP.builder()
+                            .single(Lang.Key.VALUE, player.getName())
+                            .build());
+                }
+                storage.bool = false;
+            });
         }
+    }
+
+    private class BoolStorage {
+        private boolean bool = false;
     }
 }
