@@ -18,7 +18,7 @@ https://github.com/EntryPointKR/K-Security/releases/latest
 
 > /ks firewall
 
-강제 모드를 온/오프합니다. 강제모드가 활성화됐을 경우 그 시점 부터 처음 접속하는 유저들의 입장을 거부합니다.
+방화벽 모드를 온/오프합니다. 강제모드가 활성화됐을 경우 그 시점 부터 처음 접속하는 유저들의 입장을 거부합니다.
 
 > /ks remove 아이피/닉네임
 
@@ -36,6 +36,34 @@ https://github.com/EntryPointKR/K-Security/releases/latest
 
 디버그 모드를 온/오프합니다.
 
+> /ks alert
+
+내부에서 생기는 예외를 알려주는 기능을 온/오프합니다.
+
+> /ks netalert
+
+네트워크 모니터링 기능을 온/오프합니다.
+
+> /ks reload
+
+설정 파일을 다시 불러옵니다.
+
+> /ks listop
+
+OP 허용 목록을 보여줍니다.
+
+> /ks clear
+
+OP 허용 목록을 모두 지웁니다.
+
+> /ks addop 닉네임
+
+OP 허용 목록에 닉네임을 추가합니다.
+
+> /ks remop 닉네임
+
+OP 허용 목록에서 닉네임을 제거합니다.
+
 설정 파일
 ------
 > debug-mode: false
@@ -52,15 +80,35 @@ https://github.com/EntryPointKR/K-Security/releases/latest
 
 > alert: false
 
-내부에서 생기는 예외를 알려주는 기능을 온/오프합니다.
+내부에서 발생하는 예외를 알려주는 기능을 온/오프합니다.
 
-기본값은 비활성화입니다.
+기본값: 비활성화
 
 > update-check-period: 1
 
-최신버전이 있는지 설정한 시간을 주기로 확인합니다.
+설정 시간을 주기로 업데이트를 확인합니다.
 
-기본값은 1 시간입니다.
+기본값: 1시간
+
+> network-alert: true
+
+네트워크 모니터링 기능을 온/오프합니다.
+
+기본값: 활성화
+
+> op-list: [NicknameA, NicknameB]
+
+OP 허용 목록입니다.
+
+위에서 닉네임을 추가 또는 제거할 수 있으며
+
+op-list: [] 와 같이 목록이 비었을 경우 기능은 비활성화됩니다.
+
+> net-escape-list: [K-Security]
+
+네트워크 모니터링의 예외 목록입니다.
+
+위에서 플러그인의 이름을 추가 또는 제거할 수 있습니다.
 
 버그 제보
 -----
