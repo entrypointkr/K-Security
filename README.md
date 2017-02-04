@@ -13,19 +13,19 @@
 
 ### 악성 플러그인 검사
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecvaccine.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecvaccine.png)
 
 ### 네트워크 모니터링
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecnetmonitor.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecnetmonitor.png)
 
 ### 비인가 권한 취득 차단
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecoplist.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecoplist.png)
 
 ### GUI 환경
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecgui.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecgui.png)
 
 다운로드
 ----
