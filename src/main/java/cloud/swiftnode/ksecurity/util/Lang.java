@@ -53,8 +53,8 @@ public enum Lang {
      * 본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
      */
     LAW_INFO(" &f본 서버는 봇 테러 방지 플러그인 &eK-Security &f를 사용 중입니다.\n" +
-            PREFIX + " &f기여자: §e" + CONTRIBUTORS + "\n" +
-            PREFIX + " &fhttps://github.com/EntryPointKR/K-Security\n"),
+            " &f기여자: §e" + CONTRIBUTORS + "\n" +
+            " &fhttps://github.com/EntryPointKR/K-Security\n"),
     SMALL_CACHE("캐시 데이터의 수가 적습니다. 데이터의 수가 적으면 성능이 떨어져 의도한 것이 아니라면 &eplugins/K-Security/K-Spam.cache &f파일을 지운 후 리부팅해주세요."),
     SELF_DEFENCE("&c" + Key.PLUGIN_NAME + " 플러그인의 K-Security 비활성화 시도를 차단했습니다."),
     SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 사용&f이 감지되었습니다."),

@@ -52,7 +52,7 @@ public class Commands implements CommandExecutor {
                      밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
                      본 프로젝트에 기여했을 경우 밑 메세지에 자신의 닉네임을 추가할 수 있습니다.
                      */
-                    sender.sendMessage(Lang.LAW_INFO.builder().build());
+                    sender.sendMessage(Lang.LAW_INFO.builder().build(false));
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).build());
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSEC_VERSION, StaticStorage.getCurrVer()).build());
                     Static.sendModulesInfo(sender);
