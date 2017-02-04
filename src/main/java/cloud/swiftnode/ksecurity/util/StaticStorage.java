@@ -15,7 +15,6 @@ import java.util.Set;
 public class StaticStorage {
     public static Set<String> cachedSet = new LowerCaseLinkedSet();
     public static final Set<String> FIRST_KICK_CACHED_SET = new LowerCaseLinkedSet();
-    public static final Set<String> ALLOWED_OP_SET = new LowerCaseLinkedSet();
     public static final Set<String> NET_ESCAPE_SET = new LowerCaseLinkedSet();
     public static boolean firewallMode = false;
     private static Map<ClassLoader, Plugin> cachedLoaderPluginMap;

@@ -18,6 +18,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,13 +100,13 @@ public class Commands implements CommandExecutor {
                         break;
                     }
                     sender.sendMessage(Lang.OP_LIST.builder().single(Lang.Key.VALUE,
-                            StringUtils.join(StaticStorage.ALLOWED_OP_SET, ", ")).build());
+                            StringUtils.join(Config.getOpList(), ", ")).build());
                     return true;
                 } else if (args[0].equalsIgnoreCase("clearop")) {
                     if (!isOp) {
                         break;
                     }
-                    StaticStorage.ALLOWED_OP_SET.clear();
+                    Config.setOpList(new ArrayList<>());
                     sender.sendMessage(Lang.SUCCESS.builder().build());
                     return true;
                 }
@@ -142,7 +143,7 @@ public class Commands implements CommandExecutor {
                         break;
                     }
                     String player = args[1];
-                    if (StaticStorage.ALLOWED_OP_SET.add(player)) {
+                    if (Config.addNameInOpList(player)) {
                         sender.sendMessage(Lang.ADD_OP.builder().single(Lang.Key.VALUE, player).build());
                     } else {
                         sender.sendMessage(Lang.FAIL.builder().build());
@@ -153,7 +154,7 @@ public class Commands implements CommandExecutor {
                         break;
                     }
                     String player = args[1];
-                    if (StaticStorage.ALLOWED_OP_SET.remove(player)) {
+                    if (Config.removeNameInOpList(player)) {
                         sender.sendMessage(Lang.REM_OP.builder().single(Lang.Key.VALUE, player).build());
                     } else {
                         sender.sendMessage(Lang.FAIL.builder().build());

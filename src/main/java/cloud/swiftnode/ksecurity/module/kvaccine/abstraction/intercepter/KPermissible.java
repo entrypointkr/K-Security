@@ -1,5 +1,6 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
+import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
@@ -101,34 +102,20 @@ public class KPermissible extends PermissibleBase {
 
     private void checkOpable() {
         if (!Bukkit.getPluginManager().isPluginEnabled("K-Security")
-                || StaticStorage.ALLOWED_OP_SET.size() <= 0)
+                || Config.getOpList().size() <= 0)
             return;
-        // Init
-        if (storage == null) {
-            try {
-                Reflections.setDecField(getClass(), this, "storage", new BoolStorage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        storageInit();
+        // Escape
         if (storage.bool) {
+            // 버그 예상
             storage.bool = false;
             return;
         }
-        // Init
-        if (player == null) {
-            try {
-                Object obj = Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
-                if (obj instanceof Player) {
-                    player = (Player) obj;
-                }
-            } catch (Exception e) {
-                Static.consoleMsg(e);
-            }
-        }
+        playerInit();
+        // Check
         if (player != null
                 && player.isOp()
-                && !StaticStorage.ALLOWED_OP_SET.contains(player.getName())) {
+                && !Config.getOpList().contains(player.getName())) {
             storage.bool = true;
             Static.runTask(() -> {
                 if (player.isOp()) {
@@ -139,6 +126,29 @@ public class KPermissible extends PermissibleBase {
                 }
                 storage.bool = false;
             });
+        }
+    }
+
+    private void storageInit() {
+        if (storage == null) {
+            try {
+                Reflections.setDecField(getClass(), this, "storage", new BoolStorage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void playerInit() {
+        if (player == null) {
+            try {
+                Object obj = Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
+                if (obj instanceof Player) {
+                    player = (Player) obj;
+                }
+            } catch (Exception e) {
+                Static.consoleMsg(e);
+            }
         }
     }
 

@@ -19,8 +19,6 @@ public class KVaccine extends Module {
     public void onEnable() {
         // Virus Scan
         Static.runTaskAsync(() -> new VirusScanProcessor().process());
-        // Load OpList
-        StaticStorage.ALLOWED_OP_SET.addAll(Config.getOpList());
     }
 
     @Override

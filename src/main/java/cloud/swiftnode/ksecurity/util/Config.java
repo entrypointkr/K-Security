@@ -60,15 +60,37 @@ public class Config {
         return getStringList(OP_LIST, new ArrayList<>(Arrays.asList("NicknameA", "NicknameB")));
     }
 
+    public static boolean addNameInOpList(String name) {
+        boolean ret;
+        List<String> list = getOpList();
+        ret = list.add(name);
+        setOpList(list);
+        return ret;
+    }
+
+    public static boolean removeNameInOpList(String name) {
+        boolean ret;
+        List<String> list = getOpList();
+        ret = list.remove(name);
+        setOpList(list);
+        return ret;
+    }
+
+    public static void setOpList(List<String> strList) {
+        List<String> lowerList = new ArrayList<>();
+        for (String str : strList) {
+            lowerList.add(str.toLowerCase());
+        }
+        Static.getConfig().set(OP_LIST, lowerList);
+    }
+
     public static List<String> getNetEscapeList() {
         return getStringList(NET_ESCAPE_LIST, new ArrayList<>(Collections.singletonList("K-Security")));
     }
 
     public static void opListInit() {
-        StaticStorage.ALLOWED_OP_SET.clear();
-        StaticStorage.ALLOWED_OP_SET.addAll(Config.getOpList());
         for (Player player : Static.getOnlinePlayers()) {
-            if (!StaticStorage.ALLOWED_OP_SET.contains(player.getName())) {
+            if (!getOpList().contains(player.getName())) {
                 player.setOp(false);
             }
         }
