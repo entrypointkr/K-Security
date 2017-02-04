@@ -62,9 +62,7 @@ public class KAlert {
     }
 
     public void show() {
-        Platform.runLater(() -> {
-            doAwait(() -> storage.getAlert().show());
-        });
+        Platform.runLater(() -> doAwait(() -> storage.getAlert().show()));
     }
 
     public Alert build() {

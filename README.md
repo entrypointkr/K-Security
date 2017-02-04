@@ -3,8 +3,29 @@
 
 봇 테러를 방지하거나 악성 플러그인 검사, 네트워크 통신 모니터링 등의 기능이 있습니다.
 
-비동기 처리, 자체 캐싱으로 매우 가벼우며 사용에 부담이 없습니다.
-(봇 테러 차단 이벤트 패스 시간 약 0.001 초)
+거의 모든 처리가 비동기로 진행되어 매우 가볍습니다.
+
+기능
+----
+### 봇 테러 방지
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OGWxUQdQXDk" frameborder="0" allowfullscreen></iframe>
+
+### 악성 플러그인 검사
+
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecvaccine.png)
+
+### 네트워크 모니터링
+
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecnetmonitor.png)
+
+### 비인가 권한 취득 차단
+
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecoplist.png)
+
+### GUI 환경
+
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/ksecgui.png)
 
 다운로드
 ----
@@ -133,6 +154,6 @@ K-Security 는 오픈소스 프로젝트로 누구나 개발에 참여할 수 �
 ----
 ~~한국에 이보다 잘만든 플러그인이 있나요~~
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/diagram.png)
+![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/picture/diagram.png)
 
 예정: 백신 기능

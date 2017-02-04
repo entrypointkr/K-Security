@@ -12,7 +12,6 @@ import java.util.Queue;
  * Created by Junhyeong Lim on 2017-02-04.
  */
 public class KFX extends Application {
-    public static KFX inst;
 
     public static void start() {
         launch(KFX.class);
@@ -20,7 +19,6 @@ public class KFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        inst = this;
         Platform.setImplicitExit(false);
         new KAlert().setContextText(
                 "플러그인이 활성화되었습니다.",
