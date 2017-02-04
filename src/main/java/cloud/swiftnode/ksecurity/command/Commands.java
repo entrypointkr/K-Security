@@ -101,7 +101,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.OP_LIST.builder().single(Lang.Key.VALUE,
                             StringUtils.join(StaticStorage.ALLOWED_OP_SET, ", ")).build());
                     return true;
-                } else if (args[0].equalsIgnoreCase("clear")) {
+                } else if (args[0].equalsIgnoreCase("clearop")) {
                     if (!isOp) {
                         break;
                     }

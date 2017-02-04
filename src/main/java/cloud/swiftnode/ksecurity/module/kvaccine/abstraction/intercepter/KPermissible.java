@@ -1,6 +1,8 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
 import cloud.swiftnode.ksecurity.util.Lang;
+import cloud.swiftnode.ksecurity.util.Reflections;
+import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -98,8 +100,15 @@ public class KPermissible extends PermissibleBase {
     private void checkOpable() {
         if (StaticStorage.ALLOWED_OP_SET.size() <= 0)
             return;
+        if (player == null) {
+            try {
+                player = (Player) Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
+            } catch (Exception e) {
+                Static.consoleMsg(e);
+            }
+        }
         if (player != null
-                && isOp()
+                && player.isOp()
                 && !StaticStorage.ALLOWED_OP_SET.contains(player.getName())) {
             player.setOp(false);
             Bukkit.broadcastMessage(Lang.DEOP.builder()

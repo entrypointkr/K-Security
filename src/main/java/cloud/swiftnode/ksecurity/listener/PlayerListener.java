@@ -42,8 +42,8 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onJoinMonitor(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         try {
             Class superCls = player.getClass().getSuperclass();
