@@ -17,7 +17,7 @@ public class Config {
 
     public static final String DEBUG_MODE = "debug-mode";
     public static final String FIRST_LOGIN_KICK = "first-login-kick";
-    public static final String ALERT = "alert";
+    public static final String ALERT = "error-alert";
     public static final String UPDATE_CHECK_PERIOD = "update-check-period";
     public static final String NETWORK_ALERT = "network-alert";
     public static final String OP_LIST = "op-list";

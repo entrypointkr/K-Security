@@ -35,7 +35,7 @@ public class KParent extends Module {
         Static.runTaskTimerAsync(() -> new UpdateCheckProcessor().process(), 0, Config.updateCheckPeriod() * 3600 * 20);
         getCommand("ks").setExecutor(new Commands());
         Static.consoleMsg(Lang.INTRO.builder()
-                .addKey(Lang.Key.KSPAM_VERSION, Lang.Key.MODULES_INFO)
+                .addKey(Lang.Key.KSEC_VERSION, Lang.Key.MODULES_INFO)
                 .addVal(Static.getVersion(), Lang.MODULES_INFO)
                 .build(false, 1));
     }

@@ -1,8 +1,8 @@
 package cloud.swiftnode.ksecurity.module.kparent.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.abstraction.Processor;
-import cloud.swiftnode.ksecurity.abstraction.manager.KPluginManager;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.network.KProxySelector;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KPluginManager;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
 import org.bukkit.Bukkit;

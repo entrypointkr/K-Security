@@ -1,9 +1,11 @@
-package cloud.swiftnode.ksecurity.abstraction.manager;
+package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
 import cloud.swiftnode.ksecurity.KSecurity;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
+import javafx.scene.control.Alert;
 import org.bukkit.Bukkit;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.event.Event;
@@ -110,7 +112,15 @@ public class KPluginManager implements PluginManager {
     public void enablePlugin(Plugin plugin) {
         if (plugin.getName().equals("K-Spam_Community_Edition")) {
             Static.consoleMsg(Lang.LEGACY_VERSION_DETECT.builder());
+            new KAlert().setType(Alert.AlertType.ERROR)
+                    .setContextText(Lang.LEGACY_VERSION_DETECT.builder().flatBuild())
+                    .show();
             return;
+        } else if (plugin.getName().equals("SHVaccine")) {
+            Static.consoleMsg(Lang.SHVACCINE_DETECT.builder());
+            new KAlert().setType(Alert.AlertType.WARNING)
+                    .setContextText(Lang.SHVACCINE_DETECT.builder().flatBuild())
+                    .show();
         }
         parent.enablePlugin(plugin);
     }
@@ -118,8 +128,8 @@ public class KPluginManager implements PluginManager {
     @Override
     public void disablePlugin(Plugin plugin) {
         if (plugin.getName().equals(KSecurity.inst.getName())) {
-            Static.consoleMsg(Lang.SELF_DEFENCE.builder()
-                    .single(Lang.Key.PLUGIN_NAME, Static.getRequestPlugin().getName()));
+            Bukkit.broadcastMessage(Lang.SELF_DEFENCE.builder()
+                    .single(Lang.Key.PLUGIN_NAME, Static.getRequestPlugin().getName()).build());
             return;
         }
         parent.disablePlugin(plugin);

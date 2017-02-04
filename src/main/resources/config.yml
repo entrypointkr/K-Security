@@ -1,10 +1,19 @@
+# 디버그(개발자) 모드
 debug-mode: false
+# 첫 접속 유저 1회 킥
 first-login-kick: true
-alert: false
+# 에러 경고
+error-alert: false
+# 업데이트 확인 주기 (시간)
 update-check-period: 1
+# 네트워크 모니터링
 network-alert: true
+# OP 허용 목록
+# op-list: []
+# 위와 같이 목록이 비었으면 비활성화
 op-list:
   - NicknameA
   - NicknameB
+# 네트워크 모니터링 예외
 net-escape-list:
   - K-Security

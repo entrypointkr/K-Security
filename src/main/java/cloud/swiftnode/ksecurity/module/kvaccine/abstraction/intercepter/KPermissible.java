@@ -96,6 +96,8 @@ public class KPermissible extends PermissibleBase {
     }
 
     private void checkOpable() {
+        if (StaticStorage.ALLOWED_OP_SET.size() <= 0)
+            return;
         if (player != null
                 && isOp()
                 && !StaticStorage.ALLOWED_OP_SET.contains(player.getName())) {

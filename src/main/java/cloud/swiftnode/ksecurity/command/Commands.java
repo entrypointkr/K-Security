@@ -54,7 +54,7 @@ public class Commands implements CommandExecutor {
                      */
                     sender.sendMessage(Lang.LAW_INFO.builder().build());
                     sender.sendMessage(Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer()).build());
-                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer()).build());
+                    sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSEC_VERSION, StaticStorage.getCurrVer()).build());
                     Static.sendModulesInfo(sender);
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.FIRST_KICK_CACHED_SET.size()));

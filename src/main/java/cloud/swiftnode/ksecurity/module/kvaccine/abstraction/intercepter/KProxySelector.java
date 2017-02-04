@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.network;
+package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.util.Config;

@@ -71,7 +71,7 @@ public class PlayerListener implements Listener {
                     .single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer())
                     .build());
             player.sendMessage(Lang.CURRENT_VERSION.builder()
-                    .single(Lang.Key.KSPAM_VERSION, StaticStorage.getCurrVer())
+                    .single(Lang.Key.KSEC_VERSION, StaticStorage.getCurrVer())
                     .build());
             player.sendMessage(Lang.DOWNLOAD_URL.builder().build());
         }

@@ -30,7 +30,7 @@ public enum Lang {
             ".JMML.   MMb.    P\"Ybmmd\"   `Mbmmd'  YMbmd'   `Mbod\"YML..JMML.   .JMML. `Mbmo    ,V     \n" +
             "                                                                                ,V      \n" +
             "                                                                             OOb\"       \n" +
-            "" + PREFIX + "&fv" + Key.KSPAM_VERSION + "\n\n" +
+            "" + PREFIX + "&fv" + Key.KSEC_VERSION + "\n\n" +
             "&fPlugin Contributors &e" + CONTRIBUTORS + "\n" +
             "&fK-SPAM Module DB Powered By &eSwiftnode\n" +
             "\n" +
@@ -40,7 +40,7 @@ public enum Lang {
             "&f버그 제보/건의 &ehttps://github.com/EntryPointKR/K-Security/issues\n"),
     UPDATE_INFO_NEW("새 버전이 있습니다."),
     NEW_VERSION("&e최신버전: &f" + Key.NEW_VERSION),
-    CURRENT_VERSION("&e현재버전: &f" + Key.KSPAM_VERSION),
+    CURRENT_VERSION("&e현재버전: &f" + Key.KSEC_VERSION),
     DOWNLOAD_URL("&e다운로드: &bhttps://github.com/EntryPointKR/K-Security/releases/latest"),
     EXCEPTION("예외가 발생했습니다. 개발자에게 문의해주세요. &bhttps://github.com/EntryPointKR/K-Security/issues &f본 메세지를 끄려면 /ksecurity alert 를 입력해주세요. &e정보: &f" + Key.EXCEPTION_MESSAGE),
     SET("&e" + Key.VALUE + " &f로 설정했습니다."),
@@ -87,6 +87,7 @@ public enum Lang {
     OP_LIST("&eOP 허용 목록: &f" + Key.VALUE),
     FAIL("처리에 실패했습니다."),
     SUCCESS("처리에 성공했습니다."),
+    SHVACCINE_DETECT("SHVaccine 플러그인 활성화가 감지되었습니다. K-Security 와 충돌해 문제가 생길 수 있습니다."),
     ;
     private final String target;
 
@@ -112,7 +113,7 @@ public enum Lang {
         PROCESSOR_NAME("processor-getName"),
         CHECKER_RESULT("checker-result"),
         CACHE_COUNT("cache-count"),
-        KSPAM_VERSION("ksecurity-version"),
+        KSEC_VERSION("ksecurity-version"),
         NEW_VERSION("new-version"),
         TIME("time"),
         EXCEPTION_MESSAGE("exception-message"),
@@ -183,6 +184,10 @@ public enum Lang {
             }
             target = StringUtils.join(strs, "\n");
             return this;
+        }
+
+        public String flatBuild() {
+            return ChatColor.stripColor(build(false));
         }
 
         public String build(boolean prefix, int space) {

@@ -2,16 +2,19 @@ package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.asm.KClassVisitor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
+import javafx.scene.control.Alert;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +69,12 @@ public class VirusScanProcessor implements Processor {
 
         if (detectCount > 0) {
             coloredCount = "&c" + detectCount + "&f";
-            Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder()
-                    .build());
+            Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder().build());
+            new KAlert().setType(Alert.AlertType.ERROR)
+                    .setTitle("K-Security 간편 검사")
+                    .setHeaderText("K-Security 간편 검사")
+                    .setContextText(Lang.SCAN_WARNING.builder().flatBuild())
+                    .show();
         } else {
             Bukkit.broadcastMessage(Lang.SCAN_SAFE.builder()
                     .build());
@@ -96,8 +103,11 @@ public class VirusScanProcessor implements Processor {
         }
 
         public List<Class<?>> getClasses() throws NoSuchFieldException, IllegalAccessException {
+            List<Class<?>> ret = new ArrayList<>();
             Map<String, Class<?>> classMap = (Map<String, Class<?>>) Reflections.getDecFieldObj(handle, "classes");
-            return new ArrayList<>(classMap.values());
+            Class<?>[] classes = classMap.values().toArray(new Class<?>[classMap.values().size()]);
+            Collections.addAll(ret, classes);
+            return ret;
         }
     }
 }
