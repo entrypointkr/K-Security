@@ -100,8 +100,10 @@ public class KPermissible extends PermissibleBase {
     }
 
     private void checkOpable() {
-        if (StaticStorage.ALLOWED_OP_SET.size() <= 0)
+        if (!Bukkit.getPluginManager().isPluginEnabled("K-Security")
+                || StaticStorage.ALLOWED_OP_SET.size() <= 0)
             return;
+        // Init
         if (storage == null) {
             try {
                 Reflections.setDecField(getClass(), this, "storage", new BoolStorage());
@@ -110,8 +112,10 @@ public class KPermissible extends PermissibleBase {
             }
         }
         if (storage.bool) {
+            storage.bool = false;
             return;
         }
+        // Init
         if (player == null) {
             try {
                 Object obj = Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
