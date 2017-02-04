@@ -102,7 +102,10 @@ public class KPermissible extends PermissibleBase {
             return;
         if (player == null) {
             try {
-                player = (Player) Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
+                Object obj = Reflections.getDecFieldObj(getClass().getSuperclass(), this, "opable");
+                if (obj instanceof Player) {
+                    player = (Player) obj;
+                }
             } catch (Exception e) {
                 Static.consoleMsg(e);
             }
