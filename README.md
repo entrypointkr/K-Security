@@ -9,23 +9,23 @@
 ----
 ### 봇 테러 방지
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OGWxUQdQXDk" frameborder="0" allowfullscreen></iframe>
+[![ScreenShot](https://raw.github.com/EntryPointKR/K-Security/master/pic/fakevideo.png)](https://www.youtube.com/embed/OGWxUQdQXDk)
 
 ### 악성 플러그인 검사
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecvaccine.png)
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecvaccine.png)
 
 ### 네트워크 모니터링
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecnetmonitor.png)
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecnetmonitor.png)
 
 ### 비인가 권한 취득 차단
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecoplist.png)
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecoplist.png)
 
 ### GUI 환경
 
-![alt tag](https://github.com/EntryPointKR/K-Security/blob/master/pic/ksecgui.png)
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecgui.png)
 
 다운로드
 ----
