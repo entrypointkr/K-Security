@@ -27,6 +27,10 @@
 
 ![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecgui.png)
 
+### 자가 보호
+ 
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecdefence.png)
+
 다운로드
 ----
 https://github.com/EntryPointKR/K-Security/releases/latest
