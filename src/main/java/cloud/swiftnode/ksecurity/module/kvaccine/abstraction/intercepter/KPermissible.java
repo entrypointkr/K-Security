@@ -115,7 +115,7 @@ public class KPermissible extends PermissibleBase {
         // Check
         if (player != null
                 && player.isOp()
-                && !Config.getOpList().contains(player.getName())) {
+                && !Config.getOpList().contains(player.getName().toLowerCase())) {
             storage.bool = true;
             Static.runTask(() -> {
                 if (player.isOp()) {
