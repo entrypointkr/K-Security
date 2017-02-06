@@ -1,6 +1,5 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
-import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;

@@ -4,10 +4,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * Created by Junhyeong Lim on 2017-02-04.
  */

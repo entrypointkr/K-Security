@@ -1,7 +1,6 @@
 package cloud.swiftnode.ksecurity.util;
 
 import cloud.swiftnode.ksecurity.KSecurity;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

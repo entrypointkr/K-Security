@@ -20,6 +20,7 @@ public class FirstKickChecker extends SpamChecker {
 
     @Override
     public Result spamCheck() throws Exception {
+        @SuppressWarnings("deprecation")
         OfflinePlayer player = Bukkit.getOfflinePlayer(info.getName());
         if (player == null || !Config.isFirstLoginKick() ||
                 player.hasPlayedBefore()) {

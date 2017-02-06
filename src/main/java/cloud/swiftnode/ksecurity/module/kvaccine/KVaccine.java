@@ -2,10 +2,9 @@ package cloud.swiftnode.ksecurity.module.kvaccine;
 
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
-import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Static;
-import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 /**
  * Created by Junhyeong Lim on 2017-01-31.

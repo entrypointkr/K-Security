@@ -7,15 +7,11 @@ import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 import cloud.swiftnode.ksecurity.util.URLs;
 import cloud.swiftnode.ksecurity.util.Version;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 /**

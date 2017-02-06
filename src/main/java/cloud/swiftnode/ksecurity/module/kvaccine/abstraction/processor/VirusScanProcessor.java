@@ -104,6 +104,7 @@ public class VirusScanProcessor implements Processor {
 
         public List<Class<?>> getClasses() throws NoSuchFieldException, IllegalAccessException {
             List<Class<?>> ret = new ArrayList<>();
+            @SuppressWarnings("unchecked")
             Map<String, Class<?>> classMap = (Map<String, Class<?>>) Reflections.getDecFieldObj(handle, "classes");
             Class<?>[] classes = classMap.values().toArray(new Class<?>[classMap.values().size()]);
             Collections.addAll(ret, classes);

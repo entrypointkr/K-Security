@@ -186,4 +186,12 @@ public class Static {
             sender.sendMessage(str);
         }
     }
+
+    public static boolean checkOpable(Player player) {
+        return !Bukkit.getPluginManager().isPluginEnabled(KSecurity.inst)
+                || Config.getOpList().size() <= 0
+                || player == null
+                || !player.isOp()
+                || Config.getOpList().contains(player.getName().toLowerCase());
+    }
 }

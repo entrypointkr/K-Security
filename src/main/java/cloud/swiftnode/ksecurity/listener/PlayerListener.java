@@ -10,6 +10,7 @@ import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,7 +24,7 @@ import org.bukkit.permissions.PermissibleBase;
  */
 public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onLogin(PlayerLoginEvent e) {
+    public void onLoginSpam(PlayerLoginEvent e) {
         if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
             return;
         }
@@ -42,15 +43,19 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onJoinMonitor(PlayerJoinEvent e) {
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onLoginInjection(PlayerLoginEvent e) {
         Player player = e.getPlayer();
         try {
             Class superCls = player.getClass().getSuperclass();
-            PermissibleBase permBase = (PermissibleBase)
-                    Reflections.getDecFieldObj(superCls, player, "perm");
-            Reflections.setDecField(superCls, player, "perm",
-                    new KPermissible(permBase, player));
+            Object obj = Reflections.getDecFieldObj(superCls, player, "perm");
+            if (!(obj instanceof PermissibleBase)) {
+                throw new Exception("Unexpected type perm: " + obj.getClass().getTypeName());
+            }
+            PermissibleBase def = (PermissibleBase) obj;
+            @SuppressWarnings("ConstantConditions")
+            KPermissible permissible = new KPermissible(def, player);
+            Reflections.setDecField(superCls, player, "perm", permissible);
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
@@ -75,5 +80,18 @@ public class PlayerListener implements Listener {
                     .build());
             player.sendMessage(Lang.DOWNLOAD_URL.builder().build());
         }
+    }
+
+    @EventHandler
+    public void onJoinOpCheck(PlayerJoinEvent e) {
+        Static.runTask(() -> {
+            System.out.println(e);
+            if (!Static.checkOpable(e.getPlayer())) {
+                e.getPlayer().setOp(false);
+                Bukkit.broadcastMessage(Lang.DEOP.builder()
+                        .single(Lang.Key.VALUE, e.getPlayer().getName())
+                        .build());
+            }
+        });
     }
 }
