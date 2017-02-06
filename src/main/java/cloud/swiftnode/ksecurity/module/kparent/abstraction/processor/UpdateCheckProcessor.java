@@ -37,19 +37,22 @@ public class UpdateCheckProcessor implements Processor {
                 if (!line.contains("<span class=\"css-truncate-target\">")) {
                     continue;
                 }
-                StaticStorage.setNewVer(new Version(
-                        Static.substring(line, "<span class=\"css-truncate-target\">", "</span>")));
+                Version newVer = new Version(Static.substring(line, "<span class=\"css-truncate-target\">", "</span>"));
+                if (StaticStorage.getNewVer().equals(newVer)) {
+                    return true;
+                }
+                StaticStorage.setNewVer(newVer);
                 if (StaticStorage.getCurrVer().before(StaticStorage.getNewVer())) {
                     Lang.MessageBuilder updateNew = Lang.UPDATE_INFO_NEW.builder();
-                    Lang.MessageBuilder newVer = Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer());
+                    Lang.MessageBuilder newVerMsg = Lang.NEW_VERSION.builder().single(Lang.Key.NEW_VERSION, StaticStorage.getNewVer());
                     Lang.MessageBuilder currVer = Lang.CURRENT_VERSION.builder().single(Lang.Key.KSEC_VERSION, StaticStorage.getCurrVer());
                     Lang.MessageBuilder downURL = Lang.DOWNLOAD_URL.builder();
 
-                    Static.consoleMsg(updateNew, newVer, currVer, downURL);
+                    Static.consoleMsg(updateNew, newVerMsg, currVer, downURL);
 
                     new KAlert().setContextText(
                             updateNew.flatBuild(),
-                            newVer.flatBuild(),
+                            newVerMsg.flatBuild(),
                             currVer.flatBuild(),
                             downURL.flatBuild()
                     ).setOnCloseRequest((event) -> {

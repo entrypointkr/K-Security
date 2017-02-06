@@ -87,4 +87,26 @@ public class Version {
         }
         return ver;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Version version = (Version) o;
+
+        if (major != version.major) return false;
+        if (minor != version.minor) return false;
+        if (add != version.add) return false;
+        return tag != null ? tag.equals(version.tag) : version.tag == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = major;
+        result = 31 * result + minor;
+        result = 31 * result + add;
+        result = 31 * result + (tag != null ? tag.hashCode() : 0);
+        return result;
+    }
 }
