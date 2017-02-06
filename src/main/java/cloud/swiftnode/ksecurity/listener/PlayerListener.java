@@ -85,7 +85,6 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onJoinOpCheck(PlayerJoinEvent e) {
         Static.runTask(() -> {
-            System.out.println(e);
             if (!Static.checkOpable(e.getPlayer())) {
                 e.getPlayer().setOp(false);
                 Bukkit.broadcastMessage(Lang.DEOP.builder()
