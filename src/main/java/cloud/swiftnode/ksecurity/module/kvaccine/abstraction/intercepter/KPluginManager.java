@@ -37,7 +37,8 @@ import java.util.regex.Pattern;
 public class KPluginManager implements PluginManager {
     private PluginManager parent;
     /**
-     * 리플렉션으로 commandMap 에 접근하는 플러그인을 지원하기 위한 필드
+     * 리플렉션으로 접근하는 플러그인을 지원하기 위한 필드
+     * 문제 발생 가능성 있음
      */
     private Server server;
     private Map<Pattern, PluginLoader> fileAssociations = new HashMap<Pattern, PluginLoader>();
@@ -57,12 +58,12 @@ public class KPluginManager implements PluginManager {
         try {
             server = Bukkit.getServer();
             plugins = (List<Plugin>) Reflections.getDecFieldObj(parent, "plugins");
-            lookupNames = (Map<String, Plugin>) Reflections.getDecFieldObj(parent, "lookupName");
+            lookupNames = (Map<String, Plugin>) Reflections.getDecFieldObj(parent, "lookupNames");
             updateDirectory = (File) Reflections.getDecFieldObj(parent.getClass(), null, "updateDirectory");
             commandMap = (SimpleCommandMap) Reflections.getDecFieldObj(parent, "commandMap");
             defaultPerms = (Map) Reflections.getDecFieldObj(parent, "defaultPerms");
             permSubs = (Map) Reflections.getDecFieldObj(parent, "permSubs");
-            defaultPerms = (Map) Reflections.getDecFieldObj(parent, "defSubs");
+            defSubs = (Map) Reflections.getDecFieldObj(parent, "defSubs");
             useTimings = parent.useTimings();
         } catch (Exception e) {
             commandMap = new SimpleCommandMap(Bukkit.getServer());
