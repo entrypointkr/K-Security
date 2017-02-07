@@ -4,7 +4,6 @@ import cloud.swiftnode.ksecurity.command.Commands;
 import cloud.swiftnode.ksecurity.listener.PlayerListener;
 import cloud.swiftnode.ksecurity.listener.ServerListener;
 import cloud.swiftnode.ksecurity.module.Module;
-import cloud.swiftnode.ksecurity.module.kparent.abstraction.processor.InjectionProcessor;
 import cloud.swiftnode.ksecurity.module.kparent.abstraction.processor.MetricsInitProcessor;
 import cloud.swiftnode.ksecurity.module.kparent.abstraction.processor.UpdateCheckProcessor;
 import cloud.swiftnode.ksecurity.util.Config;
@@ -48,6 +47,5 @@ public class KParent extends Module {
     @Override
     public void onLoad() {
         Config.init();
-        new InjectionProcessor().process();
     }
 }
