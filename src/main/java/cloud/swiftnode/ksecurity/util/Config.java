@@ -70,7 +70,7 @@ public class Config {
     public static boolean removeNameInOpList(String name) {
         boolean ret;
         List<String> list = getOpList();
-        ret = list.remove(name);
+        ret = list.remove(name.toLowerCase());
         setOpList(list);
         return ret;
     }

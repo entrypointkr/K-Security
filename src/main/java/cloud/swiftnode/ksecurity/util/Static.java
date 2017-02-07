@@ -197,16 +197,20 @@ public class Static {
     }
 
     public static void checkOpable(String name) {
+        Player player = Bukkit.getPlayer(name);
+        if (player == null) {
+            try {
+                player = Bukkit.getPlayer(UUID.fromString(name));
+            } catch (Throwable th) {
+                Static.consoleMsg(new Exception(th));
+            }
+        }
+        checkOpable(player);
+    }
+
+    public static void checkOpable(Player player) {
         if (KSecurity.inst.isEnabled()) {
             Static.runTask(() -> {
-                Player player = Bukkit.getPlayer(name);
-                if (player == null) {
-                    try {
-                        player = Bukkit.getPlayer(UUID.fromString(name));
-                    } catch (Throwable th) {
-                        Static.consoleMsg(new Exception(th));
-                    }
-                }
                 if (player != null
                         && !Static.isOpable(player)) {
                     player.setOp(false);

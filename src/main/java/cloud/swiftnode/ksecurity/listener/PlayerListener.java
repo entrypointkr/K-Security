@@ -41,13 +41,17 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent e) {
+        // Check Opable
+        Static.checkOpable(e.getPlayer());
+
         /*
-        K-SPAM 은 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
+        K-Security 는 AGPL 라이선스이며 개발자, 플러그인 정보, 소스 제공이 의무입니다.
         밑 메세지 전송 코드를 제거 시 법적 책임을 물을 수 있습니다.
         */
         Player player = e.getPlayer();
         player.sendMessage(Lang.PLUGIN_INTRO.builder().build(false));
 
+        // Update notification
         if (player.isOp() && StaticStorage.getNewVer().after(StaticStorage.getCurrVer())) {
             player.sendMessage(Lang.UPDATE_INFO_NEW.builder().build());
             player.sendMessage(Lang.NEW_VERSION.builder()
