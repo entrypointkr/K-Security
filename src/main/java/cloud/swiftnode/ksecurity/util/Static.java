@@ -23,6 +23,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Created by Junhyeong Lim on 2017-01-10.
@@ -187,11 +188,33 @@ public class Static {
         }
     }
 
-    public static boolean checkOpable(Player player) {
+    public static boolean isOpable(Player player) {
         return !Bukkit.getPluginManager().isPluginEnabled(KSecurity.inst)
                 || Config.getOpList().size() <= 0
                 || player == null
                 || !player.isOp()
                 || Config.getOpList().contains(player.getName().toLowerCase());
+    }
+
+    public static void checkOpable(String name) {
+        if (KSecurity.inst.isEnabled()) {
+            Static.runTask(() -> {
+                Player player = Bukkit.getPlayer(name);
+                if (player == null) {
+                    try {
+                        player = Bukkit.getPlayer(UUID.fromString(name));
+                    } catch (Throwable th) {
+                        Static.consoleMsg(new Exception(th));
+                    }
+                }
+                if (player != null
+                        && !Static.isOpable(player)) {
+                    player.setOp(false);
+                    Bukkit.broadcastMessage(Lang.DEOP.builder()
+                            .single(Lang.Key.VALUE, player.getName())
+                            .build());
+                }
+            });
+        }
     }
 }

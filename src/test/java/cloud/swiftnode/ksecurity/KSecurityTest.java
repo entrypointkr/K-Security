@@ -56,7 +56,7 @@ public class KSecurityTest {
 
             // PlayerListener
             PlayerListener playerListener = new PlayerListener();
-            playerListener.onLoginSpam(loginEvent);
+            playerListener.onLogin(loginEvent);
 
             // ServerListener
             ServerListener serverListener = new ServerListener();
