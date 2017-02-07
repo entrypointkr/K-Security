@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/EntryPointKR/K-Security.svg?branch=master)](https://travis-ci.org/EntryPointKR/K-Security)
+
 # K-Security
 마인크래프트 서버를 위한 국내 최고의 통합 보안 플러그인입니다.
 
