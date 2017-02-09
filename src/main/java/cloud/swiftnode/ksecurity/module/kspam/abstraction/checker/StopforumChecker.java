@@ -30,9 +30,4 @@ public class StopforumChecker extends SpamChecker {
         }
         return Result.ERROR;
     }
-
-    @Override
-    public boolean onlyFirst() {
-        return true;
-    }
 }

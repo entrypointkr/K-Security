@@ -28,9 +28,4 @@ public class ShroomeryChecker extends SpamChecker {
             return Result.ERROR;
         }
     }
-
-    @Override
-    public boolean onlyFirst() {
-        return true;
-    }
 }
