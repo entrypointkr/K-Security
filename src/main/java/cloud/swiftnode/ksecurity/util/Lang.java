@@ -63,7 +63,7 @@ public enum Lang {
     SCAN_WARNING("소켓 코드가 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),
     SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     SCAN_START("플러그인 간편 검사가 시작됩니다."),
-    TRY_NETWORKING("플러그인 &e" + Key.PLUGIN_NAME + " &f이(가) &e" + Key.VALUE + " &f로 네트워크 연결을 시도했습니다."),
+    TRY_NETWORKING("&e" + Key.PLUGIN_NAME + " &7> &f" + Key.VALUE),
     LEGACY_VERSION_DETECT("&c옛 버전의 K-Spam 플러그인 활성화가 감지되어 이를 차단했습니다. 기존 K-Spam 플러그인을 지워주십시오."),
     CMD_USAGE("&6/ks info: &f플러그인의 정보를 봅니다.\n" +
             "&6/ks firewall: &f방화벽 모드를 켭니다. 방화벽 모드 활성화 중엔 처음 들어오는 모든 유저를 추방합니다.\n" +
@@ -78,7 +78,7 @@ public enum Lang {
             "&6/ks listop: &fOP 허용 목록을 보여줍니다.\n" +
             "&6/ks clearop: &fOP 허용 목록을 초기화합니다."),
     MODULES_INFO(Static.getModulesInfo(false)),
-    DEOP("&eOP 허용 목록&f에 없는 &e" + Key.VALUE + " &f님이 &c관리자 권한&f을 취득해 이를 차단했습니다."),
+    DEOP("&c비인가 OP 감지 &7> &f" + Key.VALUE),
     CONFIG_RELOADED("설정 파일을 다시 불러왔습니다."),
     ENABLE_MODULE("모듈 &e" + Key.VALUE + " &f활성화"),
     DISABLE_MODULE("모듈 &e" + Key.VALUE + " &f비활성화"),
