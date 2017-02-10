@@ -37,7 +37,11 @@ public class ModuleManager {
         moduleList.forEach(((module -> {
             sendModuleStateMessage(Lang.ENABLE_MODULE, module);
             module.setEnabled(true);
-            module.onEnable();
+            try {
+                module.onEnable();
+            } catch (Exception ex) {
+                Static.consoleMsg(ex);
+            }
         })));
     }
 
@@ -45,7 +49,11 @@ public class ModuleManager {
         moduleList.forEach((module -> {
             sendModuleStateMessage(Lang.DISABLE_MODULE, module);
             module.setEnabled(false);
-            module.onDisable();
+            try {
+                module.onDisable();
+            } catch (Exception ex) {
+                Static.consoleMsg(ex);
+            }
         }));
     }
 

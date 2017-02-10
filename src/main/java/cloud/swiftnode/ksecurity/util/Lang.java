@@ -89,6 +89,10 @@ public enum Lang {
     FAIL("처리에 실패했습니다."),
     SUCCESS("처리에 성공했습니다."),
     SHVACCINE_DETECT("SHVaccine 플러그인 활성화가 감지되었습니다. K-Security 와 충돌해 문제가 생길 수 있습니다."),
+    DAMAGE_DETECT("&cK-Security 가 변조되었습니다.\n" +
+            "서버를 종료하시려면 예를, 유지하려면 아니오를 눌러주십시오.\n" +
+            "종료 시 플레이어와 월드 데이터를 모두 저장합니다.\n" +
+            "유지 시 변조된 객체를 다시 복구시킵니다."),
     ;
     private final String target;
 

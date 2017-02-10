@@ -1,12 +1,15 @@
 package cloud.swiftnode.ksecurity.module.kgui.abstraction;
 
+import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
 import cloud.swiftnode.ksecurity.util.Static;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogEvent;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -61,8 +64,26 @@ public class KAlert {
         return this;
     }
 
-    public void show() {
+    public KAlert setButton(ButtonType... types) {
+        doAwait(() -> {
+            Alert alert = storage.getAlert();
+            alert.getButtonTypes().clear();
+            alert.getButtonTypes().addAll(types);
+        });
+        return this;
+    }
+
+    public KAlert show() {
         Platform.runLater(() -> doAwait(() -> storage.getAlert().show()));
+        return this;
+    }
+
+    public KAlert showAndWait(StorageCountDownLatch<Optional<ButtonType>> latch) {
+        Platform.runLater(() -> doAwait(() -> {
+            latch.setValue(storage.getAlert().showAndWait());
+            latch.countDown();
+        }));
+        return this;
     }
 
     public Alert build() {

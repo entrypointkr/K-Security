@@ -32,10 +32,10 @@ public abstract class Module implements Named {
         this.enabled = enabled;
     }
 
-    public void onEnable() {
+    public void onEnable() throws Exception {
     }
 
-    public void onDisable() {
+    public void onDisable() throws Exception {
     }
 
     public void onLoad() {

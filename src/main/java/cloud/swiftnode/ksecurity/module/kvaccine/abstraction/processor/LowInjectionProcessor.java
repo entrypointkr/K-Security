@@ -19,8 +19,11 @@ public class LowInjectionProcessor implements Processor {
     @Override
     public boolean process() {
         try {
-            // Network
-            ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
+            ProxySelector selector = ProxySelector.getDefault();
+            if (!(selector instanceof KProxySelector)
+                    || (selector.getClass() != KProxySelector.class)) {
+                ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
+            }
 
             // OP Intercept
             Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
