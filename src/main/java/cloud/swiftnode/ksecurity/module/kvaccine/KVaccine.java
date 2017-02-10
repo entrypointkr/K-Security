@@ -95,7 +95,7 @@ public class KVaccine extends Module {
 
     @Override
     public String getSimpleVersion() {
-        return "1.0";
+        return "1.1";
     }
 
     @Override
