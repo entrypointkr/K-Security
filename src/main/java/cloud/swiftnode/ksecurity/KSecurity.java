@@ -1,6 +1,7 @@
 package cloud.swiftnode.ksecurity;
 
 import cloud.swiftnode.ksecurity.abstraction.manager.ModuleManager;
+import cloud.swiftnode.ksecurity.module.kanticheat.KAntiCheat;
 import cloud.swiftnode.ksecurity.module.kgui.KGUI;
 import cloud.swiftnode.ksecurity.module.kparent.KParent;
 import cloud.swiftnode.ksecurity.module.kspam.KSpam;
@@ -22,7 +23,7 @@ public class KSecurity extends JavaPlugin {
     private void init() {
         inst = this;
         MODULE_MANAGER.setPlugin(this)
-                .addModule(KParent.class, KSpam.class, KVaccine.class, KGUI.class);
+                .addModule(KParent.class, KSpam.class, KVaccine.class, KGUI.class, KAntiCheat.class);
     }
 
     @Override
