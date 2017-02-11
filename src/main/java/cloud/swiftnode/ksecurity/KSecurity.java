@@ -13,8 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class KSecurity extends JavaPlugin {
-    public static Plugin inst;
     private static final ModuleManager MODULE_MANAGER = new ModuleManager();
+    public static Plugin inst;
 
     public KSecurity() {
         init();
