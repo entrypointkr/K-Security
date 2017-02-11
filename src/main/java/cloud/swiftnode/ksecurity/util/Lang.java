@@ -93,6 +93,12 @@ public enum Lang {
             "서버를 종료하시려면 예를, 유지하려면 아니오를 눌러주십시오.\n" +
             "종료 시 플레이어와 월드 데이터를 모두 저장합니다.\n" +
             "유지 시 변조된 객체를 다시 복구시킵니다."),
+    DAMAGE_EXCEPTION_DETECT("&cK-Security 의 변조 여부를 확인 중에 예외가 발생했습니다.\n" +
+            "내용: " + Key.VALUE + "\n" +
+            "외부에서 변조를 시도했을 수 있습니다.\n" +
+            "서버를 종료하시려면 예를, 유지하려면 아니오를 눌러주십시오.\n" +
+            "종료 시 플레이어와 월드 데이터를 모두 저장합니다.\n" +
+            "유지 시 변조된 객체를 다시 복구시킵니다."),
     ;
     private final String target;
 
@@ -223,6 +229,11 @@ public enum Lang {
 
         public String build() {
             return build(true, 0);
+        }
+
+        @Override
+        public MessageBuilder clone() {
+            return new MessageBuilder(target);
         }
     }
 }

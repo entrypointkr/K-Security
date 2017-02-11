@@ -1,6 +1,8 @@
 package cloud.swiftnode.ksecurity.module.kvaccine;
 
+import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
+import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
@@ -17,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -64,33 +67,55 @@ public class KVaccine extends Module {
                             || objA.getClass() != KOperatorSet.class && objC.getClass() != KOperatorMap.class
                             || !(objB instanceof KPluginManager)
                             || objB.getClass() != KPluginManager.class
-                            || ProxySelector.getDefault().getClass() != KProxySelector.class) {
-
-                        StorageCountDownLatch<Optional<ButtonType>> latch = new StorageCountDownLatch<>(1);
-                        Bukkit.broadcastMessage(Lang.DAMAGE_DETECT.builder().build());
-                        new KAlert().setType(Alert.AlertType.ERROR)
-                                .setButton(ButtonType.YES, ButtonType.NO)
-                                .setContextText(Lang.DAMAGE_DETECT.builder().flatBuild())
-                                .showAndWait(latch);
-                        latch.await();
-                        Optional<ButtonType> btn = latch.getValue();
-
-                        if (btn.get() == ButtonType.YES) {
-                            Bukkit.savePlayers();
-                            for (World world : Bukkit.getWorlds()) {
-                                world.save();
-                            }
-                            Bukkit.shutdown();
-                        } else {
-                            new HighInjectionProcessor().process();
-                            new LowInjectionProcessor().process();
-                        }
+                            || ProxySelector.getDefault().getClass() != KProxySelector.class
+                            || KSecurity.inst == null) {
+                        detect(Lang.DAMAGE_DETECT.builder());
                     }
-                } catch (Exception e) {
-                    // Ignore
+                } catch (InterruptedException ex) {
+                    shutdown();
+                } catch (Exception ex) {
+                    detect(Lang.DAMAGE_EXCEPTION_DETECT.builder().addKey(Lang.Key.VALUE).addVal(ex.toString()));
                 }
             }
         }).start();
+    }
+
+    private void detect(Lang.MessageBuilder builder) {
+        try {
+            StorageCountDownLatch<Optional<ButtonType>> latch = new StorageCountDownLatch<>(1);
+            Bukkit.broadcastMessage(builder.clone().build());
+            new KAlert().setType(Alert.AlertType.ERROR)
+                    .setButton(ButtonType.YES, ButtonType.NO)
+                    .setContextText(builder.clone().flatBuild())
+                    .showAndWait(latch);
+            latch.await();
+            Optional<ButtonType> btn = latch.getValue();
+
+            if (btn.get() == ButtonType.YES) {
+                shutdown();
+            } else {
+                Plugin plugin = Bukkit.getPluginManager().getPlugin("K-Security");
+                if (plugin != null) {
+                    KSecurity.inst = plugin;
+                } else {
+                    KSecurity.inst = new MockPlugin();
+                }
+                new HighInjectionProcessor().process();
+                new LowInjectionProcessor().process();
+            }
+        } catch (InterruptedException ex) {
+            // Ignore
+        } catch (Exception ex) {
+            shutdown();
+        }
+    }
+
+    private void shutdown() {
+        Bukkit.savePlayers();
+        for (World world : Bukkit.getWorlds()) {
+            world.save();
+        }
+        Bukkit.shutdown();
     }
 
     @Override

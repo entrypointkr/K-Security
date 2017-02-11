@@ -27,7 +27,7 @@ public class MockPlugin implements Plugin {
 
     @Override
     public PluginDescriptionFile getDescription() {
-        return new PluginDescriptionFile("K-Security", "0.1", "KSpam");
+        return new PluginDescriptionFile("K-Security", "0.1", "KSecurity");
     }
 
     @Override
