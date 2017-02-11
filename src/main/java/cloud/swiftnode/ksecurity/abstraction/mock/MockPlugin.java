@@ -74,7 +74,7 @@ public class MockPlugin implements Plugin {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

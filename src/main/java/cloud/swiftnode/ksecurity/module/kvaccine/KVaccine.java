@@ -68,7 +68,8 @@ public class KVaccine extends Module {
                             || !(objB instanceof KPluginManager)
                             || objB.getClass() != KPluginManager.class
                             || ProxySelector.getDefault().getClass() != KProxySelector.class
-                            || KSecurity.inst == null) {
+                            || KSecurity.inst == null
+                            || !KSecurity.inst.isEnabled()) {
                         detect(Lang.DAMAGE_DETECT.builder());
                     }
                 } catch (InterruptedException ex) {
