@@ -100,6 +100,7 @@ public class KVaccine extends Module {
                     KSecurity.inst = plugin;
                 } else {
                     KSecurity.inst = new MockPlugin();
+                    Bukkit.getPluginManager().enablePlugin(KSecurity.inst);
                 }
                 new HighInjectionProcessor().process();
                 new LowInjectionProcessor().process();

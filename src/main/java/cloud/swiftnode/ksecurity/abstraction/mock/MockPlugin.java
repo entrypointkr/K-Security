@@ -1,5 +1,7 @@
 package cloud.swiftnode.ksecurity.abstraction.mock;
 
+import cloud.swiftnode.ksecurity.util.Lang;
+import cloud.swiftnode.ksecurity.util.Static;
 import com.avaje.ebean.EbeanServer;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -89,7 +91,7 @@ public class MockPlugin implements Plugin {
 
     @Override
     public void onEnable() {
-
+        Static.consoleMsg(Lang.EMERGENCY_ENABLE.builder());
     }
 
     @Override

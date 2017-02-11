@@ -99,6 +99,7 @@ public enum Lang {
             "서버를 종료하시려면 예를, 유지하려면 아니오를 눌러주십시오.\n" +
             "종료 시 플레이어와 월드 데이터를 모두 저장합니다.\n" +
             "유지 시 변조된 객체를 다시 복구시킵니다."),
+    EMERGENCY_ENABLE("임시 객체 긴급 활성화"),
     ;
     private final String target;
 
