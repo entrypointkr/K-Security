@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Junhyeong Lim on 2017-01-31.
  */
-public class KProxySelector extends ProxySelector {
+public final class KProxySelector extends ProxySelector {
     private ProxySelector parent;
 
     public KProxySelector(ProxySelector parent) {

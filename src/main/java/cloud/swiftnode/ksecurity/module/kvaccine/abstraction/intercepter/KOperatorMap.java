@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by Junhyeong Lim on 2017-02-07.
  */
-public class KOperatorMap<V> extends HashMap<String, V> {
+public final class KOperatorMap<V> extends HashMap<String, V> {
     @Override
     public V put(String key, V value) {
         Static.checkOpable(key);

@@ -20,10 +20,14 @@ import javafx.scene.control.ButtonType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.net.ProxySelector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -64,10 +68,8 @@ public class KVaccine extends Module {
                     }
 
                     if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
-                            || objA.getClass() != KOperatorSet.class && objC.getClass() != KOperatorMap.class
                             || !(objB instanceof KPluginManager)
-                            || objB.getClass() != KPluginManager.class
-                            || ProxySelector.getDefault().getClass() != KProxySelector.class
+                            || !(ProxySelector.getDefault() instanceof KProxySelector)
                             || KSecurity.inst == null
                             || !KSecurity.inst.isEnabled()) {
                         detect(Lang.DAMAGE_DETECT.builder());
@@ -92,18 +94,27 @@ public class KVaccine extends Module {
             latch.await();
             Optional<ButtonType> btn = latch.getValue();
 
-            if (btn.get() == ButtonType.YES) {
+            if (btn.isPresent() && btn.get() == ButtonType.YES) {
                 shutdown();
             } else {
-                Plugin plugin = Bukkit.getPluginManager().getPlugin("K-Security");
-                if (plugin != null) {
-                    KSecurity.inst = plugin;
-                } else {
-                    KSecurity.inst = new MockPlugin();
-                    Bukkit.getPluginManager().enablePlugin(KSecurity.inst);
-                }
                 new HighInjectionProcessor().process();
                 new LowInjectionProcessor().process();
+                PluginManager manager = Bukkit.getPluginManager();
+                Plugin plugin = manager.getPlugin("K-Security");
+                List<Plugin> plugins = new ArrayList<>(Arrays.asList(Bukkit.getPluginManager().getPlugins()));
+                if (plugin == null) {
+                    plugin = new MockPlugin();
+                    plugin.onEnable();
+                }
+                if (!plugins.contains(plugin)) {
+                    if (manager instanceof KPluginManager) {
+                        ((KPluginManager) manager).addPlugin(plugin);
+                    }
+                }
+                if (!plugin.isEnabled()) {
+                    Reflections.setDecField(JavaPlugin.class, plugin, "isEnabled", true);
+                }
+                KSecurity.inst = plugin;
             }
         } catch (InterruptedException ex) {
             // Ignore

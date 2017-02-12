@@ -43,6 +43,10 @@ public class Reflections {
         setField(inst.getClass(), inst, fieldName, val, pub);
     }
 
+    public static void setField(Class cls, Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
+        getField(cls, fieldName, true).set(inst, val);
+    }
+
     public static void setDecField(Class cls, Object inst, String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
         setField(cls, inst, fieldName, val, false);
     }

@@ -6,8 +6,12 @@ import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
 import javafx.scene.control.Alert;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -23,7 +27,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.UnknownDependencyException;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,39 +40,130 @@ import java.util.regex.Pattern;
 /**
  * Created by Junhyeong Lim on 2017-01-25.
  */
-public class KPluginManager implements PluginManager {
+public final class KPluginManager implements PluginManager {
     private PluginManager parent;
     /**
      * 리플렉션으로 접근하는 플러그인을 지원하기 위한 필드
      * 문제 발생 가능성 있음
      */
     private Server server;
-    private Map<Pattern, PluginLoader> fileAssociations = new HashMap<Pattern, PluginLoader>();
+    private Map<Pattern, PluginLoader> fileAssociations = new HashMap<>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
     private Map<String, Plugin> lookupNames = new HashMap<String, Plugin>();
     private static File updateDirectory = null;
     private SimpleCommandMap commandMap;
-    private Map<String, Permission> permissions = new HashMap<String, Permission>();
-    private Map<Boolean, Set<Permission>> defaultPerms = new LinkedHashMap<Boolean, Set<Permission>>();
-    private Map<String, Map<Permissible, Boolean>> permSubs = new HashMap<String, Map<Permissible, Boolean>>();
-    private Map<Boolean, Map<Permissible, Boolean>> defSubs = new HashMap<Boolean, Map<Permissible, Boolean>>();
+    private Map<String, Permission> permissions = new HashMap<>();
+    private Map<Boolean, Set<Permission>> defaultPerms = new LinkedHashMap<>();
+    private Map<String, Map<Permissible, Boolean>> permSubs = new HashMap<>();
+    private Map<Boolean, Map<Permissible, Boolean>> defSubs = new HashMap<>();
     private boolean useTimings = false;
 
     @SuppressWarnings("unchecked")
     public KPluginManager(PluginManager parent) {
+        ProxyBuilder pxBuilder = new ProxyBuilder();
+        KMethodIntercepter.KMethodIntercepterBuilder icBuilder = new KMethodIntercepter.KMethodIntercepterBuilder(parent);
+
         this.parent = parent;
+
+        List<String> escapeList = new ArrayList<>(Arrays.asList("server", "parent", "useTimings",
+                "updateDirectory", "commandMap"));
         try {
+            for (Field field : getClass().getDeclaredFields()) {
+                try {
+                    if (escapeList.contains(field.getName())) continue;
+                    field.setAccessible(true);
+                    Object obj = Reflections.getDecFieldObj(parent, field.getName());
+                    pxBuilder.setCallback(icBuilder.build(field.getName()));
+                    Class<?>[] interfaces = obj.getClass().getInterfaces();
+                    if (interfaces != null && interfaces.length > 0) {
+                        pxBuilder.setInterfaces(obj.getClass().getInterfaces());
+                    }
+                    field.set(this, pxBuilder.build());
+                } catch (Exception ex) {
+                    // Ignore
+                }
+            }
+
             server = Bukkit.getServer();
-            plugins = (List<Plugin>) Reflections.getDecFieldObj(parent, "plugins");
-            lookupNames = (Map<String, Plugin>) Reflections.getDecFieldObj(parent, "lookupNames");
-            updateDirectory = (File) Reflections.getDecFieldObj(parent.getClass(), null, "updateDirectory");
-            commandMap = (SimpleCommandMap) Reflections.getDecFieldObj(parent, "commandMap");
-            defaultPerms = (Map) Reflections.getDecFieldObj(parent, "defaultPerms");
-            permSubs = (Map) Reflections.getDecFieldObj(parent, "permSubs");
-            defSubs = (Map) Reflections.getDecFieldObj(parent, "defSubs");
             useTimings = parent.useTimings();
+            updateDirectory = (File) Reflections.getDecFieldObj(parent, "updateDirectory");
+
+            pxBuilder.setCallback(icBuilder.build("commandMap"));
+            pxBuilder.setInterfaces(CommandMap.class);
+            pxBuilder.setSuperClass(SimpleCommandMap.class);
+            pxBuilder.setArgumentTypes(Server.class);
+            pxBuilder.setArguments(server);
+            commandMap = pxBuilder.build();
+
         } catch (Exception e) {
-            commandMap = new SimpleCommandMap(Bukkit.getServer());
+            // Ignore
+        }
+    }
+
+    class ProxyBuilder {
+        private Class<?> superCls;
+        private Class[] interfaces;
+        private Callback callback;
+        private Class[] argumentTypes;
+        private Object[] arguments;
+
+        public ProxyBuilder setSuperClass(Class<?> superCls) {
+            this.superCls = superCls;
+            return this;
+        }
+
+        public ProxyBuilder setInterfaces(Class<?>... interfaces) {
+            this.interfaces = interfaces;
+            return this;
+        }
+
+        public ProxyBuilder setCallback(Callback callback) {
+            this.callback = callback;
+            return this;
+        }
+
+        public ProxyBuilder setArgumentTypes(Class<?>... argumentTypes) {
+            this.argumentTypes = argumentTypes;
+            return this;
+        }
+
+        public ProxyBuilder setArguments(Object... arguments) {
+            this.arguments = arguments;
+            return this;
+        }
+
+        public <T> T build() {
+            Enhancer enhancer = new Enhancer();
+            enhancer.setClassLoader(getClass().getClassLoader());
+            if (superCls != null) {
+                enhancer.setSuperclass(superCls);
+            }
+            if (interfaces != null) {
+                enhancer.setInterfaces(interfaces);
+            }
+            if (callback != null) {
+                enhancer.setCallback(callback);
+            }
+
+            T ret;
+            if (argumentTypes != null && arguments != null) {
+                ret = (T) enhancer.create(argumentTypes, arguments);
+            } else {
+                ret = (T) enhancer.create();
+            }
+            flush();
+            return ret;
+        }
+
+        private void flush() {
+            for (Field field : getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                try {
+                    field.set(this, null);
+                } catch (Exception ex) {
+                    // Ignore
+                }
+            }
         }
     }
 
@@ -230,5 +327,11 @@ public class KPluginManager implements PluginManager {
     @Override
     public boolean useTimings() {
         return parent.useTimings();
+    }
+
+    public void addPlugin(Plugin plugin) throws NoSuchFieldException, IllegalAccessException {
+        List<Plugin> plugins = (List<Plugin>) Reflections.getDecFieldObj(parent, "plugins");
+        plugins.add(plugin);
+        Reflections.setDecField(parent, "plugins", plugins);
     }
 }
