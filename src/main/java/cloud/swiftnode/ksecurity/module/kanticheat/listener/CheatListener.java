@@ -1,6 +1,10 @@
 package cloud.swiftnode.ksecurity.module.kanticheat.listener;
 
 import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerUseCheatEvent;
+import cloud.swiftnode.ksecurity.util.Config;
+import cloud.swiftnode.ksecurity.util.Lang;
+import cloud.swiftnode.ksecurity.util.Static;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -10,6 +14,19 @@ import org.bukkit.event.Listener;
 public class CheatListener implements Listener {
     @EventHandler
     public void onBug(PlayerUseCheatEvent e) {
-        e.setCancelled(e.getType().isDeny());
+        if (e.getType().isDeny()) {
+            e.setCancelled(true);
+            if (Config.isAcAlert()) {
+                for (Player player : Static.getOnlinePlayers()) {
+                    if (!player.isOp()) {
+                        continue;
+                    }
+                    player.sendMessage(Lang.USE_CHEAT.builder()
+                            .addKey(Lang.Key.PLAYER_NAME, Lang.Key.VALUE)
+                            .addVal(e.getPlayer().getName(), e.getType().name())
+                            .build());
+                }
+            }
+        }
     }
 }

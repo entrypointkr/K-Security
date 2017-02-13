@@ -25,8 +25,8 @@ public class PlayerVaultListener implements Listener {
         try {
             Method method = parent.getClass().getMethod("onTeleport", PlayerTeleportEvent.class);
             method.invoke(parent, e);
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        } catch (Exception ex) {
+            // Ignore
         }
     }
 }

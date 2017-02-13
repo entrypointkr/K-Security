@@ -27,6 +27,7 @@ public class Config {
     public static final String RPGITEM = ANTICHEAT_DOT + "rpgitem";
     public static final String FREECAM = ANTICHEAT_DOT + "freecam";
     public static final String PLAYER_VAULT = ANTICHEAT_DOT + "player-vault";
+    public static final String AC_ALERT = ANTICHEAT_DOT + "alert";
 
     static {
         Static.getConfig().options().copyDefaults(true);
@@ -130,6 +131,10 @@ public class Config {
 
     public static boolean isPlayerVault() {
         return getBoolean(PLAYER_VAULT, true);
+    }
+
+    public static boolean isAcAlert() {
+        return getBoolean(AC_ALERT, true);
     }
 
     public static boolean getBoolean(String key, boolean def) {

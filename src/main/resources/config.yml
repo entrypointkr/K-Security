@@ -17,3 +17,12 @@ op-list:
 # 네트워크 모니터링 예외
 net-escape-list:
   - K-Security
+# 취약점 방지
+anticheat:
+  shopkeeper: true
+  crash-color: true
+  variable-trigger: true
+  rpgitem: true
+  freecam: true
+  player-vault: true
+  alert: true

@@ -80,7 +80,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onClick(InventoryClickEvent e) {
         HumanEntity human = e.getWhoClicked();
         if (human.getInventory().getType() == InventoryType.MERCHANT
@@ -94,7 +94,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent e) {
         Block block = e.getBlock();
         if (block != null && block.getState() instanceof InventoryHolder) {
@@ -108,7 +108,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent e) {
         String msg = e.getMessage();
         if (msg.contains("&k") || msg.contains("§k")) {

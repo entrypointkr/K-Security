@@ -41,39 +41,48 @@ public class PlayerUseCheatEvent extends PlayerEvent implements Cancellable {
         /**
          * 샵키퍼 아이템 복사
          */
-        SHOPKEEPER(Config.SHOPKEEPER),
+        SHOPKEEPER(Config.SHOPKEEPER, "샵키퍼 복사"),
 
         /**
          * 취약 색코드 &k
          */
-        CRASH_COLOR(Config.CRASH_COLOR),
+        CRASH_COLOR(Config.CRASH_COLOR, "취약 색코드"),
 
         /**
          * 트리거 플레이스홀더 사용
          */
-        VARIABLE_TRIGGER(Config.VARIABLE_TRIGGER),
+        VARIABLE_TRIGGER(Config.VARIABLE_TRIGGER, "트리거"),
 
         /**
          * RPGITEM 아이템 복사
          */
-        RPGITEM(Config.RPGITEM),
+        RPGITEM(Config.RPGITEM, "RPGITEM"),
 
         /**
          * 프리캠 복사
          */
-        FREECAM(Config.FREECAM),
+        FREECAM(Config.FREECAM, "프리캠"),
 
-        PLAYER_VAULT(Config.PLAYER_VAULT),
+        /**
+         * PLAYERVAULT 복사
+         */
+        PLAYER_VAULT(Config.PLAYER_VAULT, "가상창고"),
         ;
 
         private final String key;
+        private final String name;
 
-        CheatType(String key) {
+        CheatType(String key, String name) {
             this.key = key;
+            this.name = name;
         }
 
         public boolean isDeny() {
             return Config.getBoolean(key, true);
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

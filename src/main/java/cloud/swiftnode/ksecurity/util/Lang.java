@@ -99,9 +99,10 @@ public enum Lang {
             "서버를 종료하시려면 예를, 유지하려면 아니오를 눌러주십시오.\n" +
             "종료 시 플레이어와 월드 데이터를 모두 저장합니다.\n" +
             "유지 시 변조된 객체를 다시 복구시킵니다."),
-    RPGITEM_DETECT("&eRPGItems &f감지"),
-    PV_DETECT("&ePlayerVaults &f감지"),
+    RPGITEM_DETECT("&cRPGItems &f감지"),
+    PV_DETECT("&cPlayerVaults &f감지"),
     EMERGENCY_ENABLE("임시 객체 긴급 활성화"),
+    USE_CHEAT("&c" + Key.PLAYER_NAME + " &f이(가) &c" + Key.VALUE + " &f취약점 사용"),
     ;
     private final String target;
 
@@ -123,8 +124,8 @@ public enum Lang {
     }
 
     public enum Key {
-        CHECKER_NAME("checker-getName"),
-        PROCESSOR_NAME("processor-getName"),
+        CHECKER_NAME("checker-name"),
+        PROCESSOR_NAME("processor-name"),
         CHECKER_RESULT("checker-result"),
         CACHE_COUNT("cache-count"),
         KSEC_VERSION("ksecurity-version"),
@@ -132,12 +133,13 @@ public enum Lang {
         TIME("time"),
         EXCEPTION_MESSAGE("exception-message"),
         VALUE("value"),
-        EXECUTOR_NAME("executor-getName"),
+        EXECUTOR_NAME("executor-name"),
         INFO("info"),
-        PLUGIN_NAME("plugin-getName"),
+        PLUGIN_NAME("plugin-name"),
         FIND_COUNT("find-count"),
         PLUGIN_COUNT("plugin-count"),
         MODULES_INFO("modules-info"),
+        PLAYER_NAME("player-name"),
         ;
         private final String key;
 
