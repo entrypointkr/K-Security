@@ -15,7 +15,7 @@ Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
 
 기능
 ----
-### 봇 테러 방지
+### 봇 테러 방지 
 
 [![ScreenShot](https://raw.github.com/EntryPointKR/K-Security/master/pic/fakevideo.png)](https://www.youtube.com/embed/OGWxUQdQXDk)
 
