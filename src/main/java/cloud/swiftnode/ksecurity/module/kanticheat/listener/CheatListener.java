@@ -1,6 +1,6 @@
 package cloud.swiftnode.ksecurity.module.kanticheat.listener;
 
-import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerCheatEvent;
+import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerUseCheatEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -9,9 +9,7 @@ import org.bukkit.event.Listener;
  */
 public class CheatListener implements Listener {
     @EventHandler
-    public void onBug(PlayerCheatEvent e) {
-        if (e.getType() == PlayerCheatEvent.CheatType.SHOPKEEPER) {
-            // TODO: Shopkeeper, Version check
-        }
+    public void onBug(PlayerUseCheatEvent e) {
+        e.setCancelled(e.getType().isDeny());
     }
 }

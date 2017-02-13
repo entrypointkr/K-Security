@@ -20,6 +20,14 @@ public class Config {
     public static final String OP_LIST = "op-list";
     public static final String NET_ESCAPE_LIST = "net-escape-list";
 
+    public static final String ANTICHEAT_DOT = "anticheat.";
+    public static final String SHOPKEEPER = ANTICHEAT_DOT + "shopkeeper";
+    public static final String CRASH_COLOR = ANTICHEAT_DOT + "crash-color";
+    public static final String VARIABLE_TRIGGER = ANTICHEAT_DOT + "variable-trigger";
+    public static final String RPGITEM = ANTICHEAT_DOT + "rpgitem";
+    public static final String FREECAM = ANTICHEAT_DOT + "freecam";
+    public static final String PLAYER_VAULT = ANTICHEAT_DOT + "player-vault";
+
     static {
         Static.getConfig().options().copyDefaults(true);
     }
@@ -100,15 +108,39 @@ public class Config {
         StaticStorage.NET_ESCAPE_SET.addAll(Config.getNetEscapeList());
     }
 
-    private static boolean getBoolean(String key, boolean def) {
+    public static boolean isShopkeeper() {
+        return getBoolean(SHOPKEEPER, true);
+    }
+
+    public static boolean isCrashColor() {
+        return getBoolean(CRASH_COLOR, true);
+    }
+
+    public static boolean isVariableTrigger() {
+        return getBoolean(VARIABLE_TRIGGER, true);
+    }
+
+    public static boolean isRpgItem() {
+        return getBoolean(RPGITEM, true);
+    }
+
+    public static boolean isFreeCam() {
+        return getBoolean(FREECAM, true);
+    }
+
+    public static boolean isPlayerVault() {
+        return getBoolean(PLAYER_VAULT, true);
+    }
+
+    public static boolean getBoolean(String key, boolean def) {
         return Static.getConfig().getBoolean(key, def);
     }
 
-    private static int getInt(String key, int def) {
+    public static int getInt(String key, int def) {
         return Static.getConfig().getInt(key, def);
     }
 
-    private static List<String> getStringList(String key, List<String> def) {
+    public static List<String> getStringList(String key, List<String> def) {
         List<String> strList = Static.getConfig().getStringList(key);
         return strList != null ? strList : def;
     }

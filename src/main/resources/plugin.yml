@@ -2,6 +2,14 @@ main: @mainClass@
 name: @pluginName@
 version: @version@
 author: @author@
+softdepend: [RPG Items, PlayerVaults]
 commands:
   ks:
     description: @pluginName@ main command.
+anticheat:
+  shopkeeper: true
+  crash-color: true
+  variable-trigger: true
+  rpgitem: true
+  freecam: true
+  player-vault: true
