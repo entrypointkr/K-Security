@@ -158,6 +158,7 @@ public enum Lang {
         private List<Object> valList = new ArrayList<>();
         private String target;
         private String prefix;
+        private int space = 0;
 
         MessageBuilder(String target) {
             this.target = target;
@@ -190,16 +191,7 @@ public enum Lang {
         }
 
         public MessageBuilder addSpace(int how) {
-            String space = "";
-            for (int i = 0; i < how; i++) {
-                space += " ";
-            }
-            String[] strs = target.split("\n");
-            for (int i = 0; i < strs.length; i++) {
-                String str = strs[i];
-                strs[i] = space + str;
-            }
-            target = StringUtils.join(strs, "\n");
+            this.space += how;
             return this;
         }
 
@@ -212,9 +204,16 @@ public enum Lang {
             if (prefix) {
                 prefix();
             }
-            if (this.prefix != null) {
-                target = prefix + target;
+            if (space > 0) {
+                addSpace(space);
             }
+
+            // Prefix
+            if (this.prefix != null) {
+                target = this.prefix + target;
+            }
+
+            // Set
             for (int i = 0; i < keyList.size(); i++) {
                 try {
                     String key = String.valueOf(keyList.get(i));
@@ -227,9 +226,20 @@ public enum Lang {
                     throw new RuntimeException(keyList + ", " + valList);
                 }
             }
-            if (space > 0) {
-                addSpace(space);
+
+            // Space
+            String temp = "";
+            for (int i = 0; i < this.space; i++) {
+                temp += " ";
             }
+            String[] strs = target.split("\n");
+            for (int i = 0; i < strs.length; i++) {
+                String str = strs[i];
+                strs[i] = temp + str;
+            }
+            target = StringUtils.join(strs, "\n");
+
+            // Colorize
             return colorize(target);
         }
 
