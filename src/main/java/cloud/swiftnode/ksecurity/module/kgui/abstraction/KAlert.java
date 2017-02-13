@@ -10,21 +10,17 @@ import javafx.scene.control.DialogEvent;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Junhyeong Lim on 2017-02-04.
  */
-public class KAlert {
-    private final CountDownLatch latch = new CountDownLatch(1);
-    private final AlertStorage storage = new AlertStorage();
-
+public class KAlert extends Waitable<Alert> {
     public KAlert() {
         final Runnable init = () -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("K-Security");
             alert.setHeaderText("K-Security");
-            storage.setAlert(alert);
+            latch.setValue(alert);
         };
         if (Platform.isFxApplicationThread()) {
             init.run();
@@ -40,33 +36,33 @@ public class KAlert {
     }
 
     public KAlert setType(Alert.AlertType type) {
-        doAwait(() -> storage.getAlert().setAlertType(type));
+        doAwait(() -> latch.getValue().setAlertType(type));
         return this;
     }
 
     public KAlert setHeaderText(String s) {
-        doAwait(() -> storage.getAlert().setHeaderText(s));
+        doAwait(() -> latch.getValue().setHeaderText(s));
         return this;
     }
 
     public KAlert setContextText(String... strs) {
-        doAwait(() -> storage.getAlert().setContentText(StringUtils.join(strs, "\n")));
+        doAwait(() -> latch.getValue().setContentText(StringUtils.join(strs, "\n")));
         return this;
     }
 
     public KAlert setTitle(String s) {
-        doAwait(() -> storage.getAlert().setTitle(s));
+        doAwait(() -> latch.getValue().setTitle(s));
         return this;
     }
 
     public KAlert setOnCloseRequest(EventHandler<DialogEvent> val) {
-        doAwait(() -> storage.getAlert().setOnCloseRequest(val));
+        doAwait(() -> latch.getValue().setOnCloseRequest(val));
         return this;
     }
 
     public KAlert setButton(ButtonType... types) {
         doAwait(() -> {
-            Alert alert = storage.getAlert();
+            Alert alert = latch.getValue();
             alert.getButtonTypes().clear();
             alert.getButtonTypes().addAll(types);
         });
@@ -74,13 +70,13 @@ public class KAlert {
     }
 
     public KAlert show() {
-        Platform.runLater(() -> doAwait(() -> storage.getAlert().show()));
+        Platform.runLater(() -> doAwait(() -> latch.getValue().show()));
         return this;
     }
 
     public KAlert showAndWait(StorageCountDownLatch<Optional<ButtonType>> latch) {
         Platform.runLater(() -> doAwait(() -> {
-            latch.setValue(storage.getAlert().showAndWait());
+            latch.setValue(this.latch.getValue().showAndWait());
             latch.countDown();
         }));
         return this;
@@ -89,37 +85,10 @@ public class KAlert {
     public Alert build() {
         try {
             latch.await();
-            return storage.getAlert();
+            return latch.getValue();
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }
         return null;
-    }
-
-    private void doAwait(ExRunnable runnable) {
-        try {
-            if (!Platform.isFxApplicationThread()) {
-                latch.await();
-            }
-            runnable.run();
-        } catch (Exception e) {
-            Static.consoleMsg(e);
-        }
-    }
-
-    class AlertStorage {
-        private Alert alert;
-
-        public Alert getAlert() {
-            return alert;
-        }
-
-        public void setAlert(Alert alert) {
-            this.alert = alert;
-        }
-    }
-
-    interface ExRunnable {
-        void run() throws Exception;
     }
 }

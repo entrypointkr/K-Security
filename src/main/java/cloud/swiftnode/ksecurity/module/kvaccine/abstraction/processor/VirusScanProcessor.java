@@ -2,12 +2,12 @@ package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.KTray;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.asm.KClassVisitor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
-import javafx.scene.control.Alert;
+import com.github.plushaze.traynotification.notification.Notifications;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.objectweb.asm.ClassReader;
@@ -70,14 +70,15 @@ public class VirusScanProcessor implements Processor {
         if (detectCount > 0) {
             coloredCount = "&c" + detectCount + "&f";
             Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder().build());
-            new KAlert().setType(Alert.AlertType.ERROR)
-                    .setTitle("K-Security 간편 검사")
-                    .setHeaderText("K-Security 간편 검사")
-                    .setContextText(Lang.SCAN_WARNING.builder().flatBuild())
-                    .show();
+            new KTray().setMessage(Lang.SCAN_WARNING.builder().flatBuild())
+                    .setNotify(Notifications.ERROR)
+                    .showAndDismiss(5);
         } else {
             Bukkit.broadcastMessage(Lang.SCAN_SAFE.builder()
                     .build());
+            new KTray().setMessage(Lang.SCAN_SAFE.builder().flatBuild())
+                    .setNotify(Notifications.SUCCESS)
+                    .showAndDismiss(5);
         }
 
         Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()

@@ -157,6 +157,7 @@ public enum Lang {
         private List<Key> keyList = new ArrayList<>();
         private List<Object> valList = new ArrayList<>();
         private String target;
+        private String prefix;
 
         MessageBuilder(String target) {
             this.target = target;
@@ -179,7 +180,7 @@ public enum Lang {
         }
 
         public MessageBuilder prefix(String prefix) {
-            target = prefix + target;
+            this.prefix = prefix;
             return this;
         }
 
@@ -207,8 +208,12 @@ public enum Lang {
         }
 
         public String build(boolean prefix, int space) {
+            String target = this.target;
             if (prefix) {
                 prefix();
+            }
+            if (this.prefix != null) {
+                target = prefix + target;
             }
             for (int i = 0; i < keyList.size(); i++) {
                 try {
@@ -234,11 +239,6 @@ public enum Lang {
 
         public String build() {
             return build(true, 0);
-        }
-
-        @Override
-        public MessageBuilder clone() {
-            return new MessageBuilder(target);
         }
     }
 }
