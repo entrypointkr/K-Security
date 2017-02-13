@@ -7,6 +7,12 @@
 
 거의 모든 처리가 비동기로 진행되어 매우 가볍습니다.
 
+다운로드
+----
+공식 버전: https://github.com/EntryPointKR/K-Security/releases/latest
+
+Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
+
 기능
 ----
 ### 봇 테러 방지
