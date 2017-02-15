@@ -20,7 +20,6 @@ apply plugin: "com.github.johnrengelman.shadow"
 test.testLogging.showStandardStreams = true
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 compileJava.dependsOn clean
-compileJava.dependsOn("wrapper")
 
 sourceCompatibility = 1.8
 
