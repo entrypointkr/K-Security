@@ -8,6 +8,7 @@ import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -29,8 +30,6 @@ public class Controller implements Initializable {
     private TableView<LogItem> view;
     @FXML
     private TableColumn conColumn;
-    @FXML
-    private TableColumn timeColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,9 +39,13 @@ public class Controller implements Initializable {
             resizeColumn(view, conColumn);
         }));
         view.getItems().addListener((ListChangeListener<LogItem>) c -> {
-            if (view.getItems().size() > 500) {
-                view.getItems().remove(view.getItems().get(0));
-            }
+            Platform.runLater(() -> {
+                ObservableList<LogItem> list = view.getItems();
+                if (list.size() > 500) {
+                    list.remove(list.get(0));
+                }
+                view.scrollTo(list.size() - 1);
+            });
         });
         Bukkit.getPluginManager().registerEvents(new LogListener(view), KSecurity.inst);
     }
