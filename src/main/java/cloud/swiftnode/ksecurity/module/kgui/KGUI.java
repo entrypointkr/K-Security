@@ -13,7 +13,7 @@ public class KGUI extends Module {
     }
 
     @Override
-    public void onLoad() {
+    public void onEnable() throws Exception {
         new Thread(KFX::start, "K-GUI Thread").start();
     }
 
