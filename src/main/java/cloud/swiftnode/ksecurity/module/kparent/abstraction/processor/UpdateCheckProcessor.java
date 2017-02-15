@@ -1,7 +1,7 @@
 package cloud.swiftnode.ksecurity.module.kparent.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.abstraction.Processor;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;

@@ -1,7 +1,6 @@
 package cloud.swiftnode.ksecurity.module.kgui;
 
 import cloud.swiftnode.ksecurity.module.Module;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KFX;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**

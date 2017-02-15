@@ -1,5 +1,6 @@
-package cloud.swiftnode.ksecurity.module.kgui.abstraction;
+package cloud.swiftnode.ksecurity.module.kgui.abstraction.gui;
 
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.Waitable;
 import com.github.plushaze.traynotification.animations.Animation;
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notification;
@@ -18,7 +19,7 @@ public class KTray extends Waitable<TrayNotification> {
             TrayNotification tray = new TrayNotification(Notifications.INFORMATION);
             tray.setTitle("K-Security");
             tray.setAnimation(Animations.SLIDE);
-            latch.setValue(tray);
+            storageLatch.setValue(tray);
         };
         if (Platform.isFxApplicationThread()) {
             init.run();
@@ -28,33 +29,33 @@ public class KTray extends Waitable<TrayNotification> {
             try {
                 init.run();
             } finally {
-                latch.countDown();
+                storageLatch.countDown();
             }
         });
     }
 
     public KTray setNotify(Notification notify) {
-        doAwait(() -> latch.getValue().setNotification(notify));
+        doAwait(() -> storageLatch.getValue().setNotification(notify));
         return this;
     }
 
     public KTray setTitle(String title) {
-        doAwait(() -> latch.getValue().setTitle(title));
+        doAwait(() -> storageLatch.getValue().setTitle(title));
         return this;
     }
 
     public KTray setMessage(String msg) {
-        doAwait(() -> latch.getValue().setMessage(msg));
+        doAwait(() -> storageLatch.getValue().setMessage(msg));
         return this;
     }
 
     public KTray setAnimation(Animation animation) {
-        doAwait(() -> latch.getValue().setAnimation(animation));
+        doAwait(() -> storageLatch.getValue().setAnimation(animation));
         return this;
     }
 
     public KTray showAndDismiss(int sec) {
-        doAwait(() -> latch.getValue().showAndDismiss(Duration.seconds(sec)));
+        doAwait(() -> storageLatch.getValue().showAndDismiss(Duration.seconds(sec)));
         return this;
     }
 }

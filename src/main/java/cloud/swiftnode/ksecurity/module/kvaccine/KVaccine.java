@@ -4,7 +4,7 @@ import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.module.Module;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KPluginManager;

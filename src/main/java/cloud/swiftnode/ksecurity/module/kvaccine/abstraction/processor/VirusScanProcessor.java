@@ -2,7 +2,7 @@ package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KTray;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KTray;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.asm.KClassVisitor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
@@ -70,7 +70,7 @@ public class VirusScanProcessor implements Processor {
         if (detectCount > 0) {
             coloredCount = "&c" + detectCount + "&f";
             Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder().build());
-            new KTray().setMessage(Lang.SCAN_WARNING.builder().flatBuild())
+            new KTray().setMessage(Lang.SCAN_WARNING2.builder().flatBuild())
                     .setNotify(Notifications.ERROR)
                     .showAndDismiss(5);
         } else {

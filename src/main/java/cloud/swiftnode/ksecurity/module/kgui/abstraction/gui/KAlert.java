@@ -1,6 +1,7 @@
-package cloud.swiftnode.ksecurity.module.kgui.abstraction;
+package cloud.swiftnode.ksecurity.module.kgui.abstraction.gui;
 
 import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.Waitable;
 import cloud.swiftnode.ksecurity.util.Static;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -20,7 +21,7 @@ public class KAlert extends Waitable<Alert> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("K-Security");
             alert.setHeaderText("K-Security");
-            latch.setValue(alert);
+            storageLatch.setValue(alert);
         };
         if (Platform.isFxApplicationThread()) {
             init.run();
@@ -30,39 +31,39 @@ public class KAlert extends Waitable<Alert> {
             try {
                 init.run();
             } finally {
-                latch.countDown();
+                storageLatch.countDown();
             }
         });
     }
 
     public KAlert setType(Alert.AlertType type) {
-        doAwait(() -> latch.getValue().setAlertType(type));
+        doAwait(() -> storageLatch.getValue().setAlertType(type));
         return this;
     }
 
     public KAlert setHeaderText(String s) {
-        doAwait(() -> latch.getValue().setHeaderText(s));
+        doAwait(() -> storageLatch.getValue().setHeaderText(s));
         return this;
     }
 
     public KAlert setContextText(String... strs) {
-        doAwait(() -> latch.getValue().setContentText(StringUtils.join(strs, "\n")));
+        doAwait(() -> storageLatch.getValue().setContentText(StringUtils.join(strs, "\n")));
         return this;
     }
 
     public KAlert setTitle(String s) {
-        doAwait(() -> latch.getValue().setTitle(s));
+        doAwait(() -> storageLatch.getValue().setTitle(s));
         return this;
     }
 
     public KAlert setOnCloseRequest(EventHandler<DialogEvent> val) {
-        doAwait(() -> latch.getValue().setOnCloseRequest(val));
+        doAwait(() -> storageLatch.getValue().setOnCloseRequest(val));
         return this;
     }
 
     public KAlert setButton(ButtonType... types) {
         doAwait(() -> {
-            Alert alert = latch.getValue();
+            Alert alert = storageLatch.getValue();
             alert.getButtonTypes().clear();
             alert.getButtonTypes().addAll(types);
         });
@@ -70,13 +71,13 @@ public class KAlert extends Waitable<Alert> {
     }
 
     public KAlert show() {
-        Platform.runLater(() -> doAwait(() -> latch.getValue().show()));
+        Platform.runLater(() -> doAwait(() -> storageLatch.getValue().show()));
         return this;
     }
 
     public KAlert showAndWait(StorageCountDownLatch<Optional<ButtonType>> latch) {
         Platform.runLater(() -> doAwait(() -> {
-            latch.setValue(this.latch.getValue().showAndWait());
+            latch.setValue(this.storageLatch.getValue().showAndWait());
             latch.countDown();
         }));
         return this;
@@ -84,8 +85,8 @@ public class KAlert extends Waitable<Alert> {
 
     public Alert build() {
         try {
-            latch.await();
-            return latch.getValue();
+            storageLatch.await();
+            return storageLatch.getValue();
         } catch (Exception ex) {
             Static.consoleMsg(ex);
         }

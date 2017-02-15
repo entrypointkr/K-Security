@@ -1,19 +1,20 @@
 package cloud.swiftnode.ksecurity.module.kgui.abstraction;
 
 import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
 import cloud.swiftnode.ksecurity.util.Static;
 import javafx.application.Platform;
 
 /**
  * Created by Junhyeong Lim on 2017-02-13.
  */
-public class Waitable<T> {
-    protected StorageCountDownLatch<T> latch = new StorageCountDownLatch<>(1);
+public abstract class Waitable<T> {
+    protected StorageCountDownLatch<T> storageLatch = new StorageCountDownLatch<>(1);
 
     protected void doAwait(KAlert.ExRunnable runnable) {
         try {
             if (!Platform.isFxApplicationThread()) {
-                latch.await();
+                storageLatch.await();
                 Platform.runLater(runnable);
             } else {
                 runnable.run();
@@ -23,7 +24,7 @@ public class Waitable<T> {
         }
     }
 
-    interface ExRunnable extends Runnable {
+    protected interface ExRunnable extends Runnable {
         void runEx() throws Exception;
 
         default void run() {

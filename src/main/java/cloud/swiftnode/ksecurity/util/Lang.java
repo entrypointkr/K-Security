@@ -61,6 +61,7 @@ public enum Lang {
     SOCKET_DETECTED("&e" + Key.PLUGIN_NAME + " &f에서 &c소켓 코드&f가 감지되었습니다."),
     SCAN_RESULT("총 &e" + Key.PLUGIN_COUNT + " &f개의 플러그인 검사 완료 &e(" + Key.TIME + "ms)&f, 의심 플러그인 수: " + Key.FIND_COUNT),
     SCAN_WARNING("소켓 코드가 감지된 플러그인들을 정상적인 경로(bukkit.org, spigotmc.org) 에서 다운로드 받았는지 확인하십시오."),
+    SCAN_WARNING2("위험 요소가 발견되었습니다"),
     SCAN_SAFE("위협 요소가 감지되지 않았습니다."),
     SCAN_START("플러그인 간편 검사가 시작됩니다."),
     TRY_NETWORKING("&e" + Key.PLUGIN_NAME + " &7> &f" + Key.VALUE),

@@ -1,7 +1,7 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
 import cloud.swiftnode.ksecurity.KSecurity;
-import cloud.swiftnode.ksecurity.module.kgui.abstraction.KAlert;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;

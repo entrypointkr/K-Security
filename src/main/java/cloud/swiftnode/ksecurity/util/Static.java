@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
@@ -220,5 +221,10 @@ public class Static {
                 }
             });
         }
+    }
+
+    public static void log(String text) {
+        Event event = EventFactory.createFxLogEvent(text);
+        Bukkit.getPluginManager().callEvent(event);
     }
 }
