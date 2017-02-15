@@ -35,18 +35,15 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         resizeColumn(view, conColumn);
         Stage stage = KFX.getStage();
-        stage.widthProperty().addListener(((observable, oldValue, newValue) -> {
-            resizeColumn(view, conColumn);
+        stage.widthProperty().addListener(((observable, oldValue, newValue) ->
+                resizeColumn(view, conColumn)));
+        view.getItems().addListener((ListChangeListener<LogItem>) c -> Platform.runLater(() -> {
+            ObservableList<LogItem> list = view.getItems();
+            if (list.size() > 500) {
+                list.remove(list.get(0));
+            }
+            view.scrollTo(list.size() - 1);
         }));
-        view.getItems().addListener((ListChangeListener<LogItem>) c -> {
-            Platform.runLater(() -> {
-                ObservableList<LogItem> list = view.getItems();
-                if (list.size() > 500) {
-                    list.remove(list.get(0));
-                }
-                view.scrollTo(list.size() - 1);
-            });
-        });
         Bukkit.getPluginManager().registerEvents(new LogListener(view), KSecurity.inst);
     }
 

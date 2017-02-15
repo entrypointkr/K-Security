@@ -8,7 +8,6 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.PunishSpamExecutor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -57,7 +56,7 @@ public class Static {
         }
         for (String msg : msgs) {
             sender.sendMessage(msg);
-            Static.log(ChatColor.stripColor(msg));
+            Static.log(Static.stripColor(msg));
         }
     }
 
@@ -245,5 +244,37 @@ public class Static {
     public static File getLogFile() {
         String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date());
         return new File(KSecurity.inst.getDataFolder(), "logs/log-" + date + ".txt");
+    }
+
+    public static String stripColor(String msg) {
+        char[] chars = msg.toCharArray();
+        char[] newChars = new char[msg.length()];
+        for (int i = 0; i < chars.length; i++) {
+            char ch = chars[i];
+            if (ch != '§')
+                continue;
+            int nextIndex = i + 1;
+            if (nextIndex >= chars.length)
+                continue;
+            char next = chars[nextIndex];
+            // Is color code
+            if (next >= 48 && next <= 57 // 0 - 9
+                    || next >= 65 && next <= 70 // A - F
+                    || next >= 75 && next <= 79 // K - O
+                    || next >= 97 && next <= 102 // a - f
+                    || next >= 107 && next <= 111 // k - o
+                    || next == 82 // R
+                    || next == 114) {// r
+                chars[i] = 0;
+                chars[nextIndex] = 0;
+            }
+        }
+        int i = 0;
+        for (char ch : chars) {
+            if (ch == 0)
+                continue;
+            newChars[i++] = ch;
+        }
+        return new String(newChars);
     }
 }

@@ -201,7 +201,7 @@ public enum Lang {
         }
 
         public String flatBuild() {
-            return ChatColor.stripColor(build(false));
+            return Static.stripColor(build(false));
         }
 
         public String build(boolean prefix, int space) {
