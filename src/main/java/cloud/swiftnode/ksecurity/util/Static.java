@@ -8,6 +8,7 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.PunishSpamExecutor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -23,7 +25,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -53,7 +57,7 @@ public class Static {
         }
         for (String msg : msgs) {
             sender.sendMessage(msg);
-            Static.log(msg);
+            Static.log(ChatColor.stripColor(msg));
         }
     }
 
@@ -236,5 +240,10 @@ public class Static {
             Event event = EventFactory.createFxLogEvent(arg);
             Bukkit.getPluginManager().callEvent(event);
         }
+    }
+
+    public static File getLogFile() {
+        String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date());
+        return new File(KSecurity.inst.getDataFolder(), "logs/log-" + date + ".txt");
     }
 }

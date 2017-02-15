@@ -1,5 +1,7 @@
 package cloud.swiftnode.ksecurity.module.kgui;
 
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
+import cloud.swiftnode.ksecurity.util.Lang;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,8 @@ public class KFX extends Application {
     private void hideStage(Stage stage) {
         if (SystemTray.isSupported()) {
             stage.hide();
+            new KAlert().setContextText(Lang.CLOSE_ALERT.builder().flatBuild())
+                    .show();
         }
     }
 

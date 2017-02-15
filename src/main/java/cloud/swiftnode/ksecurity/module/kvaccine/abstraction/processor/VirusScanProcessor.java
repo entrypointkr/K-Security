@@ -82,11 +82,11 @@ public class VirusScanProcessor implements Processor {
                     .setNotify(Notifications.SUCCESS)
                     .showAndDismiss(5);
         }
-
-        Static.log(Lang.SCAN_RESULT.builder()
+        Lang.MessageBuilder builder = Lang.SCAN_RESULT.builder()
                 .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT, Lang.Key.TIME)
-                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime));
-        Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder().build());
+                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime);
+        Static.log(builder);
+        Bukkit.broadcastMessage(builder.build());
         return true;
     }
 
