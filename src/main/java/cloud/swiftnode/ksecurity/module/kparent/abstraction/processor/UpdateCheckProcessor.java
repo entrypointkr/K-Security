@@ -62,6 +62,7 @@ public class UpdateCheckProcessor implements Processor {
                         }
                     }).show();
 
+                    Static.log(updateNew, newVerMsg, currVer, downURL);
                 }
             }
         } catch (Exception ex) {

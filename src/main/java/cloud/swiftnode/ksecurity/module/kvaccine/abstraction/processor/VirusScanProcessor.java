@@ -25,6 +25,7 @@ import java.util.Map;
 public class VirusScanProcessor implements Processor {
     @Override
     public boolean process() {
+        Bukkit.broadcastMessage(Lang.SCAN_START.builder().build());
         Static.log(Lang.SCAN_START.builder());
 
         int detectCount = 0;
@@ -58,6 +59,7 @@ public class VirusScanProcessor implements Processor {
             if (classVisitor.find) {
                 Static.log(Lang.SOCKET_DETECTED.builder()
                         .single(Lang.Key.PLUGIN_NAME, plugin.getName()));
+                Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder().build());
                 detectCount += 1;
                 escapeList.add(plugin.getName());
             }
@@ -72,6 +74,7 @@ public class VirusScanProcessor implements Processor {
             new KTray().setMessage(Lang.SCAN_WARNING2.builder().flatBuild())
                     .setNotify(Notifications.ERROR)
                     .showAndDismiss(5);
+            Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder().build());
         } else {
             Static.log(Lang.SCAN_SAFE.builder());
             new KTray().setMessage(Lang.SCAN_SAFE.builder().flatBuild())
@@ -82,6 +85,7 @@ public class VirusScanProcessor implements Processor {
         Static.log(Lang.SCAN_RESULT.builder()
                 .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT, Lang.Key.TIME)
                 .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime));
+        Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder().build());
         return true;
     }
 

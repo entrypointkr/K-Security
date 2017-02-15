@@ -53,6 +53,7 @@ public class Static {
         }
         for (String msg : msgs) {
             sender.sendMessage(msg);
+            Static.log(msg);
         }
     }
 
@@ -215,16 +216,25 @@ public class Static {
                 if (player != null
                         && !Static.isOpable(player)) {
                     player.setOp(false);
-                    Static.log(Lang.DEOP.builder()
-                            .single(Lang.Key.VALUE, player.getName()));
+                    Lang.MessageBuilder builder = Lang.DEOP.builder()
+                            .single(Lang.Key.VALUE, player.getName());
+                    Static.log(builder);
+                    Bukkit.broadcastMessage(builder.build());
                 }
             });
         }
     }
 
-    public static void log(Lang.MessageBuilder builder) {
-        Event event = EventFactory.createFxLogEvent(builder.flatBuild());
-        Bukkit.getPluginManager().callEvent(event);
-        Bukkit.broadcastMessage(builder.build());
+    public static void log(Lang.MessageBuilder... builders) {
+        for (Lang.MessageBuilder builder : builders) {
+            log(builder.flatBuild());
+        }
+    }
+
+    public static void log(String... args) {
+        for (String arg : args) {
+            Event event = EventFactory.createFxLogEvent(arg);
+            Bukkit.getPluginManager().callEvent(event);
+        }
     }
 }

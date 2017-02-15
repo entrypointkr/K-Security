@@ -254,6 +254,7 @@ public final class KPluginManager implements PluginManager {
         if (plugin.getName().equals(KSecurity.inst.getName())) {
             Static.log(Lang.SELF_DEFENCE.builder()
                     .single(Lang.Key.PLUGIN_NAME, Static.getRequestPlugin().getName()));
+            Bukkit.broadcastMessage(Lang.SELF_DEFENCE.builder().build());
             return;
         }
         parent.disablePlugin(plugin);
