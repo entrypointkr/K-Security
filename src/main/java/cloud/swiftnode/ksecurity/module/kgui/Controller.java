@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.LogItem;
 import cloud.swiftnode.ksecurity.module.kgui.listener.LogListener;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -35,6 +36,11 @@ public class Controller implements Initializable {
             stage.widthProperty().addListener(((observable, oldValue, newValue) -> {
                 resizeColumn(view, conColumn);
             }));
+        });
+        view.getItems().addListener((ListChangeListener<LogItem>) c -> {
+            if (view.getItems().size() > 100) {
+                view.getItems().remove(view.getItems().get(0));
+            }
         });
         Bukkit.getPluginManager().registerEvents(new LogListener(view), KSecurity.inst);
     }
