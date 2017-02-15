@@ -86,7 +86,7 @@ public class KVaccine extends Module {
     private void detect(Lang.MessageBuilder builder) {
         try {
             StorageCountDownLatch<Optional<ButtonType>> latch = new StorageCountDownLatch<>(1);
-            Bukkit.broadcastMessage(builder.build());
+            Static.log(builder);
             new KAlert().setType(Alert.AlertType.ERROR)
                     .setButton(ButtonType.YES, ButtonType.NO)
                     .setContextText(builder.flatBuild())

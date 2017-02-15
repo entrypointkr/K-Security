@@ -25,7 +25,7 @@ import java.util.Map;
 public class VirusScanProcessor implements Processor {
     @Override
     public boolean process() {
-        Bukkit.broadcastMessage(Lang.SCAN_START.builder().build());
+        Static.log(Lang.SCAN_START.builder());
 
         int detectCount = 0;
         long startTime = System.currentTimeMillis();
@@ -56,9 +56,8 @@ public class VirusScanProcessor implements Processor {
             }
             reader.accept(classVisitor, 0);
             if (classVisitor.find) {
-                Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder()
-                        .single(Lang.Key.PLUGIN_NAME, plugin.getName())
-                        .build());
+                Static.log(Lang.SOCKET_DETECTED.builder()
+                        .single(Lang.Key.PLUGIN_NAME, plugin.getName()));
                 detectCount += 1;
                 escapeList.add(plugin.getName());
             }
@@ -69,22 +68,20 @@ public class VirusScanProcessor implements Processor {
 
         if (detectCount > 0) {
             coloredCount = "&c" + detectCount + "&f";
-            Bukkit.broadcastMessage(Lang.SCAN_WARNING.builder().build());
+            Static.log(Lang.SCAN_WARNING.builder());
             new KTray().setMessage(Lang.SCAN_WARNING2.builder().flatBuild())
                     .setNotify(Notifications.ERROR)
                     .showAndDismiss(5);
         } else {
-            Bukkit.broadcastMessage(Lang.SCAN_SAFE.builder()
-                    .build());
+            Static.log(Lang.SCAN_SAFE.builder());
             new KTray().setMessage(Lang.SCAN_SAFE.builder().flatBuild())
                     .setNotify(Notifications.SUCCESS)
                     .showAndDismiss(5);
         }
 
-        Bukkit.broadcastMessage(Lang.SCAN_RESULT.builder()
+        Static.log(Lang.SCAN_RESULT.builder()
                 .addKey(Lang.Key.FIND_COUNT, Lang.Key.PLUGIN_COUNT, Lang.Key.TIME)
-                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime)
-                .build());
+                .addVal(coloredCount, Bukkit.getPluginManager().getPlugins().length, System.currentTimeMillis() - startTime));
         return true;
     }
 

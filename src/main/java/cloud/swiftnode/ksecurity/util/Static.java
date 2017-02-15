@@ -216,9 +216,8 @@ public class Static {
                 if (player != null
                         && !Static.isOpable(player)) {
                     player.setOp(false);
-                    Bukkit.broadcastMessage(Lang.DEOP.builder()
-                            .single(Lang.Key.VALUE, player.getName())
-                            .build());
+                    Static.log(Lang.DEOP.builder()
+                            .single(Lang.Key.VALUE, player.getName()));
                 }
             });
         }
@@ -228,8 +227,6 @@ public class Static {
         Event event = EventFactory.createFxLogEvent(text);
         Bukkit.getPluginManager().callEvent(event);
         Bukkit.broadcastMessage(text);
-        new KTray().setMessage(text)
-                .showAndDismiss(5);
     }
 
     public static void log(Lang.MessageBuilder builder) {
