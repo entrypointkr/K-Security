@@ -1,5 +1,9 @@
 package cloud.swiftnode.ksecurity.module.kanticheat.listener;
 
+import cloud.swiftnode.ksecurity.KSecurity;
+import cloud.swiftnode.ksecurity.util.Lang;
+import cloud.swiftnode.ksecurity.util.Static;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,6 +16,8 @@ import java.lang.reflect.Method;
  */
 public class PlayerVaultListener implements Listener {
     private Listener parent;
+    private Method cachedMethod;
+    private boolean fail = false;
 
     public PlayerVaultListener(Listener parent) {
         this.parent = parent;
@@ -23,10 +29,18 @@ public class PlayerVaultListener implements Listener {
             return;
         }
         try {
-            Method method = parent.getClass().getMethod("onTeleport", PlayerTeleportEvent.class);
-            method.invoke(parent, e);
+            if (cachedMethod == null) {
+                cachedMethod = parent.getClass().getMethod("onTeleport", PlayerTeleportEvent.class);
+            }
+            cachedMethod.invoke(parent, e);
         } catch (Exception ex) {
-            // Ignore
+            if (fail) {
+                Bukkit.getPluginManager().registerEvents(parent, KSecurity.inst);
+                PlayerTeleportEvent.getHandlerList().unregister(this);
+                Static.log(Lang.FIX_PLAYERVAULT_FAIL.builder());
+            } else {
+                fail = true;
+            }
         }
     }
 }

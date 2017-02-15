@@ -57,6 +57,7 @@ public final class KPluginManager implements PluginManager {
     private Map<Boolean, Map<Permissible, Boolean>> defSubs = new HashMap<>();
     private boolean useTimings = false;
 
+    // 필요성 검토 필요
     @SuppressWarnings("unchecked")
     public KPluginManager(PluginManager parent) {
         ProxyBuilder pxBuilder = new ProxyBuilder();

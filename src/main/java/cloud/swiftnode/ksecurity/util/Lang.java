@@ -104,6 +104,7 @@ public enum Lang {
     PV_DETECT("&cPlayerVaults &f감지"),
     EMERGENCY_ENABLE("임시 객체 긴급 활성화"),
     USE_CHEAT("&c" + Key.PLAYER_NAME + " &f이(가) &c" + Key.VALUE + " &f취약점 사용"),
+    FIX_PLAYERVAULT_FAIL("PlayerVault 취약점 방지에 실패해 원상태로 복원했습니다."),
     ;
     private final String target;
 

@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockSender;
 import cloud.swiftnode.ksecurity.module.Module;
+import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KTray;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.PunishSpamExecutor;
@@ -226,5 +227,12 @@ public class Static {
     public static void log(String text) {
         Event event = EventFactory.createFxLogEvent(text);
         Bukkit.getPluginManager().callEvent(event);
+        Bukkit.broadcastMessage(text);
+        new KTray().setMessage(text)
+                .showAndDismiss(5);
+    }
+
+    public static void log(Lang.MessageBuilder builder) {
+        log(builder.build());
     }
 }
