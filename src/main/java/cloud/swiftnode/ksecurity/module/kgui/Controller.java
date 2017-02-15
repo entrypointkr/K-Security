@@ -69,7 +69,9 @@ public class Controller implements Initializable {
     @FXML
     public void onSave() {
         File file = Static.getLogFile();
-        file.getParentFile().mkdirs();
+        if (!file.getParentFile().isDirectory()) {
+            file.getParentFile().mkdirs();
+        }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (LogItem item : view.getItems()) {
                 writer.write(item.getTime() + ": " + item.getLog());
@@ -78,7 +80,7 @@ public class Controller implements Initializable {
             writer.flush();
             new KAlert().setContextText(
                     Lang.SAVED_LOG.builder()
-                    .single(Lang.Key.VALUE, file.getAbsolutePath()).build())
+                            .single(Lang.Key.VALUE, file.getAbsolutePath()).build())
                     .show();
         } catch (Exception ex) {
             Static.consoleMsg(ex);
