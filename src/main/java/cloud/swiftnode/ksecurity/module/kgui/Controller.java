@@ -69,8 +69,8 @@ public class Controller implements Initializable {
     @FXML
     public void onSave() {
         File file = Static.getLogFile();
+        file.getParentFile().mkdirs();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            file.getParentFile().mkdirs();
             for (LogItem item : view.getItems()) {
                 writer.write(item.getTime() + ": " + item.getLog());
                 writer.newLine();
