@@ -40,6 +40,7 @@ dependencies {
 }
 
 processResources {
+    filteringCharset = 'UTF-8'
     filter ReplaceTokens, tokens: [
             "version"   : project.version,
             "pluginName": rootProject.name,

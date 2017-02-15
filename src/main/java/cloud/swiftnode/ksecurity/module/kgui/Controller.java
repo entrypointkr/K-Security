@@ -34,8 +34,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        conColumn.setText("내용");
-        timeColumn.setText("시간");
         resizeColumn(view, conColumn);
         Stage stage = KFX.getStage();
         stage.widthProperty().addListener(((observable, oldValue, newValue) -> {
