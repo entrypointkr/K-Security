@@ -3,7 +3,6 @@ package cloud.swiftnode.ksecurity.module.kgui;
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.LogItem;
 import cloud.swiftnode.ksecurity.module.kgui.listener.LogListener;
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,13 +29,11 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         conColumn.setText("내용");
         timeColumn.setText("시간");
-        Platform.runLater(() -> {
+        resizeColumn(view, conColumn);
+        Stage stage = KFX.getStage();
+        stage.widthProperty().addListener(((observable, oldValue, newValue) -> {
             resizeColumn(view, conColumn);
-            Stage stage = (Stage) view.getScene().getWindow();
-            stage.widthProperty().addListener(((observable, oldValue, newValue) -> {
-                resizeColumn(view, conColumn);
-            }));
-        });
+        }));
         view.getItems().addListener((ListChangeListener<LogItem>) c -> {
             if (view.getItems().size() > 100) {
                 view.getItems().remove(view.getItems().get(0));

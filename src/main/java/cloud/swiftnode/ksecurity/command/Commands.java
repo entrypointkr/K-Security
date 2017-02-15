@@ -1,6 +1,7 @@
 package cloud.swiftnode.ksecurity.command;
 
 import cloud.swiftnode.ksecurity.abstraction.convertor.StringToIpConverter;
+import cloud.swiftnode.ksecurity.module.kgui.KFX;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.BaseSpamExecutor;
@@ -11,6 +12,7 @@ import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
+import javafx.application.Platform;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -108,6 +110,12 @@ public class Commands implements CommandExecutor {
                     }
                     Config.setOpList(new ArrayList<>());
                     sender.sendMessage(Lang.SUCCESS.builder().build());
+                    return true;
+                } else if (args[0].equalsIgnoreCase("show")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    Platform.runLater(() -> KFX.getStage().show());
                     return true;
                 }
                 break;

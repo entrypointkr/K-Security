@@ -13,12 +13,12 @@ public class KGUI extends Module {
     }
 
     @Override
-    public void onEnable() throws Exception {
+    public void onEnable() {
         new Thread(KFX::start, "K-GUI Thread").start();
     }
 
     @Override
     public String getSimpleVersion() {
-        return "1.0";
+        return "1.1";
     }
 }

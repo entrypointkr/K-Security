@@ -97,6 +97,10 @@ OP 허용 목록에 닉네임을 추가합니다.
 
 OP 허용 목록에서 닉네임을 제거합니다.
 
+> /ks show
+
+K-Security GUI 를 엽니다.
+
 설정 파일
 ------
 > debug-mode: false
