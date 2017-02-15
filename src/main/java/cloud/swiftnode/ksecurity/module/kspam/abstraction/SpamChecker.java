@@ -30,8 +30,8 @@ public abstract class SpamChecker implements Checker, Named {
         return true;
     }
 
-    public String denyMsg() {
-        return Lang.DENY.toString();
+    public Lang.MessageBuilder denyMsg() {
+        return Lang.DENY.builder();
     }
 
     public boolean onlyFirst() {

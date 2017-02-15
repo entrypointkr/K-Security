@@ -43,7 +43,7 @@ public class FirstKickChecker extends SpamChecker {
     }
 
     @Override
-    public String denyMsg() {
-        return Lang.FIRST_LOGIN_KICK.toString();
+    public Lang.MessageBuilder denyMsg() {
+        return Lang.FIRST_LOGIN_KICK.builder();
     }
 }

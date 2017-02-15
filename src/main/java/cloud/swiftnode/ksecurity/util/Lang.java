@@ -16,7 +16,8 @@ public enum Lang {
     ERROR("체커 " + Key.CHECKER_NAME + " 에서 에러가 발생했습니다."),
     DEBUG("&f프로세서 &e" + Key.PROCESSOR_NAME + " &f실행자 &e" + Key.EXECUTOR_NAME + " &f체커 &e" + Key.CHECKER_NAME + " &f정보 &e" + Key.INFO + " &f결과 &e" + Key.CHECKER_RESULT + " &f소요 시간 &e" + Key.TIME),
     DENY(PREFIX + "\n" +
-            "&f당신은 K-SPAM 에 의해 차단되었습니다."),
+            "&f당신은 K-SPAM 에 의해 차단되었습니다.\n" +
+            "&f체커: &e" + Key.CHECKER_NAME),
     CONTRIBUTORS("EntryPoint, Horyu1234, ldmsys, WhiteSwan"),
     CACHE_COUNT("&f캐쉬된 데이터: &e" + Key.CACHE_COUNT + " &f개"),
     INTRO("\n" +
@@ -155,14 +156,14 @@ public enum Lang {
         }
     }
 
-    public class MessageBuilder {
+    public static class MessageBuilder {
         private List<Key> keyList = new ArrayList<>();
         private List<Object> valList = new ArrayList<>();
         private String target;
         private String prefix;
         private int space = 0;
 
-        MessageBuilder(String target) {
+        public MessageBuilder(String target) {
             this.target = target;
         }
 

@@ -6,6 +6,7 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.ExecuteDeniable;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
+import cloud.swiftnode.ksecurity.util.Lang;
 import org.bukkit.entity.Player;
 
 /**
@@ -62,12 +63,12 @@ public class DeniableInfoAdapter extends ExecuteDeniable implements DeniableInfo
     }
 
     @Override
-    public String getDenyMsg() {
+    public Lang.MessageBuilder getDenyMsg() {
         return deniable.getDenyMsg();
     }
 
     @Override
-    public void setDenyMsg(String msg) {
+    public void setDenyMsg(Lang.MessageBuilder msg) {
         deniable.setDenyMsg(msg);
     }
 }

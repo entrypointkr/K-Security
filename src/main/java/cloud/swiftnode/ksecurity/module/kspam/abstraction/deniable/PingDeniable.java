@@ -16,6 +16,6 @@ public class PingDeniable extends ExecuteDeniable {
 
     @Override
     public void executeDeny() {
-        event.setMotd(getDenyMsg());
+        event.setMotd(getDenyMsg().build());
     }
 }

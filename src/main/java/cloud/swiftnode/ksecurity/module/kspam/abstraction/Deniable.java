@@ -1,12 +1,14 @@
 package cloud.swiftnode.ksecurity.module.kspam.abstraction;
 
+import cloud.swiftnode.ksecurity.util.Lang;
+
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public interface Deniable {
     void deny();
 
-    String getDenyMsg();
+    Lang.MessageBuilder getDenyMsg();
 
-    void setDenyMsg(String msg);
+    void setDenyMsg(Lang.MessageBuilder msg);
 }

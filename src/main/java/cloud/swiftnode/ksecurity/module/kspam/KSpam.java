@@ -25,6 +25,6 @@ public class KSpam extends Module {
 
     @Override
     public String getSimpleVersion() {
-        return "1.0";
+        return "1.1";
     }
 }

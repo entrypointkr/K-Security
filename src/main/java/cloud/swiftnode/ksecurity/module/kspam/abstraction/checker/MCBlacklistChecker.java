@@ -63,8 +63,8 @@ public class MCBlacklistChecker extends SpamChecker {
     }
 
     @Override
-    public String denyMsg() {
-        return lastReason;
+    public Lang.MessageBuilder denyMsg() {
+        return new Lang.MessageBuilder(lastReason);
     }
 
     private String[] checkWithType(String check) {

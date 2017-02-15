@@ -8,11 +8,11 @@ import cloud.swiftnode.ksecurity.util.Static;
  */
 public abstract class ExecuteDeniable implements Deniable {
     protected boolean delayed = false;
-    protected String denyMsg;
+    protected Lang.MessageBuilder denyMsg;
 
     public ExecuteDeniable(boolean delayed) {
         this.delayed = delayed;
-        this.denyMsg = Lang.DENY.toString();
+        this.denyMsg = Lang.DENY.builder();
     }
 
     @Override
@@ -35,12 +35,12 @@ public abstract class ExecuteDeniable implements Deniable {
     }
 
     @Override
-    public String getDenyMsg() {
+    public Lang.MessageBuilder getDenyMsg() {
         return denyMsg;
     }
 
     @Override
-    public void setDenyMsg(String msg) {
+    public void setDenyMsg(Lang.MessageBuilder msg) {
         this.denyMsg = msg;
     }
 }

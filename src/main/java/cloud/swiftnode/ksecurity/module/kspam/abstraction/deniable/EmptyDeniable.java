@@ -1,6 +1,7 @@
 package cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable;
 
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
+import cloud.swiftnode.ksecurity.util.Lang;
 
 /**
  * Created by Junhyeong Lim on 2017-01-11.
@@ -8,16 +9,16 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.Deniable;
 public class EmptyDeniable implements Deniable {
     @Override
     public void deny() {
-        // Empty
+
     }
 
     @Override
-    public String getDenyMsg() {
-        return "";
+    public Lang.MessageBuilder getDenyMsg() {
+        return null;
     }
 
     @Override
-    public void setDenyMsg(String msg) {
-        // Empty
+    public void setDenyMsg(Lang.MessageBuilder msg) {
+
     }
 }

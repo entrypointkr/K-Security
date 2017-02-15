@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 
 /**
@@ -22,7 +23,9 @@ public class PunishSpamExecutor extends DecorateSpamExecutor {
     public boolean execute(SpamProcessor processor, SpamChecker checker, DeniableInfo adapter) {
         boolean ret = parent.execute(processor, checker, adapter);
         if (getLastResult() == SpamChecker.Result.DENY) {
-            adapter.setDenyMsg(checker.denyMsg());
+            Lang.MessageBuilder builder = checker.denyMsg();
+            builder.single(Lang.Key.CHECKER_NAME, checker.getName());
+            adapter.setDenyMsg(builder);
             adapter.deny();
             if (checker.isCaching()) {
                 StaticStorage.cachedSet.add(checker.getLastInfo());
