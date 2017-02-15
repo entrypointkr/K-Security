@@ -35,7 +35,7 @@ public class Controller implements Initializable {
             resizeColumn(view, conColumn);
         }));
         view.getItems().addListener((ListChangeListener<LogItem>) c -> {
-            if (view.getItems().size() > 100) {
+            if (view.getItems().size() > 500) {
                 view.getItems().remove(view.getItems().get(0));
             }
         });

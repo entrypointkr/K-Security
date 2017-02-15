@@ -57,9 +57,10 @@ public class VirusScanProcessor implements Processor {
             }
             reader.accept(classVisitor, 0);
             if (classVisitor.find) {
-                Static.log(Lang.SOCKET_DETECTED.builder()
-                        .single(Lang.Key.PLUGIN_NAME, plugin.getName()));
-                Bukkit.broadcastMessage(Lang.SOCKET_DETECTED.builder().build());
+                Lang.MessageBuilder builder = Lang.SOCKET_DETECTED.builder()
+                        .single(Lang.Key.PLUGIN_NAME, plugin.getName());
+                Static.log(builder);
+                Bukkit.broadcastMessage(builder.build());
                 detectCount += 1;
                 escapeList.add(plugin.getName());
             }
