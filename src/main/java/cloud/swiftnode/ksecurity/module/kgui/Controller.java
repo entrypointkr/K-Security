@@ -16,9 +16,11 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import org.bukkit.Bukkit;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -81,6 +83,20 @@ public class Controller implements Initializable {
             new KAlert().setContextText(
                     Lang.SAVED_LOG.builder()
                             .single(Lang.Key.VALUE, file.getAbsolutePath()).build())
+                    .setOnCloseRequest((e) -> {
+                        if (!Desktop.isDesktopSupported()) {
+                            return;
+                        }
+                        Desktop desktop = Desktop.getDesktop();
+                        if (!desktop.isSupported(Desktop.Action.OPEN)) {
+                            return;
+                        }
+                        try {
+                            desktop.open(file.getParentFile());
+                        } catch (IOException e1) {
+                            Static.consoleMsg(e1);
+                        }
+                    })
                     .show();
         } catch (Exception ex) {
             Static.consoleMsg(ex);
