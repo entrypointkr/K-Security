@@ -19,6 +19,16 @@ Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
 
 [![ScreenShot](https://raw.github.com/EntryPointKR/K-Security/master/pic/fakevideo.png)](https://www.youtube.com/embed/OGWxUQdQXDk)
 
+### 각종 취약점 방지
+
+방지 목록
+
+샵키퍼 아이템 복사, 취약 색코드, 트리거 플레이스홀더 사용, RPGITEM 아이템 복사, 프리캠 아이템 복사, PlayerVaults 아이템 복사
+
+상위 버전 (1.8+) 사용자는 config.yml 에서 기능을 꺼주세요.
+
+![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/kanticheat.png)
+
 ### 악성 플러그인 검사
 
 ![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecvaccine.png)
@@ -146,6 +156,12 @@ op-list: [] 와 같이 목록이 비었을 경우 기능은 비활성화됩니�
 네트워크 모니터링의 예외 목록입니다.
 
 위에서 플러그인의 이름을 추가 또는 제거할 수 있습니다.
+
+> anticheat: ~~
+
+1.5.2 의 취약점 방지의 기능을 온/오프합니다.
+
+RPGItem 과 PlayerVaults 값은 런타임에 변경할 수 없습니다.
 
 버그 제보
 -----
