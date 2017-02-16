@@ -249,31 +249,27 @@ public class Static {
     public static String stripColor(String msg) {
         char[] chars = msg.toCharArray();
         char[] newChars = new char[msg.length()];
+        int index = 0;
         for (int i = 0; i < chars.length; i++) {
             char ch = chars[i];
-            if (ch != '§')
-                continue;
-            int nextIndex = i + 1;
-            if (nextIndex >= chars.length)
-                continue;
-            char next = chars[nextIndex];
-            // Is color code
-            if (next >= 48 && next <= 57 // 0 - 9
-                    || next >= 65 && next <= 70 // A - F
-                    || next >= 75 && next <= 79 // K - O
-                    || next >= 97 && next <= 102 // a - f
-                    || next >= 107 && next <= 111 // k - o
-                    || next == 82 // R
-                    || next == 114) {// r
-                chars[i] = 0;
-                chars[nextIndex] = 0;
+            if (ch == '§') {
+                int nextIndex = i + 1;
+                if (nextIndex >= chars.length)
+                    continue;
+                char next = chars[nextIndex];
+                // Is color code
+                if (next >= 48 && next <= 57 // 0 - 9
+                        || next >= 65 && next <= 70 // A - F
+                        || next >= 75 && next <= 79 // K - O
+                        || next >= 97 && next <= 102 // a - f
+                        || next >= 107 && next <= 111 // k - o
+                        || next == 82 // R
+                        || next == 114) {// r
+                    i += 1;
+                    continue;
+                }
             }
-        }
-        int i = 0;
-        for (char ch : chars) {
-            if (ch == 0)
-                continue;
-            newChars[i++] = ch;
+            newChars[index++] = ch;
         }
         return new String(newChars);
     }
