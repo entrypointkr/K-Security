@@ -23,9 +23,19 @@ Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
 
 방지 목록
 
-샵키퍼 아이템 복사, 취약 색코드, 트리거 플레이스홀더 사용, RPGITEM 아이템 복사, 프리캠 아이템 복사, PlayerVaults 아이템 복사
+* 샵키퍼 아이템 복사
 
-상위 버전 (1.8+) 사용자는 config.yml 에서 기능을 꺼주세요.
+* 크래시 색코드
+
+* 트리거 플레이스홀더 사용
+
+* RPGITEM 아이템 복사
+
+* 프리캠 아이템 복사
+
+* PlayerVaults 아이템 복사
+
+본 기능은 1.5.2 버전을 위한 기능이며 상위 버전 (1.8+) 사용자는 config.yml 에서 기능을 꺼주세요.
 
 ![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/kanticheat.png)
 
