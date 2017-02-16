@@ -255,7 +255,7 @@ public class Static {
             if (ch == '§') {
                 int nextIndex = i + 1;
                 if (nextIndex >= chars.length)
-                    continue;
+                    break;
                 char next = chars[nextIndex];
                 // Is color code
                 if (next >= 48 && next <= 57 // 0 - 9
@@ -265,7 +265,7 @@ public class Static {
                         || next >= 107 && next <= 111 // k - o
                         || next == 82 // R
                         || next == 114) {// r
-                    i += 1;
+                    i++;
                     continue;
                 }
             }
