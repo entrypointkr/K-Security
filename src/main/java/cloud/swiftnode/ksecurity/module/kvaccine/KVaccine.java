@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -41,10 +43,12 @@ public class KVaccine extends Module {
 
     @Override
     public void onEnable() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        // Injection
+        Static.runTask(() -> new HighInjectionProcessor(latch).process());
         // Virus Scan
         Static.runTaskAsync(() -> new VirusScanProcessor().process());
-        // Injection
-        Static.runTaskAsync(() -> new HighInjectionProcessor().process());
 
         Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
         Class playerListCls = playerList.getClass().getSuperclass();
@@ -54,6 +58,11 @@ public class KVaccine extends Module {
         fieldB.setAccessible(true);
 
         new Thread(() -> {
+            try {
+                latch.await(1, TimeUnit.MINUTES);
+            } catch (InterruptedException e) {
+                Static.consoleMsg(e);
+            }
             while (true) {
                 try {
                     Thread.sleep(5000);
@@ -67,9 +76,12 @@ public class KVaccine extends Module {
                         // Ignore
                     }
 
+                    if (!(ProxySelector.getDefault() instanceof KProxySelector)) {
+                        ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
+                    }
+
                     if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
                             || !(objB instanceof KPluginManager)
-                            || !(ProxySelector.getDefault() instanceof KProxySelector)
                             || KSecurity.inst == null
                             || !KSecurity.inst.isEnabled()) {
                         detect(Lang.DAMAGE_DETECT.builder());

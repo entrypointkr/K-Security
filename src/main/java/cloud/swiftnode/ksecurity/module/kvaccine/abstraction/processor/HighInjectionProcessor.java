@@ -10,11 +10,22 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.SimplePluginManager;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Junhyeong Lim on 2017-02-07.
  */
 public class HighInjectionProcessor implements Processor {
+    private CountDownLatch latch;
+
+    public HighInjectionProcessor() {
+
+    }
+
+    public HighInjectionProcessor(CountDownLatch latch) {
+        this.latch = latch;
+    }
+
     @Override
     public boolean process() {
         try {
@@ -45,6 +56,10 @@ public class HighInjectionProcessor implements Processor {
             // PluginManager
             Reflections.setDecField(Bukkit.getServer(), "pluginManager",
                     new KPluginManager(manager));
+
+            if (latch != null) {
+                latch.countDown();
+            }
         } catch (Exception ex) {
             Static.consoleMsg(ex);
             return false;
