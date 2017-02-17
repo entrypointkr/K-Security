@@ -59,10 +59,6 @@ Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
  
 ![alt tag](https://raw.github.com/EntryPointKR/K-Security/master/pic/ksecdefence.png)
 
-다운로드
-----
-https://github.com/EntryPointKR/K-Security/releases/latest
-
 명령어
 ----
 > /ks check 아이피/닉네임
