@@ -138,6 +138,6 @@ public class KVaccine extends Module {
 
     @Override
     public void onLoad() {
-        Static.runTaskAsync(() -> new LowInjectionProcessor().process());
+        new LowInjectionProcessor().process();
     }
 }
