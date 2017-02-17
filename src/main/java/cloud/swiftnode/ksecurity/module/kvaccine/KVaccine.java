@@ -44,7 +44,7 @@ public class KVaccine extends Module {
         // Virus Scan
         Static.runTaskAsync(() -> new VirusScanProcessor().process());
         // Injection
-        Static.runTask(() -> new HighInjectionProcessor().process());
+        Static.runTaskAsync(() -> new HighInjectionProcessor().process());
 
         Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
         Class playerListCls = playerList.getClass().getSuperclass();
@@ -138,6 +138,6 @@ public class KVaccine extends Module {
 
     @Override
     public void onLoad() {
-        new LowInjectionProcessor().process();
+        Static.runTaskAsync(() -> new LowInjectionProcessor().process());
     }
 }
