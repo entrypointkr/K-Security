@@ -5,10 +5,12 @@ import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.OpInterceptInjector;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.PluginManagerInjector;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.ProxyInjector;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.LowInjector;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
@@ -99,7 +101,9 @@ public class KVaccine extends Module {
             if (btn.isPresent() && btn.get() == ButtonType.YES) {
                 shutdown();
             } else {
-                storage.setHash(LowInjector.process());
+                inject();
+
+                storage.setHash(PluginManagerInjector.process());
                 PluginManager manager = Bukkit.getPluginManager();
                 Plugin plugin = manager.getPlugin("K-Security");
                 List<Plugin> plugins = new ArrayList<>(Arrays.asList(Bukkit.getPluginManager().getPlugins()));
@@ -122,14 +126,6 @@ public class KVaccine extends Module {
         }
     }
 
-    private void shutdown() {
-        Bukkit.savePlayers();
-        for (World world : Bukkit.getWorlds()) {
-            world.save();
-        }
-        Bukkit.shutdown();
-    }
-
     @Override
     public String getSimpleVersion() {
         return "1.1";
@@ -137,15 +133,33 @@ public class KVaccine extends Module {
 
     @Override
     public void onLoad() throws Exception {
+        inject();
+
+        // PluginManager
         HashStorage hash = new HashStorage();
-        hash.setHash(LowInjector.process());
+        hash.setHash(PluginManagerInjector.process());
         startWatcherThread(hash);
     }
 
+    @SuppressWarnings("unchecked")
     public void addPlugin(PluginManager manager, Plugin plugin) throws NoSuchFieldException, IllegalAccessException {
         List<Plugin> plugins = (List<Plugin>) Reflections.getDecFieldObj(manager, "plugins");
         plugins.add(plugin);
         Reflections.setDecField(parent, "plugins", plugins);
+    }
+
+    private void inject() throws Exception {
+        // Etc
+        ProxyInjector.inject();
+        OpInterceptInjector.inject();
+    }
+
+    private void shutdown() {
+        Bukkit.savePlayers();
+        for (World world : Bukkit.getWorlds()) {
+            world.save();
+        }
+        Bukkit.shutdown();
     }
 
     private class HashStorage {
