@@ -3,6 +3,7 @@ name: @pluginName@
 version: @version@
 author: @author@
 softdepend: [RPG Items, PlayerVaults]
+load: STARTUP
 commands:
   ks:
     description: @pluginName@ main command.

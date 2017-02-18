@@ -38,7 +38,7 @@ public abstract class Module implements Named {
     public void onDisable() throws Exception {
     }
 
-    public void onLoad() {
+    public void onLoad() throws Exception {
     }
 
     public abstract String getSimpleVersion();

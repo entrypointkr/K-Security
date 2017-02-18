@@ -60,7 +60,11 @@ public class ModuleManager {
     public void loadModules() {
         moduleList.forEach(module -> {
             sendModuleStateMessage(Lang.LOAD_MODULE, module);
-            module.onLoad();
+            try {
+                module.onLoad();
+            } catch (Exception ex) {
+                Static.consoleMsg(ex);
+            }
         });
     }
 

@@ -9,8 +9,7 @@ import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperat
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KPluginManager;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.HighInjectionProcessor;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.LowInjectionProcessor;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.LowInjector;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
@@ -29,27 +28,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 
 /**
  * Created by Junhyeong Lim on 2017-01-31.
  */
 public class KVaccine extends Module {
+
     public KVaccine(JavaPlugin parent) {
         super(parent);
     }
 
     @Override
     public void onEnable() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-
-        // Injection
-        Static.runTask(() -> new HighInjectionProcessor(latch).process());
         // Virus Scan
         Static.runTaskAsync(() -> new VirusScanProcessor().process());
+    }
 
+    private void startWatcherThread(HashStorage storage) throws Exception {
         Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
         Class playerListCls = playerList.getClass().getSuperclass();
         Field fieldA = playerListCls.getDeclaredField("operators");
@@ -58,11 +54,6 @@ public class KVaccine extends Module {
         fieldB.setAccessible(true);
 
         new Thread(() -> {
-            try {
-                latch.await(1, TimeUnit.MINUTES);
-            } catch (InterruptedException e) {
-                Static.consoleMsg(e);
-            }
             while (true) {
                 try {
                     Thread.sleep(5000);
@@ -81,21 +72,21 @@ public class KVaccine extends Module {
                     }
 
                     if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
-                            || !(objB instanceof KPluginManager)
+                            || objB.hashCode() != storage.getHash()
                             || KSecurity.inst == null
                             || !KSecurity.inst.isEnabled()) {
-                        detect(Lang.DAMAGE_DETECT.builder());
+                        detect(Lang.DAMAGE_DETECT.builder(), storage);
                     }
                 } catch (InterruptedException ex) {
                     shutdown();
                 } catch (Exception ex) {
-                    detect(Lang.DAMAGE_EXCEPTION_DETECT.builder().addKey(Lang.Key.VALUE).addVal(ex.toString()));
+                    detect(Lang.DAMAGE_EXCEPTION_DETECT.builder().addKey(Lang.Key.VALUE).addVal(ex.toString()), storage);
                 }
             }
         }).start();
     }
 
-    private void detect(Lang.MessageBuilder builder) {
+    private void detect(Lang.MessageBuilder builder, HashStorage storage) {
         try {
             StorageCountDownLatch<Optional<ButtonType>> latch = new StorageCountDownLatch<>(1);
             Static.log(builder);
@@ -109,8 +100,7 @@ public class KVaccine extends Module {
             if (btn.isPresent() && btn.get() == ButtonType.YES) {
                 shutdown();
             } else {
-                new HighInjectionProcessor().process();
-                new LowInjectionProcessor().process();
+                storage.setHash(LowInjector.process());
                 PluginManager manager = Bukkit.getPluginManager();
                 Plugin plugin = manager.getPlugin("K-Security");
                 List<Plugin> plugins = new ArrayList<>(Arrays.asList(Bukkit.getPluginManager().getPlugins()));
@@ -149,7 +139,21 @@ public class KVaccine extends Module {
     }
 
     @Override
-    public void onLoad() {
-        new LowInjectionProcessor().process();
+    public void onLoad() throws Exception {
+        HashStorage hash = new HashStorage();
+        hash.setHash(LowInjector.process());
+        startWatcherThread(hash);
+    }
+
+    private class HashStorage {
+        private int hash;
+
+        public int getHash() {
+            return hash;
+        }
+
+        public void setHash(int hash) {
+            this.hash = hash;
+        }
     }
 }
