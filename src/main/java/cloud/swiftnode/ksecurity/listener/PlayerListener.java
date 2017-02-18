@@ -84,13 +84,12 @@ public class PlayerListener implements Listener {
     public void onClick(InventoryClickEvent e) {
         HumanEntity human = e.getWhoClicked();
         if (human.getInventory().getType() == InventoryType.MERCHANT
-                || human.getOpenInventory().getTopInventory() != null) {
-            if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR
-                    || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                PlayerUseCheatEvent event = createEvent((Player) human, PlayerUseCheatEvent.CheatType.SHOPKEEPER);
-                Bukkit.getPluginManager().callEvent(event);
-                e.setCancelled(event.isCancelled());
-            }
+                && human.getOpenInventory().getTopInventory() != null
+                && (e.getAction() == InventoryAction.COLLECT_TO_CURSOR
+                || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
+            PlayerUseCheatEvent event = createEvent((Player) human, PlayerUseCheatEvent.CheatType.SHOPKEEPER);
+            Bukkit.getPluginManager().callEvent(event);
+            e.setCancelled(event.isCancelled());
         }
     }
 
