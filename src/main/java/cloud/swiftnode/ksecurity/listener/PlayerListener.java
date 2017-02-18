@@ -23,9 +23,11 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 import java.util.List;
@@ -83,8 +85,8 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onClick(InventoryClickEvent e) {
         HumanEntity human = e.getWhoClicked();
-        if (human.getInventory().getType() == InventoryType.MERCHANT
-                && human.getOpenInventory().getTopInventory() != null
+        Inventory topInv = human.getOpenInventory().getTopInventory();
+        if (topInv != null && topInv.getType() == InventoryType.MERCHANT
                 && (e.getAction() == InventoryAction.COLLECT_TO_CURSOR
                 || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
             PlayerUseCheatEvent event = createEvent((Player) human, PlayerUseCheatEvent.CheatType.SHOPKEEPER);
@@ -121,6 +123,24 @@ public class PlayerListener implements Listener {
             PlayerUseCheatEvent event = createEvent(e, PlayerUseCheatEvent.CheatType.VARIABLE_TRIGGER);
             callEvent(event);
             e.setCancelled(event.isCancelled());
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onCommand(PlayerCommandPreprocessEvent e) {
+        String message = e.getMessage();
+        int point = message.indexOf(' ');
+        String head;
+        if (point != -1) {
+            head = message.substring(0, point);
+        } else {
+            head = message;
+        }
+        if (head.equalsIgnoreCase("/reload")) {
+            e.setCancelled(true);
+            e.getPlayer().sendMessage(Lang.NOT_SUPPORT.builder()
+                    .single(Lang.Key.VALUE, "리로드 기능")
+                    .build());
         }
     }
 

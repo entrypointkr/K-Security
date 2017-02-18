@@ -108,6 +108,7 @@ public enum Lang {
     FIX_PLAYERVAULT_FAIL("PlayerVault 취약점 방지에 실패해 원상태로 복원했습니다."),
     SAVED_LOG(Key.VALUE + " 경로에 로그 파일을 저장했습니다."),
     CLOSE_ALERT("창을 /ks show 명령어로 다시 여실 수 있습니다."),
+    NOT_SUPPORT("&e" + Key.VALUE + "&f은(는) 지원하지 않습니다."),
     ;
     private final String target;
 
