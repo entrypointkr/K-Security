@@ -7,7 +7,6 @@ import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KPluginManager;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.LowInjector;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
@@ -109,9 +108,7 @@ public class KVaccine extends Module {
                     plugin.onEnable();
                 }
                 if (!plugins.contains(plugin)) {
-                    if (manager instanceof KPluginManager) {
-                        ((KPluginManager) manager).addPlugin(plugin);
-                    }
+                    addPlugin(manager, plugin);
                 }
                 if (!plugin.isEnabled()) {
                     Reflections.setDecField(JavaPlugin.class, plugin, "isEnabled", true);
@@ -143,6 +140,12 @@ public class KVaccine extends Module {
         HashStorage hash = new HashStorage();
         hash.setHash(LowInjector.process());
         startWatcherThread(hash);
+    }
+
+    public void addPlugin(PluginManager manager, Plugin plugin) throws NoSuchFieldException, IllegalAccessException {
+        List<Plugin> plugins = (List<Plugin>) Reflections.getDecFieldObj(manager, "plugins");
+        plugins.add(plugin);
+        Reflections.setDecField(parent, "plugins", plugins);
     }
 
     private class HashStorage {
