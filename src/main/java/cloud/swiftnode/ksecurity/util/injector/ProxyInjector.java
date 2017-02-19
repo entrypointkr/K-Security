@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.module.kvaccine.abstraction;
+package cloud.swiftnode.ksecurity.util.injector;
 
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
 

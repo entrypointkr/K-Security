@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.util;
+package cloud.swiftnode.ksecurity.util.factory;
 
 import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerUseCheatEvent;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.event.FxLogEvent;

@@ -1,4 +1,4 @@
-package cloud.swiftnode.ksecurity.module.kvaccine.abstraction;
+package cloud.swiftnode.ksecurity.util.injector;
 
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
@@ -12,6 +12,7 @@ import java.util.Set;
  * Created by Junhyeong Lim on 2017-02-18.
  */
 public class OpInterceptInjector {
+    @SuppressWarnings("unchecked")
     public static void inject() throws Exception {
         Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
         Class playerListCls = playerList.getClass().getSuperclass();

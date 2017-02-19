@@ -1,8 +1,8 @@
-package cloud.swiftnode.ksecurity.module.kvaccine.abstraction;
+package cloud.swiftnode.ksecurity.util.injector;
 
-import cloud.swiftnode.ksecurity.util.InterceptorFactory;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
+import cloud.swiftnode.ksecurity.util.factory.InterceptorFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.SimpleCommandMap;

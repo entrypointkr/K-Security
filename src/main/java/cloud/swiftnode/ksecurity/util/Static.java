@@ -7,6 +7,7 @@ import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.PunishSpamExecutor;
+import cloud.swiftnode.ksecurity.util.factory.EventFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
