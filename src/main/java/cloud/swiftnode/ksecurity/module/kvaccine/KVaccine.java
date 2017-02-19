@@ -13,6 +13,7 @@ import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScan
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
 import cloud.swiftnode.ksecurity.util.Static;
+import cloud.swiftnode.ksecurity.util.injector.HandlerInjector;
 import cloud.swiftnode.ksecurity.util.injector.OpInterceptInjector;
 import cloud.swiftnode.ksecurity.util.injector.PluginManagerInjector;
 import cloud.swiftnode.ksecurity.util.injector.ProxyInjector;
@@ -172,6 +173,7 @@ public class KVaccine extends Module {
     private void inject() throws Exception {
         ProxyInjector.inject();
         OpInterceptInjector.inject();
+        HandlerInjector.inject();
     }
 
     private void shutdown() {

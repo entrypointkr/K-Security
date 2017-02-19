@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerUseCheatEvent;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
+import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,8 @@ public class CheatListener implements Listener {
             e.setCancelled(true);
             if (Config.isAcAlert()) {
                 for (Player player : Static.getOnlinePlayers()) {
-                    if (!player.isOp()) {
+                    if (!player.isOp()
+                            || StaticStorage.cheatAlertEscapeList.contains(player.getName())) {
                         continue;
                     }
                     player.sendMessage(Lang.USE_CHEAT.builder()

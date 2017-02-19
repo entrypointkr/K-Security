@@ -90,6 +90,21 @@ public class Commands implements CommandExecutor {
                     getConfig().set(Config.NETWORK_ALERT, !Config.isNetworkAlert());
                     sender.sendMessage(Lang.SET.builder().single(Lang.Key.VALUE, Config.isNetworkAlert()).build());
                     return true;
+                } else if (args[0].equalsIgnoreCase("cheatalert")) {
+                    boolean set;
+                    if (!isOp) {
+                        break;
+                    }
+                    if (StaticStorage.cheatAlertEscapeList.contains(sender.getName())) {
+                        StaticStorage.cheatAlertEscapeList.remove(sender.getName());
+                        set = false;
+                    } else {
+                        StaticStorage.cheatAlertEscapeList.add(sender.getName());
+                        set = true;
+                    }
+                    sender.sendMessage(Lang.SET.builder()
+                            .single(Lang.Key.VALUE, set)
+                            .build());
                 } else if (args[0].equalsIgnoreCase("reload")) {
                     if (!isOp) {
                         break;

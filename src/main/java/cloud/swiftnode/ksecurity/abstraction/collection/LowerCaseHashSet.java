@@ -1,11 +1,19 @@
 package cloud.swiftnode.ksecurity.abstraction.collection;
 
-import java.util.LinkedHashSet;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by Junhyeong Lim on 2017-02-03.
  */
-public class LowerCaseLinkedSet extends LinkedHashSet<String> {
+public class LowerCaseHashSet extends HashSet<String> {
+    public LowerCaseHashSet() {
+    }
+
+    public LowerCaseHashSet(Collection<? extends String> c) {
+        super(c);
+    }
+
     @Override
     public boolean add(String s) {
         return super.add(s.toLowerCase());

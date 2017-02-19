@@ -117,6 +117,10 @@ OP 허용 목록에서 닉네임을 제거합니다.
 
 K-Security GUI 를 엽니다.
 
+> /ks cheatalert
+
+버그 사용 알림을 온/오프합니다.
+
 설정 파일
 ------
 > debug-mode: false

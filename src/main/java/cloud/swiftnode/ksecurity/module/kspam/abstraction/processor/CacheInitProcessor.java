@@ -2,6 +2,7 @@ package cloud.swiftnode.ksecurity.module.kspam.abstraction.processor;
 
 import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;
+import cloud.swiftnode.ksecurity.abstraction.collection.LowerCaseHashSet;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
@@ -15,7 +16,6 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -41,15 +41,10 @@ public class CacheInitProcessor implements Processor {
         }
         try (ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file))) {
             Object obj = inStream.readObject();
-            if (obj instanceof HashSet) {
-                Set<String> strSet = (Set<String>) obj;
-                LinkedHashSet<String> treeSet = new LinkedHashSet<>();
-                for (String str : strSet) {
-                    treeSet.add(str);
-                }
-                StaticStorage.cachedSet = treeSet;
+            if (!obj.getClass().isAssignableFrom(HashSet.class)) {
+                StaticStorage.cachedSet = new LowerCaseHashSet((Set<String>) obj);
             } else {
-                StaticStorage.cachedSet = (LinkedHashSet<String>) inStream.readObject();
+                StaticStorage.cachedSet = (HashSet<String>) obj;
             }
             Static.consoleMsg(Lang.CACHE_COUNT.builder()
                     .single(Lang.Key.CACHE_COUNT, StaticStorage.cachedSet.size()));
