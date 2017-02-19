@@ -16,6 +16,6 @@ public class LoginEventDeniable extends ExecuteDeniable {
 
     @Override
     public void executeDeny() {
-        event.disallow(PlayerLoginEvent.Result.KICK_OTHER, getDenyMsg().build());
+        event.disallow(PlayerLoginEvent.Result.KICK_OTHER, getDenyMsg().build(false));
     }
 }
