@@ -1,39 +1,34 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter;
 
-import cloud.swiftnode.ksecurity.KSecurity;
-import cloud.swiftnode.ksecurity.util.injector.HandlerInjector;
 import org.bukkit.event.HandlerList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Junhyeong Lim on 2017-02-19.
+ * Created by Junhyeong Lim on 2017-02-20.
  */
-@SuppressWarnings("unchecked")
 public class KHandlerArrayList extends ArrayList<HandlerList> {
     public KHandlerArrayList(Collection<? extends HandlerList> c) {
         super(c);
     }
 
+    public KHandlerArrayList() {
+    }
+
     @Override
     public boolean add(HandlerList handlerList) {
-        if (isEnabled()) {
-            HandlerInjector.wrapping(handlerList);
+        if (!(handlerList instanceof KHandlerList)) {
+            handlerList = new KHandlerList(handlerList);
         }
         return super.add(handlerList);
     }
 
     @Override
     public void add(int index, HandlerList element) {
-        if (isEnabled()) {
-            HandlerInjector.wrapping(element);
+        if (!(element instanceof KHandlerList)) {
+            element = new KHandlerList(element);
         }
         super.add(index, element);
     }
-
-    private static boolean isEnabled() {
-        return KSecurity.inst.isEnabled();
-    }
-
 }

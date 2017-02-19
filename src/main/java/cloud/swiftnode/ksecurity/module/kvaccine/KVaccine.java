@@ -5,10 +5,10 @@ import cloud.swiftnode.ksecurity.abstraction.StorageCountDownLatch;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kgui.abstraction.gui.KAlert;
+import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KHandlerList;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorMap;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KOperatorSet;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KProxySelector;
-import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.intercepter.KRegisteredListenerArrayList;
 import cloud.swiftnode.ksecurity.module.kvaccine.abstraction.processor.VirusScanProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Reflections;
@@ -21,18 +21,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.net.ProxySelector;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,15 +73,10 @@ public class KVaccine extends Module {
                         // Ignore
                     }
 
-                    action:
                     for (HandlerList handler : HandlerList.getHandlerLists()) {
-                        EnumMap<EventPriority, ArrayList<RegisteredListener>> handlerSlots =
-                                (EnumMap<EventPriority, ArrayList<RegisteredListener>>) Reflections.getDecFieldObj(handler.getClass(), handler, "handlerslots");
-                        for (ArrayList<RegisteredListener> slot : handlerSlots.values()) {
-                            if (!(slot instanceof KRegisteredListenerArrayList)) {
-                                list = true;
-                                break action;
-                            }
+                        if (!(handler instanceof KHandlerList)) {
+                            list = true;
+                            break;
                         }
                     }
 

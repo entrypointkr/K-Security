@@ -1,5 +1,6 @@
 package cloud.swiftnode.ksecurity.module.kvaccine.abstraction.asm;
 
+import cloud.swiftnode.ksecurity.util.Static;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
@@ -31,18 +32,19 @@ public class KPluginManagerMethodTransformer extends MethodVisitor {
 
     @Override
     public void visitCode() {
+        String packageVer = Static.getBukkitPackageVersion();
         visitVarInsn(ALOAD, 0);
         visitFieldInsn(GETFIELD, "org/bukkit/plugin/SimplePluginManager", "server", "Lorg/bukkit/Server;");
-        visitTypeInsn(INSTANCEOF, "org/bukkit/craftbukkit/v1_8_R3/CraftServer");
+        visitTypeInsn(INSTANCEOF, "org/bukkit/craftbukkit/" + packageVer + "/CraftServer");
         Label label = new Label();
         visitJumpInsn(IFEQ, label);
         visitVarInsn(ALOAD, 0);
         visitFieldInsn(GETFIELD, "org/bukkit/plugin/SimplePluginManager", "server", "Lorg/bukkit/Server;");
-        visitTypeInsn(CHECKCAST, "org/bukkit/craftbukkit/v1_8_R3/CraftServer");
+        visitTypeInsn(CHECKCAST, "org/bukkit/craftbukkit/" + packageVer + "/CraftServer");
         visitVarInsn(ASTORE, 2);
         visitVarInsn(ALOAD, 2);
-        visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/craftbukkit/v1_8_R3/CraftServer", "getServer", "()Lnet/minecraft/server/v1_8_R3/MinecraftServer;", false);
-        visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/server/v1_8_R3/MinecraftServer", "isRunning", "()Z", false);
+        visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/craftbukkit/" + packageVer + "/CraftServer", "getServer", "()Lnet/minecraft/server/" + packageVer + "/MinecraftServer;", false);
+        visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/server/" + packageVer + "/MinecraftServer", "isRunning", "()Z", false);
         visitJumpInsn(IFEQ, label);
         visitVarInsn(ALOAD, 1);
         visitMethodInsn(INVOKEINTERFACE, "org/bukkit/plugin/Plugin", "getName", "()Ljava/lang/String;", true);

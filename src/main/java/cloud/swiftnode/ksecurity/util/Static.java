@@ -274,4 +274,12 @@ public class Static {
         }
         return new String(newChars);
     }
+
+    public static String getBukkitPackageVersion() {
+        String name = Bukkit.getServer().getClass().getName();
+        String first = "org.bukkit.craftbukkit.";
+        int firstPos = name.indexOf(first) + first.length();
+        int secPos = name.indexOf(".", firstPos);
+        return name.substring(firstPos, secPos);
+    }
 }
