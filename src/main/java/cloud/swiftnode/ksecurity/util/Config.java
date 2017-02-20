@@ -1,6 +1,5 @@
 package cloud.swiftnode.ksecurity.util;
 
-import cloud.swiftnode.ksecurity.KSecurity;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.YamlConstructor;
 import org.bukkit.configuration.file.YamlRepresenter;
@@ -62,8 +61,11 @@ public class Config {
     }
 
     public static void reload()  {
-        KSecurity.inst.saveConfig();
-        KSecurity.inst.reloadConfig();
+        try {
+            config.load(getDataFile());
+        } catch (Exception e) {
+            Static.consoleMsg(e);
+        }
         init();
     }
 

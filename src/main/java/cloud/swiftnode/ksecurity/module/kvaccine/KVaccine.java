@@ -66,6 +66,7 @@ public class KVaccine extends Module {
                     Object objB = fieldB.get(Bukkit.getServer());
                     Object objC = new Object();
                     boolean list = false;
+                    Plugin findPlugin = new MockPlugin(false);
 
                     try {
                         objC = Reflections.getDecFieldObj(objA.getClass().getSuperclass(), objA, "d");
@@ -80,6 +81,12 @@ public class KVaccine extends Module {
                         }
                     }
 
+                    for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+                        if (plugin.equals(KSecurity.inst)) {
+                            findPlugin = plugin;
+                        }
+                    }
+
                     if (!(ProxySelector.getDefault() instanceof KProxySelector)) {
                         ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
                     }
@@ -88,6 +95,7 @@ public class KVaccine extends Module {
                             || objB.hashCode() != storage.getHash()
                             || KSecurity.inst == null
                             || !KSecurity.inst.isEnabled()
+                            || !findPlugin.isEnabled()
                             || list) {
                         detect(Lang.DAMAGE_DETECT.builder(), storage);
                     }

@@ -22,6 +22,16 @@ import java.util.logging.Logger;
  * Created by Junhyeong Lim on 2017-01-16.
  */
 public class MockPlugin implements Plugin {
+    boolean isEnabled = true;
+
+    public MockPlugin(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public MockPlugin() {
+
+    }
+
     @Override
     public File getDataFolder() {
         return null;
@@ -76,7 +86,7 @@ public class MockPlugin implements Plugin {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 
     @Override
