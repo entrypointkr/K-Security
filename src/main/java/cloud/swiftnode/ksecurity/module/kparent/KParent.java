@@ -2,6 +2,7 @@ package cloud.swiftnode.ksecurity.module.kparent;
 
 import cloud.swiftnode.ksecurity.command.Commands;
 import cloud.swiftnode.ksecurity.listener.PlayerListener;
+import cloud.swiftnode.ksecurity.listener.PluginListener;
 import cloud.swiftnode.ksecurity.listener.ServerListener;
 import cloud.swiftnode.ksecurity.module.Module;
 import cloud.swiftnode.ksecurity.module.kparent.abstraction.processor.MetricsInitProcessor;
@@ -33,6 +34,7 @@ public class KParent extends Module {
         saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), parent);
         Bukkit.getPluginManager().registerEvents(new ServerListener(), parent);
+        Bukkit.getPluginManager().registerEvents(new PluginListener(), parent);
         new MetricsInitProcessor().process();
         Static.runTaskTimerAsync(new UpdateCheckProcessor()::process, 0, Config.updateCheckPeriod() * 3600 * 20);
         getCommand("ks").setExecutor(new Commands());
