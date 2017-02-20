@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 public class CheatListener implements Listener {
     @EventHandler
     public void onBug(PlayerUseCheatEvent e) {
-        if (e.getType().isDeny()) {
+        if (!e.getPlayer().isOp() && e.getType().isDeny()) {
             e.setCancelled(true);
             if (Config.isAcAlert()) {
                 for (Player player : Static.getOnlinePlayers()) {

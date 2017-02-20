@@ -105,6 +105,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.SET.builder()
                             .single(Lang.Key.VALUE, set)
                             .build());
+                    return true;
                 } else if (args[0].equalsIgnoreCase("reload")) {
                     if (!isOp) {
                         break;
