@@ -117,7 +117,7 @@ public class Static {
     }
 
     public static File getDataFolder() {
-        return KSecurity.inst.getDataFolder();
+        return Static.getDataFolder();
     }
 
     public static SpamExecutor getDefaultExecutor() {
@@ -248,7 +248,7 @@ public class Static {
 
     public static File getLogFile() {
         String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date());
-        return new File(KSecurity.inst.getDataFolder(), "logs/log-" + date + ".txt");
+        return new File(Static.getDataFolder(), "logs/log-" + date + ".txt");
     }
 
     public static String stripColor(String msg) {

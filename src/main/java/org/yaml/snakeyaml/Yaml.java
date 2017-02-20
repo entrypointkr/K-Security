@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 /**
  * Public YAML interface. Each Thread must have its own instance.
  */
-public class Yaml {
+public final class Yaml {
     protected final Resolver resolver;
     private String name;
     protected BaseConstructor constructor;

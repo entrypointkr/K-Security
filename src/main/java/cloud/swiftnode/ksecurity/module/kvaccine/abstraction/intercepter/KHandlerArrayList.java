@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Created by Junhyeong Lim on 2017-02-20.
  */
-public class KHandlerArrayList extends ArrayList<HandlerList> {
+public final class KHandlerArrayList extends ArrayList<HandlerList> {
     public KHandlerArrayList(Collection<? extends HandlerList> c) {
         super(c);
     }

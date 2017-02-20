@@ -1,6 +1,5 @@
 package cloud.swiftnode.ksecurity.module.kspam.abstraction.processor;
 
-import cloud.swiftnode.ksecurity.KSecurity;
 import cloud.swiftnode.ksecurity.abstraction.Processor;
 import cloud.swiftnode.ksecurity.abstraction.collection.LowerCaseHashSet;
 import cloud.swiftnode.ksecurity.util.Lang;
@@ -25,7 +24,7 @@ public class CacheInitProcessor implements Processor {
     @Override
     @SuppressWarnings("unchecked")
     public boolean process() {
-        File dataFolder = KSecurity.inst.getDataFolder();
+        File dataFolder = Static.getDataFolder();
         if (!dataFolder.isDirectory()) {
             dataFolder.mkdirs();
         }
