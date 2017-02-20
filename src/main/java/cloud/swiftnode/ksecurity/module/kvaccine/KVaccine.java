@@ -26,6 +26,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.net.ProxySelector;
 import java.util.ArrayList;
@@ -96,7 +97,8 @@ public class KVaccine extends Module {
                             || KSecurity.inst == null
                             || !KSecurity.inst.isEnabled()
                             || !findPlugin.isEnabled()
-                            || list) {
+                            || list
+                            || !System.out.getClass().isAssignableFrom(PrintStream.class)) {
                         detect(Lang.DAMAGE_DETECT.builder(), storage);
                     }
                 } catch (InterruptedException ex) {
