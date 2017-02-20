@@ -5,6 +5,7 @@ import cloud.swiftnode.ksecurity.abstraction.MockServer;
 import cloud.swiftnode.ksecurity.abstraction.mock.MockPlugin;
 import cloud.swiftnode.ksecurity.listener.PlayerListener;
 import cloud.swiftnode.ksecurity.listener.ServerListener;
+import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.StaticUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -48,6 +49,8 @@ public class KSecurityTest {
             System.out.println("NAME: " + player.getName());
             System.out.println("UUID: " + player.getUniqueId());
             System.out.println("IP: " + player.getAddress().getAddress());
+
+            Config.getConfig().set(Config.DEBUG_MODE, true);
 
             // PlayerEvent
             PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, "12.32.12.32", addr);
