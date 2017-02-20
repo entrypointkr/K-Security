@@ -113,7 +113,11 @@ public class Static {
     }
 
     public static FileConfiguration getConfig() {
-        return KSecurity.inst.getConfig();
+        return Config.getConfig();
+    }
+
+    public static File getDataFolder() {
+        return KSecurity.inst.getDataFolder();
     }
 
     public static SpamExecutor getDefaultExecutor() {
