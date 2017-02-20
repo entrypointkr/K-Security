@@ -70,15 +70,18 @@ public enum Lang {
     CMD_USAGE("&6/ks info: &f플러그인의 정보를 봅니다.\n" +
             "&6/ks firewall: &f방화벽 모드를 켭니다. 방화벽 모드 활성화 중엔 처음 들어오는 모든 유저를 추방합니다.\n" +
             "&6/ks check (아이피/닉네임): &f해당 아이피나 닉네임의 플레이어의 스팸 여부를 확인합니다\n" +
-            "&6/ks debug: &f개발자용 디버그 모드를 켭니다.\n" +
+            "&6/ks debug: &f개발자용 디버그 모드를 켜거나 끕니다.\n" +
             "&6/ks firstkick: &f처음 들어오는 유저를 추방합니다. (기본값: 활성화)\n" +
             "&6/ks remove (아이피): &f해당 아이피를 캐쉬 목록에서 제거합니다.\n" +
-            "&6/ks netalert: &f네트워크 모니터링을 끕니다.\n" +
+            "&6/ks netalert: &f네트워크 모니터링을 켜거나 끕니다.\n" +
             "&6/ks reload: &f설정 파일을 다시 불러옵니다.\n" +
             "&6/ks addop (닉네임): &fOP 허용 목록에 닉네임을 추가합니다.\n" +
             "&6/ks remop (닉네임): &fOP 허용 목록에서 닉네임을 제거합니다.\n" +
             "&6/ks listop: &fOP 허용 목록을 보여줍니다.\n" +
-            "&6/ks clearop: &fOP 허용 목록을 초기화합니다."),
+            "&6/ks clearop: &fOP 허용 목록을 초기화합니다.\n" +
+            "&6/ks cheatalert: &fOP 에게 오는 취약점 사용 알림을 켜거나 끕니다\n" +
+            "&6/ks show: &fK-Security 이벤트 로그 창을 켭니다\n" +
+            "&6/ks save: &f설정 파일을 저장합니다."),
     MODULES_INFO(Static.getModulesInfo(false)),
     DEOP("&c비인가 OP 감지 &7> &f" + Key.VALUE),
     CONFIG_RELOADED("설정 파일을 다시 불러왔습니다."),
@@ -109,6 +112,7 @@ public enum Lang {
     SAVED_LOG(Key.VALUE + " 경로에 로그 파일을 저장했습니다."),
     CLOSE_ALERT("창을 /ks show 명령어로 다시 여실 수 있습니다."),
     NOT_SUPPORT("&e" + Key.VALUE + "&f은(는) 지원하지 않습니다."),
+    SAVED_CONFIG("설정 파일을 저장했습니다."),
     ;
     private final String target;
 

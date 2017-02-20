@@ -20,6 +20,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -133,6 +134,16 @@ public class Commands implements CommandExecutor {
                     }
                     Platform.runLater(() -> KFX.getStage().show());
                     return true;
+                } else if (args[0].equalsIgnoreCase("save")) {
+                    if (!isOp) {
+                        break;
+                    }
+                    try {
+                        Config.getConfig().save(Config.getDataFile());
+                        sender.sendMessage(Lang.SAVED_CONFIG.builder().build());
+                    } catch (IOException e) {
+                        Static.consoleMsg(e);
+                    }
                 }
                 break;
             case 2:
