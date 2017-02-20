@@ -12,6 +12,9 @@ import cloud.swiftnode.ksecurity.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 /**
  * Created by Junhyeong Lim on 2017-02-03.
  */
@@ -47,5 +50,10 @@ public class KParent extends Module {
     @Override
     public void onLoad() {
         Config.init();
+        try {
+            new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).setReadOnly();
+        } catch (URISyntaxException e) {
+            Static.consoleMsg(e);
+        }
     }
 }
