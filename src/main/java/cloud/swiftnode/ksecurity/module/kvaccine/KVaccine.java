@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -49,6 +51,26 @@ public class KVaccine extends Module {
         Static.runTaskAsync(() -> new VirusScanProcessor().process());
     }
 
+    @Override
+    public String getSimpleVersion() {
+        return "1.1";
+    }
+
+    @Override
+    public void onLoad() throws Exception {
+        // ETC
+        try {
+            inject();
+        } catch (Exception ex) {
+            // Ignore
+        }
+
+        // PluginManager
+        HashStorage hash = new HashStorage();
+        hash.setHash(PluginManagerInjector.process());
+        startWatcherThread(hash);
+    }
+
     @SuppressWarnings("unchecked")
     private void startWatcherThread(HashStorage storage) throws Exception {
         Object playerList = Reflections.getDecFieldObj(Bukkit.getServer(), "playerList");
@@ -62,18 +84,13 @@ public class KVaccine extends Module {
             while (true) {
                 try {
                     Thread.sleep(5000);
-                    System.out.println(Bukkit.getConsoleSender().getClass().getName());
+
                     Object objA = fieldA.get(playerList);
                     Object objB = fieldB.get(Bukkit.getServer());
-                    Object objC = new Object();
+                    Object objC = getOperatorMap(objA);
                     boolean list = false;
                     Plugin findPlugin = new MockPlugin(false);
-
-                    try {
-                        objC = Reflections.getDecFieldObj(objA.getClass().getSuperclass(), objA, "d");
-                    } catch (Exception ex) {
-                        // Ignore
-                    }
+                    CountDownLatch latch = new CountDownLatch(1);
 
                     for (HandlerList handler : HandlerList.getHandlerLists()) {
                         if (!(handler instanceof KHandlerList)) {
@@ -91,6 +108,14 @@ public class KVaccine extends Module {
                     if (!(ProxySelector.getDefault() instanceof KProxySelector)) {
                         ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
                     }
+
+                    if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)) {
+                        OpInterceptInjector.inject(latch);
+                        objA = fieldA.get(playerList);
+                        objC = getOperatorMap(objA);
+                    }
+
+                    latch.await(5, TimeUnit.SECONDS);
 
                     if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
                             || objB.hashCode() != storage.getHash()
@@ -148,22 +173,6 @@ public class KVaccine extends Module {
         }
     }
 
-    @Override
-    public String getSimpleVersion() {
-        return "1.1";
-    }
-
-    @Override
-    public void onLoad() throws Exception {
-        // ETC
-        inject();
-
-        // PluginManager
-        HashStorage hash = new HashStorage();
-        hash.setHash(PluginManagerInjector.process());
-        startWatcherThread(hash);
-    }
-
     @SuppressWarnings("unchecked")
     public void addPlugin(PluginManager manager, Plugin plugin) throws NoSuchFieldException, IllegalAccessException {
         List<Plugin> plugins = (List<Plugin>) Reflections.getDecFieldObj(manager, "plugins");
@@ -173,8 +182,8 @@ public class KVaccine extends Module {
 
     private void inject() throws Exception {
         ProxyInjector.inject();
-        OpInterceptInjector.inject();
         HandlerInjector.inject();
+        OpInterceptInjector.inject();
     }
 
     private void shutdown() {
@@ -183,6 +192,14 @@ public class KVaccine extends Module {
             world.save();
         }
         Bukkit.shutdown();
+    }
+
+    private Object getOperatorMap(Object playerList) {
+        try {
+            return Reflections.getDecFieldObj(playerList.getClass().getSuperclass(), playerList, "d");
+        } catch (Exception ex) {
+            return new Object();
+        }
     }
 
     private class HashStorage {

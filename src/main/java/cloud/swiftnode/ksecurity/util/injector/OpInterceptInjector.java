@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Junhyeong Lim on 2017-02-18.
@@ -29,5 +30,14 @@ public class OpInterceptInjector {
             newMap.putAll(map);
             Reflections.setDecField(opListSuperCls, operators, "d", newMap);
         }
+    }
+
+    public static void inject(CountDownLatch latch) {
+        try {
+            inject();
+        } catch (Exception ex) {
+            // Ignore
+        }
+        latch.countDown();
     }
 }
