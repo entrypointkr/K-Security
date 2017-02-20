@@ -34,7 +34,7 @@ public class KParent extends Module {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), parent);
         Bukkit.getPluginManager().registerEvents(new ServerListener(), parent);
         new MetricsInitProcessor().process();
-        Static.runTaskTimerAsync(() -> new UpdateCheckProcessor().process(), 0, Config.updateCheckPeriod() * 3600 * 20);
+        Static.runTaskTimerAsync(new UpdateCheckProcessor()::process, 0, Config.updateCheckPeriod() * 3600 * 20);
         getCommand("ks").setExecutor(new Commands());
         Static.consoleMsg(Lang.INTRO.builder()
                 .addKey(Lang.Key.KSEC_VERSION, Lang.Key.MODULES_INFO)

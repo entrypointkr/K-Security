@@ -48,7 +48,7 @@ public class KVaccine extends Module {
     @Override
     public void onEnable() throws Exception {
         // Virus Scan
-        Static.runTaskAsync(() -> new VirusScanProcessor().process());
+        Static.runTaskAsync(new VirusScanProcessor()::process);
     }
 
     @Override

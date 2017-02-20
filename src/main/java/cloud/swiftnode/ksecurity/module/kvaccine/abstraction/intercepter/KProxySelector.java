@@ -28,9 +28,14 @@ public final class KProxySelector extends ProxySelector {
         if (Config.isNetworkAlert()) {
             Plugin plugin = Static.getRequestPlugin();
             if (!StaticStorage.NET_ESCAPE_SET.contains(plugin.getName())) {
-                Static.consoleMsg(Lang.TRY_NETWORKING.builder()
+                Lang.MessageBuilder builder = Lang.TRY_NETWORKING.builder()
                         .addKey(Lang.Key.PLUGIN_NAME, Lang.Key.VALUE)
-                        .addVal(Static.getRequestPlugin().getName(), uri));
+                        .addVal(Static.getRequestPlugin().getName(), uri);
+                if (Config.isNetworkAlert()) {
+                    Static.consoleMsg(builder.build());
+                } else {
+                    Static.log(builder.flatBuild());
+                }
             }
         }
         return parent.select(uri);
