@@ -117,7 +117,7 @@ public class Static {
     }
 
     public static File getDataFolder() {
-        return Static.getDataFolder();
+        return KSecurity.inst.getDataFolder();
     }
 
     public static SpamExecutor getDefaultExecutor() {
