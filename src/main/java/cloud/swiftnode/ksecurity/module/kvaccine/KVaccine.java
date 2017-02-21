@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Junhyeong Lim on 2017-01-31.
  */
 public class KVaccine extends Module {
+    private final CountDownLatch latch = new CountDownLatch(1);
 
     public KVaccine(JavaPlugin parent) {
         super(parent);
@@ -49,6 +50,8 @@ public class KVaccine extends Module {
     public void onEnable() throws Exception {
         // Virus Scan
         Static.runTaskAsync(new VirusScanProcessor()::process);
+        // Delayed
+        Static.runTask(() -> OpInterceptInjector.inject(latch));
     }
 
     @Override
@@ -81,16 +84,21 @@ public class KVaccine extends Module {
         fieldB.setAccessible(true);
 
         new Thread(() -> {
+            try {
+                if (latch != null
+                        && latch.getClass() == CountDownLatch.class) {
+                    latch.await(30, TimeUnit.SECONDS);
+                }
+            } catch (InterruptedException e) {
+                // Ignore
+            }
             while (true) {
                 try {
-                    Thread.sleep(5000);
-
                     Object objA = fieldA.get(playerList);
                     Object objB = fieldB.get(Bukkit.getServer());
                     Object objC = getOperatorMap(objA);
                     boolean list = false;
                     Plugin findPlugin = new MockPlugin(false);
-                    CountDownLatch latch = new CountDownLatch(1);
 
                     for (HandlerList handler : HandlerList.getHandlerLists()) {
                         if (!(handler instanceof KHandlerList)) {
@@ -109,14 +117,6 @@ public class KVaccine extends Module {
                         ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
                     }
 
-                    if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)) {
-                        OpInterceptInjector.inject(latch);
-                        objA = fieldA.get(playerList);
-                        objC = getOperatorMap(objA);
-                    }
-
-                    latch.await(5, TimeUnit.SECONDS);
-
                     if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
                             || objB.hashCode() != storage.getHash()
                             || KSecurity.inst == null
@@ -125,9 +125,12 @@ public class KVaccine extends Module {
                             || list) {
                         detect(Lang.DAMAGE_DETECT.builder(), storage);
                     }
+                    Thread.sleep(5000);
                 } catch (InterruptedException ex) {
+                    Static.consoleMsg(ex);
                     shutdown();
                 } catch (Exception ex) {
+                    Static.consoleMsg(ex);
                     detect(Lang.DAMAGE_EXCEPTION_DETECT.builder().addKey(Lang.Key.VALUE).addVal(ex.toString()), storage);
                 }
             }
