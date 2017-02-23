@@ -113,7 +113,7 @@ public enum Lang {
     CLOSE_ALERT("창을 /ks show 명령어로 다시 여실 수 있습니다."),
     NOT_SUPPORT("&e" + Key.VALUE + "&f은(는) 지원하지 않습니다."),
     SAVED_CONFIG("설정 파일을 저장했습니다."),
-    VARIABLETRIGGER_DETECT("트리거 플러그인 활성화가 감지되었습니다. K-Security 용 트리거를 &e" + URLs.KSEC_VT_RELEASE + " &f에서 다운받아 적용해주세요.")
+    INCOMPATIBLE_PLUGIN_DETECT(Key.PLUGIN_NAME + " 플러그인 활성화가 감지되었습니다. K-Security 용 " + Key.PLUGIN_NAME + "를 &e" + Key.VALUE + " &f에서 다운받아 적용해주세요"),
     ;
     private final String target;
 

@@ -17,6 +17,7 @@ public enum URLs {
     CACHE("https://github.com/EntryPointKR/K-Security/blob/master/K-Spam.cache?raw=true"),
     KSEC_RELEASE("https://github.com/EntryPointKR/K-Security/releases/latest"),
     KSEC_VT_RELEASE("https://github.com/EntryPointKR/VariableTriggers-for-KSecurity/releases"),
+    KSEC_SK_RELEASE("https://github.com/EntryPointKR/Skript-for-KSecurity/releases/latest"),
     ;
     private final String addr;
 

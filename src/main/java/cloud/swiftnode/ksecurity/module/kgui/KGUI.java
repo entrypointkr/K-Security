@@ -14,7 +14,9 @@ public class KGUI extends Module {
 
     @Override
     public void onEnable() {
-        new Thread(KFX::start, "K-GUI Thread").start();
+        Thread thread = new Thread(KFX::start, "K-GUI Thread");
+        thread.setDaemon(true);
+        thread.start();
     }
 
     @Override
