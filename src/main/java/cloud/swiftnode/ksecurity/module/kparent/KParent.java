@@ -14,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
@@ -46,7 +47,11 @@ public class KParent extends Module {
 
     @Override
     public void onDisable() {
-        parent.saveConfig();
+        try {
+            Config.getConfig().save(Config.getDataFile());
+        } catch (IOException e) {
+            Static.consoleMsg(e);
+        }
     }
 
     @Override
