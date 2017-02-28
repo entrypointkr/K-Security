@@ -5,10 +5,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -37,9 +34,6 @@ public class InterceptorFactory {
         } catch (Exception ex) {
             ret = loader.loadClass(clsName);
         }
-
-        OutputStream out = new FileOutputStream(new File("new.class"));
-        out.write(writer.toByteArray());
 
         return ret;
     }
