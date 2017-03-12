@@ -119,7 +119,8 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        if (msg.contains("<") && msg.contains(">")) {
+        if (msg.contains("<") && msg.contains(">")
+                && msg.indexOf("<") < msg.indexOf(">")) {
             PlayerUseCheatEvent event = createEvent(e, PlayerUseCheatEvent.CheatType.VARIABLE_TRIGGER);
             callEvent(event);
             e.setCancelled(event.isCancelled());
