@@ -19,10 +19,10 @@ public class BotscoutChecker extends SpamChecker {
     @Override
     public Result spamCheck() throws Exception {
         URL url = URLs.BOTSCOUT_API.toUrl(lastInfo = info.getIp());
-        String contents = Static.readAllText(url);
-        if (contents.contains("Y|")) {
+        String contents = Static.readAllText(url).trim();
+        if (contents.startsWith("Y|")) {
             return Result.DENY;
-        } else if (contents.contains("N|")) {
+        } else if (contents.startsWith("N|")) {
             return Result.PASS;
         } else {
             return Result.ERROR;
