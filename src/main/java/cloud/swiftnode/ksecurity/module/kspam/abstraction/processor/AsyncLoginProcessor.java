@@ -4,7 +4,6 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.BotscoutChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.MCBlacklistChecker;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.ShroomeryChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.StopforumChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.SwiftnodeChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
@@ -18,7 +17,6 @@ public class AsyncLoginProcessor extends SpamProcessor {
         super.setCheckerList(SwiftnodeChecker.class,
                 MCBlacklistChecker.class,
                 StopforumChecker.class,
-                ShroomeryChecker.class,
                 BotscoutChecker.class);
     }
 }

@@ -9,7 +9,6 @@ import java.text.MessageFormat;
  */
 public enum URLs {
     KSPAM_API("http://kspam.swiftnode.cloud/mcbanip/community.php?ip={0}"),
-    SHROOMERY_API("http://www.shroomery.org/ythan/proxycheck.php?ip={0}"),
     STOPFORUM_API("http://www.stopforumspam.com/api?ip={0}"),
     BOTSCOUT_API("http://www.botscout.com/test/?ip={0}"),
     MCBLACKLIST_API("http://api.mc-blacklist.kr/API/check/{0}"),
