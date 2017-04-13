@@ -94,39 +94,38 @@ public class KVaccine extends Module {
             }
             while (true) {
                 try {
-                    if (!Static.isRunning())
-                        continue;
-                    
-                    Object objA = fieldA.get(playerList);
-                    Object objB = fieldB.get(Bukkit.getServer());
-                    Object objC = getOperatorMap(objA);
-                    boolean list = false;
-                    Plugin findPlugin = new MockPlugin(false);
+                    if (Static.isRunning()) {
+                        Object objA = fieldA.get(playerList);
+                        Object objB = fieldB.get(Bukkit.getServer());
+                        Object objC = getOperatorMap(objA);
+                        boolean list = false;
+                        Plugin findPlugin = new MockPlugin(false);
 
-                    for (HandlerList handler : HandlerList.getHandlerLists()) {
-                        if (!(handler instanceof KHandlerList)) {
-                            list = true;
-                            break;
+                        for (HandlerList handler : HandlerList.getHandlerLists()) {
+                            if (!(handler instanceof KHandlerList)) {
+                                list = true;
+                                break;
+                            }
                         }
-                    }
 
-                    for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-                        if (plugin.equals(KSecurity.inst)) {
-                            findPlugin = plugin;
+                        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+                            if (plugin.equals(KSecurity.inst)) {
+                                findPlugin = plugin;
+                            }
                         }
-                    }
 
-                    if (!(ProxySelector.getDefault() instanceof KProxySelector)) {
-                        ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
-                    }
+                        if (!(ProxySelector.getDefault() instanceof KProxySelector)) {
+                            ProxySelector.setDefault(new KProxySelector(ProxySelector.getDefault()));
+                        }
 
-                    if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
-                            || objB.hashCode() != storage.getHash()
-                            || KSecurity.inst == null
-                            || !KSecurity.inst.isEnabled()
-                            || !findPlugin.isEnabled()
-                            || list) {
-                        detect(Lang.DAMAGE_DETECT.builder(), storage);
+                        if (!(objA instanceof KOperatorSet) && !(objC instanceof KOperatorMap)
+                                || objB.hashCode() != storage.getHash()
+                                || KSecurity.inst == null
+                                || !KSecurity.inst.isEnabled()
+                                || !findPlugin.isEnabled()
+                                || list) {
+                            detect(Lang.DAMAGE_DETECT.builder(), storage);
+                        }
                     }
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
