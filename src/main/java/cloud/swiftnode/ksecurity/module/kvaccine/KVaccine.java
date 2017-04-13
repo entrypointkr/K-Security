@@ -94,6 +94,9 @@ public class KVaccine extends Module {
             }
             while (true) {
                 try {
+                    if (!Static.isRunning())
+                        continue;
+                    
                     Object objA = fieldA.get(playerList);
                     Object objB = fieldB.get(Bukkit.getServer());
                     Object objC = getOperatorMap(objA);
