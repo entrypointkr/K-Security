@@ -1,10 +1,10 @@
 package cloud.swiftnode.ksecurity.module.kspam.abstraction.checker;
 
+import cloud.swiftnode.ksecurity.module.kspam.Time;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.Info;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
-import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -28,12 +28,11 @@ public class FirstKickChecker extends SpamChecker {
             return Result.PASS;
         }
         final String name = lastInfo = player.getName();
-        if (!StaticStorage.FIRST_KICK_CACHED_SET.contains(name)) {
-            StaticStorage.FIRST_KICK_CACHED_SET.add(name);
-            Static.runTaskLaterAsync(() -> StaticStorage.FIRST_KICK_CACHED_SET.remove(name), 20 * 30);
+        if (!StaticStorage.FIRST_KICK_CACHED_MAP.containsKey(name)) {
+            StaticStorage.FIRST_KICK_CACHED_MAP.put(name, new Time());
             return Result.DENY;
         }
-        StaticStorage.FIRST_KICK_CACHED_SET.remove(name);
+        StaticStorage.FIRST_KICK_CACHED_MAP.remove(name);
         return Result.PASS;
     }
 

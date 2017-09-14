@@ -11,9 +11,9 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoA
 /**
  * Created by Junhyeong Lim on 2017-01-10.
  */
-public class SyncLoginProcessor extends SpamProcessor {
-    public SyncLoginProcessor(SpamExecutor executor, DeniableInfoAdapter adapter) {
+public class LightPlayerValidator extends SpamProcessor {
+    public LightPlayerValidator(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        setCheckerList(LocalChecker.class, FirewallChecker.class, CacheChecker.class, FirstKickChecker.class);
+        setCheckerList(LocalChecker.class, FirewallChecker.class, CacheChecker.class);
     }
 }

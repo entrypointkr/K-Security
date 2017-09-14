@@ -4,6 +4,7 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.DeniableInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamChecker;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.checker.FirstKickChecker;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
 
@@ -29,6 +30,9 @@ public class PunishSpamExecutor extends DecorateSpamExecutor {
             adapter.deny();
             if (checker.isCaching()) {
                 StaticStorage.cachedSet.add(checker.getLastInfo());
+            }
+            if (!(checker instanceof FirstKickChecker)) {
+                StaticStorage.FIRST_KICK_CACHED_MAP.remove(adapter.getName());
             }
         }
         return ret;

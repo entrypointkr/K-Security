@@ -8,9 +8,7 @@ import java.text.MessageFormat;
  * Created by EntryPoint on 2017-01-05.
  */
 public enum URLs {
-    KSPAM_API("http://kspam.swiftnode.cloud/mcbanip/community.php?ip={0}"),
     STOPFORUM_API("http://www.stopforumspam.com/api?ip={0}"),
-    BOTSCOUT_API("http://www.botscout.com/test/?ip={0}"),
     MCBLACKLIST_API("http://api.mc-blacklist.kr/API/check/{0}"),
     MOJANG_UUID_API("https://api.mojang.com/users/profiles/minecraft/{0}?at={1}"),
     CACHE("https://github.com/EntryPointKR/K-Security/blob/master/K-Spam.cache?raw=true"),

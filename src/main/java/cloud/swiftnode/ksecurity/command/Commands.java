@@ -6,8 +6,8 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.BaseSpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.executor.DebugSpamExecutor;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.HeavyPlayerValidator;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.LightPlayerValidator;
 import cloud.swiftnode.ksecurity.util.Config;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
@@ -61,7 +61,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.CURRENT_VERSION.builder().single(Lang.Key.KSEC_VERSION, StaticStorage.getCurrVer()).build());
                     Static.sendModulesInfo(sender);
                     sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.cachedSet.size()));
-                    sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.FIRST_KICK_CACHED_SET.size()));
+                    sender.sendMessage(Lang.PREFIX + String.valueOf(StaticStorage.FIRST_KICK_CACHED_MAP.size()));
                     return true;
                 } else if (args[0].equalsIgnoreCase("debug")) {
                     if (!isOp) {
@@ -159,8 +159,8 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Lang.COMMAND_CHECK.builder().single(Lang.Key.VALUE, info).build());
                     final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, info);
                     final SpamExecutor executor = new DebugSpamExecutor(new BaseSpamExecutor(), sender);
-                    new SyncLoginProcessor(executor, adapter).process();
-                    Static.runTaskAsync(new AsyncLoginProcessor(executor, adapter)::process);
+                    new LightPlayerValidator(executor, adapter).process();
+                    Static.runTaskAsync(new HeavyPlayerValidator(executor, adapter)::process);
                     return true;
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     if (!isOp) {

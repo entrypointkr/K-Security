@@ -7,6 +7,7 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PingInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.PlayerInfo;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.info.StringInfo;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
@@ -28,6 +29,9 @@ public class ObjectToInfoConverter extends ObjectConverter<Info> {
             return new StringInfo((String) obj);
         } else if (obj instanceof ServerListPingEvent) {
             return new PingInfo((ServerListPingEvent) obj);
+        } else if (obj instanceof AsyncPlayerPreLoginEvent) {
+            String addr = ((AsyncPlayerPreLoginEvent) obj).getAddress().toString();
+            return new StringInfo(new StringToIpConverter(addr).convert());
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }

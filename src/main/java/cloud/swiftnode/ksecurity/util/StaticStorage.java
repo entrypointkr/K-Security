@@ -2,6 +2,7 @@ package cloud.swiftnode.ksecurity.util;
 
 
 import cloud.swiftnode.ksecurity.abstraction.collection.LowerCaseHashSet;
+import cloud.swiftnode.ksecurity.module.kspam.Time;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -14,7 +15,7 @@ import java.util.Set;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class StaticStorage {
-    public static final Set<String> FIRST_KICK_CACHED_SET = new LowerCaseHashSet();
+    public static final Map<String, Time> FIRST_KICK_CACHED_MAP = new HashMap<>();
     public static final Set<String> NET_ESCAPE_SET = new LowerCaseHashSet();
 
     public static Set<String> cachedSet = new LowerCaseHashSet();

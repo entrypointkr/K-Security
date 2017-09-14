@@ -2,10 +2,10 @@ package cloud.swiftnode.ksecurity.listener;
 
 import cloud.swiftnode.ksecurity.module.kanticheat.event.PlayerUseCheatEvent;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamProcessor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.AsyncLoginProcessor;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncLoginProcessor;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.HeavyPlayerValidator;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.LightPlayerValidator;
+import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
@@ -22,11 +22,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -36,6 +32,15 @@ import java.util.List;
  * Created by Junhyeong Lim on 2017-01-10.
  */
 public class PlayerListener implements Listener {
+    @EventHandler
+    public void onPreLogin(AsyncPlayerPreLoginEvent e) {
+        final SpamExecutor executor = Static.getDefaultExecutor();
+        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
+        if (!new LightPlayerValidator(executor, adapter).process()) {
+            new HeavyPlayerValidator(executor, adapter).process();
+        }
+    }
+
     // KSPAM
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(PlayerLoginEvent e) {
@@ -44,17 +49,7 @@ public class PlayerListener implements Listener {
         }
         final SpamExecutor executor = Static.getDefaultExecutor();
         final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
-        final Player player = e.getPlayer();
-        SpamProcessor processor = new SyncLoginProcessor(executor, adapter);
-        if (!processor.process()) {
-            adapter.setObj(player);
-            adapter.setDelayed(true);
-            Static.runTaskLaterAsync(() -> {
-                if (player.isOnline()) {
-                    new AsyncLoginProcessor(executor, adapter).process();
-                }
-            }, 20L);
-        }
+        new SyncJoinProcessor(executor, adapter).process();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

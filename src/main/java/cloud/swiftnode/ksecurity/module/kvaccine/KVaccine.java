@@ -69,9 +69,9 @@ public class KVaccine extends Module {
         }
 
         // PluginManager
-        HashStorage hash = new HashStorage();
-        hash.setHash(PluginManagerInjector.process());
-        startWatcherThread(hash);
+//        HashStorage hash = new HashStorage();
+//        hash.setHash(PluginManagerInjector.process());
+//        startWatcherThread(hash);
     }
 
     @SuppressWarnings("unchecked")
