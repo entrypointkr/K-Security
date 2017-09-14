@@ -14,6 +14,6 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoA
 public class LightPlayerValidator extends SpamProcessor {
     public LightPlayerValidator(SpamExecutor executor, DeniableInfoAdapter adapter) {
         super(executor, adapter);
-        setCheckerList(LocalChecker.class, FirewallChecker.class, CacheChecker.class);
+        setCheckerList(LocalChecker.class, FirewallChecker.class, CacheChecker.class, FirstKickChecker.class);
     }
 }

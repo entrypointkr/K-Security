@@ -5,7 +5,6 @@ import cloud.swiftnode.ksecurity.module.kspam.abstraction.SpamExecutor;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.deniable.DeniableInfoAdapter;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.HeavyPlayerValidator;
 import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.LightPlayerValidator;
-import cloud.swiftnode.ksecurity.module.kspam.abstraction.processor.SyncJoinProcessor;
 import cloud.swiftnode.ksecurity.util.Lang;
 import cloud.swiftnode.ksecurity.util.Static;
 import cloud.swiftnode.ksecurity.util.StaticStorage;
@@ -42,15 +41,15 @@ public class PlayerListener implements Listener {
     }
 
     // KSPAM
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onLogin(PlayerLoginEvent e) {
-        if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
-            return;
-        }
-        final SpamExecutor executor = Static.getDefaultExecutor();
-        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
-        new SyncJoinProcessor(executor, adapter).process();
-    }
+//    @EventHandler(priority = EventPriority.LOWEST)
+//    public void onLogin(PlayerLoginEvent e) {
+//        if (e.getResult() != PlayerLoginEvent.Result.ALLOWED) {
+//            return;
+//        }
+//        final SpamExecutor executor = Static.getDefaultExecutor();
+//        final DeniableInfoAdapter adapter = new DeniableInfoAdapter(false, e);
+//        new SyncJoinProcessor(executor, adapter).process();
+//    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent e) {

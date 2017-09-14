@@ -30,8 +30,9 @@ public class ObjectToInfoConverter extends ObjectConverter<Info> {
         } else if (obj instanceof ServerListPingEvent) {
             return new PingInfo((ServerListPingEvent) obj);
         } else if (obj instanceof AsyncPlayerPreLoginEvent) {
-            String addr = ((AsyncPlayerPreLoginEvent) obj).getAddress().toString();
-            return new StringInfo(new StringToIpConverter(addr).convert());
+            AsyncPlayerPreLoginEvent event = (AsyncPlayerPreLoginEvent) obj;
+            String addr = event.getAddress().toString();
+            return new StringInfo(new StringToIpConverter(addr).convert(), "null", event.getName());
         }
         throw new IllegalArgumentException("Unexpected argument " + obj.getClass().getName());
     }
