@@ -1,13 +1,12 @@
 package cloud.swiftnode.ksecurity.util;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.file.YamlConstructor;
-import org.bukkit.configuration.file.YamlRepresenter;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +16,7 @@ import java.util.List;
  * Created by Junhyeong Lim on 2017-01-09.
  */
 public class Config {
-    private static final YamlConfiguration config = new YamlConfiguration();
+    private static FileConfiguration config = new YamlConfiguration();
 
     public static final String DEBUG_MODE = "debug-mode";
     public static final String FIRST_LOGIN_KICK = "first-login-kick";
@@ -36,28 +35,22 @@ public class Config {
     public static final String PLAYER_VAULT = ANTICHEAT_DOT + "player-vault";
     public static final String AC_ALERT = ANTICHEAT_DOT + "alert";
 
-    static {
-        try {
-            Reflections.setDecField(config, "yaml",
-                    new Yaml(new YamlConstructor(), new YamlRepresenter(), new DumperOptions()));
-            config.load(getDataFile());
-        } catch (Exception e) {
-            Static.consoleMsg(e);
-        }
-        getConfig().options().copyDefaults(true);
+    public static void init(FileConfiguration config) {
+        Config.config = config;
+        config.options().copyDefaults(true);
     }
 
-    public static YamlConfiguration getConfig() {
+    public static void refresh() {
+        opListInit();
+        netEscapeInit();
+    }
+
+    public static FileConfiguration getConfig() {
         return config;
     }
 
     public static File getDataFile() {
         return new File(Static.getDataFolder(), "config.yml");
-    }
-
-    public static void init() {
-        opListInit();
-        netEscapeInit();
     }
 
     public static void reload()  {
@@ -66,7 +59,7 @@ public class Config {
         } catch (Exception e) {
             Static.consoleMsg(e);
         }
-        init();
+        refresh();
     }
 
     public static boolean isDebugMode() {

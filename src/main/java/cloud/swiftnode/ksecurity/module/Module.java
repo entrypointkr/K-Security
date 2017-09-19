@@ -52,11 +52,19 @@ public abstract class Module implements Named {
         parent.saveDefaultConfig();
     }
 
+    public void reloadConfig() {
+        parent.reloadConfig();
+    }
+
     public PluginCommand getCommand(String cmd) {
         return parent.getCommand(cmd);
     }
 
     public FileConfiguration getConfig() {
         return parent.getConfig();
+    }
+
+    public JavaPlugin getParent() {
+        return parent;
     }
 }

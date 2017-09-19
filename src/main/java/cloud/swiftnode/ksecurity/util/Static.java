@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,10 @@ import java.util.UUID;
 public class Static {
     public static void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(KSecurity.inst, runnable);
+    }
+
+    public static void runTaskLater(Runnable runnable, int delay) {
+        Bukkit.getScheduler().runTaskLater(KSecurity.inst, runnable, delay);
     }
 
     public static void runTaskLaterAsync(Runnable runnable, long delay) {
@@ -220,7 +225,7 @@ public class Static {
 
     public static void checkOpable(Player player) {
         if (KSecurity.inst.isEnabled()) {
-            Static.runTask(() -> {
+            Static.runTaskLater(() -> {
                 if (player != null
                         && !Static.isOpable(player)) {
                     player.setOp(false);
@@ -229,7 +234,7 @@ public class Static {
                     Static.log(builder);
                     Bukkit.broadcastMessage(builder.build());
                 }
-            });
+            }, 2);
         }
     }
 
@@ -285,5 +290,11 @@ public class Static {
         int firstPos = name.indexOf(first) + first.length();
         int secPos = name.indexOf(".", firstPos);
         return name.substring(firstPos, secPos);
+    }
+
+    public static void crackFinalStatic(Field field) throws NoSuchFieldException, IllegalAccessException {
+        Field modifierField = Field.class.getDeclaredField("modifiers");
+        modifierField.setAccessible(true);
+        modifierField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
     }
 }
