@@ -56,7 +56,7 @@ public class KParent extends Module {
         Config.init(getConfig());
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), parent);
         Bukkit.getPluginManager().registerEvents(new ServerListener(), parent);
-        Bukkit.getPluginManager().registerEvents(new PluginListener(), parent);
+//        Bukkit.getPluginManager().registerEvents(new PluginListener(), parent);
         new MetricsInitProcessor().process();
         Static.runTaskTimerAsync(new UpdateCheckProcessor()::process, 0, Config.updateCheckPeriod() * 3600 * 20);
         getCommand("ks").setExecutor(new Commands());
