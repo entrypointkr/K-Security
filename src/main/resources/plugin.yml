@@ -2,9 +2,3 @@ main: @mainClass@
 name: @pluginName@
 version: @version@
 author: @author@
-softdepend: [RPG Items, PlayerVaults]
-loadbefore: [VariableTriggers, Skript]
-load: STARTUP
-commands:
-  ks:
-    description: @pluginName@ main command.
