@@ -2,3 +2,4 @@ main: @mainClass@
 name: @pluginName@
 version: @version@
 author: @author@
+softdepend: [ProtocolLib]
