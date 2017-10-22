@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by Junhyeong Lim on 2017-10-19.
  */
-public class AntiBotInitializer implements Initializer { //TODO: ClassNotFoundException
+public class AntiBotInitializer implements Initializer {
     private boolean transaction = false;
 
     @Override
