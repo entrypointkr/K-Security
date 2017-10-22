@@ -13,7 +13,11 @@ Jenkins 빌드 서버: http://builds.rvs.kr/job/K-Security/
 ----
 ### 봇 테러 방지 
 
-[![ScreenShot](https://raw.github.com/EntryPointKR/K-Security/master/pic/fakevideo.png)](https://www.youtube.com/embed/OGWxUQdQXDk)
+https://youtu.be/eCKKq9jaOOA
+
+### 예정
+
+저품질 플러그인 행위기반 색출, 각종 모니터링, 악성코드 검사
 
 설정 파일
 ------
