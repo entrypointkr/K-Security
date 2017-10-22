@@ -3,3 +3,6 @@ name: @pluginName@
 version: @version@
 author: @author@
 softdepend: [ProtocolLib]
+permissions:
+  ksecurity.antibot.pass:
+    default: op
