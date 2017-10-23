@@ -9,21 +9,28 @@ import java.util.regex.Pattern;
  * Created by Junhyeong Lim on 2017-10-19.
  */
 public class Version {
-    private static final Pattern PATTERN = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?");
+    private static final Pattern PATTERN = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?(?:-(.*))?");
     public static final Version BUKKIT = new Version(Bukkit.getBukkitVersion());
     public static Version PLUGIN = new Version(4, 0, 0);
+    public static String RELEASE = "RELEASE";
     private int major = 0;
     private int minor = 0;
     private int maintenance = 0;
+    private String tag = RELEASE;
 
     public static void init(String version) {
         PLUGIN = new Version(version);
     }
 
-    public Version(int major, int minor, int maintenance) {
+    public Version(int major, int minor, int maintenance, String tag) {
         this.major = major;
         this.minor = minor;
         this.maintenance = maintenance;
+        this.tag = tag;
+    }
+
+    public Version(int major, int minor, int maintenance) {
+        this(major, minor, maintenance, RELEASE);
     }
 
     public Version(String version) {
@@ -32,6 +39,7 @@ public class Version {
             String majorStr = matcher.group(1);
             String minorStr = matcher.group(2);
             String maintenance = matcher.group(3);
+            String tag = matcher.group(4);
 
             if (majorStr != null)
                 this.major = Integer.parseInt(majorStr);
@@ -39,25 +47,31 @@ public class Version {
                 this.minor = Integer.parseInt(minorStr);
             if (maintenance != null)
                 this.maintenance = Integer.parseInt(maintenance);
+            if (tag != null)
+                this.tag = tag.toUpperCase();
         }
     }
 
+    public boolean isRelease() {
+        return tag.equalsIgnoreCase(RELEASE);
+    }
+
     public boolean after(Version version) {
-        return major > version.major || minor > version.minor || maintenance > version.maintenance;
+        return major > version.major || minor > version.minor || maintenance > version.maintenance
+                || isRelease() && !version.isRelease();
     }
 
     public boolean afterEquals(Version version) {
-        return major == version.major ? minor == version.minor ?
-                maintenance >= version.maintenance : minor >= version.minor : major >= version.major;
+        return equals(version) || after(version);
     }
 
     public boolean before(Version version) {
-        return major < version.major || minor < version.minor || maintenance < version.maintenance;
+        return major < version.major || minor < version.minor || maintenance < version.maintenance
+                || !isRelease() && version.isRelease();
     }
 
     public boolean beforeEquals(Version version) {
-        return major == version.major ? minor == version.minor ?
-                maintenance <= version.maintenance : minor <= version.minor : major <= version.minor;
+        return equals(version) || before(version);
     }
 
     public int getMajor() {
@@ -70,6 +84,10 @@ public class Version {
 
     public int getMaintenance() {
         return maintenance;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     @Override
