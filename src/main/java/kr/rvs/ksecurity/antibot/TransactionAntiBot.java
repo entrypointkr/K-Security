@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.InvocationTargetException;
@@ -35,6 +36,7 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
     private final PacketIgnore ignore = new PacketIgnore();
     private final TransactionLatch latch = new TransactionLatch();
     private final PacketHolder holder = new PacketHolder();
+    private final Set<String> players = new HashSet<>();
 
     public static Set<Integer> getAllPackets() {
         Set<Integer> ids = new HashSet<>();
@@ -95,6 +97,7 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
             sendPacket(player, factory.createTransactionPacket(0, Short.MIN_VALUE, false));
             if (latch.await(player)) {
                 holder.flush(player);
+                players.add(player.getAddress().getAddress().toString());
             } else {
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Lang.BOT_DETECT.withSpacingPrefix());
                 counter.incrementAndGet();
@@ -103,6 +106,13 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
             latch.release(player);
             cacher.release(player);
         });
+    }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
+        if (!players.remove(event.getAddress().toString())) {
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Lang.BOT_DETECT.withSpacingPrefix());
+        }
     }
 
     @EventHandler
