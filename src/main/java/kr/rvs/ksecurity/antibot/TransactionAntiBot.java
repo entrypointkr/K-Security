@@ -93,11 +93,9 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
             sendPacket(player, factory.createTransactionPacket(0, Short.MIN_VALUE, false));
             if (latch.await(player)) {
                 holder.flush(player);
-                System.out.println("pass!");
             } else {
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Lang.BOT_DETECT.withSpacingPrefix());
                 counter.incrementAndGet();
-                System.out.println("deny.");
             }
             holder.release(player);
             latch.release(player);
