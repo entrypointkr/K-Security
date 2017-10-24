@@ -29,7 +29,7 @@ public class Updater implements Runnable, Listener {
 
     public static void getDataAsync(Consumer<Data> callback) {
         new Thread(() -> {
-            try (BufferedReader reader = Static.openReader(new URL("https://gist.github.com/EntryPointKR/a413281e94abd633f7a0be5d7411c749/raw/update"))) {
+            try (BufferedReader reader = URLs.UPDATE.openBufferedReader()) {
                 String[] parse = reader.readLine().split("\\|");
                 callback.accept(new Data(new Version(parse[0]), new URL(parse[1])));
             } catch (IOException e) {

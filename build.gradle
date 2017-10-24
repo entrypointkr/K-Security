@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-group 'cloud.swiftnode.ksecurity'
+group 'kr.rvs.ksecurity'
 version '4.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -31,7 +31,7 @@ repositories {
     /* ProtocolLib */
     maven { url 'http://repo.dmulloy2.net/content/groups/public/' }
     /* bStats */
-    maven { url 'http://repo.bstats.org/content/repositories/releases/'}
+    maven { url 'http://repo.bstats.org/content/repositories/releases/' }
     mavenCentral()
 }
 
@@ -49,7 +49,7 @@ processResources {
     filter ReplaceTokens, tokens: [
             "version"   : project.version,
             "pluginName": rootProject.name,
-            "mainClass" : "kr.rvs.ksecurity.KSecurity",
+            "mainClass" : project.group + ".KSecurity",
             "author"    : "EntryPoint"
     ]
 }
@@ -63,7 +63,7 @@ shadowJar {
     dependencies {
         include dependency('org.bstats:bstats-bukkit')
     }
-    relocate 'org.bstats.bukkit', 'kr.rvs.mclibrary.libs.metrics'
+    relocate 'org.bstats.bukkit', 'kr.rvs.ksecurity.libs.metrics'
 }
 
 artifacts {

@@ -33,8 +33,7 @@ public class Static {
     public static void init(JavaPlugin plugin) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        new URL("http://checkip.amazonaws.com").openStream()));
+                BufferedReader reader = URLs.IP_CHECKER.openBufferedReader();
                 address = reader.readLine();
             } catch (IOException e) {
                 // Ignore
@@ -94,8 +93,12 @@ public class Static {
         return connection.getInputStream();
     }
 
-    public static BufferedReader openReader(URL url) throws IOException {
-        return new BufferedReader(new InputStreamReader(openStream(url)));
+    public static Reader openReader(URL url) {
+        try {
+            return new InputStreamReader(openStream(url));
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public static String getAddress() {

@@ -17,12 +17,14 @@ public enum Lang {
             " | . \\   ___) |  __/ (__| |_| | |  | | |_| |_| |\n" +
             " |_|\\_\\ |____/ \\___|\\___|\\__,_|_|  |_|\\__|\\__, |\n" +
             "                                          |___/ \n" +
-            "   v" + Version.PLUGIN + " by EntryPoint\n"),
+            " v" + Version.PLUGIN + " by EntryPoint\n" +
+            " 문의 또는 제보: https://github.com/EntryPointKR/K-Security/issues\n"),
     BOT_DETECT("&f당신은 봇으로 인식되었습니다."),
     SHOULD_PING("&f해당 서버를 목록에 추가하여 새로고침 한 후 접속하세요.\n" +
             "주소: &e" + Key.VALUE),
     NEED_UPDATE("새로운 버전 " + Key.VALUE + " 이 있습니다. " + Key.URL),
     NEED_UPDATE_GUI("새로운 버전 " + Key.VALUE + " 이 있습니다. 창을 닫으면 다운로드 주소로 이동합니다."),
+    BLACKLIST("&c당신은 K-Security 블랙리스트에 등재되어 있어 접속할 수 없습니다."),
     ;
 
     private final String message;
