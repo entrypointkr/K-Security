@@ -10,8 +10,8 @@ import com.comphenix.protocol.injector.packet.PacketRegistry;
 import kr.rvs.ksecurity.factory.LegacyPacketFactory;
 import kr.rvs.ksecurity.factory.PacketFactory;
 import kr.rvs.ksecurity.util.Lang;
-import kr.rvs.ksecurity.util.Static;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +29,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @SuppressWarnings("deprecation")
 public class TransactionAntiBot extends PacketAdapter implements Listener {
-    public static final Set<String> SET = new HashSet<>();
     private final PacketFactory factory;
     private final AtomicInteger counter;
     private final CGLIBPlayerCacher cacher = new CGLIBPlayerCacher();
@@ -96,8 +95,6 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
             sendPacket(player, factory.createTransactionPacket(0, Short.MIN_VALUE, false));
             if (latch.await(player)) {
                 holder.flush(player);
-                String addr = player.getAddress().getAddress().toString();
-                SET.add(addr);
             } else {
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Lang.BOT_DETECT.withSpacingPrefix());
                 counter.incrementAndGet();
@@ -111,8 +108,10 @@ public class TransactionAntiBot extends PacketAdapter implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        String addr = player.getAddress().getAddress().toString();
-        Static.log(SET.toString());
-        Bukkit.broadcastMessage(player.getName() + ": " + SET.contains(addr));
+        GameMode mode = player.getGameMode();
+        if (mode != GameMode.SURVIVAL) {
+            player.setGameMode(GameMode.SURVIVAL);
+            player.setGameMode(mode);
+        }
     }
 }

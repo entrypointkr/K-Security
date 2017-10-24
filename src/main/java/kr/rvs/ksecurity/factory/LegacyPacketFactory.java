@@ -23,7 +23,7 @@ public class LegacyPacketFactory implements PacketFactory {
     }
 
     private Object getGameMode(Class<Object> cls) {
-        Field anyField = cls.getFields()[0];
+        Field anyField = cls.getFields()[1];
         try {
             return anyField.get(null);
         } catch (IllegalAccessException e) {

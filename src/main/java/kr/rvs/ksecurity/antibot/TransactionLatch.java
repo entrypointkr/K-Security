@@ -1,5 +1,6 @@
 package kr.rvs.ksecurity.antibot;
 
+import kr.rvs.ksecurity.util.Static;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class TransactionLatch {
             try {
                 return latch.await(1, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                throw new IllegalStateException(e);
+                Static.log(e);
             }
         }
         return false;
