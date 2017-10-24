@@ -52,6 +52,8 @@ public class AntiBotInitializer implements Initializer {
             map.put("ping", pingCounter.get());
             return map;
         }));
+        metrics.addCustomChart(new Metrics.SingleLineChart("totalBlockCount", () ->
+                transactionCounter.get() + pingCounter.get()));
         if (transaction) {
             TransactionAntiBot.init(plugin, transactionCounter);
         } else {
