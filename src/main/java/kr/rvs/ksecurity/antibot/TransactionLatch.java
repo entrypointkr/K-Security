@@ -18,7 +18,7 @@ public class TransactionLatch {
         CountDownLatch latch = latchMap.computeIfAbsent(player.getName(), k -> new CountDownLatch(1));
         if (latch != null) {
             try {
-                return latch.await(1, TimeUnit.SECONDS);
+                return latch.await(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 Static.log(e);
             }
