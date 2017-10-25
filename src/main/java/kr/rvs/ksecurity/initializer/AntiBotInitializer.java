@@ -12,8 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.swing.*;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -48,7 +46,9 @@ public class AntiBotInitializer implements Initializer {
         if (protocolLib != null && protocolLib.isEnabled()) {
             transaction = true;
         } else {
-            result.setMessage("ProtocolLib 이 없어 제한된 기능으로 작동합니다.");
+            String message = "ProtocolLib 이 없어 제한된 기능으로 작동합니다.";
+            Static.showDialog(message);
+            result.setMessage(message);
         }
 
         return result;
