@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -103,5 +106,26 @@ public class Static {
 
     public static String getAddress() {
         return address;
+    }
+
+    public static void browse(URI uri) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(uri);
+            } catch (IOException e) {
+                Static.log("브라우저를 여는 데 실패했습니다.");
+            }
+        }
+    }
+
+    public static void showDialog(String title, String content) {
+        JOptionPane optionPane = new JOptionPane(content);
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
+
+    public static void showDialog(String content) {
+        showDialog("K-Security", content);
     }
 }

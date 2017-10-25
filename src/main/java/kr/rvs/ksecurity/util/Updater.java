@@ -45,14 +45,8 @@ public class Updater implements Runnable, Listener {
         getDataAsync(data -> {
             if (data.newVersion.after(lastData.newVersion)) {
                 lastData = data;
-                JOptionPane.showMessageDialog(null, Lang.NEED_UPDATE_GUI.withoutPrefix(Lang.Key.VALUE, lastData.newVersion));
-                if (Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().browse(URI.create(data.downloadUrl.toString()));
-                    } catch (IOException e) {
-                        Static.log(e);
-                    }
-                }
+                Static.showDialog(Lang.NEED_UPDATE_GUI.withoutPrefix(Lang.Key.VALUE, lastData.newVersion));
+                Static.browse(data.getDownloadURI());
                 Static.log(Lang.NEED_UPDATE.withoutPrefix(
                         Lang.Key.VALUE, lastData.newVersion,
                         Lang.Key.URL, data.downloadUrl
@@ -79,6 +73,10 @@ public class Updater implements Runnable, Listener {
         public Data(Version newVersion, URL downloadUrl) {
             this.newVersion = newVersion;
             this.downloadUrl = downloadUrl;
+        }
+
+        public URI getDownloadURI() {
+            return URI.create(downloadUrl.toString());
         }
     }
 }
