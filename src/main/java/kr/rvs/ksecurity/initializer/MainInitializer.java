@@ -30,20 +30,22 @@ public class MainInitializer implements Initializer {
                 Static.log(Lang.INTRO.withoutPrefix()));
 
         // Main listener
-        CompoundChecker checkers = new CompoundChecker(Parser.parseBlackList(URLs.BLACKLIST.openReader()));
-        Bukkit.getPluginManager().registerEvents(new Listener() {
-            @EventHandler
-            public void onJoin(PlayerJoinEvent event) {
-                Player player = event.getPlayer();
-                if (checkers.check(event.getPlayer())) {
-                    player.kickPlayer(Lang.BLACKLIST.withSpacingPrefix());
-                } else {
-                    Bukkit.getScheduler().runTaskLater(plugin, () ->
-                                    player.sendMessage(
-                                            ChatColor.WHITE + "본 서버는 보안 플러그인 " + ChatColor.YELLOW + "KSecurity " + ChatColor.WHITE + "를 사용 중입니다."),
-                            20);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            CompoundChecker checkers = new CompoundChecker(Parser.parseBlackList(URLs.BLACKLIST.openReader()));
+            Bukkit.getPluginManager().registerEvents(new Listener() {
+                @EventHandler
+                public void onJoin(PlayerJoinEvent event) {
+                    Player player = event.getPlayer();
+                    if (checkers.check(event.getPlayer())) {
+                        player.kickPlayer(Lang.BLACKLIST.withSpacingPrefix());
+                    } else {
+                        Bukkit.getScheduler().runTaskLater(plugin, () ->
+                                        player.sendMessage(
+                                                ChatColor.WHITE + "본 서버는 보안 플러그인 " + ChatColor.YELLOW + "KSecurity " + ChatColor.WHITE + "를 사용 중입니다."),
+                                20);
+                    }
                 }
-            }
-        }, plugin);
+            }, plugin);
+        });
     }
 }
