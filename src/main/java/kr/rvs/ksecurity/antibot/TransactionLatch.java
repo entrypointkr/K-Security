@@ -1,6 +1,7 @@
 package kr.rvs.ksecurity.antibot;
 
 import kr.rvs.ksecurity.util.Static;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class TransactionLatch {
             try {
                 return latch.await(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Static.log(e);
+                Static.log(ChatColor.RED + "인터럽트 예외, " + e.toString());
             }
         }
         return false;

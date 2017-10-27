@@ -1,14 +1,13 @@
 package kr.rvs.ksecurity.util;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URI;
@@ -33,9 +32,7 @@ public class Updater implements Runnable, Listener {
                 String[] parse = reader.readLine().split("\\|");
                 callback.accept(new Data(new Version(parse[0]), new URL(parse[1])));
             } catch (IOException e) {
-                // Ignore
-            } catch (Throwable e) {
-                Static.log(e);
+                Static.log(ChatColor.RED + "업데이트 정보를 가져오는 중 에러가 발생했습니다.");
             }
         }).start();
     }

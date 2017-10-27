@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * Created by Junhyeong Lim on 2017-09-06.
  */
 public class NMSUtils {
-    private static String nmsPackage;
+    private static String packageVersion;
     private static int compressionThreshold = -1;
 
     public static int getNextEntityCount() {
@@ -51,25 +51,22 @@ public class NMSUtils {
         }
     }
 
-    public static Class<?> getNMSClass(String name) {
-        if (nmsPackage == null) {
-            try {
-                Server server = Bukkit.getServer();
-                Field field = server.getClass().getDeclaredField("console");
-                field.setAccessible(true);
-                Object nmsServer = field.get(server);
-                String packageName = nmsServer.getClass().getName();
+    public static String getPackageVersion() {
+        if (packageVersion == null) {
+            String packageName = Bukkit.getServer().getClass().getName();
+            int point = packageName.indexOf(".v") + 1;
 
-                nmsPackage = packageName.substring(0, packageName.lastIndexOf('.'));
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                Static.log(e);
-            }
+            packageVersion = packageName.substring(
+                    point, packageName.indexOf('.', point));
         }
+        return packageVersion;
+    }
 
+    public static Class<?> getNMSClass(String name) {
         try {
-            return Class.forName(nmsPackage + '.' + name);
+            return Class.forName("net.minecraft.server." + getPackageVersion() + '.' + name);
         } catch (ClassNotFoundException e) {
-            throw new IllegalStateException(e);
+            throw new IllegalStateException("NMS 클래스를 찾는 중 에러가 발생했습니다, " + name, e);
         }
     }
 }
