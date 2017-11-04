@@ -31,6 +31,9 @@ public class MainInitializer implements Initializer {
 
         // Main listener
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            if (!plugin.isEnabled())
+                return;
+            
             CompoundChecker checkers = new CompoundChecker(Parser.parseBlackList(URLs.BLACKLIST.openReader()));
             Bukkit.getPluginManager().registerEvents(new Listener() {
                 @EventHandler
